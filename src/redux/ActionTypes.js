@@ -1,0 +1,2 @@
+export const UPDATE_PLAYER_POSITION = "UPDATE_PLAYER_POSITION";
+export const ADD_MAP = "ADD_MAP";

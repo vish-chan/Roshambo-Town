@@ -1,28 +1,51 @@
 import React, {Component} from 'react';
+import Player from './PlayerComponent';
+import Map from './MapComponent';
+import { AddMapAction } from '../redux/ActionCreators';
+import { MAP_WIDTH, MAP_HEIGHT } from '../helpers/constants';
+import { map } from '../data/maps/1/index';
+import { connect } from 'react-redux';
+
+
+const worldStyle = {
+    position: 'relative',
+    width:  MAP_WIDTH,
+    height: MAP_HEIGHT,
+    margin:  '20px auto',
+}
+
+const mapStatetoProps = state => {
+    return({
+        map: state.map,
+    });
+}
+
+const mapDispatchtoProps = dispatch => {
+    return({
+        loadMap: (map) => { dispatch(AddMapAction(map)); }
+    });
+}
 
 class World extends Component {
     
     constructor(props) {
         super(props);
-
-        this.width = 1000;
-        this.height = 500;
-        this.BGColor = "#228B22";
     }
 
     componentDidMount() {
-        const ctx = this.canvas.getContext("2d");
-        ctx.fillStyle = this.BGColor;
-        ctx.fillRect(0,0,this.width,this.height);
+        this.props.loadMap(map);
     }
 
+    
     render() {
+        
         return(
-            <div id="World">
-                <canvas ref={(canvas) => this.canvas = canvas} width={this.width} height={this.height}/>
-            </div>
+            <div style={worldStyle}>
+                <Map map={this.props.map}/>
+                <Player/>
+            </div> 
         );
     }
 }
 
-export default World;
+export default connect(mapStatetoProps, mapDispatchtoProps)(World);
