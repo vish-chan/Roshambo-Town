@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {SPRITE_SIZE} from '../helpers/constants';
+import {SPRITE_SIZE, ARROW_KEYCODES} from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdatePlayerPosition } from '../redux/ActionCreators';
 
@@ -14,7 +14,11 @@ const mapStatetoProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return({
-        updatePlayerPosition: (keyCode) => { dispatch(UpdatePlayerPosition(keyCode)); },
+        updatePlayerPosition: (keyCode) => { 
+                                                if(!ARROW_KEYCODES.includes(keyCode))
+                                                    return; 
+                                                dispatch(UpdatePlayerPosition(keyCode)); 
+                                            },
     });
 }
 
@@ -33,7 +37,6 @@ class Player extends Component {
     handleKeyDown(event) {
         event.preventDefault();
         var key = event.keyCode;
-        console.log("You pressed keycode: "+ key);
         this.props.updatePlayerPosition(key);
         event.stopImmediatePropagation();
     }
@@ -48,7 +51,7 @@ class Player extends Component {
             backgroundImage: "url('./assets/images/player.png')",
             left: this.props.player.position[0],
             top: this.props.player.position[1],
-            backgroundPosition: '0 0',
+            backgroundPosition: this.props.player.spriteLocation,
         };
         
         return(
