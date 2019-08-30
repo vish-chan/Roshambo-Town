@@ -14,11 +14,7 @@ const mapStatetoProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return({
-        updatePlayerPosition: (keyCode) => { 
-                                                if(!ARROW_KEYCODES.includes(keyCode))
-                                                    return; 
-                                                dispatch(UpdatePlayerPosition(keyCode)); 
-                                            },
+        updatePlayerPosition: (keyCode) => { dispatch(UpdatePlayerPosition(keyCode));},
     });
 }
 
@@ -35,9 +31,11 @@ class Player extends Component {
     }
 
     handleKeyDown(event) {
+        var keyCode = event.keyCode;
+        if(!ARROW_KEYCODES.includes(keyCode))
+            return; 
         event.preventDefault();
-        var key = event.keyCode;
-        this.props.updatePlayerPosition(key);
+        this.props.updatePlayerPosition(keyCode);
         event.stopImmediatePropagation();
     }
 
