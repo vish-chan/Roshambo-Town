@@ -12,6 +12,7 @@ const worldStyle = {
     width:  MAP_WIDTH,
     height: MAP_HEIGHT,
     margin:  '20px auto',
+    border: '10px solid white',
 }
 
 const mapStatetoProps = state => {
