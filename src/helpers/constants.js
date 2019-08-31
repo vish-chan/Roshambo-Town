@@ -15,3 +15,5 @@ export const SPRITE_LOC_UP = '0px 120px';
 export const SPRITE_LOC_LEFT = '0px 80px';
 export const SPRITE_LOC_RIGHT = '0px 40px';
 export const ARROW_KEYCODES = [37, 38, 39, 40];
+export const ANIMATION_STEPS = 8;
+

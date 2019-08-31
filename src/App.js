@@ -3,9 +3,7 @@ import { Provider } from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 import './App.css';
 import Main from './components/MainComponent';
-import { configureStore } from './redux/ConfigureStore';
-
-const store = configureStore();
+import { store } from './redux/ConfigureStore';
 
 function App() {
   return (

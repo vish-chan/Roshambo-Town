@@ -31,6 +31,8 @@ class Player extends Component {
     }
 
     handleKeyDown(event) {
+        if(this.props.player.isAnimating)
+            return;
         var keyCode = event.keyCode;
         if(!ARROW_KEYCODES.includes(keyCode))
             return; 
