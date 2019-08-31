@@ -13,6 +13,7 @@ const worldStyle = {
     height: MAP_HEIGHT,
     margin:  '20px auto',
     border: '10px solid white',
+    overflow: 'hidden',
 }
 
 const mapStatetoProps = state => {

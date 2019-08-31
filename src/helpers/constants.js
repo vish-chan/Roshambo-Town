@@ -10,10 +10,11 @@ export const LEFT = "LEFT";
 export const RIGHT = "RIGHT";
 export const UP = "UP";
 export const DOWN = "DOWN";
-export const SPRITE_LOC_DOWN = '0px 0px';
-export const SPRITE_LOC_UP = '0px 120px';
-export const SPRITE_LOC_LEFT = '0px 80px';
-export const SPRITE_LOC_RIGHT = '0px 40px';
+export const SPRITE_LOC_DOWN = 0;
+export const SPRITE_LOC_UP = 3;
+export const SPRITE_LOC_LEFT = 2;
+export const SPRITE_LOC_RIGHT = 1;
 export const ARROW_KEYCODES = [37, 38, 39, 40];
 export const ANIMATION_STEPS = 8;
+export const MAX_WALK_INDEX = 8;
 

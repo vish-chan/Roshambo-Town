@@ -51,7 +51,7 @@ class Player extends Component {
             backgroundImage: "url('./assets/images/player.png')",
             left: this.props.player.position[0],
             top: this.props.player.position[1],
-            backgroundPosition: this.props.player.spriteLocation,
+            backgroundPosition: `${this.props.player.walkIndex * SPRITE_SIZE}px ${this.props.player.spriteLocation * SPRITE_SIZE}px`,
         };
         
         return(
