@@ -41,31 +41,38 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
         newpos = getNewPostion(oldpos, direction);
         spriteLocation = SPRITE_LOC_RIGHT;
     } else if(keyCode === 38) {
-        
         direction = UP;
         newpos = getNewPostion(oldpos, direction);
         spriteLocation = SPRITE_LOC_UP;
     } else if(keyCode === 40) {
-        
         direction = DOWN;
         newpos = getNewPostion(oldpos, direction);
         spriteLocation = SPRITE_LOC_DOWN;
     }
-    
-    
+
+    dispatch(UpdatePlayerDirectionAction(direction, spriteLocation));
+
     if(observeBoundaries(newpos)) {
             if(observeImpassible(getState().map.tiles, newpos)) {
-                return (dispatch(UpdatePlayerPositionAction(newpos, direction, spriteLocation)));
+                return (dispatch(UpdatePlayerPositionAction(newpos)));
             }
     }
     
 }
 
-export const UpdatePlayerPositionAction = (position, direction, spriteLocation) => {
+const UpdatePlayerPositionAction = (position) => {
     return({
         type: ActionTypes.UPDATE_PLAYER_POSITION,
         payload: {
             position,
+        }
+    });
+}
+
+const UpdatePlayerDirectionAction = (direction, spriteLocation) => {
+    return({
+        type: ActionTypes.UPDATE_PLAYER_DIRECTION,
+        payload: {
             direction,
             spriteLocation,
         }

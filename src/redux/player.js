@@ -9,8 +9,10 @@ export const Player = (state = {
                                 }, action) => {
     switch(action.type) {
         case ActionTypes.UPDATE_PLAYER_POSITION:
-            return({...state, position: action.payload.position, direction: action.payload.direction, 
-                    spriteLocation: action.payload.spriteLocation});
+            return({...state, position: action.payload.position});
+        case ActionTypes.UPDATE_PLAYER_DIRECTION:
+                return({...state, direction: action.payload.direction, 
+                        spriteLocation: action.payload.spriteLocation});
         default: 
             return state;
     }
