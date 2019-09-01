@@ -13,8 +13,8 @@ class Map extends Component {
 
     constructor(props) {
         super(props);
-        this.ctx = null;
-        this.cacheCanvas = null;
+        this.onScreenCtx = null;
+        this.offScreenCanvas = null;
     }
 
     renderTiles(ctx) {
@@ -36,20 +36,20 @@ class Map extends Component {
     }
 
     componentDidMount() {
-        this.ctx = this.canvas.getContext("2d");
+        this.onScreenCtx = this.canvas.getContext("2d");
     }
 
     componentDidUpdate() {
-        if(this.cacheCanvas==null) {
-            this.cacheCanvas = new OffscreenCanvas(this.props.map.width, this.props.map.height);
-            const offscreenctx = this.cacheCanvas.getContext("2d");
+        if(this.offScreenCanvas==null) {
+            this.offScreenCanvas = new OffscreenCanvas(this.props.map.width, this.props.map.height);
+            const offscreenctx = this.offScreenCanvas.getContext("2d");
             offscreenctx.fillStyle = 'lawngreen';
             offscreenctx.clearRect(0, 0, this.props.map.width, this.props.map.height);
             offscreenctx.fillRect(0, 0, this.props.map.width, this.props.map.height);
             this.renderTiles(offscreenctx);
         }
-        this.ctx.clearRect(0, 0, this.props.map.width, this.props.map.height);
-        this.ctx.drawImage(this.cacheCanvas, 0, 0);
+        this.onScreenCtx.clearRect(0, 0, this.props.map.width, this.props.map.height);
+        this.onScreenCtx.drawImage(this.offScreenCanvas, 0, 0);
     }
    
 
