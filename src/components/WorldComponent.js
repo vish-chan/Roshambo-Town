@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import Player from './PlayerComponent';
 import Map from './MapComponent';
-import { AddMapAction } from '../redux/ActionCreators';
-import { MAP_WIDTH, MAP_HEIGHT } from '../helpers/constants';
-import { map } from '../data/maps/1/index';
+import { AddMapAction, UpdateOriginAction  } from '../redux/ActionCreators';
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../helpers/constants';
+import { map } from '../data/maps/2/index';
 import { connect } from 'react-redux';
 
 
 const worldStyle = {
     position: 'relative',
-    width:  MAP_WIDTH,
-    height: MAP_HEIGHT,
+    width:  VIEWPORT_WIDTH,
+    height: VIEWPORT_HEIGHT,
     margin:  '20px auto',
     border: '10px solid white',
     overflow: 'hidden',
@@ -24,7 +24,7 @@ const mapStatetoProps = state => {
 
 const mapDispatchtoProps = dispatch => {
     return({
-        loadMap: (map) => { dispatch(AddMapAction(map)); }
+        loadMap: (map) => { dispatch(AddMapAction(map)); },
     });
 }
 

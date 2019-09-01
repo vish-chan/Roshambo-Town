@@ -1,9 +1,9 @@
 import * as ActionTypes from './ActionTypes';
-import { DOWN, SPRITE_LOC_DOWN, MAX_WALK_INDEX } from '../helpers/constants';
+import { DOWN, SPRITE_LOC_DOWN, MAX_WALK_INDEX, PLAYER_START_POS } from '../helpers/constants';
 
 
 export const Player = (state = { 
-                                position: [0, 0],
+                                position: [PLAYER_START_POS[0], PLAYER_START_POS[1]],
                                 direction: DOWN,
                                 spriteLocation: SPRITE_LOC_DOWN,
                                 isAnimating: false,

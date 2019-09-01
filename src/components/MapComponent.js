@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
-import { MAP_WIDTH, MAP_HEIGHT, SPRITE_SIZE, TREESPRITE, ROCKSPRITE, TREASURESPRITE } from '../helpers/constants';
+import {SPRITE_SIZE, TREESPRITE, ROCKSPRITE } from '../helpers/constants';
 import objectsImg from '../assets/images/objects.png';
 
 
-const mapStyle = {
-    width:  MAP_WIDTH,
-    height: MAP_HEIGHT,
+
+const canvasStyle = {
     backgroundColor: 'lawngreen',
 }
 
 
 class Map extends Component {
 
-    renderTiles() {
+    constructor(props) {
+        super(props);
+        this.ctx = null;
+    }
+
+    renderTiles(ctx) {
         const tiles = this.props.map.tiles;
-        const ctx = this.canvas.getContext("2d");
         const objectsSprite = new Image();
         objectsSprite.src = objectsImg;
         objectsSprite.onload = renderTiles;
@@ -32,21 +35,28 @@ class Map extends Component {
     }
 
     componentDidMount() {
-        const ctx = this.canvas.getContext("2d");
-        ctx.fillStyle = mapStyle.backgroundColor;
-        ctx.fillRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
-        this.renderTiles();
+        this.ctx = this.canvas.getContext("2d");
+        this.ctx.clearRect(0, 0, this.props.map.width, this.props.map.height);
+        this.renderTiles(this.ctx);
     }
 
     componentDidUpdate() {
-        this.renderTiles();
+        this.ctx.clearRect(0, 0, this.props.map.width, this.props.map.height);
+        this.renderTiles(this.ctx);
     }
-
    
 
     render(){
+        console.log("Render map");
         return(
-            <canvas ref={canvas => this.canvas = canvas} width={mapStyle.width} height={mapStyle.height}/>
+            <div style={{width: this.props.map.width,
+                        height: this.props.map.height, 
+                        left: `${this.props.map.viewport.start[0]}px`,
+                        top: `${this.props.map.viewport.start[1]}px`,
+                        position: "absolute",
+                       }}>
+                <canvas ref={canvas => this.canvas = canvas} width={this.props.map.width} height={this.props.map.height}/>
+            </div>
         );
     }
 }

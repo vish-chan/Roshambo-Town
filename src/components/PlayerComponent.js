@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { UpdatePlayerPosition } from '../redux/ActionCreators';
 
 
-
-
 const mapStatetoProps = state => {
     return({
         player: state.player,

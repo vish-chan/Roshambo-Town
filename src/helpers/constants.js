@@ -1,8 +1,10 @@
 export const SPRITE_SIZE = 40;
 export const MOVEMENT_SIZE = 40;
-export const MAP_WIDTH = 800;
-export const MAP_HEIGHT = 400;
-export const MAP_BOUNDARIES = [MAP_WIDTH - SPRITE_SIZE, MAP_HEIGHT - SPRITE_SIZE];
+export const VIEWPORT_WIDTH = 800;
+export const VIEWPORT_HEIGHT = 400;
+export const VIEWPORT_BOUNDARY = [VIEWPORT_WIDTH , VIEWPORT_HEIGHT];
+export const CAMERA = [[320, 400], [120, 200]]
+export const PLAYER_START_POS = [360, 160];
 export const TREESPRITE = [0,0];
 export const ROCKSPRITE = [1*SPRITE_SIZE,0];
 export const TREASURESPRITE = [2*SPRITE_SIZE, 0];
@@ -17,4 +19,3 @@ export const SPRITE_LOC_RIGHT = 1;
 export const ARROW_KEYCODES = [37, 38, 39, 40];
 export const ANIMATION_STEPS = 8;
 export const MAX_WALK_INDEX = 8;
-
