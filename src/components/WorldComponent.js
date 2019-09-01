@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Player from './PlayerComponent';
 import Map from './MapComponent';
-import { AddMapAction, UpdateOriginAction  } from '../redux/ActionCreators';
+import { AddMapAction  } from '../redux/ActionCreators';
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../helpers/constants';
 import { map } from '../data/maps/2/index';
 import { connect } from 'react-redux';

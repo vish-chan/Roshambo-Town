@@ -14,6 +14,7 @@ class Map extends Component {
     constructor(props) {
         super(props);
         this.ctx = null;
+        this.cacheCanvas = null;
     }
 
     renderTiles(ctx) {
@@ -36,18 +37,23 @@ class Map extends Component {
 
     componentDidMount() {
         this.ctx = this.canvas.getContext("2d");
-        this.ctx.clearRect(0, 0, this.props.map.width, this.props.map.height);
-        this.renderTiles(this.ctx);
     }
 
     componentDidUpdate() {
+        if(this.cacheCanvas==null) {
+            this.cacheCanvas = new OffscreenCanvas(this.props.map.width, this.props.map.height);
+            const offscreenctx = this.cacheCanvas.getContext("2d");
+            offscreenctx.fillStyle = 'lawngreen';
+            offscreenctx.clearRect(0, 0, this.props.map.width, this.props.map.height);
+            offscreenctx.fillRect(0, 0, this.props.map.width, this.props.map.height);
+            this.renderTiles(offscreenctx);
+        }
         this.ctx.clearRect(0, 0, this.props.map.width, this.props.map.height);
-        this.renderTiles(this.ctx);
+        this.ctx.drawImage(this.cacheCanvas, 0, 0);
     }
    
 
     render(){
-        console.log("Render map");
         return(
             <div style={{width: this.props.map.width,
                         height: this.props.map.height, 
