@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {TILE_SIZE, TREESPRITE, ROCKSPRITE } from '../helpers/constants';
-import objectsImg from '../assets/images/objects.png';
-
+import { objectsImg } from '../helpers/constants';
 
 class Map extends Component {
 
@@ -37,8 +36,7 @@ class Map extends Component {
         if(this.offScreenCanvas==null) {
             this.offScreenCanvas = new OffscreenCanvas(this.props.map.width, this.props.map.height);
             const offscreenctx = this.offScreenCanvas.getContext("2d");
-            offscreenctx.fillStyle = 'lawngreen';
-            offscreenctx.clearRect(0, 0, this.props.map.width, this.props.map.height);
+            offscreenctx.fillStyle = '#02DA88';
             offscreenctx.fillRect(0, 0, this.props.map.width, this.props.map.height);
             this.renderTiles(offscreenctx);
         }

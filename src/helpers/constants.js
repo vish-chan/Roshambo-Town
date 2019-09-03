@@ -26,3 +26,5 @@ export const SPRITE_LOC_LEFT = 2;
 export const SPRITE_LOC_RIGHT = 1;
 
 export const ARROW_KEYCODES = [37, 38, 39, 40];
+
+export const objectsImg = "assets/images/objects.png";
