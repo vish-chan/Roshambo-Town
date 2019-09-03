@@ -1,5 +1,5 @@
 import * as ActionTypes from './ActionTypes';
-import { MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, 
+import { TOTAL_MOVEMENT_SIZE, FRAME_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, 
         SPRITE_LOC_LEFT, SPRITE_LOC_RIGHT, SPRITE_LOC_DOWN, SPRITE_LOC_UP, ANIMATION_STEPS, SPRITE_SIZE,
         PLAYER_START_POS, 
         VIEWPORT_WIDTH,
@@ -19,7 +19,7 @@ const observeBoundaries = (newpos) => {
 }
 
 const observeImpassible = (tiles, mapstart, newpos) => {
-    const col = newpos[0]/40 + (-1*mapstart[0])/40, row = newpos[1]/40 + (-1*mapstart[1])/40;
+    const col = newpos[0]/SPRITE_SIZE + (-1*mapstart[0])/SPRITE_SIZE, row = newpos[1]/SPRITE_SIZE + (-1*mapstart[1])/SPRITE_SIZE;
     return (tiles[row][col]===0);
 }
 
@@ -62,7 +62,7 @@ const animatePlayer = () => {
         store.dispatch(UpdatePlayerAnimationAction(false));
         return;
     } 
-    newpos = getNewPostion(oldpos, direction, 5);
+    newpos = getNewPostion(oldpos, direction, FRAME_MOVEMENT_SIZE);
     store.dispatch(UpdatePlayerPositionAction(newpos));
     oldpos = newpos;
     steps--;
@@ -75,7 +75,7 @@ const animatePlayerOnSpot = () => {
         return;
     } 
     store.dispatch(UpdatePlayerPositionAction(oldpos));
-    mapstart = getNewStart(mapstart, direction, 5)
+    mapstart = getNewStart(mapstart, direction, FRAME_MOVEMENT_SIZE);
     store.dispatch(UpdateOriginAction(mapstart));
     steps--;
     requestAnimationFrame(animatePlayerOnSpot);
@@ -90,19 +90,19 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
 
     if(keyCode === 37) {
         direction = LEFT;
-        newpos = getNewPostion(oldpos, direction, MOVEMENT_SIZE);
+        newpos = getNewPostion(oldpos, direction, TOTAL_MOVEMENT_SIZE);
         spriteLocation = SPRITE_LOC_LEFT;
     } else if(keyCode === 39) {
         direction = RIGHT;
-        newpos = getNewPostion(oldpos, direction, MOVEMENT_SIZE);
+        newpos = getNewPostion(oldpos, direction, TOTAL_MOVEMENT_SIZE);
         spriteLocation = SPRITE_LOC_RIGHT;
     } else if(keyCode === 38) {
         direction = UP;
-        newpos = getNewPostion(oldpos, direction, MOVEMENT_SIZE);
+        newpos = getNewPostion(oldpos, direction, TOTAL_MOVEMENT_SIZE);
         spriteLocation = SPRITE_LOC_UP;
     } else if(keyCode === 40) {
         direction = DOWN;
-        newpos = getNewPostion(oldpos, direction, MOVEMENT_SIZE);
+        newpos = getNewPostion(oldpos, direction, TOTAL_MOVEMENT_SIZE);
         spriteLocation = SPRITE_LOC_DOWN;
     }
 

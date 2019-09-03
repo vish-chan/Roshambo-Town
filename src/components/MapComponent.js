@@ -3,12 +3,6 @@ import {SPRITE_SIZE, TREESPRITE, ROCKSPRITE } from '../helpers/constants';
 import objectsImg from '../assets/images/objects.png';
 
 
-
-const canvasStyle = {
-    backgroundColor: 'lawngreen',
-}
-
-
 class Map extends Component {
 
     constructor(props) {
