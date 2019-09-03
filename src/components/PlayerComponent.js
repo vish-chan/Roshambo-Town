@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {SPRITE_SIZE, ARROW_KEYCODES} from '../helpers/constants';
+import {PLAYER_SPRITE_SIZE, ARROW_KEYCODES} from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdatePlayerPosition } from '../redux/ActionCreators';
 
@@ -44,12 +44,12 @@ class Player extends Component {
 
         let playerStyle = {
             position: 'absolute',
-            width: SPRITE_SIZE,
-            height: SPRITE_SIZE, 
+            width: PLAYER_SPRITE_SIZE,
+            height: PLAYER_SPRITE_SIZE, 
             backgroundImage: "url('./assets/images/player.png')",
             left: this.props.player.position[0],
             top: this.props.player.position[1],
-            backgroundPosition: `${this.props.player.walkIndex * SPRITE_SIZE}px ${this.props.player.spriteLocation * SPRITE_SIZE}px`,
+            backgroundPosition: `${this.props.player.walkIndex * PLAYER_SPRITE_SIZE}px ${this.props.player.spriteLocation * PLAYER_SPRITE_SIZE}px`,
         };
         
         return(

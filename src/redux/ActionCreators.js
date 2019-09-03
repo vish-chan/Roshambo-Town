@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, FRAME_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, 
-        SPRITE_LOC_LEFT, SPRITE_LOC_RIGHT, SPRITE_LOC_DOWN, SPRITE_LOC_UP, ANIMATION_STEPS, SPRITE_SIZE,
+        SPRITE_LOC_LEFT, SPRITE_LOC_RIGHT, SPRITE_LOC_DOWN, SPRITE_LOC_UP, ANIMATION_STEPS, TILE_SIZE, PLAYER_SPRITE_SIZE,
         PLAYER_START_POS, 
         VIEWPORT_WIDTH,
         VIEWPORT_HEIGHT, CAMERA} from '../helpers/constants';
@@ -13,13 +13,24 @@ let mapend = [];
 let direction;
 let spriteLocation, steps = ANIMATION_STEPS;
 
+
+const viewportToMap = (viewportpos, mapstart) => {
+    return([viewportpos[0] + (-1*mapstart[0]),viewportpos[1] + (-1*mapstart[1])]);
+}
+
+
+const mapToViewport = (mappos, mapstart) => {
+    return([mappos[0] + mapstart[0],mappos[1] + mapstart[1]]);
+}
+
 const observeBoundaries = (newpos) => {
-    return (newpos[0]>=0 && newpos[0]<=VIEWPORT_BOUNDARY[0] - SPRITE_SIZE) &&
-            (newpos[1]>=0 && newpos[1]<=VIEWPORT_BOUNDARY[1] - SPRITE_SIZE);
+    return (newpos[0]>=0 && newpos[0]<=VIEWPORT_BOUNDARY[0] - PLAYER_SPRITE_SIZE) &&
+            (newpos[1]>=0 && newpos[1]<=VIEWPORT_BOUNDARY[1] - PLAYER_SPRITE_SIZE);
 }
 
 const observeImpassible = (tiles, mapstart, newpos) => {
-    const col = newpos[0]/SPRITE_SIZE + (-1*mapstart[0])/SPRITE_SIZE, row = newpos[1]/SPRITE_SIZE + (-1*mapstart[1])/SPRITE_SIZE;
+    const mappos = viewportToMap(newpos, mapstart);
+    const col = mappos[0]/TILE_SIZE, row = mappos[1]/TILE_SIZE;
     return (tiles[row][col]===0);
 }
 
@@ -185,9 +196,9 @@ export const UpdateOriginAction = (origin) => {
 
 
 export const AddMapAction = (map) => { 
-    let width = map.tiles[0].length*SPRITE_SIZE;
-    let height= map.tiles.length*SPRITE_SIZE;
-    let start = [0-((width/2)-PLAYER_START_POS[0]) + SPRITE_SIZE, 0-((height/2)-PLAYER_START_POS[1]) + SPRITE_SIZE];
+    let width = map.tiles[0].length*TILE_SIZE;
+    let height= map.tiles.length*TILE_SIZE;
+    let start = [0-((width/2)-PLAYER_START_POS[0]) + TILE_SIZE, 0-((height/2)-PLAYER_START_POS[1]) + TILE_SIZE];
     let end = [start[0]+width, start[1]+height];
     return({
         type: ActionTypes.ADD_MAP,

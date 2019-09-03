@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {SPRITE_SIZE, TREESPRITE, ROCKSPRITE } from '../helpers/constants';
+import {TILE_SIZE, TREESPRITE, ROCKSPRITE } from '../helpers/constants';
 import objectsImg from '../assets/images/objects.png';
 
 
@@ -21,9 +21,9 @@ class Map extends Component {
             for(var i=0; i<tiles.length; i++) {
                 for(var j=0; j<tiles[0].length; j++) {
                     if(tiles[i][j]===1)
-                        ctx.drawImage(objectsSprite, TREESPRITE[0], TREESPRITE[1], SPRITE_SIZE, SPRITE_SIZE, j*SPRITE_SIZE, i*SPRITE_SIZE,  SPRITE_SIZE, SPRITE_SIZE);
+                        ctx.drawImage(objectsSprite, TREESPRITE[0], TREESPRITE[1], TILE_SIZE, TILE_SIZE, j*TILE_SIZE, i*TILE_SIZE,  TILE_SIZE, TILE_SIZE);
                     else  if(tiles[i][j]===2)
-                        ctx.drawImage(objectsSprite, ROCKSPRITE[0], ROCKSPRITE[1], SPRITE_SIZE, SPRITE_SIZE, j*SPRITE_SIZE, i*SPRITE_SIZE,  SPRITE_SIZE, SPRITE_SIZE);
+                        ctx.drawImage(objectsSprite, ROCKSPRITE[0], ROCKSPRITE[1], TILE_SIZE, TILE_SIZE, j*TILE_SIZE, i*TILE_SIZE,  TILE_SIZE, TILE_SIZE);
                 }
             }
         }
