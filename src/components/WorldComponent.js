@@ -19,6 +19,7 @@ const worldStyle = {
 const mapStatetoProps = state => {
     return({
         map: state.map,
+        viewport: state.viewport,
     });
 }
 
@@ -43,7 +44,7 @@ class World extends Component {
         
         return(
             <div style={worldStyle}>
-                <Map map={this.props.map}/>
+                <Map map={this.props.map} viewport={this.props.viewport}/>
                 <Player/>
             </div> 
         );

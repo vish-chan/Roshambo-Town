@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import {PLAYER_SPRITE_SIZE, ARROW_KEYCODES} from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdatePlayerPosition } from '../redux/ActionCreators';
+import {  } from '../redux/ActionCreators';
+import { mapToViewport } from '../helpers/funcs';
 
 
 const mapStatetoProps = state => {
     return({
         player: state.player,
+        viewport: state.viewport,
     });
 }
 
@@ -41,14 +44,14 @@ class Player extends Component {
 
     
     render() {
-
+        let position = mapToViewport(this.props.player.position, this.props.viewport.start);
         let playerStyle = {
             position: 'absolute',
             width: PLAYER_SPRITE_SIZE,
             height: PLAYER_SPRITE_SIZE, 
             backgroundImage: "url('./assets/images/player.png')",
-            left: this.props.player.position[0],
-            top: this.props.player.position[1],
+            left: position[0],
+            top: position[1],
             backgroundPosition: `${this.props.player.walkIndex * PLAYER_SPRITE_SIZE}px ${this.props.player.spriteLocation * PLAYER_SPRITE_SIZE}px`,
         };
         

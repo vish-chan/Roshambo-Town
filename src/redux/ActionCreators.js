@@ -4,6 +4,7 @@ import { TOTAL_MOVEMENT_SIZE, FRAME_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGH
         PLAYER_START_POS, 
         VIEWPORT_WIDTH,
         VIEWPORT_HEIGHT, CAMERA} from '../helpers/constants';
+import {tileToMapCoordinates, mapToViewport} from '../helpers/funcs';
 import { store } from '../redux/ConfigureStore';
 
 let oldpos = [];
@@ -14,32 +15,42 @@ let direction;
 let spriteLocation, steps = ANIMATION_STEPS;
 
 
-const viewportToMap = (viewportpos, mapstart) => {
-    return([viewportpos[0] + (-1*mapstart[0]),viewportpos[1] + (-1*mapstart[1])]);
+
+const observeBoundaries = (newpos, mapstart) => {
+    const viewportPos = mapToViewport(newpos, mapstart);
+    console.log(viewportPos[0]);
+    return (viewportPos[0]>=0 && viewportPos[0]<=VIEWPORT_BOUNDARY[0] - PLAYER_SPRITE_SIZE) &&
+            (viewportPos[1]>=0 && viewportPos[1]<=VIEWPORT_BOUNDARY[1] - PLAYER_SPRITE_SIZE);
 }
 
-
-const mapToViewport = (mappos, mapstart) => {
-    return([mappos[0] + mapstart[0],mappos[1] + mapstart[1]]);
-}
-
-const observeBoundaries = (newpos) => {
-    return (newpos[0]>=0 && newpos[0]<=VIEWPORT_BOUNDARY[0] - PLAYER_SPRITE_SIZE) &&
-            (newpos[1]>=0 && newpos[1]<=VIEWPORT_BOUNDARY[1] - PLAYER_SPRITE_SIZE);
-}
-
-const observeImpassible = (tiles, mapstart, newpos) => {
-    const mappos = viewportToMap(newpos, mapstart);
-    const col = mappos[0]/TILE_SIZE, row = mappos[1]/TILE_SIZE;
+const observeImpassible = (tiles, newpos) => {
+    const col = newpos[0]/TILE_SIZE, row = newpos[1]/TILE_SIZE;
+    console.log(newpos[0]);
     return (tiles[row][col]===0);
 }
 
-const observeCamera = (oldpos, direction) => {
+const observeCamera = (position, direction, mapstart) => {
+    const viewportPos = mapToViewport(position, mapstart);
     if(direction===LEFT || direction===RIGHT)
-        return (oldpos[0] >= CAMERA[0][0]) && (oldpos[0] <= CAMERA[0][1])
+        return (viewportPos[0] >= CAMERA[0][0]) && (viewportPos[0] <= CAMERA[0][1])
     else if(direction===UP || direction===DOWN)
-        return (oldpos[1] >= CAMERA[1][0]) && (oldpos[1] <= CAMERA[1][1])
+        return (viewportPos[1] >= CAMERA[1][0]) && (viewportPos[1] <= CAMERA[1][1])
 }
+
+const mapScrollable = (direction, mapstart, mapend) => {
+    switch(direction) {
+        case LEFT:
+            return (mapstart[0] < 0);
+        case UP:
+            return (mapstart[1] < 0);
+        case RIGHT:
+            return (mapend[0] > VIEWPORT_WIDTH);
+        case DOWN:
+            return (mapend[1] > VIEWPORT_HEIGHT);
+        
+    }
+}
+
 
 const getNewPostion = (oldpos, direction, movementSize) => {
     switch(direction) {
@@ -54,7 +65,7 @@ const getNewPostion = (oldpos, direction, movementSize) => {
     }
 }
 
-const getNewStart = (start, direction, movementSize) => {
+const getNewOrigin = (start, direction, movementSize) => {
     switch(direction) {
         case LEFT:
             return [start[0]+movementSize, start[1]];
@@ -85,8 +96,10 @@ const animatePlayerOnSpot = () => {
         store.dispatch(UpdatePlayerAnimationAction(false));
         return;
     } 
-    store.dispatch(UpdatePlayerPositionAction(oldpos));
-    mapstart = getNewStart(mapstart, direction, FRAME_MOVEMENT_SIZE);
+    newpos = getNewPostion(oldpos, direction, FRAME_MOVEMENT_SIZE);
+    store.dispatch(UpdatePlayerPositionAction(newpos));
+    oldpos = newpos;
+    mapstart = getNewOrigin(mapstart, direction, FRAME_MOVEMENT_SIZE);
     store.dispatch(UpdateOriginAction(mapstart));
     steps--;
     requestAnimationFrame(animatePlayerOnSpot);
@@ -96,8 +109,8 @@ const animatePlayerOnSpot = () => {
 export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     steps = ANIMATION_STEPS;
     oldpos = getState().player.position;
-    mapstart = getState().map.viewport.start;
-    mapend = getState().map.viewport.end;
+    mapstart = getState().viewport.start;
+    mapend = getState().viewport.end;
 
     if(keyCode === 37) {
         direction = LEFT;
@@ -120,48 +133,22 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     if(getState().player.direction!==direction)
         dispatch(UpdatePlayerDirectionAction(direction, spriteLocation));
 
-    if(observeBoundaries(newpos) && observeImpassible(getState().map.tiles, mapstart, newpos)) {
-        if(direction === LEFT) {
-            if(mapstart[0] < 0 && observeCamera(oldpos, direction)) {
-                dispatch(UpdatePlayerAnimationAction(true));
-                requestAnimationFrame(animatePlayerOnSpot);
-            } else {
-                dispatch(UpdatePlayerAnimationAction(true));
-                requestAnimationFrame(animatePlayer);
-            } 
-        } else if(direction === UP) {
-            if(mapstart[1] < 0 && observeCamera(oldpos, direction)) {
-                dispatch(UpdatePlayerAnimationAction(true));
-                requestAnimationFrame(animatePlayerOnSpot);
-            } else {
-                dispatch(UpdatePlayerAnimationAction(true));
-                requestAnimationFrame(animatePlayer);
-            }
-        } else if(direction === RIGHT) {
-            if(mapend[0] > VIEWPORT_WIDTH && observeCamera(oldpos, direction)) {
-                dispatch(UpdatePlayerAnimationAction(true));
-                requestAnimationFrame(animatePlayerOnSpot);
-            } else {
-                dispatch(UpdatePlayerAnimationAction(true));
-                requestAnimationFrame(animatePlayer);
-            } 
-        } else if(direction === DOWN) {
-            if(mapend[1] > VIEWPORT_HEIGHT && observeCamera(oldpos, direction)) {
-                dispatch(UpdatePlayerAnimationAction(true));
-                requestAnimationFrame(animatePlayerOnSpot);
-            } else {
-                dispatch(UpdatePlayerAnimationAction(true));
-                requestAnimationFrame(animatePlayer);
-            }
+    if(observeBoundaries(newpos, mapstart) && observeImpassible(getState().map.tiles, newpos)) {
+        dispatch(UpdatePlayerAnimationAction(true, newpos));
+        if(observeCamera(oldpos, direction, mapstart) && mapScrollable(direction, mapstart, mapend)) {
+            requestAnimationFrame(animatePlayerOnSpot);
+        } else {
+            requestAnimationFrame(animatePlayer);
         }
     }
 }
 
-const UpdatePlayerAnimationAction = (isAnimating) => {
+const UpdatePlayerAnimationAction = (isAnimating, newpos = []) => {
     return({
         type: ActionTypes.UPDATE_PLAYER_ANIMATION,
         payload: {
             isAnimating,
+            newpos,
         }
     });
 }
@@ -190,7 +177,8 @@ export const UpdateOriginAction = (origin) => {
     return({
         type: ActionTypes.UPDATE_MAP_ORIGIN,
         payload: {
-            origin},
+            origin
+        },
     });
 }
 
@@ -209,6 +197,10 @@ export const AddMapAction = (map) => {
             viewport: {
                 start,
                 end,
+            },
+            player: {
+                name: map.player.name,
+                position: tileToMapCoordinates(map.player.position, TILE_SIZE),
             }
         },
     });

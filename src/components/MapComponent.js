@@ -49,8 +49,8 @@ class Map extends Component {
         return(
             <div style={{width: this.props.map.width,
                         height: this.props.map.height, 
-                        left: `${this.props.map.viewport.start[0]}px`,
-                        top: `${this.props.map.viewport.start[1]}px`,
+                        left: `${this.props.viewport.start[0]}px`,
+                        top: `${this.props.viewport.start[1]}px`,
                         position: "absolute",
                        }}>
                 <canvas ref={canvas => this.canvas = canvas} width={this.props.map.width} height={this.props.map.height}/>
