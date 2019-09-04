@@ -10,3 +10,7 @@ export const mapToViewport = (mappos, mapstart) => {
 export const tileToMapCoordinates = (tile, TILE_SIZE) => {
     return([tile[1]*TILE_SIZE, tile[0]*TILE_SIZE]);
 }
+
+export const mapCoordinatesToTiles = (position, TILE_SIZE) => {
+    return([position[1]/TILE_SIZE, position[0]/TILE_SIZE]);
+}

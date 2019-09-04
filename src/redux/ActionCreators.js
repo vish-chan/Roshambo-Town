@@ -4,7 +4,7 @@ import { TOTAL_MOVEMENT_SIZE, FRAME_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGH
         PLAYER_START_POS, 
         VIEWPORT_WIDTH,
         VIEWPORT_HEIGHT, CAMERA} from '../helpers/constants';
-import {tileToMapCoordinates, mapToViewport} from '../helpers/funcs';
+import {tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles} from '../helpers/funcs';
 import { store } from '../redux/ConfigureStore';
 
 let oldpos = [];
@@ -24,8 +24,8 @@ const observeBoundaries = (newpos, mapstart) => {
 }
 
 const observeImpassible = (tiles, newpos) => {
-    const col = newpos[0]/TILE_SIZE, row = newpos[1]/TILE_SIZE;
-    console.log(newpos[0]);
+    const tile = mapCoordinatesToTiles(newpos, TILE_SIZE);
+    const row = tile[0], col = tile[1];
     return (tiles[row][col]===0);
 }
 
