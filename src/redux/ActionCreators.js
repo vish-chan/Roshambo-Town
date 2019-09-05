@@ -143,6 +143,10 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     }
 }
 
+export const UpdateNPCPosition = (npcId) => (dispatch) => {
+
+}
+
 export const AddMap = (map) => (dispatch) => {
     let width = map.tiles[0].length*TILE_SIZE, height= map.tiles.length*TILE_SIZE;
     let playerPosition = tileToMapCoordinates(map.player.position, TILE_SIZE);
@@ -240,7 +244,8 @@ export const AddMapAction = (map, width, height ,playerPosition, start, end, off
                 name: map.player.name,
                 skin: map.player.skin,
                 position: playerPosition,
-            }
+            },
+            npc: map.npc,
         },
     });
 }

@@ -1,4 +1,4 @@
-import { UP, TILE_SIZE } from "../../../helpers/constants";
+import { DOWN, TILE_SIZE } from "../../../helpers/constants";
 
 const TS = TILE_SIZE;
 
@@ -84,14 +84,19 @@ export const map = {
     },
 
     npc : [{ 
-            name: "Beast",
-            skin: "assets/images/80/player_80.png",
-            start: {
-                pos: [20, 30],
-                direction: UP
+                name: "Beast",
+                skin: "assets/images/80/player_80.png",
+                position: [15, 20],
+                direction: DOWN
             },
-            position: [20, 30],
-            },],
+            
+            { 
+                name: "Moon",
+                skin: "assets/images/80/player_80.png",
+                position: [15, 22],
+                direction: DOWN
+            },
+        ],
     
     player: {
         name: "Player 1",

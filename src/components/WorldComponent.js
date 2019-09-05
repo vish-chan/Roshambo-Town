@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Player from './PlayerComponent';
 import Map from './MapComponent';
+import NPCManager from './NPCManagerComponent';
 import { AddMap  } from '../redux/ActionCreators';
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../helpers/constants';
 import { map } from '../data/maps/2/index';
@@ -45,6 +46,7 @@ class World extends Component {
         return(
             <div style={worldStyle}>
                 <Map map={this.props.map} viewport={this.props.viewport}/>
+                <NPCManager />
                 <Player/>
             </div> 
         );
