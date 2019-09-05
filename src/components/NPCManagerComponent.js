@@ -19,13 +19,13 @@ const mapDispatchToProps = dispatch => {
 
 class NPC extends Component {
 
-    
     componentDidMount() {
         this.props.update(this.props.self.id);
     }
 
     render() {
-        let npcStyle = {
+
+        const npcStyle = {
             position: 'absolute',
             width: PLAYER_SPRITE_SIZE,
             height: PLAYER_SPRITE_SIZE, 
@@ -33,11 +33,10 @@ class NPC extends Component {
             left: this.props.self.position[0],
             top: this.props.self.position[1],
             backgroundPosition: `${this.props.self.walkIndex * PLAYER_SPRITE_SIZE}px ${this.props.self.spriteLocation * PLAYER_SPRITE_SIZE}px`,
-        };
-        
+        }
+
         return(
-            <div id={`NPC${this.props.self.id}`} key={this.props.self.id} style={npcStyle}>
-            </div>
+            <div id={`NPC${this.props.self.id}`} style={npcStyle}/>
         );
     }
     
@@ -46,12 +45,12 @@ class NPC extends Component {
 class NPCManager extends Component {
     
     render() {
-        const NPCObj = this.props.npc.map( npc => <NPC self={npc} update={this.props.updateNPCPosition}/>);
+        const NPCObj = this.props.npc.map( npc => <NPC self={npc}  key={npc.id}  update={this.props.updateNPCPosition}/>);
 
         return(
-            <React.Fragment>
+            <ul id="NPCList">
                 {NPCObj}
-            </React.Fragment>
+            </ul>
         );
     }
 }

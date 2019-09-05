@@ -44,8 +44,9 @@ class Player extends Component {
 
     
     render() {
-        let position = mapToViewport(this.props.player.position, this.props.viewport.start);
-        let playerStyle = {
+        
+        const position = mapToViewport(this.props.player.position, this.props.viewport.start);
+        const playerStyle = {
             position: 'absolute',
             width: PLAYER_SPRITE_SIZE,
             height: PLAYER_SPRITE_SIZE, 
@@ -53,8 +54,8 @@ class Player extends Component {
             left: position[0],
             top: position[1],
             backgroundPosition: `${this.props.player.walkIndex * PLAYER_SPRITE_SIZE}px ${this.props.player.spriteLocation * PLAYER_SPRITE_SIZE}px`,
-        };
-        
+        }
+
         return(
             <div id="Player" style={playerStyle}>
             </div>
