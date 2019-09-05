@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, FRAME_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, 
         SPRITE_LOC_LEFT, SPRITE_LOC_RIGHT, SPRITE_LOC_DOWN, SPRITE_LOC_UP, ANIMATION_STEPS, TILE_SIZE, PLAYER_SPRITE_SIZE,
-        PLAYER_START_POS, 
+        PASSIBLE_INDEX, 
         VIEWPORT_WIDTH,
         VIEWPORT_HEIGHT, CAMERA} from '../helpers/constants';
 import {tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles} from '../helpers/funcs';
@@ -26,7 +26,7 @@ const observeBoundaries = (newpos, mapstart) => {
 const observeImpassible = (tiles, newpos) => {
     const tile = mapCoordinatesToTiles(newpos, TILE_SIZE);
     const row = tile[0], col = tile[1];
-    return (tiles[row][col]===0);
+    return (Math.abs(tiles[row][col]) <= PASSIBLE_INDEX);
 }
 
 const observeCamera = (position, direction, mapstart) => {
@@ -143,6 +143,48 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     }
 }
 
+export const AddMap = (map) => (dispatch) => {
+    let width = map.tiles[0].length*TILE_SIZE, height= map.tiles.length*TILE_SIZE;
+    let playerPosition = tileToMapCoordinates(map.player.position, TILE_SIZE);
+    let start_x = (VIEWPORT_WIDTH/2) - playerPosition[0] - TILE_SIZE, start_y = (VIEWPORT_HEIGHT/2)-playerPosition[1] - TILE_SIZE;
+    let start = [ start_x>=0? 0: start_x, start_y>=0? 0: start_y];
+    let end_x = start[0]+width, end_y = start[1]+height;
+    if(end_x < VIEWPORT_WIDTH) {
+        end_x = VIEWPORT_WIDTH;
+        start[0] = end_x - width;
+    }
+    if(end_y < VIEWPORT_HEIGHT) {
+        end_y = VIEWPORT_HEIGHT;
+        start[1] = end_y - height;
+    }
+    let end = [end_x, end_y];
+
+    const offScreenCanvas = new OffscreenCanvas(width, height);
+    const offscreenctx = offScreenCanvas.getContext("2d");
+    offscreenctx.fillStyle = map.backgroundColor;
+    offscreenctx.fillRect(0, 0, width, height);
+    renderTiles(offscreenctx);
+
+    function renderTiles(ctx) {
+        const tiles = map.tiles;
+        const objectsSprite = new Image();
+        objectsSprite.src = map.sprites.src;
+        objectsSprite.onload = renderTiles;
+
+        function renderTiles(){
+            for(var i=0; i<tiles.length; i++) {
+                for(var j=0; j<tiles[0].length; j++) {
+                    if(tiles[i][j]>=0) {
+                        const tile = map.sprites.indices[tiles[i][j]];
+                        ctx.drawImage(objectsSprite, tile[0], tile[1], tile[2], tile[3], j*TILE_SIZE, i*TILE_SIZE,  tile[2], tile[3]);
+                    }
+                }
+            }
+            dispatch(AddMapAction(map, width, height, playerPosition, start, end, offScreenCanvas));
+        }
+    }
+}
+
 const UpdatePlayerAnimationAction = (isAnimating, newpos = []) => {
     return({
         type: ActionTypes.UPDATE_PLAYER_ANIMATION,
@@ -182,25 +224,22 @@ export const UpdateOriginAction = (origin) => {
     });
 }
 
-
-export const AddMapAction = (map) => { 
-    let width = map.tiles[0].length*TILE_SIZE;
-    let height= map.tiles.length*TILE_SIZE;
-    let start = [0-((width/2)-PLAYER_START_POS[0]) + TILE_SIZE, 0-((height/2)-PLAYER_START_POS[1]) + TILE_SIZE];
-    let end = [start[0]+width, start[1]+height];
+export const AddMapAction = (map, width, height ,playerPosition, start, end, offScreenCanvas) => { 
     return({
         type: ActionTypes.ADD_MAP,
         payload: {
             tiles: map.tiles,
             width,
             height,
+            canvas: offScreenCanvas,
             viewport: {
                 start,
                 end,
             },
             player: {
                 name: map.player.name,
-                position: tileToMapCoordinates(map.player.position, TILE_SIZE),
+                skin: map.player.skin,
+                position: playerPosition,
             }
         },
     });
