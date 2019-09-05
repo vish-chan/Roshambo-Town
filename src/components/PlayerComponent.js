@@ -49,7 +49,7 @@ class Player extends Component {
             position: 'absolute',
             width: PLAYER_SPRITE_SIZE,
             height: PLAYER_SPRITE_SIZE, 
-            backgroundImage: "url('./assets/images/player.png')",
+            backgroundImage: `url('${this.props.player.skin}')`,
             left: position[0],
             top: position[1],
             backgroundPosition: `${this.props.player.walkIndex * PLAYER_SPRITE_SIZE}px ${this.props.player.spriteLocation * PLAYER_SPRITE_SIZE}px`,
