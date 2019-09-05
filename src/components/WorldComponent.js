@@ -46,7 +46,6 @@ class World extends Component {
         return(
             <div style={worldStyle}>
                 <Map map={this.props.map} viewport={this.props.viewport}/>
-                <NPCManager />
                 <Player/>
             </div> 
         );

@@ -8,7 +8,6 @@ import { mapToViewport } from '../helpers/funcs';
 const mapStatetoProps = state => {
     return({
         npc: state.npc,
-        viewport: state.viewport,
     });
 }
 
@@ -20,21 +19,24 @@ const mapDispatchToProps = dispatch => {
 
 class NPC extends Component {
 
+    
+    componentDidMount() {
+        this.props.update(this.props.self.id);
+    }
 
     render() {
-        let position = mapToViewport(this.props.self.position, this.props.viewport.start);
         let npcStyle = {
             position: 'absolute',
             width: PLAYER_SPRITE_SIZE,
             height: PLAYER_SPRITE_SIZE, 
             backgroundImage: `url('${this.props.self.skin}')`,
-            left: position[0],
-            top: position[1],
+            left: this.props.self.position[0],
+            top: this.props.self.position[1],
             backgroundPosition: `${this.props.self.walkIndex * PLAYER_SPRITE_SIZE}px ${this.props.self.spriteLocation * PLAYER_SPRITE_SIZE}px`,
         };
         
         return(
-            <div id={`NPC${this.props.self.id}`}  style={npcStyle}>
+            <div id={`NPC${this.props.self.id}`} key={this.props.self.id} style={npcStyle}>
             </div>
         );
     }
@@ -44,7 +46,7 @@ class NPC extends Component {
 class NPCManager extends Component {
     
     render() {
-        const NPCObj = this.props.npc.map( npc => <NPC self={npc} update={this.props.updateNPCPosition} viewport={this.props.viewport} />);
+        const NPCObj = this.props.npc.map( npc => <NPC self={npc} update={this.props.updateNPCPosition}/>);
 
         return(
             <React.Fragment>

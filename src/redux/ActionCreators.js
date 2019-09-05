@@ -18,7 +18,6 @@ let spriteLocation, steps = ANIMATION_STEPS;
 
 const observeBoundaries = (newpos, mapstart) => {
     const viewportPos = mapToViewport(newpos, mapstart);
-    console.log(viewportPos[0]);
     return (viewportPos[0]>=0 && viewportPos[0]<=VIEWPORT_BOUNDARY[0] - PLAYER_SPRITE_SIZE) &&
             (viewportPos[1]>=0 && viewportPos[1]<=VIEWPORT_BOUNDARY[1] - PLAYER_SPRITE_SIZE);
 }
@@ -35,6 +34,17 @@ const observeCamera = (position, direction, mapstart) => {
         return (viewportPos[0] >= CAMERA[0][0]) && (viewportPos[0] <= CAMERA[0][1])
     else if(direction===UP || direction===DOWN)
         return (viewportPos[1] >= CAMERA[1][0]) && (viewportPos[1] <= CAMERA[1][1])
+}
+
+const observeNPC = (newpos, npcList) => {
+    const impassible = npcList.filter( npc => {
+        if(!npc.isAnimating)
+            return (newpos[0] === npc.position[0]) && (newpos[1] === npc.position[1]);
+        else
+            return (newpos[0] === npc.nextPosition[0]) && (newpos[1] === npc.nextPosition[1]);
+    });
+
+    return impassible.length === 0;
 }
 
 const mapScrollable = (direction, mapstart, mapend) => {
@@ -133,7 +143,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     if(getState().player.direction!==direction)
         dispatch(UpdatePlayerDirectionAction(direction, spriteLocation));
 
-    if(observeBoundaries(newpos, mapstart) && observeImpassible(getState().map.tiles, newpos)) {
+    if(observeBoundaries(newpos, mapstart) && observeImpassible(getState().map.tiles, newpos) && observeNPC(newpos, getState().npc)) {
         dispatch(UpdatePlayerAnimationAction(true, newpos));
         if(observeCamera(oldpos, direction, mapstart) && mapScrollable(direction, mapstart, mapend)) {
             requestAnimationFrame(animatePlayerOnSpot);
