@@ -84,17 +84,14 @@ export const map = {
     },
 
     npc : [{ 
+                id: 0,
                 name: "Beast",
                 skin: "assets/images/80/player_80.png",
-                position: [15, 20],
-                direction: DOWN
-            },
-            
-            { 
-                name: "Moon",
-                skin: "assets/images/80/player_80.png",
-                position: [15, 22],
-                direction: DOWN
+                position: [12, 26],
+                direction: DOWN,
+                pathArr: [[12,26], [13,26], [14,26], [15,26], [15, 25]],
+                pathIdx: 0,
+                pathDir: 1,
             },
         ],
     

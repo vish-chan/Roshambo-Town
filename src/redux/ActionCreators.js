@@ -7,19 +7,17 @@ import { TOTAL_MOVEMENT_SIZE, FRAME_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGH
 import {tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles} from '../helpers/funcs';
 import { store } from '../redux/ConfigureStore';
 
-let oldpos = [];
-let newpos = [];
-let mapstart = [];
-let mapend = [];
-let direction;
-let spriteLocation, steps = ANIMATION_STEPS;
 
 
-
-const observeBoundaries = (newpos, mapstart) => {
+const observeViewPortBoundaries = (newpos, mapstart) => {
     const viewportPos = mapToViewport(newpos, mapstart);
     return (viewportPos[0]>=0 && viewportPos[0]<=VIEWPORT_BOUNDARY[0] - PLAYER_SPRITE_SIZE) &&
             (viewportPos[1]>=0 && viewportPos[1]<=VIEWPORT_BOUNDARY[1] - PLAYER_SPRITE_SIZE);
+}
+
+const observeMapBoundaries = (newpos, mapwidth, mapheight) => {
+    return (newpos[0]>=0 && newpos[0]<=mapwidth - PLAYER_SPRITE_SIZE) &&
+            (newpos[1]>=0 && newpos[1]<=mapheight - PLAYER_SPRITE_SIZE);
 }
 
 const observeImpassible = (tiles, newpos) => {
@@ -45,6 +43,13 @@ const observeNPC = (newpos, npcList) => {
     });
 
     return impassible.length === 0;
+}
+
+const observePlayer = (newpos, player) => {
+    if(!player.isAnimating) 
+        return !((newpos[0] === player.position[0]) && (newpos[1] === player.position[1]));
+    else
+        return !((newpos[0] === player.nextPosition[0]) && (newpos[1] === player.nextPosition[1]));
 }
 
 const mapScrollable = (direction, mapstart, mapend) => {
@@ -89,38 +94,10 @@ const getNewOrigin = (start, direction, movementSize) => {
 }
 
 
-const animatePlayer = () => {
-    if(steps === 0) {
-        store.dispatch(UpdatePlayerAnimationAction(false));
-        return;
-    } 
-    newpos = getNewPostion(oldpos, direction, FRAME_MOVEMENT_SIZE);
-    store.dispatch(UpdatePlayerPositionAction(newpos));
-    oldpos = newpos;
-    steps--;
-    requestAnimationFrame(animatePlayer);
-}
-
-const animatePlayerOnSpot = () => {
-    if(steps === 0) {
-        store.dispatch(UpdatePlayerAnimationAction(false));
-        return;
-    } 
-    newpos = getNewPostion(oldpos, direction, FRAME_MOVEMENT_SIZE);
-    store.dispatch(UpdatePlayerPositionAction(newpos));
-    oldpos = newpos;
-    mapstart = getNewOrigin(mapstart, direction, FRAME_MOVEMENT_SIZE);
-    store.dispatch(UpdateOriginAction(mapstart));
-    steps--;
-    requestAnimationFrame(animatePlayerOnSpot);
-}
-
-
 export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
-    steps = ANIMATION_STEPS;
-    oldpos = getState().player.position;
-    mapstart = getState().viewport.start;
-    mapend = getState().viewport.end;
+    let oldpos = getState().player.position, newpos = [];
+    let mapstart = getState().viewport.start, mapend = getState().viewport.end;
+    let direction, spriteLocation, steps = ANIMATION_STEPS;
 
     if(keyCode === 37) {
         direction = LEFT;
@@ -143,7 +120,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     if(getState().player.direction!==direction)
         dispatch(UpdatePlayerDirectionAction(direction, spriteLocation));
 
-    if(observeBoundaries(newpos, mapstart) && observeImpassible(getState().map.tiles, newpos) && observeNPC(newpos, getState().npc)) {
+    if(observeViewPortBoundaries(newpos, mapstart) && observeImpassible(getState().map.tiles, newpos) && observeNPC(newpos, getState().npc)) {
         dispatch(UpdatePlayerAnimationAction(true, newpos));
         if(observeCamera(oldpos, direction, mapstart) && mapScrollable(direction, mapstart, mapend)) {
             requestAnimationFrame(animatePlayerOnSpot);
@@ -151,10 +128,93 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
             requestAnimationFrame(animatePlayer);
         }
     }
+
+    function animatePlayer() {
+        if(steps === 0) {
+            store.dispatch(UpdatePlayerAnimationAction(false));
+            return;
+        } 
+        newpos = getNewPostion(oldpos, direction, FRAME_MOVEMENT_SIZE);
+        store.dispatch(UpdatePlayerPositionAction(newpos));
+        oldpos = newpos;
+        steps--;
+        requestAnimationFrame(animatePlayer);
+    }
+    
+    function animatePlayerOnSpot() {
+        if(steps === 0) {
+            store.dispatch(UpdatePlayerAnimationAction(false));
+            return;
+        } 
+        newpos = getNewPostion(oldpos, direction, FRAME_MOVEMENT_SIZE);
+        store.dispatch(UpdatePlayerPositionAction(newpos));
+        oldpos = newpos;
+        mapstart = getNewOrigin(mapstart, direction, FRAME_MOVEMENT_SIZE);
+        store.dispatch(UpdateOriginAction(mapstart));
+        steps--;
+        requestAnimationFrame(animatePlayerOnSpot);
+    }
 }
 
-export const UpdateNPCPosition = (npcId) => (dispatch) => {
+const getDirection = (oldpos, newpos, oldirection) => {
+    if(oldpos[0] === newpos[0]) {
+        if(oldpos[1] > newpos[1])
+            return [UP, SPRITE_LOC_UP];
+        else if(oldpos[1] < newpos[1])
+            return [DOWN, SPRITE_LOC_DOWN];
+        else return [oldirection];
+    } else if(oldpos[1] === newpos[1]) {
+        if(oldpos[0] > newpos[0])
+            return [LEFT, SPRITE_LOC_LEFT];
+        else if(oldpos[0] < newpos[0])
+            return [RIGHT, SPRITE_LOC_RIGHT];
+    } else return oldirection;
+}
 
+export const UpdateNPCListPosition = () => (dispatch, getState) => {
+    const npcList = getState().npc;
+    for(let i=0; i<npcList.length;i++) {
+        UpdateNPCPosition(i)(dispatch, getState);
+    }
+}
+
+export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
+    let npc = getState().npc[npcId];
+    if(npc.isAnimating)
+        return;
+        
+    let oldpos = npc.position;
+    let curdirection = npc.direction, steps = ANIMATION_STEPS;
+    const pathArr = npc.pathArr;
+    let pathIdx = npc.pathIdx;
+    let pathDir = npc.pathDir;
+    let newpos = tileToMapCoordinates(pathArr[pathIdx+pathDir], TILE_SIZE);
+    let newdirection = getDirection(oldpos, newpos, curdirection);
+    if(curdirection!=newdirection[0]) {
+        dispatch(UpdateNPCDirectionAction(npcId, newdirection[0], newdirection[1]));
+    }
+
+    const map = getState().map;
+    
+    if(observeMapBoundaries(newpos, map.width, map.height) && 
+                                            observeImpassible(map.tiles, newpos) && 
+                                            observeNPC(newpos, getState().npc) && 
+                                            observePlayer(newpos, getState().player)) {
+        dispatch(UpdateNPCAnimationAction(npcId, true, newpos));
+        requestAnimationFrame(animateNPC)
+    }
+
+    function animateNPC() {
+        if(steps === 0) {
+            store.dispatch(UpdateNPCAnimationAction(npcId, false));
+            return;
+        } 
+        newpos = getNewPostion(oldpos, newdirection[0], FRAME_MOVEMENT_SIZE);
+        store.dispatch(UpdateNPCPositionAction(npcId, newpos));
+        oldpos = newpos;
+        steps--;
+        requestAnimationFrame(animateNPC);
+    }
 }
 
 export const AddMap = (map) => (dispatch) => {
@@ -209,6 +269,17 @@ const UpdatePlayerAnimationAction = (isAnimating, newpos = []) => {
     });
 }
 
+const UpdateNPCAnimationAction = (id, isAnimating, newpos = []) => {
+    return({
+        type: ActionTypes.UPDATE_NPC_ANIMATION,
+        payload: {
+            id,
+            isAnimating,
+            newpos,
+        }
+    });
+}
+
 const UpdatePlayerPositionAction = (position) => {
     return({
         type: ActionTypes.UPDATE_PLAYER_POSITION,
@@ -218,10 +289,31 @@ const UpdatePlayerPositionAction = (position) => {
     });
 }
 
+const UpdateNPCPositionAction = (npcId, position) => {
+    return({
+        type: ActionTypes.UPDATE_NPC_POSITION,
+        payload: {
+            id: npcId,
+            position,
+        }
+    });
+}
+
 const UpdatePlayerDirectionAction = (direction, spriteLocation) => {
     return({
         type: ActionTypes.UPDATE_PLAYER_DIRECTION,
         payload: {
+            direction,
+            spriteLocation,
+        }
+    });
+}
+
+const UpdateNPCDirectionAction = (npcId, direction, spriteLocation) => {
+    return({
+        type: ActionTypes.UPDATE_NPC_DIRECTION,
+        payload: {
+            id: npcId,
             direction,
             spriteLocation,
         }
