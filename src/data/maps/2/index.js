@@ -1,4 +1,5 @@
-import { DOWN, TILE_SIZE } from "../../../helpers/constants";
+import { DOWN, TILE_SIZE, RIGHT } from "../../../helpers/constants";
+import { Skin } from '../../skins';
 
 const TS = TILE_SIZE;
 
@@ -24,7 +25,6 @@ const BLUETREE = [5*TS, 0, 2*TS, 3*TS];
 const REDTREE = [7*TS, 0, 2*TS, 2*TS];
 const GREENTREE = [7*TS, 2*TS, 2*TS, 2*TS];
 const HOUSE = [9*TS, 0, 3*TS, 3*TS];
-
 
 
 export const map = {
@@ -86,10 +86,10 @@ export const map = {
     npc : [{ 
                 id: 0,
                 name: "Beast",
-                skin: "assets/images/80/player_80.png",
+                skin: Skin[0],
                 position: [12, 26],
                 direction: DOWN,
-                stationary: false,
+                stationary: true,
                 pathArr: [[12,26], [13,26], [14,26], [15,26], [15, 25]],
                 pathIdx: 0,
                 pathDir: 1,
@@ -98,9 +98,9 @@ export const map = {
             { 
                 id: 1,
                 name: "Moon",
-                skin: "assets/images/80/player_80.png",
+                skin: Skin[0],
                 position: [15, 12],
-                direction: DOWN,
+                direction: RIGHT,
                 stationary: false,
                 pathArr: [[15,12], [15,13], [15,14], [15,15]],
                 pathIdx: 0,
@@ -111,8 +111,7 @@ export const map = {
     
     player: {
         name: "Player 1",
-        skin: "assets/images/80/player_80.png",
-
+        skin: Skin[0],
         position: [15, 17]
     }
 };

@@ -27,7 +27,7 @@ class NPC extends Component {
             position: 'absolute',
             width: PLAYER_SPRITE_SIZE,
             height: PLAYER_SPRITE_SIZE, 
-            backgroundImage: `url('${this.props.self.skin}')`,
+            backgroundImage: `url('${this.props.self.skin.src}')`,
             left: this.props.self.position[0],
             top: this.props.self.position[1],
             backgroundPosition: `${this.props.self.walkIndex * PLAYER_SPRITE_SIZE}px ${this.props.self.spriteLocation * PLAYER_SPRITE_SIZE}px`,

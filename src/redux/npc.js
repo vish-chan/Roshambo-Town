@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import {tileToMapCoordinates} from '../helpers/funcs';
-import { MAX_WALK_INDEX, TILE_SIZE, SPRITE_LOC_DOWN } from '../helpers/constants';
+import {TILE_SIZE } from '../helpers/constants';
 
 
 export const NPC = (state = [], action) => {
@@ -10,7 +10,7 @@ export const NPC = (state = [], action) => {
                 action.payload.npc.map( npc => {
                     return({...npc, 
                             position: tileToMapCoordinates(npc.position, TILE_SIZE),
-                            spriteLocation: SPRITE_LOC_DOWN,
+                            spriteLocation: npc.skin[npc.direction],
                             isAnimating: false,
                             nextPosition: [],
                             walkIndex: 0, 
@@ -23,7 +23,7 @@ export const NPC = (state = [], action) => {
                         if(npc.id===action.payload.id)
                             return({...npc, 
                                     position: action.payload.position, 
-                                    walkIndex: (npc.walkIndex+1)%MAX_WALK_INDEX
+                                    walkIndex: (npc.walkIndex+1)%npc.skin.walkSpriteCount,
                             });
                         else
                             return npc;
@@ -35,7 +35,7 @@ export const NPC = (state = [], action) => {
                         if(npc.id===action.payload.id)
                             return({...npc,  
                                     direction: action.payload.direction, 
-                                    spriteLocation: action.payload.spriteLocation
+                                    spriteLocation: npc.skin[action.payload.direction]
                                 });
                         else
                             return npc;

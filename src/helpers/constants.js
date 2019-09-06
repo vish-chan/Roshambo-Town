@@ -2,9 +2,6 @@ export const PLAYER_SPRITE_SIZE = 80;
 
 export const TILE_SIZE = 80;
 export const TOTAL_MOVEMENT_SIZE = TILE_SIZE;
-export const ANIMATION_STEPS = 8;
-export const MAX_WALK_INDEX = 8;
-export const FRAME_MOVEMENT_SIZE = TOTAL_MOVEMENT_SIZE/ANIMATION_STEPS;
 
 export const VIEWPORT_WIDTH = TILE_SIZE*18;
 export const VIEWPORT_HEIGHT = TILE_SIZE*10;
