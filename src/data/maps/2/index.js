@@ -89,7 +89,19 @@ export const map = {
                 skin: "assets/images/80/player_80.png",
                 position: [12, 26],
                 direction: DOWN,
+                stationary: false,
                 pathArr: [[12,26], [13,26], [14,26], [15,26], [15, 25]],
+                pathIdx: 0,
+                pathDir: 1,
+            },
+            { 
+                id: 1,
+                name: "Moon",
+                skin: "assets/images/80/player_80.png",
+                position: [15, 12],
+                direction: DOWN,
+                stationary: false,
+                pathArr: [[15,12], [15,13], [15,14], [15,15]],
                 pathIdx: 0,
                 pathDir: 1,
             },
@@ -98,6 +110,7 @@ export const map = {
     player: {
         name: "Player 1",
         skin: "assets/images/80/player_80.png",
+
         position: [15, 17]
     }
 };
