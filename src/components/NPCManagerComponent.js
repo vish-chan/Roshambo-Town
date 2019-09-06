@@ -21,6 +21,10 @@ class NPC extends Component {
     componentDidMount() {
         setInterval(this.props.updateNPCPosition.bind(this), this.props.self.updateInterval);
     }
+
+    componentWillUnmount() {
+        clearInterval();
+    }
     
     render() {
         const npcStyle = {
