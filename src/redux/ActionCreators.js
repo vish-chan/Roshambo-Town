@@ -171,13 +171,6 @@ const getDirection = (oldpos, newpos, oldirection) => {
     } else return oldirection;
 }
 
-export const UpdateNPCListPosition = () => (dispatch, getState) => {
-    const npcList = getState().npc;
-    for(let i=0; i<npcList.length;i++) {
-        UpdateNPCPosition(i)(dispatch, getState);
-    }
-}
-
 export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
     let npc = getState().npc[npcId];
     if(npc.stationary ||  npc.isAnimating)

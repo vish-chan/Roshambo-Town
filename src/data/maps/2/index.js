@@ -93,6 +93,7 @@ export const map = {
                 pathArr: [[12,26], [13,26], [14,26], [15,26], [15, 25]],
                 pathIdx: 0,
                 pathDir: 1,
+                updateInterval: 1000,
             },
             { 
                 id: 1,
@@ -104,6 +105,7 @@ export const map = {
                 pathArr: [[15,12], [15,13], [15,14], [15,15]],
                 pathIdx: 0,
                 pathDir: 1,
+                updateInterval: 2000,
             },
         ],
     
