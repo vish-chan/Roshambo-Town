@@ -1,8 +1,6 @@
 import * as ActionTypes from './ActionTypes';
-import { TOTAL_MOVEMENT_SIZE, FRAME_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, 
-        SPRITE_LOC_LEFT, SPRITE_LOC_RIGHT, SPRITE_LOC_DOWN, SPRITE_LOC_UP, ANIMATION_STEPS, TILE_SIZE, PLAYER_SPRITE_SIZE,
-        PASSIBLE_INDEX, 
-        VIEWPORT_WIDTH,
+import { TOTAL_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, TILE_SIZE, PLAYER_SPRITE_SIZE,
+        PASSIBLE_INDEX,  VIEWPORT_WIDTH,
         VIEWPORT_HEIGHT, CAMERA} from '../helpers/constants';
 import {tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles} from '../helpers/funcs';
 import { store } from '../redux/ConfigureStore';
@@ -136,7 +134,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
         store.dispatch(UpdatePlayerPositionAction(newpos));
         oldpos = newpos;
         steps--;
-        requestAnimationFrame(animatePlayer);
+        setTimeout(function() {requestAnimationFrame(animatePlayer)}, player.frameInterval);
     }
     
     function animatePlayerOnSpot() {
@@ -150,7 +148,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
         mapstart = getNewOrigin(mapstart, direction, frameMovementSize);
         store.dispatch(UpdateOriginAction(mapstart));
         steps--;
-        requestAnimationFrame(animatePlayerOnSpot);
+        setTimeout(function() {requestAnimationFrame(animatePlayerOnSpot)}, player.frameInterval);
     }
 }
 
@@ -203,7 +201,7 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
         store.dispatch(UpdateNPCPositionAction(npcId, newpos));
         oldpos = newpos;
         steps--;
-        requestAnimationFrame(animateNPC);
+        setTimeout(function() {requestAnimationFrame(animateNPC)}, npc.frameInterval);
     }
 }
 
@@ -334,6 +332,7 @@ export const AddMapAction = (map, width, height ,playerPosition, start, end, off
                 name: map.player.name,
                 skin: map.player.skin,
                 position: playerPosition,
+                frameInterval: map.player.frameInterval,
             },
             npc: map.npc,
         },
