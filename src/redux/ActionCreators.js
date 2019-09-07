@@ -158,7 +158,7 @@ const getDirection = (oldpos, newpos, oldirection) => {
             return UP;
         else if(oldpos[1] < newpos[1])
             return DOWN;
-        else return [oldirection];
+        else return oldirection;
     } else if(oldpos[1] === newpos[1]) {
         if(oldpos[0] > newpos[0])
             return LEFT;
@@ -172,6 +172,13 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
     
     if(npc.stationary ||  npc.isAnimating)
         return;
+    
+    if(npc.isWaiting) {
+        if((performance.now() - npc.lastUpdated) < npc.waitInterval)
+            return;
+        else 
+            dispatch(ResetNPCWaiting(npcId));
+    }
         
     let oldpos = npc.position;
     let curdirection = npc.direction, steps = npc.skin.walkSpriteCount;
@@ -306,6 +313,14 @@ const UpdateNPCDirectionAction = (npcId, direction) => {
     });
 }
 
+const ResetNPCWaiting = (npcId) => {
+    return({
+        type: ActionTypes.RESET_NPC_WAITING,
+        payload: {
+            id: npcId,
+        }
+    });
+}
 
 export const UpdateOriginAction = (origin) => {
     return({

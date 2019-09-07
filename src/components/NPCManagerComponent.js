@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {PLAYER_SPRITE_SIZE} from '../helpers/constants';
+import { PLAYER_SPRITE_SIZE } from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdateNPCPosition } from '../redux/ActionCreators';
 
@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => {
 class NPC extends Component {
     
     componentDidMount() {
-        setInterval(this.props.updateNPCPosition.bind(this), this.props.self.updateInterval);
+        setInterval(this.props.updateNPCPosition.bind(this), this.props.self.moveInterval);
     }
 
     componentWillUnmount() {

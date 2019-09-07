@@ -13,7 +13,9 @@ export const NPC = (state = [], action) => {
                             spriteLocation: npc.skin[npc.direction],
                             isAnimating: false,
                             nextPosition: [],
-                            walkIndex: 0, 
+                            walkIndex: 0,
+                            lastUpdated: performance.now(),
+                            isWaiting: false,
                     })
                 })
             );
@@ -46,13 +48,18 @@ export const NPC = (state = [], action) => {
                 return(
                     state.map( npc => {
                         if(npc.id===action.payload.id) {
-                            let pathIdx = npc.pathIdx;
-                            let pathDir = npc.pathDir;
+                            let pathIdx = npc.pathIdx, 
+                                pathDir = npc.pathDir,
+                                isWaiting = npc.isWaiting, lastUpdated = npc.lastUpdated;
+                            
                             if(!action.payload.isAnimating) {
+                                lastUpdated = performance.now();
                                 pathIdx = pathIdx + pathDir;
                                 if(pathDir===1 && pathIdx===(npc.pathArr.length-1)) {
+                                    isWaiting = true;
                                     pathDir = -1;
                                 } else if(pathDir===-1 && pathIdx===0) {
+                                    isWaiting = true;
                                     pathDir = 1;
                                 }
                             }
@@ -60,9 +67,22 @@ export const NPC = (state = [], action) => {
                                     isAnimating: action.payload.isAnimating, 
                                     nextPosition: action.payload.newpos, 
                                     pathIdx: pathIdx, 
-                                    pathDir: pathDir
+                                    pathDir: pathDir,
+                                    isWaiting: isWaiting,
+                                    lastUpdated: lastUpdated
                             });
                         } else
+                            return npc;
+                    })
+                );
+        case ActionTypes.RESET_NPC_WAITING:
+                return(
+                    state.map( npc => {
+                        if(npc.id===action.payload.id)
+                            return({...npc,  
+                                    isWaiting: false,
+                                });
+                        else
                             return npc;
                     })
                 );
