@@ -29,8 +29,8 @@ class NPC extends Component {
     render() {
         const npcStyle = {
             position: 'absolute',
-            width: PLAYER_SPRITE_SIZE,
-            height: PLAYER_SPRITE_SIZE, 
+            width: this.props.self.skin.spriteSize,
+            height: this.props.self.skin.spriteSize, 
             backgroundImage: `url('${this.props.self.skin.src}')`,
             left: this.props.self.position[0],
             top: this.props.self.position[1],
