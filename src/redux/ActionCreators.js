@@ -291,20 +291,12 @@ export const AddMap = (map) => (dispatch) => {
     renderTiles(offscreenctx);
 
     function renderTiles(ctx) {
-        const tiles = map.tiles;
-        const objectsSprite = new Image();
-        objectsSprite.src = map.sprites.src;
-        objectsSprite.onload = renderTiles;
+        const mapBg = new Image();
+        mapBg.src = map.src;
+        mapBg.onload = renderMap;
 
-        function renderTiles(){
-            for(var i=0; i<tiles.length; i++) {
-                for(var j=0; j<tiles[0].length; j++) {
-                    if(tiles[i][j]>=0) {
-                        const tile = map.sprites.indices[tiles[i][j]];
-                        ctx.drawImage(objectsSprite, tile[0], tile[1], tile[2], tile[3], j*TILE_SIZE, i*TILE_SIZE,  tile[2], tile[3]);
-                    }
-                }
-            }
+        function renderMap(){
+            ctx.drawImage(mapBg, 0, 0);
             dispatch(AddMapAction(map, width, height, playerPosition, start, end, offScreenCanvas));
         }
     }
