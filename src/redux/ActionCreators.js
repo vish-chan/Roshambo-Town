@@ -43,6 +43,16 @@ const observeNPC = (newpos, npcList) => {
     return impassible.length === 0;
 }
 
+const observeNPCForDialog = (position, npcList) => {
+    const npcForDialog = npcList.filter( npc => {
+        if(!npc.isAnimating) {
+            return(position[0] === npc.position[0] && position[1] === npc.position[1]);
+        } else return false;
+    });
+
+    return npcForDialog;
+}
+
 const observePlayer = (newpos, player) => {
     if(!player.isAnimating) 
         return !((newpos[0] === player.position[0]) && (newpos[1] === player.position[1]));
@@ -152,7 +162,53 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     }
 }
 
-const getDirection = (oldpos, newpos, oldirection) => {
+const getOppositeDirection = (direction) => {
+    switch(direction) {
+        case UP: return DOWN;
+        case RIGHT: return LEFT;
+        case DOWN: return UP;
+        case LEFT: return RIGHT;
+    }
+}
+
+const checkNearbyNPC = (playerpos, direction, npcList) => {
+    const nextPosition = getNewPostion(playerpos, direction, PLAYER_SPRITE_SIZE);
+    const nearByNPC = observeNPCForDialog(nextPosition, npcList);
+    return nearByNPC;
+}
+
+export const InitiateConversation = () => (dispatch, getState) => {
+    const player = getState().player, npcList = getState().npc;
+    const nearByNPC = checkNearbyNPC(player.position, player.direction, npcList);
+    if(nearByNPC.length) {
+        const npc = nearByNPC[0];
+        const oppdirection = getOppositeDirection(player.direction);
+        if(npc.direction!=oppdirection) {
+            dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
+        }
+        dispatch(SetConversationStatus(npc.id, 
+                                    {name: player.name, dialogs: player.talk[npc.id]}, 
+                                    {name: npc.name, dialogs: npc.talk}, 
+                                    mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/4)? "top": "bottom"));
+        
+    }
+}
+
+export const UpdateConversation = () => (dispatch, getState) => {
+    const dialog = getState().dialog;
+    if(dialog.speakerIdx===0) {
+        dispatch(NextDialogAction());
+        return;
+    }
+    let nextcontentIdx = dialog.dialogIdx + 1;
+    if(nextcontentIdx<dialog.person1.dialogs.length) {
+        dispatch(NextDialogAction());
+    } else {
+        dispatch(ResetConversationStatus(dialog.npcId));
+    }
+}
+
+const getNewDirection = (oldpos, newpos, oldirection) => {
     if(oldpos[0] === newpos[0]) {
         if(oldpos[1] > newpos[1])
             return UP;
@@ -170,7 +226,7 @@ const getDirection = (oldpos, newpos, oldirection) => {
 export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
     let npc = getState().npc[npcId];
     
-    if(npc.stationary ||  npc.isAnimating)
+    if(npc.stationary ||  npc.isAnimating || npc.interacting)
         return;
     
     if(npc.isWaiting) {
@@ -184,7 +240,7 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
     let curdirection = npc.direction, steps = npc.skin.walkSpriteCount;
     const frameMovementSize = TOTAL_MOVEMENT_SIZE/steps;
     let newpos = tileToMapCoordinates(npc.pathArr[npc.pathIdx + npc.pathDir], TILE_SIZE);
-    let newdirection = getDirection(oldpos, newpos, curdirection);
+    let newdirection = getNewDirection(oldpos, newpos, curdirection);
     if(curdirection!==newdirection) {
         dispatch(UpdateNPCDirectionAction(npcId, newdirection));
     }
@@ -331,6 +387,34 @@ export const UpdateOriginAction = (origin) => {
     });
 }
 
+
+const SetConversationStatus = (npcId, person1, person2, position) => {
+    return({
+        type: ActionTypes.SET_DIALOG_STATUS,
+        payload: {
+            person1,
+            person2,
+            npcId,
+            position,
+        }
+    });
+}
+
+const ResetConversationStatus = (npcId) => {
+    return({
+        type: ActionTypes.RESET_DIALOG_STATUS,
+        payload: {
+            npcId,
+        }
+    });
+}
+
+const NextDialogAction = () => {
+    return({
+        type: ActionTypes.NEXT_DIALOG,
+    })
+}
+
 export const AddMapAction = (map, width, height ,playerPosition, start, end, offScreenCanvas) => { 
     return({
         type: ActionTypes.ADD_MAP,
@@ -344,12 +428,11 @@ export const AddMapAction = (map, width, height ,playerPosition, start, end, off
                 end,
             },
             player: {
-                name: map.player.name,
-                skin: map.player.skin,
+                ...map.player,
                 position: playerPosition,
-                frameInterval: map.player.frameInterval,
             },
             npc: map.npc,
+            gameobjects: map.gameobjects,
         },
     });
 }

@@ -1,5 +1,6 @@
-import { DOWN, TILE_SIZE, RIGHT } from "../../../helpers/constants";
+import { DOWN, TILE_SIZE, RIGHT, LEFT } from "../../../helpers/constants";
 import { Skin } from '../../skins';
+import { GameObjects } from "../../gameobjects";
 
 const TS = TILE_SIZE;
 
@@ -102,7 +103,7 @@ export const map = {
                 name: "Moon",
                 skin: Skin[6],
                 position: [15, 12],
-                direction: RIGHT,
+                direction: LEFT,
                 stationary: false,
                 pathArr: [[15,12], [15,13], [15,14], [15,15]],
                 pathIdx: 0,
@@ -110,6 +111,7 @@ export const map = {
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 3000,
+                talk: ["I'm great dude. Long time no see ah!", "Let's catchup later today to play fifa."],
             },
         ],
     
@@ -118,5 +120,21 @@ export const map = {
         skin: Skin[0],
         position: [15, 17],
         frameInterval: 5,
-    }
+        talk: [
+            null,
+            ["Hey! Whatsup?", "Do you have any plans for Fifa today?"]
+        ],
+    },
+
+    gameobjects : [{ 
+                id: 0,
+                type: GameObjects[0],
+                position: [15, 16],
+             },
+             { 
+                id: 1,
+                type: GameObjects[0],
+                position: [15, 18],
+            },
+        ],
 };

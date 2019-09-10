@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import Player from './PlayerComponent';
 import Map from './MapComponent';
-import NPCManager from './NPCManagerComponent';
 import { AddMap  } from '../redux/ActionCreators';
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../helpers/constants';
 import { map } from '../data/maps/2/index';
 import { connect } from 'react-redux';
+import ConversationDisplay from './ConversationDisplayComponent';
 
 
 const worldStyle = {
@@ -47,6 +47,7 @@ class World extends Component {
             <div style={worldStyle}>
                 <Map map={this.props.map} viewport={this.props.viewport}/>
                 <Player/>
+                <ConversationDisplay/>
             </div> 
         );
     }

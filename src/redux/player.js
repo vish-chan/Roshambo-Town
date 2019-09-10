@@ -1,6 +1,8 @@
 import * as ActionTypes from './ActionTypes';
 import { DOWN } from '../helpers/constants';
 
+const DEFAULT_DIALOG = "Hey! What's up?";
+
 
 export const Player = (state = { 
                                 name: null,
@@ -12,6 +14,8 @@ export const Player = (state = {
                                 nextPosition: [],
                                 walkIndex: 0,
                                 frameInterval: 0,
+                                interacting: false,
+                                talk: [],
                                 }, action) => {
     switch(action.type) {
         case ActionTypes.ADD_MAP:
@@ -22,6 +26,7 @@ export const Player = (state = {
                         frameInterval: action.payload.player.frameInterval,
                         direction: DOWN, 
                         spriteLocation: action.payload.player.skin["DOWN"],
+                        talk: action.payload.player.talk.map(talk => talk? talk: [DEFAULT_DIALOG]),
                         });
         case ActionTypes.UPDATE_PLAYER_POSITION:
                 return({...state, 
@@ -39,6 +44,16 @@ export const Player = (state = {
                         action.payload.isAnimating, 
                         nextPosition: action.payload.newpos, 
                         walkIndex: 0});
+        case ActionTypes.SET_DIALOG_STATUS:
+                return({
+                        ...state,
+                        interacting: true,
+                });
+        case ActionTypes.RESET_DIALOG_STATUS:
+                        return({
+                                ...state,
+                                interacting: false,
+                        });
         default: 
             return state;
     }

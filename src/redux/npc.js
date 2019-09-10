@@ -2,10 +2,13 @@ import * as ActionTypes from './ActionTypes';
 import {tileToMapCoordinates} from '../helpers/funcs';
 import {TILE_SIZE } from '../helpers/constants';
 
+const DEFAULT_DIALOG = ["Ehhh! Leave me alone!"];
 
 export const NPC = (state = [], action) => {
     switch(action.type) {
         case ActionTypes.ADD_MAP:
+            if(!action.payload.npc)
+                return state;
             return(
                 action.payload.npc.map( npc => {
                     return({...npc, 
@@ -16,6 +19,8 @@ export const NPC = (state = [], action) => {
                             walkIndex: 0,
                             lastUpdated: performance.now(),
                             isWaiting: false,
+                            interacting: false,
+                            talk: npc.talk? npc.talk: DEFAULT_DIALOG,
                     })
                 })
             );
@@ -86,6 +91,28 @@ export const NPC = (state = [], action) => {
                             return npc;
                     })
                 );
+        case ActionTypes.SET_DIALOG_STATUS:
+                return(
+                    state.map( npc => {
+                        if(npc.id===action.payload.npcId)
+                            return({...npc,  
+                                    interacting: true,
+                                });
+                        else
+                            return npc;
+                    })
+                );
+        case ActionTypes.RESET_DIALOG_STATUS:
+                    return(
+                        state.map( npc => {
+                            if(npc.id===action.payload.npcId)
+                                return({...npc,  
+                                        interacting: false,
+                                    });
+                            else
+                                return npc;
+                        })
+                    );
         default: 
             return state;
     }

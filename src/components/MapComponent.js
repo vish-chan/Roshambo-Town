@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NPCManager from './NPCManagerComponent';
+import GameObjectManager from './GameObjectManagerComponent';
 
 class Map extends Component {
 
@@ -35,6 +36,7 @@ class Map extends Component {
                         position: "absolute",
                        }}>
                 <canvas ref={canvas => this.canvas = canvas} width={this.props.map.width} height={this.props.map.height}/>
+                <GameObjectManager />
                 <NPCManager />
             </div>
         );

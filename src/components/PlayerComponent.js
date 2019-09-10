@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {PLAYER_SPRITE_SIZE, ARROW_KEYCODES} from '../helpers/constants';
+import {PLAYER_SPRITE_SIZE, VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY} from '../helpers/constants';
 import { connect } from 'react-redux';
-import { UpdatePlayerPosition } from '../redux/ActionCreators';
+import { UpdatePlayerPosition, InitiateConversation, UpdateConversation } from '../redux/ActionCreators';
 import {  } from '../redux/ActionCreators';
 import { mapToViewport } from '../helpers/funcs';
 
@@ -15,7 +15,9 @@ const mapStatetoProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return({
-        updatePlayerPosition: (keyCode) => { dispatch(UpdatePlayerPosition(keyCode));},
+        updatePlayerPosition: (keyCode) => { dispatch(UpdatePlayerPosition(keyCode)); },
+        initiateConversation: () => { dispatch(InitiateConversation()); },
+        updateConversation: () => { dispatch(UpdateConversation()); }
     });
 }
 
@@ -35,11 +37,19 @@ class Player extends Component {
         if(this.props.player.isAnimating)
             return;
         var keyCode = event.keyCode;
-        if(!ARROW_KEYCODES.includes(keyCode))
-            return; 
-        event.preventDefault();
-        this.props.updatePlayerPosition(keyCode);
-        event.stopImmediatePropagation();
+        if(VALID_KEYCODES.includes(keyCode)) {
+            //console.log(keyCode);
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            if(ARROW_KEYCODES.includes(keyCode) && !this.props.player.interacting) {
+                this.props.updatePlayerPosition(keyCode);
+            } else if(SPACE_KEY.includes(keyCode)) {
+                if(!this.props.player.interacting)
+                    this.props.initiateConversation();
+                else
+                    this.props.updateConversation();
+            }
+        } 
     }
 
     
