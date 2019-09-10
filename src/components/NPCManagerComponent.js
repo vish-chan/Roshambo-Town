@@ -29,11 +29,11 @@ class NPC extends Component {
     render() {
         const npcStyle = {
             position: 'absolute',
-            width: this.props.self.skin.spriteSize,
-            height: this.props.self.skin.spriteSize, 
+            width: this.props.self.skin.width,
+            height: this.props.self.skin.height, 
             backgroundImage: `url('${this.props.self.skin.src}')`,
-            left: this.props.self.position[0],
-            top: this.props.self.position[1],
+            left: this.props.self.position[0] + ((PLAYER_SPRITE_SIZE/2) - (this.props.self.skin.width/2)),
+            top: this.props.self.position[1] + ((PLAYER_SPRITE_SIZE/2) - (this.props.self.skin.height/2)),
             backgroundPosition: `${this.props.self.walkIndex * PLAYER_SPRITE_SIZE}px ${this.props.self.spriteLocation * PLAYER_SPRITE_SIZE}px`,
         }
     
