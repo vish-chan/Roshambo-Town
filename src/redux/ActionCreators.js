@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, TILE_SIZE, PLAYER_SPRITE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA, INVENTORY} from '../helpers/constants';
 import {tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles} from '../helpers/funcs';
 import { store } from '../redux/ConfigureStore';
 
@@ -159,6 +159,23 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
         store.dispatch(UpdateOriginAction(mapstart));
         steps--;
         setTimeout(function() {requestAnimationFrame(animatePlayerOnSpot)}, player.frameInterval);
+    }
+}
+
+const getPositionEquality = (pos1, pos2) => (pos1[0]===pos2[0] && pos1[1]===pos2[1])
+
+const getObjectForPickup = (position, gameobjects) => {
+    return(gameobjects.filter(gameobject => getPositionEquality(position, gameobject.position)))
+}
+
+export const PickupGameObject = () => (dispatch, getState) => {
+    const player = getState().player;
+    const gameobjects = getState().gameobjects;
+    const objects = getObjectForPickup(player.position, gameobjects);
+    if(objects.length>0) {
+        const object = objects[0];
+        if(object.type.type===INVENTORY)
+            dispatch(AddObjecttoInventory(object)); 
     }
 }
 
@@ -405,6 +422,15 @@ const NextDialogAction = () => {
     return({
         type: ActionTypes.NEXT_DIALOG,
     })
+}
+
+const AddObjecttoInventory = (object) => {
+    return({
+        type: ActionTypes.ADD_OBJECT_TO_INVENTORY,
+        payload: {
+            object,
+        }
+    });
 }
 
 export const AddMapAction = (map, width, height ,playerPosition, start, end, offScreenCanvas) => { 

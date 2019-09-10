@@ -15,6 +15,8 @@ export const GameObject = (state = [], action) => {
                     })
                 })
             );
+        case ActionTypes.ADD_OBJECT_TO_INVENTORY:
+            return(state.filter( gameobject => (gameobject.id !== action.payload.object.id)));
         default: 
             return state;
     }

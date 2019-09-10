@@ -1,4 +1,4 @@
-import { PLAYER_SPRITE_SIZE } from "../helpers/constants";
+import { PLAYER_SPRITE_SIZE, INVENTORY } from "../helpers/constants";
 
 export const GameObjects = [
     {
@@ -7,5 +7,6 @@ export const GameObjects = [
         src: "assets/images/80/objectsAndProps/banana.png", 
         width: PLAYER_SPRITE_SIZE,
         height: PLAYER_SPRITE_SIZE,
+        type: INVENTORY,
     },
 ];

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {PLAYER_SPRITE_SIZE, VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY} from '../helpers/constants';
+import {PLAYER_SPRITE_SIZE, VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY} from '../helpers/constants';
 import { connect } from 'react-redux';
-import { UpdatePlayerPosition, InitiateConversation, UpdateConversation } from '../redux/ActionCreators';
-import {  } from '../redux/ActionCreators';
+import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject } from '../redux/ActionCreators';
 import { mapToViewport } from '../helpers/funcs';
 
 
@@ -17,7 +16,8 @@ const mapDispatchToProps = dispatch => {
     return({
         updatePlayerPosition: (keyCode) => { dispatch(UpdatePlayerPosition(keyCode)); },
         initiateConversation: () => { dispatch(InitiateConversation()); },
-        updateConversation: () => { dispatch(UpdateConversation()); }
+        updateConversation: () => { dispatch(UpdateConversation()); },
+        pickupObject: () => { dispatch(PickupGameObject()); }
     });
 }
 
@@ -37,6 +37,7 @@ class Player extends Component {
         if(this.props.player.isAnimating)
             return;
         var keyCode = event.keyCode;
+        //console.log(keyCode);
         if(VALID_KEYCODES.includes(keyCode)) {
             //console.log(keyCode);
             event.preventDefault();
@@ -48,6 +49,8 @@ class Player extends Component {
                     this.props.initiateConversation();
                 else
                     this.props.updateConversation();
+            } else if(PICKUP_KEY.includes(keyCode) && !this.props.player.interacting) {
+                this.props.pickupObject();
             }
         } 
     }

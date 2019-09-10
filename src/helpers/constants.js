@@ -19,7 +19,10 @@ export const SPRITE_LOC_RIGHT = 1;
 
 export const ARROW_KEYCODES = [37, 38, 39, 40];
 export const SPACE_KEY = [32];
+export const PICKUP_KEY = [80];
 
-export const VALID_KEYCODES = ARROW_KEYCODES.concat(SPACE_KEY);
+export const VALID_KEYCODES = ARROW_KEYCODES.concat(SPACE_KEY,PICKUP_KEY);
 
 export const PASSIBLE_INDEX = 5;
+
+export const INVENTORY = "INVENTORY";

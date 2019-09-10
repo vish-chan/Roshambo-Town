@@ -16,6 +16,7 @@ export const Player = (state = {
                                 frameInterval: 0,
                                 interacting: false,
                                 talk: [],
+                                inventory: [],
                                 }, action) => {
     switch(action.type) {
         case ActionTypes.ADD_MAP:
@@ -53,6 +54,11 @@ export const Player = (state = {
                         return({
                                 ...state,
                                 interacting: false,
+                        });
+        case ActionTypes.ADD_OBJECT_TO_INVENTORY:
+                        return({
+                                ...state,
+                                inventory: state.inventory.concat(action.payload.object),
                         });
         default: 
             return state;

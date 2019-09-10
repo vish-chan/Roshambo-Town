@@ -26,8 +26,8 @@ class GameObject extends Component {
     render() {
         const objStyle = {
             position: 'absolute',
-            width: PLAYER_SPRITE_SIZE,
-            height: PLAYER_SPRITE_SIZE, 
+            width: this.props.self.type.width,
+            height: this.props.self.type.height, 
             backgroundImage: `url('${this.props.self.type.src}')`,
             left: this.props.self.position[0] + ((PLAYER_SPRITE_SIZE/2) - (this.props.self.type.width/2)),
             top: this.props.self.position[1] + ((PLAYER_SPRITE_SIZE/2) - (this.props.self.type.height/2)),
