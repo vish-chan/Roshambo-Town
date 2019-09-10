@@ -62,10 +62,11 @@ class Dialog extends Component {
     render() {
         const style = {
             position: 'absolute',
-            border: '5px solid white',
-            width: VIEWPORT_WIDTH - 10,
+            borderTop: '5px solid white',
+            borderBottom: '5px solid white',
+            width: VIEWPORT_WIDTH,
             height: 200,
-            padding: '5px',
+            padding: '10px',
             backgroundColor: 'black',
             color: 'white',
             fontSize: '20px',
