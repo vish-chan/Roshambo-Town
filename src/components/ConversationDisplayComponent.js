@@ -64,13 +64,14 @@ class Dialog extends Component {
             position: 'absolute',
             border: '5px solid white',
             width: VIEWPORT_WIDTH - 10,
-            height: 100,
-            padding: '10px',
+            height: 200,
+            padding: '5px',
             backgroundColor: 'black',
             color: 'white',
-            display: this.props.isOpen? 'block': 'none',
-            top: this.props.position==="top"? 0: VIEWPORT_HEIGHT - 100,
             fontSize: '20px',
+            fontFamily: 'gameboy',
+            display: this.props.isOpen? 'block': 'none',
+            top: this.props.position==="top"? 0: VIEWPORT_HEIGHT - 220,
         };
 
         return(
