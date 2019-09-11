@@ -31,10 +31,6 @@ const mapDispatchtoProps = dispatch => {
 }
 
 class World extends Component {
-    
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this.props.loadMap(map);

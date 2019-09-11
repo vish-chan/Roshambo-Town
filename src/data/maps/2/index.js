@@ -1,8 +1,6 @@
-import { DOWN, TILE_SIZE, RIGHT, LEFT, UP } from "../../../helpers/constants";
+import { DOWN, LEFT, UP } from "../../../helpers/constants";
 import { Skin } from '../../skins';
 import { GameObjects } from "../../gameobjects";
-
-const TS = TILE_SIZE;
 
 export const map = {
     tiles: [

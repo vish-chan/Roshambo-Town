@@ -196,7 +196,7 @@ export const InitiateConversation = () => (dispatch, getState) => {
     if(nearByNPC.length) {
         const npc = nearByNPC[0];
         const oppdirection = getOppositeDirection(player.direction);
-        if(npc.direction!=oppdirection) {
+        if(npc.direction!==oppdirection) {
             dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
         }
         dispatch(SetConversationStatus(npc.id, 

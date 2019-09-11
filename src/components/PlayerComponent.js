@@ -32,8 +32,8 @@ const PlayerSprite = (props) => {
         width: props.player.skin.width,
         height: props.player.skin.height, 
         backgroundImage: `url('${props.player.skin.src}')`,
-        left: position[0] + (TILE_SIZE/2 - props.player.skin.width/2) ,
-        top: position[1] + (TILE_SIZE/2 - props.player.skin.height/2),
+        left: isNaN(position[0] + TILE_SIZE/2 - props.player.skin.width/2) ? 0: position[0] + (TILE_SIZE/2 - props.player.skin.width/2),
+        top: isNaN(position[1] + TILE_SIZE/2 - props.player.skin.height/2) ? 0: position[1] + (TILE_SIZE/2 - props.player.skin.height/2),
         backgroundPosition: `${props.player.walkIndex * props.player.skin.width}px ${props.player.spriteLocation * props.player.skin.height}px`,
         zIndex: 2,
     };
