@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {PLAYER_SPRITE_SIZE, VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY} from '../helpers/constants';
+import {PLAYER_SPRITE_SIZE, VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, VIEWPORT_WIDTH, VIEWPORT_HEIGHT, INVENTORY_KEY} from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject } from '../redux/ActionCreators';
 import { mapToViewport } from '../helpers/funcs';
@@ -21,16 +21,50 @@ const mapDispatchToProps = dispatch => {
     });
 }
 
+
+ 
+
+const Inventory = (props) => {
+    const inventoryStyle = {
+        position: 'absolute',
+        width: VIEWPORT_WIDTH-100,
+        height: VIEWPORT_HEIGHT-100, 
+        backgroundColor: 'black',
+        color: 'white',
+        fontSize: "10px",
+        left:50,
+        top:50,
+        zIndex: 5,
+        display: props.isOpen? 'block' : 'none',
+    }
+
+    return(<div id="inventory" style={inventoryStyle}>HELLO WORLD</div>);
+}
+
+    
+
+
 class Player extends Component {
 
     constructor(props) {
         super(props);
 
+        this.state = {
+            isOpen: false,
+        }
+
         this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.toggleInventory = this.toggleInventory.bind(this);
     }
 
     componentDidMount() {
         window.addEventListener('keydown', this.handleKeyDown);
+    }
+
+    toggleInventory() {
+        this.setState({
+            isOpen: !this.state.isOpen,
+        });
     }
 
     handleKeyDown(event) {
@@ -51,6 +85,8 @@ class Player extends Component {
                     this.props.updateConversation();
             } else if(PICKUP_KEY.includes(keyCode) && !this.props.player.interacting) {
                 this.props.pickupObject();
+            } else if(INVENTORY_KEY.includes(keyCode) && !this.props.player.interacting) {
+                this.toggleInventory();
             }
         } 
     }
@@ -67,11 +103,14 @@ class Player extends Component {
             left: position[0],
             top: position[1],
             backgroundPosition: `${this.props.player.walkIndex * PLAYER_SPRITE_SIZE}px ${this.props.player.spriteLocation * PLAYER_SPRITE_SIZE}px`,
+            zIndex: 2,
         }
 
         return(
-            <div id="Player" style={playerStyle}>
-            </div>
+            <React.Fragment>
+                <div id="Player" style={playerStyle} />
+                <Inventory isOpen={this.state.isOpen} items={this.props.player.Inventory}/>
+            </React.Fragment>
         );
     }
 }
