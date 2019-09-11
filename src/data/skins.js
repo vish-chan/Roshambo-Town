@@ -1,11 +1,11 @@
-const PLAYER_SPRITE_SIZE = 80;
+const _80 = 80;
 
 export const Skin = [
     {
         /*0*/
         src: "assets/images/80/player_80.png", 
-        width: PLAYER_SPRITE_SIZE,
-        height: PLAYER_SPRITE_SIZE,
+        width: _80,
+        height: _80,
         UP: 3,
         RIGHT: 1,
         DOWN: 0,
@@ -15,8 +15,8 @@ export const Skin = [
     {
         /*1*/
         src: "assets/images/80/professor_80.png",
-        width: PLAYER_SPRITE_SIZE,
-        height: PLAYER_SPRITE_SIZE,
+        width: _80,
+        height: _80,
         UP: 0,
         RIGHT: 1,
         DOWN: 2,
@@ -26,8 +26,8 @@ export const Skin = [
     {
         /*2*/
         src: "assets/images/80/cat_small_80.png",
-        width: PLAYER_SPRITE_SIZE,
-        height: PLAYER_SPRITE_SIZE,
+        width: _80,
+        height: _80,
         UP: 0,
         RIGHT: 0,
         DOWN: 0,
@@ -37,8 +37,8 @@ export const Skin = [
     {
         /*3*/
         src: "assets/images/80/dog_small_bad_80.png",
-        width: PLAYER_SPRITE_SIZE,
-        height: PLAYER_SPRITE_SIZE,
+        width: _80,
+        height: _80,
         UP: 0,
         RIGHT: 0,
         DOWN: 0,
@@ -48,8 +48,8 @@ export const Skin = [
     {
         /*4*/
         src: "assets/images/80/friend_1_80.png",
-        width: PLAYER_SPRITE_SIZE,
-        height: PLAYER_SPRITE_SIZE,
+        width: _80,
+        height: _80,
         UP: 1,
         RIGHT: 2,
         DOWN: 0,
@@ -59,8 +59,8 @@ export const Skin = [
     {
         /*5*/
         src: "assets/images/80/friend_2_80.png",
-        width: PLAYER_SPRITE_SIZE,
-        height: PLAYER_SPRITE_SIZE,
+        width: _80,
+        height: _80,
         UP: 1,
         RIGHT: 2,
         DOWN: 0,
@@ -70,8 +70,8 @@ export const Skin = [
     {
         /*6*/
         src: "assets/images/80/friend_4_80.png",
-        width: PLAYER_SPRITE_SIZE,
-        height: PLAYER_SPRITE_SIZE,
+        width: _80,
+        height: _80,
         UP: 1,
         RIGHT: 2,
         DOWN: 0,
@@ -81,8 +81,8 @@ export const Skin = [
     {
         /*7*/
         src: "assets/images/80/friend_5_80.png",
-        width: PLAYER_SPRITE_SIZE,
-        height: PLAYER_SPRITE_SIZE,
+        width: _80,
+        height: _80,
         UP: 1,
         RIGHT: 2,
         DOWN: 0,

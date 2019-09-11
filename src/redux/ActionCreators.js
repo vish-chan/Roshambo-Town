@@ -40,7 +40,7 @@ const observeNPC = (newpos, npcList) => {
     return impassible.length === 0;
 }
 
-const observeNPCForDialog = (position, npcList) => {
+const observeIdleNPC = (position, npcList) => {
     const npcForDialog = npcList.filter( npc => {
         if(!npc.isAnimating) {
             return(position[0] === npc.position[0] && position[1] === npc.position[1]);
@@ -185,15 +185,15 @@ const getOppositeDirection = (direction) => {
     }
 }
 
-const checkNearbyNPC = (playerpos, direction, npcList) => {
+const checkNearbyIdleNPC = (playerpos, direction, npcList) => {
     const nextPosition = getNewPostion(playerpos, direction, TOTAL_MOVEMENT_SIZE);
-    const nearByNPC = observeNPCForDialog(nextPosition, npcList);
+    const nearByNPC = observeIdleNPC(nextPosition, npcList);
     return nearByNPC;
 }
 
 export const InitiateConversation = () => (dispatch, getState) => {
     const player = getState().player, npcList = getState().npc;
-    const nearByNPC = checkNearbyNPC(player.position, player.direction, npcList);
+    const nearByNPC = checkNearbyIdleNPC(player.position, player.direction, npcList);
     if(nearByNPC.length) {
         const npc = nearByNPC[0];
         const oppdirection = getOppositeDirection(player.direction);

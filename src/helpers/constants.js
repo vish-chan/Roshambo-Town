@@ -1,5 +1,3 @@
-//export const PLAYER_SPRITE_SIZE = 80;
-
 export const TILE_SIZE = 80;
 export const TOTAL_MOVEMENT_SIZE = TILE_SIZE;
 
