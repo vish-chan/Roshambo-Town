@@ -4,10 +4,6 @@ import GameObjectManager from './GameObjectManagerComponent';
 
 class Map extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     drawCanvas() {
         const onscreenctx = this.canvas.getContext("2d");
         onscreenctx.clearRect(0, 0, this.props.map.width, this.props.map.height);
