@@ -39,7 +39,7 @@ export const map = {
                 skin: Skin[5],
                 position: [12, 26],
                 direction: DOWN,
-                stationary: false,
+                stationary: true,
                 pathArr: [[12,26], [13,26], [14,26], [15,26], [15, 25]],
                 pathIdx: 0,
                 pathDir: 1,
@@ -53,7 +53,7 @@ export const map = {
                 skin: Skin[6],
                 position: [15, 12],
                 direction: LEFT,
-                stationary: false,
+                stationary: true,
                 pathArr: [[15,12], [15,13], [15,14], [15,15]],
                 pathIdx: 0,
                 pathDir: 1,
@@ -68,7 +68,7 @@ export const map = {
                 skin: Skin[4],
                 position: [0, 12],
                 direction: UP,
-                stationary: false,
+                stationary: true,
                 pathArr: [[0,12], [0,13], [0,14], [0,15]],
                 pathIdx: 0,
                 pathDir: 1,
@@ -90,15 +90,16 @@ export const map = {
         ],
     },
 
-    gameobjects : [{ 
-                id: 0,
-                type: GameObjects[0],
-                position: [15, 16],
-             },
-             { 
-                id: 1,
-                type: GameObjects[0],
-                position: [15, 18],
-            },
-        ],
+    gameobjects : [
+                    { 
+                        id: 0,
+                        type: GameObjects[6],
+                        position: [15, 16],
+                    },
+                    { 
+                        id: 1,
+                        type: GameObjects[7],
+                        position: [15, 18],
+                    },
+    ],
 };

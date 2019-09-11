@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {PLAYER_SPRITE_SIZE, VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, VIEWPORT_WIDTH, VIEWPORT_HEIGHT, INVENTORY_KEY, TILE_SIZE} from '../helpers/constants';
+import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE } from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject } from '../redux/ActionCreators';
 import { mapToViewport } from '../helpers/funcs';
+import Inventory from './InventoryComponent';
 
 
 const mapStatetoProps = state => {
@@ -22,25 +23,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 
- 
-
-const Inventory = (props) => {
-    const inventoryStyle = {
-        position: 'absolute',
-        width: VIEWPORT_WIDTH-100,
-        height: VIEWPORT_HEIGHT-100, 
-        backgroundColor: 'black',
-        color: 'white',
-        fontSize: "10px",
-        left:50,
-        top:50,
-        zIndex: 5,
-        display: props.isOpen? 'block' : 'none',
-    }
-
-    return(<div id="inventory" style={inventoryStyle}>HELLO WORLD</div>);
-}
-
 
 const PlayerSprite = (props) => {
     
@@ -54,7 +36,7 @@ const PlayerSprite = (props) => {
         top: position[1] + (TILE_SIZE/2 - props.player.skin.height/2),
         backgroundPosition: `${props.player.walkIndex * props.player.skin.width}px ${props.player.spriteLocation * props.player.skin.height}px`,
         zIndex: 2,
-    }
+    };
 
     return(
         <div id="player" style={playerStyle} />
@@ -70,7 +52,7 @@ class Player extends Component {
         super(props);
 
         this.state = {
-            isOpen: false,
+            isInventoryOpen: false,
         }
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -83,7 +65,7 @@ class Player extends Component {
 
     toggleInventory() {
         this.setState({
-            isOpen: !this.state.isOpen,
+            isInventoryOpen: !this.state.isInventoryOpen,
         });
     }
 
@@ -105,7 +87,7 @@ class Player extends Component {
                     this.props.updateConversation();
             } else if(PICKUP_KEY.includes(keyCode) && !this.props.player.interacting) {
                 this.props.pickupObject();
-            } else if(INVENTORY_KEY.includes(keyCode) && !this.props.player.interacting) {
+            } else if(INVENTORY_KEY.includes(keyCode)) {
                 this.toggleInventory();
             }
         } 
@@ -117,7 +99,7 @@ class Player extends Component {
         return(
             <React.Fragment>
                 <PlayerSprite player={this.props.player} viewport={this.props.viewport}/>
-                <Inventory isOpen={this.state.isOpen} items={this.props.player.Inventory}/>
+                <Inventory isOpen={this.state.isInventoryOpen} items={this.props.player.inventory} playername={this.props.player.name}/>
             </React.Fragment>
         );
     }

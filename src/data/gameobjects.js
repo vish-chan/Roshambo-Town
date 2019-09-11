@@ -1,12 +1,83 @@
-import {  INVENTORY } from "../helpers/constants";
+import { HEALER, EATABLE, CURRENCY } from "../helpers/constants";
 
 export const GameObjects = [
     {
         /*0*/
-        name: "banana",
-        src: "assets/images/80/objectsAndProps/banana.png", 
-        width: 80,
-        height: 80,
-        type: INVENTORY,
+        name: "redpotion",
+        src: "assets/images/80/objectsAndProps/items.png",
+        srcpos: [0,0],
+        width: 40,
+        height: 40,
+        type: HEALER,
+    },
+
+    {
+        /*1*/
+        name: "vaccine",
+        src: "assets/images/80/objectsAndProps/items.png",
+        srcpos: [200,0],
+        width: 40,
+        height: 40,
+        type: HEALER,
+    },
+
+    {
+        /*2*/
+        name: "water",
+        src: "assets/images/80/objectsAndProps/items.png",
+        srcpos: [240,0],
+        width: 40,
+        height: 40,
+        type: EATABLE,
+    },
+
+    {
+        /*3*/
+        name: "berry",
+        src: "assets/images/80/objectsAndProps/items.png",
+        srcpos: [240,280],
+        width: 40,
+        height: 40,
+        type: EATABLE,
+    },
+
+    {
+        /*4*/
+        name: "diamond",
+        src: "assets/images/80/objectsAndProps/items.png",
+        srcpos: [240,200],
+        width: 40,
+        height: 40,
+        type: CURRENCY,
+    },
+
+    {
+        /*5*/
+        name: "meat",
+        src: "assets/images/80/objectsAndProps/items.png",
+        srcpos: [280,160],
+        width: 40,
+        height: 40,
+        type: EATABLE,
+    },
+
+    {
+        /*6*/
+        name: "bone",
+        src: "assets/images/80/objectsAndProps/items.png",
+        srcpos: [200,160],
+        width: 40,
+        height: 40,
+        type: EATABLE,
+    },
+
+    {
+        /*7*/
+        name: "goldcoin",
+        src: "assets/images/80/objectsAndProps/items.png",
+        srcpos: [280,120],
+        width: 40,
+        height: 40,
+        type: CURRENCY,
     },
 ];

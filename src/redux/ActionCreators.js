@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, INVENTORY} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA} from '../helpers/constants';
 import {tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles} from '../helpers/funcs';
 
 const observeViewPortBoundaries = (newpos, mapstart) => {
@@ -171,8 +171,7 @@ export const PickupGameObject = () => (dispatch, getState) => {
     const objects = getObjectForPickup(player.position, gameobjects);
     if(objects.length>0) {
         const object = objects[0];
-        if(object.type.type===INVENTORY)
-            dispatch(AddObjecttoInventory(object)); 
+        dispatch(AddObjecttoInventory(object)); 
     }
 }
 
