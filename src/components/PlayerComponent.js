@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {PLAYER_SPRITE_SIZE, VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, VIEWPORT_WIDTH, VIEWPORT_HEIGHT, INVENTORY_KEY} from '../helpers/constants';
+import {PLAYER_SPRITE_SIZE, VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, VIEWPORT_WIDTH, VIEWPORT_HEIGHT, INVENTORY_KEY, TILE_SIZE} from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject } from '../redux/ActionCreators';
 import { mapToViewport } from '../helpers/funcs';
@@ -39,6 +39,26 @@ const Inventory = (props) => {
     }
 
     return(<div id="inventory" style={inventoryStyle}>HELLO WORLD</div>);
+}
+
+
+const PlayerSprite = (props) => {
+    
+    const position = mapToViewport(props.player.position, props.viewport.start);
+    const playerStyle = {
+        position: 'absolute',
+        width: props.player.skin.width,
+        height: props.player.skin.height, 
+        backgroundImage: `url('${props.player.skin.src}')`,
+        left: position[0] + (TILE_SIZE/2 - props.player.skin.width/2) ,
+        top: position[1] + (TILE_SIZE/2 - props.player.skin.height/2),
+        backgroundPosition: `${props.player.walkIndex * props.player.skin.width}px ${props.player.spriteLocation * props.player.skin.height}px`,
+        zIndex: 2,
+    }
+
+    return(
+        <div id="player" style={playerStyle} />
+    );
 }
 
     
@@ -93,22 +113,10 @@ class Player extends Component {
 
     
     render() {
-        
-        const position = mapToViewport(this.props.player.position, this.props.viewport.start);
-        const playerStyle = {
-            position: 'absolute',
-            width: PLAYER_SPRITE_SIZE,
-            height: PLAYER_SPRITE_SIZE, 
-            backgroundImage: `url('${this.props.player.skin.src}')`,
-            left: position[0],
-            top: position[1],
-            backgroundPosition: `${this.props.player.walkIndex * PLAYER_SPRITE_SIZE}px ${this.props.player.spriteLocation * PLAYER_SPRITE_SIZE}px`,
-            zIndex: 2,
-        }
 
         return(
             <React.Fragment>
-                <div id="Player" style={playerStyle} />
+                <PlayerSprite player={this.props.player} viewport={this.props.viewport}/>
                 <Inventory isOpen={this.state.isOpen} items={this.props.player.Inventory}/>
             </React.Fragment>
         );
