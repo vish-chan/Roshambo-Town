@@ -420,6 +420,12 @@ const NextDialogAction = () => {
     })
 }
 
+export const ToggleInventory = () => {
+    return({
+        type: ActionTypes.TOGGLE_INVENTORY_DISPLAY,
+    })
+}
+
 const AddObjecttoInventory = (object) => {
     return({
         type: ActionTypes.ADD_OBJECT_TO_INVENTORY,

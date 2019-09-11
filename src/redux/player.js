@@ -15,11 +15,6 @@ const INITIAL_STATE = {
                         frameInterval: 0,
                         interacting: false,
                         talk: [],
-                        inventory: {
-                                HEALER : [],
-                                CURRENCY: [],
-                                EATABLE: [],
-                        },
         };
 
 
@@ -59,13 +54,6 @@ export const Player = (state = INITIAL_STATE, action) => {
                 return({
                         ...state,
                         interacting: false,
-                });
-        case ActionTypes.ADD_OBJECT_TO_INVENTORY:
-                let inventoryCpy =  Object.assign({}, state.inventory);
-                inventoryCpy[action.payload.object.type.type] =  inventoryCpy[action.payload.object.type.type].concat(action.payload.object);
-                return({
-                        ...state,
-                        inventory: inventoryCpy,
                 });
         default: 
             return state;

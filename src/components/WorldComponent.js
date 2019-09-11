@@ -6,6 +6,7 @@ import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../helpers/constants';
 import { map } from '../data/maps/2/index';
 import { connect } from 'react-redux';
 import ConversationDisplay from './ConversationDisplayComponent';
+import Inventory from './InventoryComponent';
 
 
 const worldStyle = {
@@ -44,6 +45,7 @@ class World extends Component {
                 <Map map={this.props.map} viewport={this.props.viewport}/>
                 <Player/>
                 <ConversationDisplay/>
+                <Inventory />
             </div> 
         );
     }

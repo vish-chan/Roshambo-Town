@@ -3,6 +3,7 @@ import { HEALER, EATABLE, CURRENCY } from "../helpers/constants";
 export const GameObjects = [
     {
         /*0*/
+        id: 0,
         name: "redpotion",
         src: "assets/images/80/objectsAndProps/items.png",
         srcpos: [0,0],
@@ -13,6 +14,7 @@ export const GameObjects = [
 
     {
         /*1*/
+        id: 1,
         name: "vaccine",
         src: "assets/images/80/objectsAndProps/items.png",
         srcpos: [200,0],
@@ -23,6 +25,7 @@ export const GameObjects = [
 
     {
         /*2*/
+        id: 2,
         name: "water",
         src: "assets/images/80/objectsAndProps/items.png",
         srcpos: [240,0],
@@ -33,6 +36,7 @@ export const GameObjects = [
 
     {
         /*3*/
+        id: 3,
         name: "berry",
         src: "assets/images/80/objectsAndProps/items.png",
         srcpos: [240,280],
@@ -43,6 +47,7 @@ export const GameObjects = [
 
     {
         /*4*/
+        id: 4,
         name: "diamond",
         src: "assets/images/80/objectsAndProps/items.png",
         srcpos: [240,200],
@@ -53,6 +58,7 @@ export const GameObjects = [
 
     {
         /*5*/
+        id: 5,
         name: "meat",
         src: "assets/images/80/objectsAndProps/items.png",
         srcpos: [280,160],
@@ -63,6 +69,7 @@ export const GameObjects = [
 
     {
         /*6*/
+        id: 6,
         name: "bone",
         src: "assets/images/80/objectsAndProps/items.png",
         srcpos: [200,160],
@@ -73,6 +80,7 @@ export const GameObjects = [
 
     {
         /*7*/
+        id: 6,
         name: "goldcoin",
         src: "assets/images/80/objectsAndProps/items.png",
         srcpos: [280,120],
