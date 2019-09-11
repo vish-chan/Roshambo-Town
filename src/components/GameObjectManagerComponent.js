@@ -15,30 +15,22 @@ const mapDispatchToProps = dispatch => {
     });
 }
 
-class GameObject extends Component {
     
-    componentDidMount() {
+const GameObject = (props) => {
+    const objStyle = {
+        position: 'absolute',
+        width: props.self.type.width,
+        height: props.self.type.height, 
+        backgroundImage: `url('${props.self.type.src}')`,
+        left: props.self.position[0] + (TILE_SIZE/2 - props.self.type.width/2),
+        top: props.self.position[1] + (TILE_SIZE/2 - props.self.type.height/2),
+        backgroundPosition: `${props.self.type.srcpos[0]}px ${props.self.type.srcpos[1]}0px`,
     }
 
-    componentWillUnmount() {
-    }
-    
-    render() {
-        const objStyle = {
-            position: 'absolute',
-            width: this.props.self.type.width,
-            height: this.props.self.type.height, 
-            backgroundImage: `url('${this.props.self.type.src}')`,
-            left: this.props.self.position[0] + (TILE_SIZE/2 - this.props.self.type.width/2),
-            top: this.props.self.position[1] + (TILE_SIZE/2 - this.props.self.type.height/2),
-            backgroundPosition: `0px 0px`,
-        }
-    
-        return(
-            <div id={`GObj${this.props.self.id}`} style={objStyle}/>
-        ); 
-    }  
-}    
+    return(
+        <div id={`GObj${props.self.id}`} style={objStyle}/>
+    ); 
+}      
 
 class GameObjectManager extends Component {
     
