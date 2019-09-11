@@ -18,10 +18,9 @@ const rootReducer = combineReducers({
 });
 
 
-
-export const store = createStore(
-        rootReducer,
-        composeWithDevTools(applyMiddleware(thunk))
-    );
+export const ConfigureStore = () =>  createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(thunk))
+);
     
 

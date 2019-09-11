@@ -3,11 +3,11 @@ import { Provider } from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 import './App.css';
 import Main from './components/MainComponent';
-import { store } from './redux/ConfigureStore';
+import { ConfigureStore } from './redux/ConfigureStore';
 
 function App() {
   return (
-    <Provider store={store}>
+    <Provider store={ConfigureStore()}>
         <BrowserRouter>
         <div>
           <Main />

@@ -3,9 +3,6 @@ import { TOTAL_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, TILE_SIZ
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
         VIEWPORT_HEIGHT, CAMERA, INVENTORY} from '../helpers/constants';
 import {tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles} from '../helpers/funcs';
-import { store } from '../redux/ConfigureStore';
-
-
 
 const observeViewPortBoundaries = (newpos, mapstart) => {
     const viewportPos = mapToViewport(newpos, mapstart);
@@ -137,11 +134,11 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
 
     function animatePlayer() {
         if(steps === 0) {
-            store.dispatch(UpdatePlayerAnimationAction(false));
+            dispatch(UpdatePlayerAnimationAction(false));
             return;
         } 
         newpos = getNewPostion(oldpos, direction, frameMovementSize);
-        store.dispatch(UpdatePlayerPositionAction(newpos));
+        dispatch(UpdatePlayerPositionAction(newpos));
         oldpos = newpos;
         steps--;
         setTimeout(function() {requestAnimationFrame(animatePlayer)}, player.frameInterval);
@@ -149,14 +146,14 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     
     function animatePlayerOnSpot() {
         if(steps === 0) {
-            store.dispatch(UpdatePlayerAnimationAction(false));
+            dispatch(UpdatePlayerAnimationAction(false));
             return;
         } 
         newpos = getNewPostion(oldpos, direction, frameMovementSize);
-        store.dispatch(UpdatePlayerPositionAction(newpos));
+        dispatch(UpdatePlayerPositionAction(newpos));
         oldpos = newpos;
         mapstart = getNewOrigin(mapstart, direction, frameMovementSize);
-        store.dispatch(UpdateOriginAction(mapstart));
+        dispatch(UpdateOriginAction(mapstart));
         steps--;
         setTimeout(function() {requestAnimationFrame(animatePlayerOnSpot)}, player.frameInterval);
     }
@@ -274,11 +271,11 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
 
     function animateNPC() {
         if(steps === 0) {
-            store.dispatch(UpdateNPCAnimationAction(npcId, false));
+            dispatch(UpdateNPCAnimationAction(npcId, false));
             return;
         } 
         newpos = getNewPostion(oldpos, newdirection, frameMovementSize);
-        store.dispatch(UpdateNPCPositionAction(npcId, newpos));
+        dispatch(UpdateNPCPositionAction(npcId, newpos));
         oldpos = newpos;
         steps--;
         setTimeout(function() {requestAnimationFrame(animateNPC)}, npc.frameInterval);
