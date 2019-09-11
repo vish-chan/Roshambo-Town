@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PLAYER_SPRITE_SIZE } from '../helpers/constants';
+import { TILE_SIZE } from '../helpers/constants';
 import { connect } from 'react-redux';
 
 
@@ -29,8 +29,8 @@ class GameObject extends Component {
             width: this.props.self.type.width,
             height: this.props.self.type.height, 
             backgroundImage: `url('${this.props.self.type.src}')`,
-            left: this.props.self.position[0] + ((PLAYER_SPRITE_SIZE/2) - (this.props.self.type.width/2)),
-            top: this.props.self.position[1] + ((PLAYER_SPRITE_SIZE/2) - (this.props.self.type.height/2)),
+            left: this.props.self.position[0] + (TILE_SIZE/2 - this.props.self.type.width/2),
+            top: this.props.self.position[1] + (TILE_SIZE/2 - this.props.self.type.height/2),
             backgroundPosition: `0px 0px`,
         }
     

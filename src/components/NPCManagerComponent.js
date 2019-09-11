@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { PLAYER_SPRITE_SIZE } from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdateNPCPosition } from '../redux/ActionCreators';
+import { TILE_SIZE } from '../helpers/constants';
 
 
 const mapStatetoProps = state => {
@@ -32,9 +32,9 @@ class NPC extends Component {
             width: this.props.self.skin.width,
             height: this.props.self.skin.height, 
             backgroundImage: `url('${this.props.self.skin.src}')`,
-            left: this.props.self.position[0] + ((PLAYER_SPRITE_SIZE/2) - (this.props.self.skin.width/2)),
-            top: this.props.self.position[1] + ((PLAYER_SPRITE_SIZE/2) - (this.props.self.skin.height/2)),
-            backgroundPosition: `${this.props.self.walkIndex * PLAYER_SPRITE_SIZE}px ${this.props.self.spriteLocation * PLAYER_SPRITE_SIZE}px`,
+            left: this.props.self.position[0] + ((TILE_SIZE/2) - (this.props.self.skin.width/2)),
+            top: this.props.self.position[1] + ((TILE_SIZE/2) - (this.props.self.skin.height/2)),
+            backgroundPosition: `${this.props.self.walkIndex * this.props.self.skin.width}px ${this.props.self.spriteLocation * this.props.self.skin.height}px`,
         }
     
         return(

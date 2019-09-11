@@ -1,5 +1,5 @@
 import * as ActionTypes from './ActionTypes';
-import { TOTAL_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, TILE_SIZE, PLAYER_SPRITE_SIZE,
+import { TOTAL_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
         VIEWPORT_HEIGHT, CAMERA, INVENTORY} from '../helpers/constants';
 import {tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles} from '../helpers/funcs';
@@ -9,13 +9,13 @@ import { store } from '../redux/ConfigureStore';
 
 const observeViewPortBoundaries = (newpos, mapstart) => {
     const viewportPos = mapToViewport(newpos, mapstart);
-    return (viewportPos[0]>=0 && viewportPos[0]<=VIEWPORT_BOUNDARY[0] - PLAYER_SPRITE_SIZE) &&
-            (viewportPos[1]>=0 && viewportPos[1]<=VIEWPORT_BOUNDARY[1] - PLAYER_SPRITE_SIZE);
+    return (viewportPos[0]>=0 && viewportPos[0]<=VIEWPORT_BOUNDARY[0] - TILE_SIZE) &&
+            (viewportPos[1]>=0 && viewportPos[1]<=VIEWPORT_BOUNDARY[1] - TILE_SIZE);
 }
 
 const observeMapBoundaries = (newpos, mapwidth, mapheight) => {
-    return (newpos[0]>=0 && newpos[0]<=mapwidth - PLAYER_SPRITE_SIZE) &&
-            (newpos[1]>=0 && newpos[1]<=mapheight - PLAYER_SPRITE_SIZE);
+    return (newpos[0]>=0 && newpos[0]<=mapwidth - TILE_SIZE) &&
+            (newpos[1]>=0 && newpos[1]<=mapheight - TILE_SIZE);
 }
 
 const observeImpassible = (tiles, newpos) => {
@@ -189,7 +189,7 @@ const getOppositeDirection = (direction) => {
 }
 
 const checkNearbyNPC = (playerpos, direction, npcList) => {
-    const nextPosition = getNewPostion(playerpos, direction, PLAYER_SPRITE_SIZE);
+    const nextPosition = getNewPostion(playerpos, direction, TOTAL_MOVEMENT_SIZE);
     const nearByNPC = observeNPCForDialog(nextPosition, npcList);
     return nearByNPC;
 }

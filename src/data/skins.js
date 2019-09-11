@@ -1,4 +1,4 @@
-import { PLAYER_SPRITE_SIZE } from "../helpers/constants";
+const PLAYER_SPRITE_SIZE = 80;
 
 export const Skin = [
     {
