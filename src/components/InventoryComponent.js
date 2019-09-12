@@ -72,14 +72,12 @@ const InventoryRow = (props) => {
 
 const InventoryDialog = (props) => {
 
-    const width = 800, height = 540;
+    const width = 620, height = 550;
 
     const inventoryStyle = {
         position: 'absolute',
         left: VIEWPORT_WIDTH/2 - width/2,
         top: VIEWPORT_HEIGHT/2 - height/2,
-        width: width,
-        height: height, 
         backgroundColor: 'darkgreen',
         border: '5px solid white',
         borderRadius: '10px',
