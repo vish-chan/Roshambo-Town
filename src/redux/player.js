@@ -15,6 +15,7 @@ const INITIAL_STATE = {
                         frameInterval: 0,
                         interacting: false,
                         talk: [],
+                        frozen: false,
         };
 
 
@@ -26,8 +27,14 @@ export const Player = (state = INITIAL_STATE, action) => {
                         skin: action.payload.player.skin, 
                         position:action.payload.player.position, 
                         frameInterval: action.payload.player.frameInterval,
+                        direction: DOWN,
                         spriteLocation: action.payload.player.skin[DOWN],
+                        isAnimating: false,
+                        nextPosition: [],
+                        walkIndex: 0,
+                        interacting: false,
                         talk: action.payload.player.talk.map(talk => talk? talk: [DEFAULT_DIALOG]),
+                        frozen: false,
                 });
         case ActionTypes.UPDATE_PLAYER_POSITION:
                 return({...state, 
@@ -54,6 +61,23 @@ export const Player = (state = INITIAL_STATE, action) => {
                 return({
                         ...state,
                         interacting: false,
+                });
+        
+        case ActionTypes.SAVE_STATE_INITIATED:
+                return({
+                        ...state,
+                        frozen: true,
+                });
+        case ActionTypes.SAVE_STATE_END:
+                return({
+                        ...state,
+                        frozen: false,
+                });
+
+        case ActionTypes.RESTORE_STATE:
+                return({
+                        ...action.payload.state.player,
+                        frozen: false,
                 });
         default: 
             return state;

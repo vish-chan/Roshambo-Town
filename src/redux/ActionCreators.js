@@ -1,8 +1,8 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA} from '../helpers/constants';
-import {tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles} from '../helpers/funcs';
+        VIEWPORT_HEIGHT, CAMERA, PORTAL} from '../helpers/constants';
+import {tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals, clearTimeouts} from '../helpers/funcs';
 
 const observeViewPortBoundaries = (newpos, mapstart) => {
     const viewportPos = mapToViewport(newpos, mapstart);
@@ -123,7 +123,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     if(player.direction!==direction)
         dispatch(UpdatePlayerDirectionAction(direction));
 
-    if(observeViewPortBoundaries(newpos, mapstart) && observeImpassible(getState().map.tiles, newpos) && observeNPC(newpos, getState().npc)) {
+    if(observeViewPortBoundaries(newpos, mapstart) && observeImpassible(getState().map.tiles, newpos) && observeNPC(newpos, getState().npc.list)) {
         dispatch(UpdatePlayerAnimationAction(true, newpos));
         if(observeCamera(oldpos, direction, mapstart) && mapScrollable(direction, mapstart, mapend)) {
             requestAnimationFrame(animatePlayerOnSpot);
@@ -162,7 +162,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
 const getPositionEquality = (pos1, pos2) => (pos1[0]===pos2[0] && pos1[1]===pos2[1])
 
 const getObjectForPickup = (position, gameobjects) => {
-    return(gameobjects.filter(gameobject => getPositionEquality(position, gameobject.position)))
+    return(gameobjects.filter(gameobject => gameobject.type.type!==PORTAL && getPositionEquality(position, gameobject.position)))
 }
 
 export const PickupGameObject = () => (dispatch, getState) => {
@@ -191,7 +191,7 @@ const checkNearbyIdleNPC = (playerpos, direction, npcList) => {
 }
 
 export const InitiateConversation = () => (dispatch, getState) => {
-    const player = getState().player, npcList = getState().npc;
+    const player = getState().player, npcList = getState().npc.list;
     const nearByNPC = checkNearbyIdleNPC(player.position, player.direction, npcList);
     if(nearByNPC.length) {
         const npc = nearByNPC[0];
@@ -237,7 +237,7 @@ const getNewDirection = (oldpos, newpos, oldirection) => {
 }
 
 export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
-    let npc = getState().npc[npcId];
+    let npc = getState().npc.list[npcId];
     
     if(npc.stationary ||  npc.isAnimating || npc.interacting)
         return;
@@ -262,7 +262,7 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
     
     if(observeMapBoundaries(newpos, map.width, map.height) && 
                                             observeImpassible(map.tiles, newpos) && 
-                                            observeNPC(newpos, getState().npc) && 
+                                            observeNPC(newpos, getState().npc.list) && 
                                             observePlayer(newpos, getState().player)) {
         dispatch(UpdateNPCAnimationAction(npcId, true, newpos));
         requestAnimationFrame(animateNPC)
@@ -277,8 +277,49 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
         dispatch(UpdateNPCPositionAction(npcId, newpos));
         oldpos = newpos;
         steps--;
-        setTimeout(function() {requestAnimationFrame(animateNPC)}, npc.frameInterval);
+        customSetTimeout(function() {requestAnimationFrame(animateNPC)}, npc.frameInterval, npc.id);
     }
+}
+
+const getPortal = (position, gameobjects) => {
+    return(gameobjects.filter(gameobject => gameobject.type.type===PORTAL && getPositionEquality(position, gameobject.position)))
+}
+
+export const CheckPortalAndEnter = () => (dispatch, getState) =>{
+    const player = getState().player, gameobjects = getState().gameobjects;
+    const portals = getPortal(player.position, gameobjects);
+    if(portals.length > 0) {
+        const portal = portals[0];
+        dispatch(SaveStateInitAction());
+        clearIntervals();
+        setTimeout(function() { 
+            dispatch(SaveStateAction(getState())); 
+            dispatch(AddMap(portal.value));
+        }, 
+        3000);
+    }
+}
+
+export const RestoreState = () => (dispatch, getState) => {
+    const oldState = getState().statemanager.prevState;
+    if(!oldState)
+        return;
+    dispatch(SaveStateInitAction());
+    clearInterval();
+    clearTimeouts();
+    dispatch(RestoreStateAction(oldState));
+}
+
+
+export const SaveState = () => (dispatch, getState) => {
+    
+    dispatch(SaveStateInitAction());
+    clearIntervals();
+    setTimeout(function() { 
+        dispatch(SaveStateAction(getState())); 
+        dispatch(SaveStateEndAction());
+    }, 
+    3000);
 }
 
 export const AddMap = (map) => (dispatch) => {
@@ -435,6 +476,39 @@ const AddObjecttoInventory = (object) => {
     });
 }
 
+
+const SaveStateInitAction = () => {
+    return({
+        type: ActionTypes.SAVE_STATE_INITIATED,
+    })
+}
+
+const SaveStateAction = (state) => {
+    return({
+        type: ActionTypes.SAVE_STATE,
+        payload: {
+            state,
+        }
+    })
+}
+
+const SaveStateEndAction = () => {
+    return({
+        type: ActionTypes.SAVE_STATE_END,
+    })
+}
+
+
+const RestoreStateAction = (state) => {
+    return({
+        type: ActionTypes.RESTORE_STATE,
+        payload: {
+            state,
+        }
+    })
+}
+
+
 export const AddMapAction = (map, width, height ,playerPosition, start, end, offScreenCanvas) => { 
     return({
         type: ActionTypes.ADD_MAP,
@@ -452,7 +526,7 @@ export const AddMapAction = (map, width, height ,playerPosition, start, end, off
                 position: playerPosition,
             },
             npc: map.npc,
-            gameobjects: map.gameobjects,
+            gameobjects: "portals" in map? map.gameobjects.concat(map.portals): map.gameobjects,
         },
     });
 }

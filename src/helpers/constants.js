@@ -19,11 +19,14 @@ export const ARROW_KEYCODES = [37, 38, 39, 40];
 export const SPACE_KEY = [32];
 export const PICKUP_KEY = [80]; /* P */
 export const INVENTORY_KEY = [73]; /* I */
+export const SAVE_KEY = [69]; /* E */
+export const RESTORE_KEY = [82]; /* E */
 
-export const VALID_KEYCODES = ARROW_KEYCODES.concat(SPACE_KEY, PICKUP_KEY, INVENTORY_KEY);
+export const VALID_KEYCODES = ARROW_KEYCODES.concat(SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, SAVE_KEY, RESTORE_KEY);
 
 export const PASSIBLE_INDEX = 5;
 
 export const HEALER = "HEALER";
 export const EATABLE = "EATABLE";
 export const CURRENCY = "CURRENCY";
+export const PORTAL = "PORTAL";

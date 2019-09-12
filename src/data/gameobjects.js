@@ -1,4 +1,4 @@
-import { HEALER, EATABLE, CURRENCY } from "../helpers/constants";
+import { HEALER, EATABLE, CURRENCY, PORTAL } from "../helpers/constants";
 
 export const GameObjects = [
     {
@@ -80,12 +80,23 @@ export const GameObjects = [
 
     {
         /*7*/
-        id: 6,
+        id: 7,
         name: "goldcoin",
         src: "assets/images/80/objectsAndProps/items.png",
         srcpos: [280,120],
         width: 40,
         height: 40,
         type: CURRENCY,
+    },
+
+    {
+        /*8*/
+        id: 8,
+        name: "enter",
+        src: "assets/images/80/objectsAndProps/items.png",
+        srcpos: [280,120],
+        width: 40,
+        height: 40,
+        type: PORTAL,
     },
 ];

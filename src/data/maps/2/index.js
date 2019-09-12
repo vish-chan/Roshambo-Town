@@ -1,6 +1,7 @@
 import { DOWN, LEFT, UP } from "../../../helpers/constants";
 import { Skin } from '../../skins';
 import { GameObjects } from "../../gameobjects";
+import { hospital } from "../hospital";
 
 export const map = {
     tiles: [
@@ -32,12 +33,11 @@ export const map = {
     backgroundColor: "#6df7b1",
 
     npc : [{ 
-                id: 0,
                 name: "Beast",
                 skin: Skin[5],
                 position: [12, 26],
                 direction: DOWN,
-                stationary: true,
+                stationary: false,
                 pathArr: [[12,26], [13,26], [14,26], [15,26], [15, 25]],
                 pathIdx: 0,
                 pathDir: 1,
@@ -46,12 +46,11 @@ export const map = {
                 waitInterval: 1500,
             },
             { 
-                id: 1,
                 name: "Moon",
                 skin: Skin[6],
                 position: [15, 12],
                 direction: LEFT,
-                stationary: true,
+                stationary: false,
                 pathArr: [[15,12], [15,13], [15,14], [15,15]],
                 pathIdx: 0,
                 pathDir: 1,
@@ -61,7 +60,6 @@ export const map = {
                 talk: ["I'm great dude. Long time no see ah!", "Let's catchup later today.", "BBye!"],
             },
             { 
-                id: 2,
                 name: "Ash",
                 skin: Skin[4],
                 position: [0, 12],
@@ -88,16 +86,23 @@ export const map = {
         ],
     },
 
+    /* Compulsory */
     gameobjects : [
                     { 
-                        id: 0,
                         type: GameObjects[6],
                         position: [15, 16],
                     },
                     { 
-                        id: 1,
                         type: GameObjects[7],
                         position: [15, 18],
                     },
     ],
+
+    portals: [
+        {
+            position: [2, 17],
+            type: GameObjects[8],
+            value: hospital,
+        }
+    ]
 };

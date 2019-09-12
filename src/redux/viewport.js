@@ -19,6 +19,11 @@ export const ViewPort = ( state = INITIAL_STATE, action) => {
         case ActionTypes.UPDATE_MAP_ORIGIN:
             return({...state,  start: action.payload.origin,
                                 end: [action.payload.origin[0]+state.width, action.payload.origin[1]+state.height]});
+
+        case ActionTypes.RESTORE_STATE:
+            return({
+                ...action.payload.state.viewport,
+            });
         
         default: 
             return state;

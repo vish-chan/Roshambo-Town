@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE } from '../helpers/constants';
+import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, SAVE_KEY, RESTORE_KEY } from '../helpers/constants';
 import { connect } from 'react-redux';
-import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject, ToggleInventory } from '../redux/ActionCreators';
+import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject, ToggleInventory, RestoreState, CheckPortalAndEnter } from '../redux/ActionCreators';
 import { mapToViewport } from '../helpers/funcs';
 
 const mapStatetoProps = state => {
@@ -18,6 +18,8 @@ const mapDispatchToProps = dispatch => {
         updateConversation: () => { dispatch(UpdateConversation()); },
         pickupObject: () => { dispatch(PickupGameObject()); },
         toggleInventory: () => { dispatch(ToggleInventory()); },
+        checkPortalAndEnter: () => { dispatch(CheckPortalAndEnter()); },
+        restoreState: () => { dispatch(RestoreState()); },
     });
 }
 
@@ -59,12 +61,12 @@ class Player extends Component {
 
 
     handleKeyDown(event) {
-        if(this.props.player.isAnimating)
+        if(this.props.player.isAnimating || this.props.player.frozen)
             return;
         var keyCode = event.keyCode;
-        //console.log(keyCode);
+        console.log(keyCode);
         if(VALID_KEYCODES.includes(keyCode)) {
-            //console.log(keyCode);
+            console.log(keyCode);
             event.preventDefault();
             event.stopImmediatePropagation();
             if(ARROW_KEYCODES.includes(keyCode) && !this.props.player.interacting) {
@@ -78,6 +80,10 @@ class Player extends Component {
                 this.props.pickupObject();
             } else if(INVENTORY_KEY.includes(keyCode)) {
                 this.props.toggleInventory();
+            } else if(SAVE_KEY.includes(keyCode) && !this.props.player.interacting) {
+                this.props.checkPortalAndEnter();
+            } else if(RESTORE_KEY.includes(keyCode) && !this.props.player.interacting) {
+                this.props.restoreState();
             }
         } 
     }

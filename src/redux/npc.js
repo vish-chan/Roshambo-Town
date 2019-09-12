@@ -4,41 +4,52 @@ import {TILE_SIZE } from '../helpers/constants';
 
 const DEFAULT_DIALOG = ["Ehhh! Leave me alone!"];
 
-export const NPC = (state = [], action) => {
+export const NPC = (state = {
+                              list:  [],
+                              frozen: false,
+                            }, action) => {
     switch(action.type) {
         case ActionTypes.ADD_MAP:
+            let id = 0;
             if(!action.payload.npc)
                 return state;
             return(
-                action.payload.npc.map( npc => {
-                    return({...npc, 
-                            position: tileToMapCoordinates(npc.position, TILE_SIZE),
-                            spriteLocation: npc.skin[npc.direction],
-                            isAnimating: false,
-                            nextPosition: [],
-                            walkIndex: 0,
-                            lastUpdated: performance.now(),
-                            isWaiting: false,
-                            interacting: false,
-                            talk: npc.talk? npc.talk: DEFAULT_DIALOG,
-                    })
-                })
+                {   ...state,
+                    frozen: false,
+                    list :action.payload.npc.map( npc => {
+                        return({...npc, 
+                                id: id++,
+                                position: tileToMapCoordinates(npc.position, TILE_SIZE),
+                                spriteLocation: npc.skin[npc.direction],
+                                isAnimating: false,
+                                nextPosition: [],
+                                walkIndex: 0,
+                                lastUpdated: performance.now(),
+                                isWaiting: false,
+                                interacting: false,
+                                talk: npc.talk? npc.talk: DEFAULT_DIALOG,
+                            })
+                        })
+                }
             );
         case ActionTypes.UPDATE_NPC_POSITION:
-                return(
-                    state.map( npc => {
-                        if(npc.id===action.payload.id)
-                            return({...npc, 
-                                    position: action.payload.position, 
-                                    walkIndex: (npc.walkIndex+1)%npc.skin.walkSpriteCount,
-                            });
-                        else
-                            return npc;
+                return({
+                    ...state,
+                    list: state.list.map( npc => {
+                            if(npc.id===action.payload.id)
+                                return({...npc, 
+                                        position: action.payload.position, 
+                                        walkIndex: (npc.walkIndex+1)%npc.skin.walkSpriteCount,
+                                });
+                            else
+                                return npc;
                     })
-                );
+                });
+                    
         case ActionTypes.UPDATE_NPC_DIRECTION:
-                return(
-                    state.map( npc => {
+                return({
+                    ...state,
+                    list: state.list.map( npc => {
                         if(npc.id===action.payload.id)
                             return({...npc,  
                                     direction: action.payload.direction, 
@@ -47,11 +58,12 @@ export const NPC = (state = [], action) => {
                         else
                             return npc;
                     })
-                );
+                });
 
         case ActionTypes.UPDATE_NPC_ANIMATION:
-                return(
-                    state.map( npc => {
+                return({
+                    ...state,
+                    list: state.list.map( npc => {
                         if(npc.id===action.payload.id) {
                             let pathIdx = npc.pathIdx, 
                                 pathDir = npc.pathDir,
@@ -79,10 +91,12 @@ export const NPC = (state = [], action) => {
                         } else
                             return npc;
                     })
-                );
+                });
+                    
         case ActionTypes.RESET_NPC_WAITING:
-                return(
-                    state.map( npc => {
+                return({
+                    ...state,
+                    list: state.list.map( npc => {
                         if(npc.id===action.payload.id)
                             return({...npc,  
                                     isWaiting: false,
@@ -90,10 +104,11 @@ export const NPC = (state = [], action) => {
                         else
                             return npc;
                     })
-                );
+                });
         case ActionTypes.SET_DIALOG_STATUS:
-                return(
-                    state.map( npc => {
+                return({
+                    ...state,
+                    list:  state.list.map( npc => {
                         if(npc.id===action.payload.npcId)
                             return({...npc,  
                                     interacting: true,
@@ -101,10 +116,11 @@ export const NPC = (state = [], action) => {
                         else
                             return npc;
                     })
-                );
+                });
         case ActionTypes.RESET_DIALOG_STATUS:
-                    return(
-                        state.map( npc => {
+                    return({
+                        ...state,
+                        list: state.list.map( npc => {
                             if(npc.id===action.payload.npcId)
                                 return({...npc,  
                                         interacting: false,
@@ -112,7 +128,22 @@ export const NPC = (state = [], action) => {
                             else
                                 return npc;
                         })
-                    );
+                    });
+        case ActionTypes.SAVE_STATE_INITIATED:
+                return({
+                    ...state,
+                    frozen: true,
+                });
+        case ActionTypes.SAVE_STATE_END:
+                return({
+                    ...state,
+                    frozen: false,
+                });
+        case ActionTypes.RESTORE_STATE:
+                    return({
+                        ...action.payload.state.npc,
+                        frozen: false,
+                    });
         default: 
             return state;
     }

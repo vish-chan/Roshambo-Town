@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UpdateNPCPosition } from '../redux/ActionCreators';
 import { TILE_SIZE } from '../helpers/constants';
+import { customSetInterval, intervalList } from '../helpers/funcs';
 
 
 const mapStatetoProps = state => {
@@ -17,13 +18,19 @@ const mapDispatchToProps = dispatch => {
 }
 
 class NPC extends Component {
+
+    
     
     componentDidMount() {
-        setInterval(this.props.updateNPCPosition.bind(this), this.props.self.moveInterval);
+        customSetInterval(this.props.updateNPCPosition.bind(this), this.props.self.moveInterval, this.props.self.id);
     }
 
-    componentWillUnmount() {
-        clearInterval();
+    componentDidUpdate() {
+        if(!this.props.frozen) {
+            if(!("_"+this.props.self.id in intervalList)) {
+                customSetInterval(this.props.updateNPCPosition.bind(this), this.props.self.moveInterval, this.props.self.id);
+            }
+        }
     }
     
     render() {
@@ -46,7 +53,7 @@ class NPC extends Component {
 class NPCManager extends Component {
     
     render() {
-        const NPCObj = this.props.npc.map( npc => <NPC self={npc}  key={npc.id} updateNPCPosition={this.props.updateNPCPosition}/> );
+        const NPCObj = this.props.npc.list.map( npc => <NPC self={npc}  key={npc.id} updateNPCPosition={this.props.updateNPCPosition} frozen={this.props.npc.frozen}/> );
 
         return(
             <ul id="NPCList">

@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Dialog } from './dialog';
 import { Inventory } from './inventory';
+import { StateManager } from './statemanager';
 
 const rootReducer = combineReducers({
     player : Player,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     gameobjects: GameObject,
     dialog: Dialog,
     inventory: Inventory,
+    statemanager: StateManager,
 });
 
 
