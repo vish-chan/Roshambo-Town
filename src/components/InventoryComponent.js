@@ -24,25 +24,22 @@ const mapStatetoProps = state => {
 
 const InventoryItem = (props) => {
 
-    const itemStyle = {
-        color: 'white',
-        fontSize: '10px',
-        textAlign: 'center',
-        width: 100,
-        height: 100,
-    };
+    const divSize = 120;
 
     const imageStyle = {
+        backgroundImage: `url('${props.self.src}')`,
+        backgroundPosition: `${props.self.srcpos[0]}px ${props.self.srcpos[1]}px`,
         width: props.self.width,
         height: props.self.height,
-        backgroundImage: `url('${props.self.src}')`,
-        backgroundPosition: `${props.self.srcpos[0]}px ${props.self.srcpos[1]}px`
+        position: 'absolute',
+        left: divSize/2 - props.self.width/2,
+        top: divSize/2 - props.self.height/2,
     };
 
     return(
-        <div style={itemStyle}>
+        <div className="inventorybtn">
             <div style={imageStyle}/>
-            <p style={{fontSize: '20px',}}>{props.count}</p>
+            <p style={{fontSize: '20px', position: 'absolute', margin: '5px', left: 5, bottom: 5}}>{props.count}</p>
         </div>
     );
 }
@@ -53,19 +50,58 @@ const InventoryRow = (props) => {
     const countObj = GetInventoryItemCounts(props.inventorylist);
     const validgameobjects = GameObjects.filter(gameobj => gameobj.type === props.type);
 
-    const renderedgameobjects = validgameobjects.map( gameobj => <InventoryItem self={gameobj} key={gameobj.id} count={ (gameobj.name in countObj)? countObj[gameobj.name]:0} />);
+    const rendergameobjects = validgameobjects.map( gameobj => <InventoryItem self={gameobj} key={gameobj.id} count={ (gameobj.name in countObj)? countObj[gameobj.name]:0} />);
 
     const style = {
         display: 'flex',
         flexDirection: 'row',
-        margin: '5px auto',
-        padding: '5px',
+        margin: '5px',
+        padding: '6px',
+        backgroundColor: 'forestgreen',
+        boxShadow: 'inset 0 0 5px black',
+        borderRadius: '10px'
     };
 
     return(
         <div style={style}>
-            {renderedgameobjects}
+            <div style={{ writingMode: 'vertical-lr', textOrientation: 'sideways-right', margin:'auto 5px', padding: '5px' }} >{props.type}</div>
+            {rendergameobjects}
         </div>
+    );
+}
+
+const InventoryDialog = (props) => {
+
+    const width = 800, height = 540;
+
+    const inventoryStyle = {
+        position: 'absolute',
+        left: VIEWPORT_WIDTH/2 - width/2,
+        top: VIEWPORT_HEIGHT/2 - height/2,
+        width: width,
+        height: height, 
+        backgroundColor: 'darkgreen',
+        border: '5px solid white',
+        borderRadius: '10px',
+        boxShadow: 'inset 0 0 5px black',
+        fontFamily: 'gameboy',
+        color: 'white',
+        padding: "5px",
+        zIndex: 5,
+        display: props.inventory.isOpen? 'inline-block' : 'none',
+    };
+
+    return(
+            <div id="inventory" style={inventoryStyle}>
+                <div style={{ fontSize: '20px', padding: '5px', margin:'5px', textAlign: 'center'}}>
+                    <p style={{ fontSize: '20px', padding: '3px', margin:'0px', display:'inline-block', border: '2px groove white'}}>Inventory</p>
+                </div>
+                <div style={{display: 'flex', padding: '5px', flexDirection: 'column', justifyContent: 'center'}}>
+                    <InventoryRow type={HEALER} inventorylist={props.inventory[HEALER]} />
+                    <InventoryRow type={EATABLE} inventorylist={props.inventory[EATABLE]} />
+                    <InventoryRow type={CURRENCY} inventorylist={props.inventory[CURRENCY]} />
+                </div>
+            </div>
     );
 }
 
@@ -73,36 +109,8 @@ const InventoryRow = (props) => {
 class Inventory extends Component {
 
     render() {
-        const width = VIEWPORT_WIDTH-400, height = VIEWPORT_HEIGHT-200;
-
-        const inventoryStyle = {
-            position: 'absolute',
-            width: width,
-            height: height, 
-            backgroundColor: 'black',
-            border: '5px solid white',
-            borderRadius: '20px',
-            color: 'white',
-            fontSize: "10px",
-            padding: "5px",
-            left: VIEWPORT_WIDTH/2 - width/2,
-            top: VIEWPORT_HEIGHT/2 - height/2,
-            zIndex: 5,
-            display: this.props.inventory.isOpen? 'block' : 'none',
-        };
-
-        return(
-                <div id="inventory" style={inventoryStyle}>
-                    <div style={{ height: '50px', padding: '5px', display:'flex'}}>
-                        <p style={{ width:'30%', fontSize: '30px', padding: '0px', margin:'0px'}}>Player</p>
-                        <div style={{marginLeft:'auto', fontSize:'30px'}}></div>
-                    </div>
-                    <div style={{display: 'flex', padding: '5px', flexDirection: 'column', justifyContent: 'center'}}>
-                        <InventoryRow type={HEALER} inventorylist={this.props.inventory[HEALER]} />
-                        <InventoryRow type={EATABLE} inventorylist={this.props.inventory[EATABLE]} />
-                        <InventoryRow type={CURRENCY} inventorylist={this.props.inventory[CURRENCY]} />
-                    </div>
-                </div>
+        return( 
+            <InventoryDialog inventory={this.props.inventory} />
         );
     }
 }
