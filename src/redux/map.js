@@ -1,12 +1,15 @@
 import * as ActionTypes from './ActionTypes';
 
 
-export const Map = (state = { tiles: [],
-                              width: 0,
-                              height: 0,
-                              canvas: null,
-                              isLoading: true,
-                            }, action) => {
+const INITIAL_STATE = { 
+                        tiles: [],
+                        width: 0,
+                        height: 0,
+                        canvas: null,
+                        isLoading: true,
+                    }
+
+export const Map = (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case ActionTypes.ADD_MAP:
             return({...state, 
