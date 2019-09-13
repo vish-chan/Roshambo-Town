@@ -5,8 +5,8 @@ const INITIAL_STATE = {
                         tiles: [],
                         width: 0,
                         height: 0,
-                        canvas: null,
                         isLoading: true,
+                        src: null,
                     }
 
 export const Map = (state = INITIAL_STATE, action) => {
@@ -16,7 +16,7 @@ export const Map = (state = INITIAL_STATE, action) => {
                     tiles: action.payload.tiles, 
                     width: action.payload.width,
                     height: action.payload.height,
-                    canvas: action.payload.canvas,
+                    src: action.payload.src,
                     isLoading: false,
                     });
         case ActionTypes.MAP_LOADING:

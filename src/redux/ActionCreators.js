@@ -338,22 +338,15 @@ export const AddMap = (map) => (dispatch) => {
     }
     let end = [end_x, end_y];
 
-    const offScreenCanvas = new OffscreenCanvas(width, height);
-    const offscreenctx = offScreenCanvas.getContext("2d");
-    offscreenctx.fillStyle = map.backgroundColor;
-    offscreenctx.fillRect(0, 0, width, height);
-    renderTiles(offscreenctx);
+    const mapBg = new Image();
+    mapBg.onload = renderMap;
+    mapBg.src = map.src;
 
-    function renderTiles(ctx) {
-        const mapBg = new Image();
-        mapBg.src = map.src;
-        mapBg.onload = renderMap;
-
-        function renderMap(){
-            ctx.drawImage(mapBg, 0, 0);
-            dispatch(AddMapAction(map, width, height, playerPosition, start, end, offScreenCanvas));
-        }
+    function renderMap(){
+        dispatch(AddMapAction(map, width, height, playerPosition, start, end));
     }
+
+    
 }
 
 const UpdatePlayerAnimationAction = (isAnimating, newpos = []) => {
@@ -509,14 +502,14 @@ const RestoreStateAction = (state) => {
 }
 
 
-export const AddMapAction = (map, width, height ,playerPosition, start, end, offScreenCanvas) => { 
+export const AddMapAction = (map, width, height ,playerPosition, start, end) => { 
     return({
         type: ActionTypes.ADD_MAP,
         payload: {
             tiles: map.tiles,
             width,
             height,
-            canvas: offScreenCanvas,
+            src: map.src,
             viewport: {
                 start,
                 end,
