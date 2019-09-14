@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, EATABLE, HEALER, CURRENCY } from '../helpers/constants';
-import { GameObjects } from '../data/gameobjects';
+import { GAMEOBJECTS } from '../data/gameobjects';
 
 
 
@@ -48,7 +48,7 @@ const InventoryItem = (props) => {
 const InventoryRow = (props) => {
 
     const countObj = GetInventoryItemCounts(props.inventorylist);
-    const validgameobjects = GameObjects.filter(gameobj => gameobj.type === props.type);
+    const validgameobjects = GAMEOBJECTS.filter(gameobj => gameobj.type === props.type);
 
     const rendergameobjects = validgameobjects.map( gameobj => <InventoryItem self={gameobj} key={gameobj.id} count={ (gameobj.name in countObj)? countObj[gameobj.name]:0} />);
 

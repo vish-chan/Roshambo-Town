@@ -1,9 +1,6 @@
-import { DOWN, LEFT, UP } from "../../../helpers/constants";
-import { Skin } from '../../skins';
-import { GameObjects } from "../../gameobjects";
-import { hospital } from "../hospital";
 
-export const map = {
+export const home = {
+
     tiles: [
         [   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
         [   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  17,  20,  20,  20,  20,  20,  20,  20,  20,  20,  20,  15,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0],
@@ -28,81 +25,8 @@ export const map = {
 
     ],
 
-    src: 'assets/images/maps/1.png',
+    src: 'assets/images/maps/home.png',
 
     backgroundColor: "#6df7b1",
 
-    npc : [{ 
-                name: "Beast",
-                skin: Skin[5],
-                position: [12, 26],
-                direction: DOWN,
-                stationary: false,
-                pathArr: [[12,26], [13,26], [14,26], [15,26], [15, 25]],
-                pathIdx: 0,
-                pathDir: 1,
-                frameInterval: 100,
-                moveInterval: 500,
-                waitInterval: 1500,
-            },
-            { 
-                name: "Moon",
-                skin: Skin[6],
-                position: [15, 12],
-                direction: LEFT,
-                stationary: false,
-                pathArr: [[15,12], [15,13], [15,14], [15,15]],
-                pathIdx: 0,
-                pathDir: 1,
-                frameInterval: 100,
-                moveInterval: 500,
-                waitInterval: 3000,
-                talk: ["I'm great dude. Long time no see ah!", "Let's catchup later today.", "BBye!"],
-            },
-            { 
-                name: "Ash",
-                skin: Skin[4],
-                position: [0, 12],
-                direction: UP,
-                stationary: true,
-                pathArr: [[0,12], [0,13], [0,14], [0,15]],
-                pathIdx: 0,
-                pathDir: 1,
-                frameInterval: 100,
-                moveInterval: 500,
-                waitInterval: 3000,
-            }
-        ],
-    
-    player: {
-        name: "Player",
-        skin: Skin[0],
-        position: [15, 17],
-        frameInterval: 5,
-        talk: [
-            null,
-            ["Hey! Whatsup?", "Do you have any plans for Fifa today?", "Great, see you!"],
-            null,
-        ],
-    },
-
-    /* Compulsory */
-    gameobjects : [
-                    { 
-                        type: GameObjects[6],
-                        position: [15, 16],
-                    },
-                    { 
-                        type: GameObjects[7],
-                        position: [15, 18],
-                    },
-    ],
-
-    portals: [
-        {
-            position: [2, 17],
-            type: GameObjects[8],
-            value: hospital,
-        }
-    ]
-};
+}

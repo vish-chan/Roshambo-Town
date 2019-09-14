@@ -294,7 +294,7 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
         clearIntervals();
         setTimeout(function() { 
             dispatch(SaveStateAction(getState())); 
-            dispatch(AddMap(portal.value));
+            dispatch(AddMap(portal.target));
         }, 
         3000);
     }
@@ -322,9 +322,9 @@ export const SaveState = () => (dispatch, getState) => {
     3000);
 }
 
-export const AddMap = (map) => (dispatch) => {
-    let width = map.tiles[0].length*TILE_SIZE, height= map.tiles.length*TILE_SIZE;
-    let playerPosition = tileToMapCoordinates(map.player.position, TILE_SIZE);
+export const AddMap = (level) => (dispatch) => {
+    let width = level.map.tiles[0].length*TILE_SIZE, height= level.map.tiles.length*TILE_SIZE;
+    let playerPosition = tileToMapCoordinates(level.player.position, TILE_SIZE);
     let start_x = (VIEWPORT_WIDTH/2) - playerPosition[0] - TILE_SIZE, start_y = (VIEWPORT_HEIGHT/2)-playerPosition[1] - TILE_SIZE;
     let start = [ start_x>=0? 0: start_x, start_y>=0? 0: start_y];
     let end_x = start[0]+width, end_y = start[1]+height;
@@ -340,10 +340,10 @@ export const AddMap = (map) => (dispatch) => {
 
     const mapBg = new Image();
     mapBg.onload = renderMap;
-    mapBg.src = map.src;
+    mapBg.src = level.map.src;
 
     function renderMap(){
-        dispatch(AddMapAction(map, width, height, playerPosition, start, end));
+        dispatch(AddMapAction(level, width, height, playerPosition, start, end));
     }
 
     
@@ -502,24 +502,24 @@ const RestoreStateAction = (state) => {
 }
 
 
-export const AddMapAction = (map, width, height ,playerPosition, start, end) => { 
+export const AddMapAction = (level, width, height ,playerPosition, start, end) => { 
     return({
         type: ActionTypes.ADD_MAP,
         payload: {
-            tiles: map.tiles,
+            tiles: level.map.tiles,
             width,
             height,
-            src: map.src,
+            src: level.map.src,
             viewport: {
                 start,
                 end,
             },
             player: {
-                ...map.player,
+                ...level.player,
                 position: playerPosition,
             },
-            npc: map.npc,
-            gameobjects: "portals" in map? map.gameobjects.concat(map.portals): map.gameobjects,
+            npc: level.npc,
+            gameobjects: "portals" in level? level.gameobjects.concat(level.portals): level.gameobjects,
         },
     });
 }

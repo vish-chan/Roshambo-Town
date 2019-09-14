@@ -3,7 +3,7 @@ import Player from './PlayerComponent';
 import Map from './MapComponent';
 import { AddMap  } from '../redux/ActionCreators';
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../helpers/constants';
-import { map } from '../data/maps/2/index';
+import { level } from '../data/maps/Levels/2/index';
 import { connect } from 'react-redux';
 import ConversationDisplay from './ConversationDisplayComponent';
 import Inventory from './InventoryComponent';
@@ -27,14 +27,14 @@ const mapStatetoProps = state => {
 
 const mapDispatchtoProps = dispatch => {
     return({
-        loadMap: (map) => { dispatch(AddMap(map)); },
+        loadMap: (level) => { dispatch(AddMap(level)); },
     });
 }
 
 class World extends Component {
 
     componentDidMount() {
-        this.props.loadMap(map);
+        this.props.loadMap(level);
     }
 
     

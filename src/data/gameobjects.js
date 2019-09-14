@@ -1,6 +1,6 @@
 import { HEALER, EATABLE, CURRENCY, PORTAL } from "../helpers/constants";
 
-export const GameObjects = [
+export const GAMEOBJECTS = [
     {
         /*0*/
         id: 0,
@@ -88,10 +88,12 @@ export const GameObjects = [
         height: 40,
         type: CURRENCY,
     },
+];
 
+export const PORTALS = [
     {
-        /*8*/
-        id: 8,
+        /*0*/
+        id: 0,
         name: "enter",
         src: "assets/images/80/objectsAndProps/items.png",
         srcpos: [280,120],
@@ -99,4 +101,4 @@ export const GameObjects = [
         height: 40,
         type: PORTAL,
     },
-];
+]
