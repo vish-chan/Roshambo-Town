@@ -307,7 +307,14 @@ export const RestoreState = () => (dispatch, getState) => {
     dispatch(SaveStateInitAction());
     clearInterval();
     clearTimeouts();
-    dispatch(RestoreStateAction(oldState));
+    
+    const mapBg = new Image();
+    mapBg.onload = renderMap;
+    mapBg.src = oldState.map.src;
+
+    function renderMap(){
+        dispatch(RestoreStateAction(oldState));
+    }
 }
 
 

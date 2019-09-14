@@ -22,7 +22,7 @@ export const GameObject = (state = [], action) => {
 
         case ActionTypes.RESTORE_STATE:
             return(
-                action.payload.state.gameobjects
+                action.payload.state.gameobjects.concat()
             );
 
         default: 

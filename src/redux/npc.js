@@ -143,7 +143,7 @@ export const NPC = (state = {
                 });
         case ActionTypes.RESTORE_STATE:
                     return({
-                        ...action.payload.state.npc,
+                        list: action.payload.state.npc.list.concat(),
                         frozen: false,
                     });
         default: 
