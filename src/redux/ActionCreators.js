@@ -294,7 +294,7 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
         clearIntervals();
         setTimeout(function() { 
             dispatch(SaveStateAction(getState())); 
-            dispatch(AddMap(portal.target));
+            dispatch(AddMap(portal.target, true));
         }, 
         3000);
     }
@@ -302,9 +302,16 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
 
 export const RestoreState = () => (dispatch, getState) => {
     const oldState = getState().statemanager.prevState;
+    const mapname = getState().map.name;
+    const gameobjects = getState().gameobjects.map( gameobject => {
+        return({
+            ...gameobject,
+            position: mapCoordinatesToTiles(gameobject.position, TILE_SIZE),
+        });
+    });
     if(!oldState)
         return;
-    dispatch(SaveStateInitAction());
+    dispatch(SaveStateInitAction()); 
     clearInterval();
     clearTimeouts();
     
@@ -313,7 +320,7 @@ export const RestoreState = () => (dispatch, getState) => {
     mapBg.src = oldState.map.src;
 
     function renderMap(){
-        dispatch(RestoreStateAction(oldState));
+        dispatch(RestoreStateAction(mapname, gameobjects, oldState));
     }
 }
 
@@ -329,7 +336,7 @@ export const SaveState = () => (dispatch, getState) => {
     3000);
 }
 
-export const AddMap = (level) => (dispatch) => {
+export const AddMap = (level, secondary=false) => (dispatch, getState) => {
     let width = level.map.tiles[0].length*TILE_SIZE, height= level.map.tiles.length*TILE_SIZE;
     let playerPosition = tileToMapCoordinates(level.player.position, TILE_SIZE);
     let start_x = (VIEWPORT_WIDTH/2) - playerPosition[0] - TILE_SIZE, start_y = (VIEWPORT_HEIGHT/2)-playerPosition[1] - TILE_SIZE;
@@ -345,12 +352,18 @@ export const AddMap = (level) => (dispatch) => {
     }
     let end = [end_x, end_y];
 
+    let oldState = null;
+    if(secondary) {
+        const sm = getState().statemanager;
+        oldState = level.name in sm? sm[level.name]: null; 
+    }
+
     const mapBg = new Image();
     mapBg.onload = renderMap;
     mapBg.src = level.map.src;
 
     function renderMap(){
-        dispatch(AddMapAction(level, width, height, playerPosition, start, end));
+        dispatch(AddMapAction(level, width, height, playerPosition, start, end, oldState));
     }
 
     
@@ -499,20 +512,23 @@ const SaveStateEndAction = () => {
 }
 
 
-const RestoreStateAction = (state) => {
+const RestoreStateAction = (mapname, gameobjects, state) => {
     return({
         type: ActionTypes.RESTORE_STATE,
         payload: {
+            mapname,
+            gameobjects,
             state,
         }
     })
 }
 
 
-export const AddMapAction = (level, width, height ,playerPosition, start, end) => { 
+export const AddMapAction = (level, width, height ,playerPosition, start, end, oldState=null) => { 
     return({
         type: ActionTypes.ADD_MAP,
         payload: {
+            name: level.name,
             tiles: level.map.tiles,
             width,
             height,
@@ -526,7 +542,7 @@ export const AddMapAction = (level, width, height ,playerPosition, start, end) =
                 position: playerPosition,
             },
             npc: level.npc,
-            gameobjects: "portals" in level? level.gameobjects.concat(level.portals): level.gameobjects,
+            gameobjects: oldState? oldState.gameobjects: level.gameobjects.concat(level.portals),
         },
     });
 }

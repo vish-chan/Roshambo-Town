@@ -2,6 +2,7 @@ import * as ActionTypes from './ActionTypes';
 
 
 const INITIAL_STATE = { 
+                        name: null,
                         tiles: [],
                         width: 0,
                         height: 0,
@@ -13,6 +14,7 @@ export const Map = (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case ActionTypes.ADD_MAP:
             return({...state, 
+                    name: action.payload.name,
                     tiles: action.payload.tiles, 
                     width: action.payload.width,
                     height: action.payload.height,

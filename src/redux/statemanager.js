@@ -8,14 +8,19 @@ export const StateManager = ( state = INITIAL_STATE, action) => {
     switch(action.type) {
         case ActionTypes.SAVE_STATE:
             return({
+                ...state,
                 prevState: {
                     ...action.payload.state,
                 }
             });
         case ActionTypes.RESTORE_STATE:
+            let statecpy = {};
+            statecpy[action.payload.mapname] = {
+                gameobjects: action.payload.gameobjects,
+            }
             return({
+                ...statecpy,
                 prevState: null,
-                
             });
         default: 
             return state;
