@@ -7,6 +7,7 @@ import { level } from '../data/maps/Levels/2/index';
 import { connect } from 'react-redux';
 import ConversationDisplay from './ConversationDisplayComponent';
 import Inventory from './InventoryComponent';
+import Loading from './LoadingComponent';
 
 
 const worldStyle = {
@@ -16,6 +17,7 @@ const worldStyle = {
     margin:  '20px auto',
     border: '10px solid white',
     overflow: 'hidden',
+    backgroundColor: 'white',
 }
 
 const mapStatetoProps = state => {
@@ -39,15 +41,22 @@ class World extends Component {
 
     
     render() {
-        
-        return(
+        if(this.props.map.isLoading) {
+            return(
             <div style={worldStyle}>
-                <Map map={this.props.map} viewport={this.props.viewport}/>
-                <Player/>
-                <ConversationDisplay/>
-                <Inventory />
-            </div> 
+                <Loading />
+            </div>
         );
+        } else {
+            return(
+                <div style={worldStyle}>
+                    <Map map={this.props.map} viewport={this.props.viewport}/>
+                    <Player/>
+                    <ConversationDisplay/>
+                    <Inventory />
+                </div> 
+            );
+        }
     }
 }
 

@@ -29,6 +29,7 @@ export const Map = (state = INITIAL_STATE, action) => {
         case ActionTypes.RESTORE_STATE:
             return({
                 ...action.payload.state.map,
+                isLoading: false,
             });
         default: 
             return state;

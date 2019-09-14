@@ -14,7 +14,7 @@ export const NPC = (state = {
             if(!action.payload.npc)
                 return state;
             return(
-                {   ...state,
+                { 
                     frozen: false,
                     list :action.payload.npc.map( npc => {
                         return({...npc, 

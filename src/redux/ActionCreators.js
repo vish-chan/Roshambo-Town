@@ -290,18 +290,32 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
     const portals = getPortal(player.position, gameobjects);
     if(portals.length > 0) {
         const portal = portals[0];
+
         dispatch(SaveStateInitAction());
         clearIntervals();
-        setTimeout(function() { 
-            dispatch(SaveStateAction(getState())); 
-            dispatch(AddMap(portal.target, true));
-        }, 
-        3000);
+        
+        saveStateandAddMap();
+        
+        function saveStateandAddMap() { 
+            const npcList = getState().npc.list;
+            const npcAnimating = npcList.filter( npc => npc.isAnimating);
+            if(npcAnimating.length > 0) {
+                setTimeout(saveStateandAddMap, 500);
+            } else {
+                dispatch(SaveStateAction(getState())); 
+                dispatch(AddMap(portal.target, true));
+            }
+        }
+
+        dispatch(LoadingMapAction());
     }
 }
 
 export const RestoreState = () => (dispatch, getState) => {
     const oldState = getState().statemanager.prevState;
+    if(!oldState)
+        return;
+
     const mapname = getState().map.name;
     const gameobjects = getState().gameobjects.map( gameobject => {
         return({
@@ -309,19 +323,28 @@ export const RestoreState = () => (dispatch, getState) => {
             position: mapCoordinatesToTiles(gameobject.position, TILE_SIZE),
         });
     });
-    if(!oldState)
-        return;
     dispatch(SaveStateInitAction()); 
     clearInterval();
-    clearTimeouts();
     
-    const mapBg = new Image();
-    mapBg.onload = renderMap;
-    mapBg.src = oldState.map.src;
+    checkandRestoreMap();
+        
+    function checkandRestoreMap() { 
+        const npcList = getState().npc.list;
+        const npcAnimating = npcList.filter( npc => npc.isAnimating);
+        if(npcAnimating.length > 0) {
+            setTimeout(checkandRestoreMap, 500);
+        } else {
+            const mapBg = new Image();
+            mapBg.onload = renderMap;
+            mapBg.src = oldState.map.src;
 
-    function renderMap(){
-        dispatch(RestoreStateAction(mapname, gameobjects, oldState));
+            function renderMap(){
+                dispatch(RestoreStateAction(mapname, gameobjects, oldState));
+            }
+            
+        }
     }
+    dispatch(LoadingMapAction());
 }
 
 
@@ -521,6 +544,12 @@ const RestoreStateAction = (mapname, gameobjects, state) => {
             state,
         }
     })
+}
+
+const LoadingMapAction = () => {
+    return({
+        type: ActionTypes.MAP_LOADING,
+    });
 }
 
 
