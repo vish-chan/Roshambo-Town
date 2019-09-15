@@ -1,14 +1,9 @@
 import * as ActionTypes from './ActionTypes';
-import { TOTAL_MOVEMENT_SIZE, VIEWPORT_BOUNDARY, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
+import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
         VIEWPORT_HEIGHT, CAMERA, PORTAL} from '../helpers/constants';
 import {tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals, clearTimeouts} from '../helpers/funcs';
 
-const observeViewPortBoundaries = (newpos, mapstart) => {
-    const viewportPos = mapToViewport(newpos, mapstart);
-    return (viewportPos[0]>=0 && viewportPos[0]<=VIEWPORT_BOUNDARY[0] - TILE_SIZE) &&
-            (viewportPos[1]>=0 && viewportPos[1]<=VIEWPORT_BOUNDARY[1] - TILE_SIZE);
-}
 
 const observeMapBoundaries = (newpos, mapwidth, mapheight) => {
     return (newpos[0]>=0 && newpos[0]<=mapwidth - TILE_SIZE) &&
@@ -103,6 +98,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     const player = getState().player;
     let oldpos = player.position, newpos = [];
     let mapstart = getState().viewport.start, mapend = getState().viewport.end;
+    const map = getState().map;
     let direction, steps = player.skin.walkSpriteCount;
     const frameMovementSize = TOTAL_MOVEMENT_SIZE/steps;
 
@@ -123,7 +119,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     if(player.direction!==direction)
         dispatch(UpdatePlayerDirectionAction(direction));
 
-    if(observeViewPortBoundaries(newpos, mapstart) && observeImpassible(getState().map.tiles, newpos) && observeNPC(newpos, getState().npc.list)) {
+    if(observeMapBoundaries(newpos, map.width, map.height) && observeImpassible(getState().map.tiles, newpos) && observeNPC(newpos, getState().npc.list)) {
         dispatch(UpdatePlayerAnimationAction(true, newpos));
         if(observeCamera(oldpos, direction, mapstart) && mapScrollable(direction, mapstart, mapend)) {
             requestAnimationFrame(animatePlayerOnSpot);
@@ -325,7 +321,6 @@ export const RestoreState = () => (dispatch, getState) => {
     });
     dispatch(SaveStateInitAction()); 
     clearInterval();
-    
     checkandRestoreMap();
         
     function checkandRestoreMap() { 
