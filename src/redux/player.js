@@ -16,6 +16,7 @@ const INITIAL_STATE = {
                         interacting: false,
                         talk: [],
                         frozen: false,
+                        inBattle: false,
         };
 
 
@@ -35,6 +36,7 @@ export const Player = (state = INITIAL_STATE, action) => {
                         interacting: false,
                         talk: action.payload.player.talk.map(talk => talk? talk: [DEFAULT_DIALOG]),
                         frozen: false,
+                        inBattle: false,
                 });
         case ActionTypes.UPDATE_PLAYER_POSITION:
                 return({...state, 

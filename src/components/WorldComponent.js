@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import ConversationDisplay from './ConversationDisplayComponent';
 import Inventory from './InventoryComponent';
 import Loading from './LoadingComponent';
+import Battle from './BattleComponent';
 
 
 const worldStyle = {
@@ -24,6 +25,7 @@ const mapStatetoProps = state => {
     return({
         map: state.map,
         viewport: state.viewport,
+        battle: state.battle,
     });
 }
 
@@ -43,11 +45,18 @@ class World extends Component {
     render() {
         if(this.props.map.isLoading) {
             return(
-            <div style={worldStyle}>
-                <Loading />
-            </div>
+                <div style={worldStyle}>
+                    <Loading />
+                </div>
         );
-        } else {
+        } else if(this.props.battle.isOpen) {
+            return(
+                <div style={worldStyle}>
+                    <Battle />
+                </div> 
+            );
+        } 
+        else {
             return(
                 <div style={worldStyle}>
                     <Map map={this.props.map} viewport={this.props.viewport}/>

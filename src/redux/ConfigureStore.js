@@ -9,6 +9,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { Dialog } from './dialog';
 import { Inventory } from './inventory';
 import { StateManager } from './statemanager';
+import { Battle } from './battle';
 
 const rootReducer = combineReducers({
     player : Player,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     dialog: Dialog,
     inventory: Inventory,
     statemanager: StateManager,
+    battle: Battle,
 });
 
 

@@ -29,6 +29,7 @@ export const NPC = (state = {
                                 lastUpdated: performance.now(),
                                 isWaiting: false,
                                 interacting: false,
+                                inBattle: false,
                                 talk: npc.talk? npc.talk: DEFAULT_DIALOG,
                             })
                         })

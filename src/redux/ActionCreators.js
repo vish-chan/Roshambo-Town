@@ -2,7 +2,7 @@ import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
         VIEWPORT_HEIGHT, CAMERA, PORTAL} from '../helpers/constants';
-import {tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals, clearTimeouts} from '../helpers/funcs';
+import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 
 
 const observeMapBoundaries = (newpos, mapwidth, mapheight) => {
