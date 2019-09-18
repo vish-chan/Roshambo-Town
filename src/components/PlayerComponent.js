@@ -48,7 +48,9 @@ const AwarenessComponent = (props) => {
         display: !props.player.interacting? "inline-block" : "none",
     };
 
-    const instruction = props.player.nearbyNPC!==null? <div>Use {getKeyDiv("SPACE")} to talk</div> : "";
+    let instruction = props.player.nearbyNPC!==null? <div>Use {getKeyDiv("SPACE")} to talk</div> : null;
+    instruction = props.player.nearbyGameObj!==null? <div>Use {getKeyDiv("P")} to pickup</div> : instruction;
+    instruction = props.player.nearbyPortal!==null? <div>Use {getKeyDiv("E")} to enter</div> : instruction;
 
     return(
         <div style={style}>

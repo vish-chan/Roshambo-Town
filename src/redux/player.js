@@ -18,6 +18,8 @@ const INITIAL_STATE = {
                         frozen: false,
                         inBattle: false,
                         nearbyNPC: null,
+                        nearbyGameObj: null,
+                        nearbyPortal: null,
         };
 
 
@@ -39,6 +41,8 @@ export const Player = (state = INITIAL_STATE, action) => {
                         frozen: false,
                         inBattle: false,
                         nearbyNPC: null,
+                        nearbyGameObj: null,
+                        nearbyPortal: null,
                 });
         case ActionTypes.UPDATE_PLAYER_POSITION:
                 return({...state, 
@@ -87,6 +91,16 @@ export const Player = (state = INITIAL_STATE, action) => {
                 return({
                         ...state,
                         nearbyNPC: action.payload.npcId,
+                });
+        case ActionTypes.UPDATE_NEARBY_GAMEOBJ: 
+                return({
+                        ...state,
+                        nearbyGameObj: action.payload.id,
+                });
+        case ActionTypes.UPDATE_NEARBY_PORTAL: 
+                return({
+                        ...state,
+                        nearbyPortal: action.payload.id,
                 });
         default: 
             return state;

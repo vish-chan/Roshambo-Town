@@ -150,11 +150,26 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     function animatePlayer() {
         if(steps === 0) {
             dispatch(UpdatePlayerAnimationAction(false));
+
             const nearByNPC = checkNearbyIdleNPC(getState().player.position, getState().player.direction, getState().npc.list);
             if(nearByNPC.length) {
                 dispatch(UpdateNearbyNPCAction(nearByNPC[0].id));
             } else if(player.nearbyNPC!==null) {
                 dispatch(UpdateNearbyNPCAction());
+            }
+
+            const objects = getObjectForPickup(getState().player.position, getState().gameobjects);
+            if(objects.length) {
+                dispatch(UpdateNearbyGameObjAction(objects[0].id)); 
+            } else if(player.nearbyGameObj!==null) {
+                dispatch(UpdateNearbyGameObjAction());
+            }
+
+            const portals = getPortal(getState().player.position, getState().gameobjects);
+            if(portals.length) {
+                dispatch(UpdateNearbyPortalAction(portals[0].id));
+            } else if(player.nearbyPortal!==null) {
+                dispatch(UpdateNearbyPortalAction());
             }
             return;
         } 
@@ -178,11 +193,10 @@ const getObjectForPickup = (position, gameobjects) => {
 
 export const PickupGameObject = () => (dispatch, getState) => {
     const player = getState().player;
-    const gameobjects = getState().gameobjects;
-    const objects = getObjectForPickup(player.position, gameobjects);
-    if(objects.length>0) {
-        const object = objects[0];
-        dispatch(AddObjecttoInventory(object)); 
+    const gameobject = player.nearbyGameObj!==null? getState().gameobjects.filter( gobj => gobj.id === player.nearbyGameObj ): null;
+    if(gameobject!==null) {
+        dispatch(AddObjecttoInventory(gameobject[0]));
+        dispatch(UpdateNearbyGameObjAction()); 
     }
 }
 
@@ -314,9 +328,9 @@ const getPortal = (position, gameobjects) => {
 }
 
 export const CheckPortalAndEnter = () => (dispatch, getState) =>{
-    const player = getState().player, gameobjects = getState().gameobjects;
-    const portals = getPortal(player.position, gameobjects);
-    if(portals.length > 0) {
+    const player = getState().player;
+    const portals = player.nearbyPortal!==null? getState().gameobjects.filter( gobj => gobj.id === player.nearbyPortal ): null;
+    if(portals!==null) {
         const portal = portals[0];
 
         dispatch(SaveStateInitAction());
@@ -489,6 +503,24 @@ const UpdateNearbyNPCAction = (npcId=null) => {
         type: ActionTypes.UPDATE_NEARBY_NPC,
         payload: {
             npcId: npcId,
+        }
+    });
+}
+
+const UpdateNearbyGameObjAction = (gameobjId=null) => {
+    return({
+        type: ActionTypes.UPDATE_NEARBY_GAMEOBJ,
+        payload: {
+            id: gameobjId,
+        }
+    });
+}
+
+const UpdateNearbyPortalAction = (portalId=null) => {
+    return({
+        type: ActionTypes.UPDATE_NEARBY_PORTAL,
+        payload: {
+            id: portalId,
         }
     });
 }
