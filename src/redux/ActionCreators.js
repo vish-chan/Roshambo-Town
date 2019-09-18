@@ -357,17 +357,33 @@ export const SaveState = () => (dispatch, getState) => {
 export const AddMap = (level, secondary=false) => (dispatch, getState) => {
     let width = level.map.tiles[0].length*TILE_SIZE, height= level.map.tiles.length*TILE_SIZE;
     let playerPosition = tileToMapCoordinates(level.player.position, TILE_SIZE);
-    let start_x = (VIEWPORT_WIDTH/2) - playerPosition[0] - TILE_SIZE, start_y = (VIEWPORT_HEIGHT/2)-playerPosition[1] - TILE_SIZE;
-    let start = [ start_x>=0? 0: start_x, start_y>=0? 0: start_y];
-    let end_x = start[0]+width, end_y = start[1]+height;
-    if(end_x < VIEWPORT_WIDTH) {
-        end_x = VIEWPORT_WIDTH;
-        start[0] = end_x - width;
+    let start_x, start_y, end_x, end_y;
+    if(width <= VIEWPORT_WIDTH) {
+        start_x = VIEWPORT_WIDTH/2 - width/2;
+        end_x = start_x + width;
+    } else {
+        start_x = (VIEWPORT_WIDTH/2) - playerPosition[0] - TILE_SIZE;
+        start_x = start_x >=0? 0: start_x;
+        end_x = start_x + width;
+        if(end_x < VIEWPORT_WIDTH) {
+            end_x = VIEWPORT_WIDTH;
+            start_x = end_x - width;
+        }
     }
-    if(end_y < VIEWPORT_HEIGHT) {
-        end_y = VIEWPORT_HEIGHT;
-        start[1] = end_y - height;
+    if(height <= VIEWPORT_HEIGHT) {
+        start_y = VIEWPORT_HEIGHT/2 - height/2;
+        end_y = start_y + height;
+    } else {
+        start_y = (VIEWPORT_HEIGHT/2)-playerPosition[1] - TILE_SIZE;
+        start_y = start_y >=0? 0: start_y;
+        end_y = start_y + height
+        if(end_y < VIEWPORT_HEIGHT) {
+            end_y = VIEWPORT_HEIGHT;
+            start_y = end_y - height;
+        }
     }
+    
+    let start = [ start_x, start_y ];
     let end = [end_x, end_y];
 
     let oldState = null;
