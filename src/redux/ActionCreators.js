@@ -24,25 +24,33 @@ const observeCamera = (position, direction, mapstart) => {
         return (viewportPos[1] >= CAMERA[1][0]) && (viewportPos[1] <= CAMERA[1][1])
 }
 
-const observeNPC = (newpos, npcList) => {
-    const impassible = npcList.filter( npc => {
+const observeIdleNPC = (newpos, npcList) => {
+    const npclist = npcList.filter( npc => {
         if(!npc.isAnimating)
             return (newpos[0] === npc.position[0]) && (newpos[1] === npc.position[1]);
         else
-            return (newpos[0] === npc.nextPosition[0]) && (newpos[1] === npc.nextPosition[1]);
+            return false;
     });
 
-    return impassible.length === 0;
+    return npclist;
 }
 
-const observeIdleNPC = (position, npcList) => {
-    const npcForDialog = npcList.filter( npc => {
-        if(!npc.isAnimating) {
-            return(position[0] === npc.position[0] && position[1] === npc.position[1]);
-        } else return false;
+const observeAnimatingNPC = (newpos, npcList) => {
+    const npclist = npcList.filter( npc => {
+        if(npc.isAnimating)
+            return (newpos[0] === npc.nextPosition[0]) && (newpos[1] === npc.nextPosition[1]);
+        else 
+            return false;
     });
 
-    return npcForDialog;
+    return npclist;
+}
+
+const observeIdlePlayer = (newpos, player) => {
+    if(!player.isAnimating) 
+        return (newpos[0] === player.position[0]) && (newpos[1] === player.position[1]);
+    else
+        return false;
 }
 
 const observePlayer = (newpos, player) => {
@@ -99,7 +107,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     let oldpos = player.position, newpos = [];
     let mapstart = getState().viewport.start, mapend = getState().viewport.end;
     const map = getState().map;
-    let direction, steps = player.skin.walkSpriteCount;
+    let direction, steps = player.skin.walkSpriteCount, movemap=false;
     const frameMovementSize = TOTAL_MOVEMENT_SIZE/steps;
 
     if(keyCode === 37) {
@@ -119,39 +127,46 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     if(player.direction!==direction)
         dispatch(UpdatePlayerDirectionAction(direction));
 
-    if(observeMapBoundaries(newpos, map.width, map.height) && observeImpassible(getState().map.tiles, newpos) && observeNPC(newpos, getState().npc.list)) {
-        dispatch(UpdatePlayerAnimationAction(true, newpos));
-        if(observeCamera(oldpos, direction, mapstart) && mapScrollable(direction, mapstart, mapend)) {
-            requestAnimationFrame(animatePlayerOnSpot);
-        } else {
-            requestAnimationFrame(animatePlayer);
+    if(observeMapBoundaries(newpos, map.width, map.height) && observeImpassible(getState().map.tiles, newpos)) {
+        const idlenpc = observeIdleNPC(newpos, getState().npc.list);
+        const animatingnpc = observeAnimatingNPC(newpos, getState().npc.list);
+        if(idlenpc.length === 0 && animatingnpc.length===0) {
+            dispatch(UpdatePlayerAnimationAction(true, newpos));
+                if(observeCamera(oldpos, direction, mapstart) && mapScrollable(direction, mapstart, mapend)) {
+                    movemap = true;
+                    requestAnimationFrame(animatePlayer);
+                } else {
+                    movemap=false;
+                    requestAnimationFrame(animatePlayer);
+                }
+        } else if(idlenpc.length > 0) {
+            if(player.nearbyNPC!==idlenpc[0].id) {
+                dispatch(UpdateNearbyNPCAction(idlenpc[0].id));
+            }
         }
+        
     }
 
     function animatePlayer() {
         if(steps === 0) {
             dispatch(UpdatePlayerAnimationAction(false));
+            const nearByNPC = checkNearbyIdleNPC(getState().player.position, getState().player.direction, getState().npc.list);
+            if(nearByNPC.length) {
+                dispatch(UpdateNearbyNPCAction(nearByNPC[0].id));
+            } else if(player.nearbyNPC!==null) {
+                dispatch(UpdateNearbyNPCAction());
+            }
             return;
         } 
         newpos = getNewPostion(oldpos, direction, frameMovementSize);
         dispatch(UpdatePlayerPositionAction(newpos));
         oldpos = newpos;
+        if(movemap) {
+            mapstart = getNewOrigin(mapstart, direction, frameMovementSize);
+            dispatch(UpdateOriginAction(mapstart));
+        }
         steps--;
         setTimeout(function() {requestAnimationFrame(animatePlayer)}, player.frameInterval);
-    }
-    
-    function animatePlayerOnSpot() {
-        if(steps === 0) {
-            dispatch(UpdatePlayerAnimationAction(false));
-            return;
-        } 
-        newpos = getNewPostion(oldpos, direction, frameMovementSize);
-        dispatch(UpdatePlayerPositionAction(newpos));
-        oldpos = newpos;
-        mapstart = getNewOrigin(mapstart, direction, frameMovementSize);
-        dispatch(UpdateOriginAction(mapstart));
-        steps--;
-        setTimeout(function() {requestAnimationFrame(animatePlayerOnSpot)}, player.frameInterval);
     }
 }
 
@@ -180,6 +195,11 @@ const getOppositeDirection = (direction) => {
     }
 }
 
+const checkNearbyIdlePlayer = (npcpos, direction, player) => {
+    const nextPosition = getNewPostion(npcpos, direction, TOTAL_MOVEMENT_SIZE);
+    return observeIdlePlayer(nextPosition, player);
+}
+
 const checkNearbyIdleNPC = (playerpos, direction, npcList) => {
     const nextPosition = getNewPostion(playerpos, direction, TOTAL_MOVEMENT_SIZE);
     const nearByNPC = observeIdleNPC(nextPosition, npcList);
@@ -187,10 +207,9 @@ const checkNearbyIdleNPC = (playerpos, direction, npcList) => {
 }
 
 export const InitiateConversation = () => (dispatch, getState) => {
-    const player = getState().player, npcList = getState().npc.list;
-    const nearByNPC = checkNearbyIdleNPC(player.position, player.direction, npcList);
-    if(nearByNPC.length) {
-        const npc = nearByNPC[0];
+    const player = getState().player;
+    const npc = player.nearbyNPC!==null? getState().npc.list[player.nearbyNPC]:null;
+    if(npc && !npc.isAnimating) {
         const oppdirection = getOppositeDirection(player.direction);
         if(npc.direction!==oppdirection) {
             dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
@@ -258,15 +277,28 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
     
     if(observeMapBoundaries(newpos, map.width, map.height) && 
                                             observeImpassible(map.tiles, newpos) && 
-                                            observeNPC(newpos, getState().npc.list) && 
                                             observePlayer(newpos, getState().player)) {
-        dispatch(UpdateNPCAnimationAction(npcId, true, newpos));
-        requestAnimationFrame(animateNPC)
+
+        const idlenpc = observeIdleNPC(newpos, getState().npc.list);
+        const animatingnpc = observeAnimatingNPC(newpos, getState().npc.list);
+        if(idlenpc.length === 0 && animatingnpc.length===0) {
+            dispatch(UpdateNPCAnimationAction(npcId, true, newpos));
+            requestAnimationFrame(animateNPC)
+        }
     }
 
     function animateNPC() {
         if(steps === 0) {
             dispatch(UpdateNPCAnimationAction(npcId, false));
+            const player = getState().player;
+            let npc = getState().npc.list[npcId];
+            if(checkNearbyIdlePlayer(npc.position, npc.direction, player)) {
+                if(player.direction===getOppositeDirection(npc.direction)) {
+                    dispatch(UpdateNearbyNPCAction(npc.id));
+                }
+            } else if(player.nearbyNPC===npc.id) {
+                dispatch(UpdateNearbyNPCAction());
+            }
             return;
         } 
         newpos = getNewPostion(oldpos, newdirection, frameMovementSize);
@@ -448,6 +480,15 @@ const UpdatePlayerDirectionAction = (direction) => {
         type: ActionTypes.UPDATE_PLAYER_DIRECTION,
         payload: {
             direction,
+        }
+    });
+}
+
+const UpdateNearbyNPCAction = (npcId=null) => {
+    return({
+        type: ActionTypes.UPDATE_NEARBY_NPC,
+        payload: {
+            npcId: npcId,
         }
     });
 }

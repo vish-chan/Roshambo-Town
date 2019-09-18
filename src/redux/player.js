@@ -17,6 +17,7 @@ const INITIAL_STATE = {
                         talk: [],
                         frozen: false,
                         inBattle: false,
+                        nearbyNPC: null,
         };
 
 
@@ -37,6 +38,7 @@ export const Player = (state = INITIAL_STATE, action) => {
                         talk: action.payload.player.talk.map(talk => talk? talk: [DEFAULT_DIALOG]),
                         frozen: false,
                         inBattle: false,
+                        nearbyNPC: null,
                 });
         case ActionTypes.UPDATE_PLAYER_POSITION:
                 return({...state, 
@@ -80,6 +82,11 @@ export const Player = (state = INITIAL_STATE, action) => {
                 return({
                         ...action.payload.state.player,
                         frozen: false,
+                });
+        case ActionTypes.UPDATE_NEARBY_NPC: 
+                return({
+                        ...state,
+                        nearbyNPC: action.payload.npcId,
                 });
         default: 
             return state;
