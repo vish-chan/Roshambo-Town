@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../helpers/constants';
+import { VIEWPORT_WIDTH } from '../helpers/constants';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
@@ -60,6 +60,14 @@ class Dialog extends Component {
     }
 
     render() {
+
+        let POS = {};
+        if(this.props.position==="top") {
+            POS["top"] = 0;
+        } else {
+            POS["bottom"] = 0;
+        }
+
         const style = {
             position: 'absolute',
             borderTop: '5px solid white',
@@ -72,11 +80,11 @@ class Dialog extends Component {
             fontSize: '20px',
             fontFamily: 'gameboy',
             display: this.props.isOpen? 'block': 'none',
-            top: this.props.position==="top"? 0: VIEWPORT_HEIGHT - 220,
+            ...POS,
         };
 
         return(
-            <div style={style}>
+            <div id="conversation" style={style}>
                 <p ref={p1 => this.p1 = p1}></p>
                 <p ref={p2 => this.p2 = p2}></p>
             </div>
@@ -85,8 +93,8 @@ class Dialog extends Component {
 }
 
 class ConversationDisplay extends Component {
-    render() {
 
+    render() {
         const dialog = this.props.dialog;
         return(
             <Dialog isOpen={dialog.isOpen}
