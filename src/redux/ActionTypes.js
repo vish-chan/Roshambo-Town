@@ -27,3 +27,4 @@ export const SAVE_STATE_END = "SAVE_STATE_END";
 export const RESTORE_STATE = "RESTORE_STATE";
 
 export const TOGGLE_BATTLE = "TOGGLE_BATTLE";
+export const SUBMIT_MOVES = "SUBMIT_MOVES";

@@ -20,7 +20,6 @@ export let intervalList = {};
 export const customSetInterval = (func, delay, npcid) => {
     const id = setInterval(func, delay);
     intervalList["_"+npcid] = id;
-    //console.log(JSON.stringify(intervalList));
 }
 
 export const clearIntervals = () => {
@@ -44,4 +43,35 @@ export const clearTimeouts = () => {
         clearTimeout(timeoutList[props[i]]);
         delete timeoutList[props[i]];
     }
+}
+
+export const printMatrix = (matrix) => {
+    let print = "";
+    for(let i=0; i<matrix.length;i++) {
+        for(let j=0; j<matrix[0].length;j++) {
+            print+=matrix[i][j]+" ,";
+        }
+        print+="\n";
+    }
+    console.log(print);
+}
+
+export const getValue = (stateparam, payloadparam) => {
+    return(payloadparam!=null ? payloadparam: stateparam);
+}
+
+export const centerBgImg = (image) => {
+    return({
+        backgroundColor: 'white',
+        backgroundImage: `url('${image}')`, 
+        backgroundRepeat: 'no-repeat', 
+        backgroundPosition:'center'
+    });
+}
+
+export const solidBorder = (size, color, radius) => {
+    return({
+        border: `${size}px solid ${color}`,
+        borderRadius: `${radius}px`,
+    });
 }

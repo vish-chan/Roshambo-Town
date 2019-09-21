@@ -52,7 +52,7 @@ class World extends Component {
         } else if(this.props.battle.isOpen) {
             return(
                 <div style={worldStyle}>
-                    <Battle />
+                    <Battle battle={this.props.battle} />
                 </div> 
             );
         } 

@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, PORTAL} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 
 
@@ -348,7 +348,6 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
                 dispatch(AddMap(portal.target, true));
             }
         }
-
         dispatch(LoadingMapAction());
     }
 }
@@ -393,11 +392,18 @@ export const SaveState = () => (dispatch, getState) => {
     
     dispatch(SaveStateInitAction());
     clearIntervals();
-    setTimeout(function() { 
-        dispatch(SaveStateAction(getState())); 
-        dispatch(SaveStateEndAction());
-    }, 
-    3000);
+    saveStateandAddMap();
+        
+    function saveStateandAddMap() { 
+        const npcList = getState().npc.list;
+        const npcAnimating = npcList.filter( npc => npc.isAnimating);
+        if(npcAnimating.length > 0) {
+            setTimeout(saveStateandAddMap, 500);
+        } else {
+            dispatch(SaveStateAction(getState())); 
+            dispatch(SaveStateEndAction());
+        }
+    }
 }
 
 export const AddMap = (level, secondary=false) => (dispatch, getState) => {
@@ -445,8 +451,110 @@ export const AddMap = (level, secondary=false) => (dispatch, getState) => {
     function renderMap(){
         dispatch(AddMapAction(level, width, height, playerPosition, start, end, oldState));
     }
+}
 
-    
+const BattleGetRandomMove = (maxMove) => {
+    return (Math.floor(Math.random() * maxMove) % (maxMove+1));
+}
+
+const BattleGetPredictedMoveIdx = (arr) => {
+    return(arr.reduce((maxIdx, currVal, currIdx, arr) => currVal > arr[maxIdx]? currIdx: maxIdx, 0));
+}
+
+const BattleGetWinningMove = (move, maxMove) => {
+    switch(move) {
+        case ROCK: return PAPER;
+        case PAPER: return SCISSORS;
+        case SCISSORS: return ROCK;
+        default: return BattleGetRandomMove(maxMove);
+    }
+}
+
+const BattleGetNextMove = (markovMatrix, lastMove) => {
+    const maxMove = markovMatrix.length - 1;
+    let nextMove, predictedMoveIdx;
+    if(lastMove===null) {
+        nextMove = BattleGetRandomMove(maxMove);
+    } else {
+        predictedMoveIdx = BattleGetPredictedMoveIdx(markovMatrix[lastMove]);
+        if(markovMatrix[lastMove][predictedMoveIdx]===0) {
+            nextMove = BattleGetRandomMove(maxMove);
+        } else {
+            nextMove =  BattleGetWinningMove(predictedMoveIdx);
+        }
+    }
+    return nextMove;
+}
+
+const BattleGetWinner = (playermove, npcmove) => {
+        if(playermove===ROCK) {
+            if(npcmove===SCISSORS) 
+                return 1; //player won
+            else if(npcmove===PAPER)
+                return -1; //npc won
+            else 
+                return 0 //draw
+        } else if(playermove===PAPER) {
+            if(npcmove===ROCK) 
+                return 1; //player won
+            else if(npcmove===SCISSORS)
+                return -1; //npc won
+            else
+                return 0 //draw
+        } else if(playermove===SCISSORS) {
+            if(npcmove===PAPER)
+                return 1; //player won
+            else if(npcmove===ROCK)
+                return -1; //npc won
+            else
+                return 0 //draw
+        }
+}
+
+export const BattleMoveIndexToStr = (move) => {
+    switch(move) {
+        case 0: return "ROCK";
+        case 1: return "PAPER";
+        case 2: return "SCISSORS";
+        default: return "Undefined";
+    }
+}
+
+const BattleSummary = (playername, playermove, npcname, npcmove, winner) => {
+    const playerline = playername + " chose "+ BattleMoveIndexToStr(playermove) + ". ";
+    const npcline = npcname+ " chose "+ BattleMoveIndexToStr(npcmove)+". ";
+    let winnerline; 
+    if(winner===1) {
+        winnerline = playername + " wins!";
+    } else if(winner===-1) {
+        winnerline = npcname+ " wins!";
+    } else {
+        winnerline = "Its a DRAW!";
+    }
+    return(playerline+npcline+winnerline);
+}
+
+export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
+    const battle = getState().battle;
+    const playerMarkovMatrix = battle.player.markovMatrix;
+    const playerLastMove = battle.player.lastMove;
+    const npcMove = BattleGetNextMove(playerMarkovMatrix, playerLastMove);
+    const winner = BattleGetWinner(playerMove, npcMove);
+    const summary = BattleSummary(battle.player.name, playerMove, battle.npc.name, npcMove, winner);
+    dispatch(UpdateBattleStatsAction(playerMove, npcMove, winner, summary));
+}
+
+
+const UpdateBattleStatsAction = (playermove, npcmove, winner, summary) => {
+    return({
+        type: ActionTypes.SUBMIT_MOVES,
+        payload: {
+            playermove,
+            npcmove,
+            winner,
+            summary,
+        }
+    });
 }
 
 const UpdatePlayerAnimationAction = (isAnimating, newpos = []) => {
@@ -637,7 +745,7 @@ const LoadingMapAction = () => {
 }
 
 
-export const AddMapAction = (level, width, height ,playerPosition, start, end, oldState=null) => { 
+export const AddMapAction = (level, width, height ,playerPosition, vpstart, vpend, oldState=null) => { 
     return({
         type: ActionTypes.ADD_MAP,
         payload: {
@@ -647,8 +755,8 @@ export const AddMapAction = (level, width, height ,playerPosition, start, end, o
             height,
             src: level.map.src,
             viewport: {
-                start,
-                end,
+                start: vpstart,
+                end: vpend,
             },
             player: {
                 ...level.player,
