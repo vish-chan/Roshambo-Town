@@ -54,3 +54,13 @@
     from {left: 200%;}
     to { left : 0}
   }
+
+
+  .blink {
+      animation: blink 0.8s ease-in-out 0s infinite normal none;
+  }
+
+  @keyframes blink {
+    from { opacity: 0;}
+    to { opacity : 1;}
+  }

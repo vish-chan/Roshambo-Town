@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const viewportToMap = (viewportpos, mapstart) => {
     return([viewportpos[0] + (-1*mapstart[0]),viewportpos[1] + (-1*mapstart[1])]);
 }
@@ -74,4 +76,13 @@ export const solidBorder = (size, color, radius) => {
         border: `${size}px solid ${color}`,
         borderRadius: `${radius}px`,
     });
+}
+
+
+export const getKeyDiv = (keycode) => {
+    return(
+    <div style={{padding:'3px', border: '1px inset grey', borderRadius:'5px', backgroundColor:'white', display: 'inline-block', fontSize:"15px", color:'black' }}>
+        <div style={{backgroundColor:'lightgrey'}}>{keycode}</div>
+    </div>
+    );
 }

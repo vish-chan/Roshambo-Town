@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, SAVE_KEY, RESTORE_KEY } from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject, ToggleInventory, RestoreState, CheckPortalAndEnter } from '../redux/ActionCreators';
-import { mapToViewport } from '../helpers/funcs';
+import { mapToViewport, getKeyDiv } from '../helpers/funcs';
 
 const mapStatetoProps = state => {
     return({
@@ -21,15 +21,6 @@ const mapDispatchToProps = dispatch => {
         checkPortalAndEnter: () => { dispatch(CheckPortalAndEnter()); },
         restoreState: () => { dispatch(RestoreState()); },
     });
-}
-
-
-const getKeyDiv = (keycode) => {
-    return(
-    <div style={{padding:'3px', border: '1px inset grey', borderRadius:'5px', backgroundColor:'white', display: 'inline-block', fontSize:"15px" }}>
-        <div style={{backgroundColor:'lightgrey'}}>{keycode}</div>
-    </div>
-    );
 }
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { VIEWPORT_WIDTH } from '../helpers/constants';
 import { connect } from 'react-redux';
+import { getKeyDiv } from '../helpers/funcs';
 
 const mapStateToProps = (state) => {
     return({
@@ -86,8 +87,11 @@ class Dialog extends Component {
 
         return(
             <div id="conversation" style={style}>
-                <p ref={p1 => this.p1 = p1}></p>
-                <p ref={p2 => this.p2 = p2}></p>
+                <div style={{position:"relative", width:'100%', height:'100%'}}>
+                    <p ref={p1 => this.p1 = p1}></p>
+                    <p ref={p2 => this.p2 = p2}></p>
+                    <div className='blink' style={{position:'absolute', right:20, bottom:20}}>{getKeyDiv("SPACE")}</div>
+                </div>
             </div>
         );
     }
