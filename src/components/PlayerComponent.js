@@ -33,7 +33,7 @@ const getKeyDiv = (keycode) => {
 }
 
 
-const AwarenessComponent = (props) => {
+const AwareComponent = (props) => {
 
     const position = mapToViewport(props.player.position, props.viewport.start);
     const style = {
@@ -96,6 +96,11 @@ class Player extends Component {
     componentDidMount() {
         window.addEventListener('keydown', this.handleKeyDown);
     }
+    
+
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.handleKeyDown);
+    }
 
 
     handleKeyDown(event) {
@@ -132,7 +137,7 @@ class Player extends Component {
         return(
             <div>
                 <PlayerSprite player={this.props.player} viewport={this.props.viewport}/>
-                <AwarenessComponent player={this.props.player} viewport={this.props.viewport} />
+                <AwareComponent player={this.props.player} viewport={this.props.viewport} />
             </div>
         );
     }

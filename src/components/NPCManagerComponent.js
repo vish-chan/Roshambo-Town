@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UpdateNPCPosition } from '../redux/ActionCreators';
 import { TILE_SIZE } from '../helpers/constants';
-import { customSetInterval, intervalList } from '../helpers/funcs';
+import { customSetInterval, intervalList, clearIntervals } from '../helpers/funcs';
 
 
 const mapStatetoProps = state => {
@@ -51,6 +51,10 @@ class NPC extends Component {
 }    
 
 class NPCManager extends Component {
+
+    componentWillUnmount() {
+        clearIntervals();
+    }
     
     render() {
         const NPCObj = this.props.npc.list.map( npc => <NPC self={npc}  key={npc.id} updateNPCPosition={this.props.updateNPCPosition} frozen={this.props.npc.frozen}/> );

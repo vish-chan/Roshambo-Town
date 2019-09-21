@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { DOWN } from '../helpers/constants';
+import { getValue } from '../helpers/funcs';
 
 const DEFAULT_DIALOG = "Hey! What's up?";
 
@@ -17,6 +18,7 @@ const INITIAL_STATE = {
                         talk: [],
                         frozen: false,
                         inBattle: false,
+                        battleHealth: 10,
                         nearbyNPC: null,
                         nearbyGameObj: null,
                         nearbyPortal: null,
@@ -27,12 +29,13 @@ export const Player = (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case ActionTypes.ADD_MAP:
                 return({...state, 
-                        name: action.payload.player.name, 
-                        skin: action.payload.player.skin, 
-                        position:action.payload.player.position, 
-                        frameInterval: action.payload.player.frameInterval,
+                        name: getValue(state.name, action.payload.player.name), 
+                        skin: getValue(state.skin, action.payload.player.skin), 
+                        position: getValue(state.position, action.payload.player.position), 
+                        frameInterval: getValue(state.frameInterval, action.payload.player.frameInterval),
+                        battleHealth: getValue(state.battleHealth, action.payload.battleHealth),
                         direction: DOWN,
-                        spriteLocation: action.payload.player.skin[DOWN],
+                        spriteLocation: getValue(state.skin, action.payload.player.skin)[DOWN],
                         isAnimating: false,
                         nextPosition: [],
                         walkIndex: 0,

@@ -80,6 +80,7 @@ class Dialog extends Component {
             fontSize: '20px',
             fontFamily: 'gameboy',
             display: this.props.isOpen? 'block': 'none',
+            overflowWrap: 'break-word',
             ...POS,
         };
 
