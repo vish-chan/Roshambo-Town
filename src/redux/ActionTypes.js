@@ -26,5 +26,7 @@ export const SAVE_STATE = "SAVE_STATE";
 export const SAVE_STATE_END = "SAVE_STATE_END";
 export const RESTORE_STATE = "RESTORE_STATE";
 
-export const TOGGLE_BATTLE = "TOGGLE_BATTLE";
+export const START_BATTLE = "START_BATTLE";
+export const END_BATTLE_INTRO = "END_BATTLE_INTRO";
 export const SUBMIT_MOVES = "SUBMIT_MOVES";
+export const END_BATTLE = "END_BATTLE";

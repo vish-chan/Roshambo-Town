@@ -67,7 +67,8 @@ export const centerBgImg = (image) => {
         backgroundColor: 'white',
         backgroundImage: `url('${image}')`, 
         backgroundRepeat: 'no-repeat', 
-        backgroundPosition:'center'
+        backgroundPosition:'center',
+        backgroundSize: 'contain',
     });
 }
 

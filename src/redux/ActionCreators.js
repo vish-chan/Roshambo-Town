@@ -535,6 +535,7 @@ const BattleSummary = (playername, playermove, npcname, npcmove, winner) => {
 }
 
 export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
+    
     const battle = getState().battle;
     const playerMarkovMatrix = battle.player.markovMatrix;
     const playerLastMove = battle.player.lastMove;
@@ -542,6 +543,37 @@ export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
     const winner = BattleGetWinner(playerMove, npcMove);
     const summary = BattleSummary(battle.player.name, playerMove, battle.npc.name, npcMove, winner);
     dispatch(UpdateBattleStatsAction(playerMove, npcMove, winner, summary));
+
+    const finalWinner = CheckBattleWinner(getState().battle);
+    if(finalWinner!=0) {
+        setTimeout( function(){dispatch(EndBattle(finalWinner))}, 1000);
+    }
+}
+
+
+const CheckBattleWinner = (battle) => {
+    if(battle.player.lives===0) {
+        return -1;
+    } else if(battle.npc.lives===0) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+const EndBattle = (battleWinner) => {
+    return({
+        type: ActionTypes.END_BATTLE,
+        payload: {
+            battleWinner,
+        }
+    });
+}
+
+export const BattleEndIntro = () => {
+    return({
+        type: ActionTypes.END_BATTLE_INTRO,
+    });
 }
 
 

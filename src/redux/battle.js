@@ -14,10 +14,12 @@ const MAX_ROUNDS = 10;
 
 const INITIAL_STATE = { 
                         isOpen: true,
+                        inIntro: true,
                         currRound: 0,
                         maxRound: MAX_ROUNDS, 
                         player: {
                             name: "Player",
+                            level: 1,
                             lastMove: null,
                             score: 0,
                             lives: 10,
@@ -26,16 +28,24 @@ const INITIAL_STATE = {
                         },
                         npc: {
                             name: "NPC",
+                            level: 2,
                             lastMove: null,
                             lives: 10,
                             maxLives: 10,
                             score: 0,
                         },
+                        lastWinner: 0,
+                        finalWinner: 0,
                         summary: "Use arrow keys to select and press Enter",
                     };
 
 export const Battle = (state = INITIAL_STATE, action) => {
     switch(action.type) {
+        case ActionTypes.END_BATTLE_INTRO:
+            return({
+                ...state,
+                inIntro: false,
+            });
         case ActionTypes.SUBMIT_MOVES:
             let cpyMatrix = [...state.player.markovMatrix];
             if(state.player.lastMove!==null) {
@@ -57,13 +67,21 @@ export const Battle = (state = INITIAL_STATE, action) => {
                     score: action.payload.winner===-1? state.npc.score+1: state.npc.score,
                     lives: action.payload.winner===1? Math.max(state.npc.lives-1,0): state.npc.lives,
                 },
+                lastWinner: action.payload.winner,
                 summary: action.payload.summary,
             });
-        case ActionTypes.TOGGLE_BATTLE:
+        case ActionTypes.START_BATTLE:
             return({
                 ...state,
-                isOpen: !state.isOpen,
+                isOpen: true,
             })
+
+        case ActionTypes.END_BATTLE:
+        return({
+            ...state,
+            isOpen: false,
+            finalWinner: action.payload.battleWinner,
+        })
         default: 
             return state;
     }
