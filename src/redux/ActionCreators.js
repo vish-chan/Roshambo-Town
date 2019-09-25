@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ANS} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 
 
@@ -102,6 +102,11 @@ const getNewOrigin = (start, direction, movementSize) => {
 }
 
 
+const getNPC = (npclist, npcid) => {
+    return(npclist.filter(npc => npc.id===npcid)[0]);
+}
+
+
 export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     const player = getState().player;
     let oldpos = player.position, newpos = [];
@@ -142,9 +147,11 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
         } else if(idlenpc.length > 0) {
             if(player.nearbyNPC!==idlenpc[0].id) {
                 dispatch(UpdateNearbyNPCAction(idlenpc[0].id));
+                if(idlenpc[0].battle && !idlenpc[0].battleFlag) {
+                    dispatch(ForceBattleConversation(getState().player, idlenpc[0]));
+                }
             }
         }
-        
     }
 
     function animatePlayer() {
@@ -154,6 +161,9 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
             const nearByNPC = checkNearbyIdleNPC(getState().player.position, getState().player.direction, getState().npc.list);
             if(nearByNPC.length) {
                 dispatch(UpdateNearbyNPCAction(nearByNPC[0].id));
+                if(nearByNPC[0].battle && !nearByNPC[0].battleFlag) {
+                    dispatch(ForceBattleConversation(getState().player, nearByNPC[0]));
+                }
             } else if(player.nearbyNPC!==null) {
                 dispatch(UpdateNearbyNPCAction());
             }
@@ -220,21 +230,43 @@ const checkNearbyIdleNPC = (playerpos, direction, npcList) => {
     return nearByNPC;
 }
 
+
+const ForceBattleConversation = (player, npc) => (dispatch, getState) => {
+   
+    const oppdirection = getOppositeDirection(player.direction);
+    if(npc.direction!==oppdirection) {
+        dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
+    }
+    dispatch(SetConversationStatus(npc.id, 
+        {name: npc.name, dialogs: [BATTLE_QUESTION]}, 
+        {name: player.name, dialogs: [BATTLE_ANS]}, 
+        mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
+
+}
+
 export const InitiateConversation = () => (dispatch, getState) => {
     const player = getState().player;
-    const npc = player.nearbyNPC!==null? getState().npc.list[player.nearbyNPC]:null;
+    const npc = player.nearbyNPC!==null? getNPC(getState().npc.list, player.nearbyNPC):null;
     if(npc && !npc.isAnimating) {
         const oppdirection = getOppositeDirection(player.direction);
         if(npc.direction!==oppdirection) {
             dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
         }
-        dispatch(SetConversationStatus(npc.id, 
-                                    {name: player.name, dialogs: player.talk[npc.id]}, 
-                                    {name: npc.name, dialogs: npc.talk}, 
-                                    mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/4)? "top": "bottom"));
-        
+        if(npc.battle) {
+            dispatch(SetConversationStatus(npc.id, 
+                {name: player.name, dialogs: [BATTLE_QUESTION]}, 
+                {name: npc.name, dialogs: [BATTLE_ANS]}, 
+                mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
+        } else {
+            dispatch(SetConversationStatus(npc.id, 
+                                        {name: player.name, dialogs: player.talk[npc.id]}, 
+                                        {name: npc.name, dialogs: npc.talk}, 
+                                        mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", false));
+        }
     }
 }
+
+
 
 export const UpdateConversation = () => (dispatch, getState) => {
     const dialog = getState().dialog;
@@ -242,10 +274,14 @@ export const UpdateConversation = () => (dispatch, getState) => {
         dispatch(NextDialogAction());
         return;
     }
+
     let nextcontentIdx = dialog.dialogIdx + 1;
     if(nextcontentIdx<dialog.person1.dialogs.length) {
         dispatch(NextDialogAction());
     } else {
+        if(dialog.battleConversation) {
+            dispatch(StartBattle(getState().player, getNPC(getState().npc.list, dialog.npcId)));
+        }
         dispatch(ResetConversationStatus(dialog.npcId));
     }
 }
@@ -266,9 +302,9 @@ const getNewDirection = (oldpos, newpos, oldirection) => {
 }
 
 export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
-    let npc = getState().npc.list[npcId];
+    let npc = getNPC(getState().npc.list, npcId);
     
-    if(npc.stationary ||  npc.isAnimating || npc.interacting)
+    if(npc.stationary ||  npc.isAnimating || npc.interacting || npc.inBattle)
         return;
     
     if(npc.isWaiting) {
@@ -305,10 +341,13 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
         if(steps === 0) {
             dispatch(UpdateNPCAnimationAction(npcId, false));
             const player = getState().player;
-            let npc = getState().npc.list[npcId];
+            let npc = getNPC(getState().npc.list, npcId);
             if(checkNearbyIdlePlayer(npc.position, npc.direction, player)) {
                 if(player.direction===getOppositeDirection(npc.direction)) {
                     dispatch(UpdateNearbyNPCAction(npc.id));
+                    if(npc.battle && !npc.battleFlag) {
+                        dispatch(ForceBattleConversation(getState().player, npc));
+                    }
                 }
             } else if(player.nearbyNPC===npc.id) {
                 dispatch(UpdateNearbyNPCAction());
@@ -453,6 +492,17 @@ export const AddMap = (level, secondary=false) => (dispatch, getState) => {
     }
 }
 
+
+const StartBattle = (player, npc) => {
+    return({
+        type: ActionTypes.START_BATTLE,
+        payload: {
+            player,
+            npc,
+        }
+    });
+} 
+
 const BattleGetRandomMove = (maxMove) => {
     return (Math.floor(Math.random() * maxMove) % (maxMove+1));
 }
@@ -546,7 +596,7 @@ export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
 
     const finalWinner = CheckBattleWinner(getState().battle);
     if(finalWinner!=0) {
-        setTimeout( function(){dispatch(EndBattle(finalWinner))}, 1000);
+        setTimeout( function(){dispatch(EndBattle(finalWinner, battle.npc.id))}, 1000);
     }
 }
 
@@ -561,11 +611,12 @@ const CheckBattleWinner = (battle) => {
     }
 }
 
-const EndBattle = (battleWinner) => {
+const EndBattle = (battleWinner, npcId) => {
     return({
         type: ActionTypes.END_BATTLE,
         payload: {
             battleWinner,
+            npcId,
         }
     });
 }
@@ -694,7 +745,7 @@ export const UpdateOriginAction = (origin) => {
 }
 
 
-const SetConversationStatus = (npcId, person1, person2, position) => {
+const SetConversationStatus = (npcId, person1, person2, position, battleConversation) => {
     return({
         type: ActionTypes.SET_DIALOG_STATUS,
         payload: {
@@ -702,6 +753,7 @@ const SetConversationStatus = (npcId, person1, person2, position) => {
             person2,
             npcId,
             position,
+            battleConversation,
         }
     });
 }

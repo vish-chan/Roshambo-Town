@@ -17,7 +17,7 @@ export const level = {
         name: "Player",
         skin: Skin[0],
         position: [15, 17],
-        frameInterval: 5,
+        frameInterval: 0,
         talk: [
             null,
             ["Hey! Whatsup?", "Do you have any plans for Fifa today?", "Great, see you!"],
@@ -35,6 +35,8 @@ export const level = {
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 1500,
+                battle: true,
+                level: 1,
             },
             { 
                 name: "Moon",
@@ -46,16 +48,19 @@ export const level = {
                 moveInterval: 500,
                 waitInterval: 3000,
                 talk: ["I'm great dude. Long time no see ah!", "Let's catchup later today.", "BBye!"],
+                battle: false,
             },
             { 
                 name: "Ash",
                 skin: Skin[4],
                 direction: UP,
-                stationary: true,
+                stationary: false,
                 pathArr: [[1,12], [0,13], [0,14], [0,15]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 3000,
+                battle: true,
+                level: 2,
             }
         ],
 
@@ -74,7 +79,7 @@ export const level = {
     /* Compulsory */
     portals: [
         {
-            position: [15, 18],
+            position: [14, 17],
             type: PORTALS[0],
             target: _hospital,
         }

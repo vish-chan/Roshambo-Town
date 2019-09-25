@@ -10,10 +10,15 @@ const squareMatrix = (n) => {
     return matrix;
 }
 
-const MAX_ROUNDS = 10;
+const MAX_ROUNDS = 10, BASE_LIVES = 10;
+
+
+const getLives = (level) => {
+    return(BASE_LIVES + (level-1)*2);
+}
 
 const INITIAL_STATE = { 
-                        isOpen: true,
+                        isOpen: false,
                         inIntro: true,
                         currRound: 0,
                         maxRound: MAX_ROUNDS, 
@@ -22,16 +27,17 @@ const INITIAL_STATE = {
                             level: 1,
                             lastMove: null,
                             score: 0,
-                            lives: 10,
-                            maxLives: 10,
+                            lives: BASE_LIVES,
+                            maxLives: BASE_LIVES,
                             markovMatrix: squareMatrix(3), 
                         },
                         npc: {
+                            id: null,
                             name: "NPC",
                             level: 2,
                             lastMove: null,
-                            lives: 10,
-                            maxLives: 10,
+                            lives: BASE_LIVES,
+                            maxLives: BASE_LIVES,
                             score: 0,
                         },
                         lastWinner: 0,
@@ -41,6 +47,27 @@ const INITIAL_STATE = {
 
 export const Battle = (state = INITIAL_STATE, action) => {
     switch(action.type) {
+        case ActionTypes.START_BATTLE:
+            return({
+                ...INITIAL_STATE,
+                isOpen: true,
+                player: {
+                    ...INITIAL_STATE.player,
+                    name: action.payload.player.name,
+                    level: action.payload.player.battle.level,
+                    lives: getLives(action.payload.player.battle.level),
+                    maxLives: getLives(action.payload.player.battle.level),  
+                },
+                npc: {
+                    ...INITIAL_STATE.npc,
+                    id: action.payload.npc.id,
+                    name: action.payload.npc.name,
+                    level: action.payload.npc.level,
+                    lives: getLives(action.payload.npc.level),
+                    maxLives: getLives(action.payload.npc.level),  
+                }
+            })
+
         case ActionTypes.END_BATTLE_INTRO:
             return({
                 ...state,
@@ -70,11 +97,6 @@ export const Battle = (state = INITIAL_STATE, action) => {
                 lastWinner: action.payload.winner,
                 summary: action.payload.summary,
             });
-        case ActionTypes.START_BATTLE:
-            return({
-                ...state,
-                isOpen: true,
-            })
 
         case ActionTypes.END_BATTLE:
         return({

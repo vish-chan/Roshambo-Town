@@ -8,7 +8,7 @@ const DEFAULT_STATE = {
     dialogIdx: 0,
     speakerIdx: 0,
     npcId: null,
-    isAnimating: false,
+    battleConversation: false,
  };
 
 export const Dialog = (state = {
@@ -25,6 +25,7 @@ export const Dialog = (state = {
                         npcId: action.payload.npcId,
                         dialogIdx: 0,
                         speakerIdx: 0,
+                        battleConversation: action.payload.battleConversation, 
                     });
                 case ActionTypes.RESET_DIALOG_STATUS:
                         return({

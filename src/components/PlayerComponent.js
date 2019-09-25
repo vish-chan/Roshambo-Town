@@ -95,12 +95,12 @@ class Player extends Component {
 
 
     handleKeyDown(event) {
-        if(this.props.player.isAnimating || this.props.player.frozen)
+        if(this.props.player.isAnimating || this.props.player.frozen || this.props.player.inBattle)
             return;
         var keyCode = event.keyCode;
-        console.log(keyCode);
+        //console.log(keyCode);
         if(VALID_KEYCODES.includes(keyCode)) {
-            console.log(keyCode);
+            //console.log(keyCode);
             event.preventDefault();
             event.stopImmediatePropagation();
             if(ARROW_KEYCODES.includes(keyCode) && !this.props.player.interacting) {

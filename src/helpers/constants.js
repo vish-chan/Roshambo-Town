@@ -35,3 +35,6 @@ export const PORTAL = "PORTAL";
 export const ROCK = 0;
 export const PAPER = 1;
 export const SCISSORS = 2;
+
+export const BATTLE_QUESTION = "Hey! Do you wanna battle?";
+export const BATTLE_ANS = "Yeah, sure. Let's go!"

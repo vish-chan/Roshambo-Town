@@ -30,6 +30,7 @@ export const NPC = (state = {
                                 isWaiting: false,
                                 interacting: false,
                                 inBattle: false,
+                                battleFlag: false,
                                 talk: npc.talk? npc.talk: DEFAULT_DIALOG,
                             })
                         })
@@ -146,6 +147,32 @@ export const NPC = (state = {
                     return({
                         list: action.payload.state.npc.list.concat(),
                         frozen: false,
+                    });
+
+        case ActionTypes.START_BATTLE:
+                return({
+                    ...state,
+                    list:  state.list.map( npc => {
+                        if(npc.id===action.payload.npc.id)
+                            return({...npc,  
+                                    inBattle: true,
+                                    battleFlag: true,
+                                });
+                        else
+                            return npc;
+                    })
+                });
+        case ActionTypes.END_BATTLE:
+                    return({
+                        ...state,
+                        list: state.list.map( npc => {
+                            if(npc.id===action.payload.npcId)
+                                return({...npc,  
+                                        inBattle: false,
+                                    });
+                            else
+                                return npc;
+                        })
                     });
         default: 
             return state;

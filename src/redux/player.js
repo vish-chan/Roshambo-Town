@@ -17,11 +17,16 @@ const INITIAL_STATE = {
                         interacting: false,
                         talk: [],
                         frozen: false,
-                        inBattle: false,
-                        battleHealth: 10,
                         nearbyNPC: null,
                         nearbyGameObj: null,
                         nearbyPortal: null,
+                        inBattle: false,
+                        battle: {
+                                level: 1,
+                                exp: 0,
+                                won: 0,
+                                lost: 0,
+                        }
         };
 
 
@@ -104,6 +109,16 @@ export const Player = (state = INITIAL_STATE, action) => {
                 return({
                         ...state,
                         nearbyPortal: action.payload.id,
+                });
+        case ActionTypes.START_BATTLE:
+                return({
+                        ...state,
+                        inBattle: true,
+                });
+        case ActionTypes.END_BATTLE:
+                return({
+                        ...state,
+                        inBattle: false,
                 });
         default: 
             return state;
