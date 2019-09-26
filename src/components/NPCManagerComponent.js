@@ -19,8 +19,6 @@ const mapDispatchToProps = dispatch => {
 
 class NPC extends Component {
 
-    
-    
     componentDidMount() {
         customSetInterval(this.props.updateNPCPosition.bind(this), this.props.self.moveInterval, this.props.self.id);
     }
@@ -43,9 +41,23 @@ class NPC extends Component {
             top: this.props.self.position[1] + ((TILE_SIZE/2) - (this.props.self.skin.height/2)),
             backgroundPosition: `${this.props.self.walkIndex * this.props.self.skin.width}px ${this.props.self.spriteLocation * this.props.self.skin.height}px`,
         }
+
+        const battlemarkerstyle = {
+            position: 'absolute',
+            width: 30,
+            height: 30, 
+            backgroundImage: `url('assets/images/80/objectsAndProps/battle_head.png')`,
+            backgroundSize: "contain",
+            left: this.props.self.position[0] + ((TILE_SIZE/2) - (30/2)),
+            top: (this.props.self.position[1] - 50) + ((TILE_SIZE/2) - (30/2)),
+            display: this.props.self.battle && !this.props.self.battleFlag ? 'block':'none'
+        }
     
         return(
-            <div id={`NPC${this.props.self.id}`} style={npcStyle}/>
+            <div>
+                <div id={`NPC${this.props.self.id}`} style={npcStyle}/>
+                <div className="blink" style={battlemarkerstyle}></div>
+            </div> 
         ); 
     }  
 }    

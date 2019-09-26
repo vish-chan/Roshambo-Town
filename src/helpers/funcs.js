@@ -80,9 +80,9 @@ export const solidBorder = (size, color, radius) => {
 }
 
 
-export const getKeyDiv = (keycode) => {
+export const getKeyDiv = (keycode, fontSize=15) => {
     return(
-    <div style={{padding:'3px', border: '1px inset grey', borderRadius:'5px', backgroundColor:'white', display: 'inline-block', fontSize:"15px", color:'black' }}>
+    <div style={{padding:'3px', border: '1px inset grey', borderRadius:'5px', backgroundColor:'white', display: 'inline-block', fontSize:`${fontSize}px`, color:'black' }}>
         <div style={{backgroundColor:'lightgrey'}}>{keycode}</div>
     </div>
     );

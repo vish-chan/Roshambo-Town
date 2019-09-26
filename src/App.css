@@ -1,129 +1,159 @@
 .inventorybtn {
-    width: 120px;
-    height: 120px;
-    margin: 5px;
-    border-radius: 5px;
-    box-shadow: inset 0 0 5px black;  
-    background-color: green;  
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
+  width: 120px;
+  height: 120px;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px black;  
+  background-color: green;  
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
 }
 
 .inventorybtn:after {
-    content: "";
-    position: absolute;
-    top: -50px;
-    left: -50px;
-    width: 0%;
-    height: 200%;
-    transform: rotate(30deg);
-    background-color: rgba(255,255,255,0.4);
-    -webkit-transition: none;
-    -moz-transition: none;
-    -ms-transition: none;
-    -o-transition: none;
-    transition: none;
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 0%;
+  height: 200%;
+  transform: rotate(30deg);
+  background-color: rgba(255,255,255,0.4);
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
 }
 
 .inventorybtn:hover:after {
-    width: 200%;
-    background-color: rgba(255,255,255,0);
-    -webkit-transition: all 0.3s ease-out;
-    -moz-transition: all 0.3s ease-out;
-    -ms-transition: all 0.3s ease-out;
-    -o-transition: all 0.3s ease-out;
-    transition: all 0.5s ease-out;
+  width: 200%;
+  background-color: rgba(255,255,255,0);
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.5s ease-out;
 }
 
 .moveInLR {
-    animation: moveInLR 0.5s linear 0s 1 normal none;
+  animation: moveInLR 0.5s linear 0s 1 normal none;
 }
 
 .moveInRL {
-    animation: moveInRL 0.5s linear 0s 1 normal none;
+  animation: moveInRL 0.5s linear 0s 1 normal none;
 }
 
 @keyframes moveInLR {
-    from {left: -100%;}
-    to { left : 0}
-  }
-
-  
-@keyframes moveInRL {
-    from {left: 100%;}
-    to { left : 0}
-  }
-
-
-  .blink {
-      animation: blink 0.5s ease-in-out 0s infinite alternate none;
-  }
-
-  .blinkmomentary {
-    animation: blink 0.2s ease 0s 3 normal none;
+  from {left: -100%;}
+  to { left : 0}
 }
 
-  @keyframes blink {
-    from { opacity: 0; }
-    to   { opacity : 1; }
-  }
 
-  .battleIntroRL {
-      animation: battleIntroRLEnter 0.5s ease-out 0s 1 normal forwards,
-                 battleIntroRLLeave 0.5s ease-out 1.5s 1 normal forwards;
-  }
+@keyframes moveInRL {
+  from {left: 100%;}
+  to { left : 0}
+}
 
-  .battleIntroLR {
-    animation: battleIntroLREnter 0.5s ease-out 0s 1 normal forwards,
-               battleIntroLRLeave 0.5s ease-out 1.5s 1 normal forwards;
+
+.blink {
+    animation: blink 0.4s ease-in-out 0s infinite alternate none;
+}
+
+.blinkmomentary {
+  animation: blink 0.1s ease 0s 4 normal none;
+}
+
+.appearScore {
+animation: blink 0.2s ease 0.8s 1 normal forwards;
+}
+
+.appearExp {
+  animation: blink 0.2s ease 1.0s 1 normal forwards;
+}
+
+.appearLevel {
+  animation: blink 0.2s ease 1.2s 1 normal forwards;
+}
+
+.blinkLevel {
+  animation: blink 0.3s ease 1.6s 1 normal forwards,
+            wonBlink 0.2s ease-in-out 2s infinite alternate forwards;
+}
+
+.blinkContinue {
+  animation: blink 0.5s ease-in-out 1.5s infinite alternate forwards;
+}
+
+
+
+@keyframes blink {
+  from { opacity: 0; }
+  to   { opacity : 1; }
+}
+
+.battleIntroRL {
+    animation: battleIntroRLEnter 0.5s ease-out 0s 1 normal forwards,
+                battleIntroRLLeave 0.5s ease-out 1.5s 1 normal forwards;
+}
+
+@keyframes battleIntroRLEnter {
+  from { left: 100%; }
+  to { left : 75%; }
+}
+
+@keyframes battleIntroRLLeave {
+  from { left: 75%; }
+  to { left : -100%; }
+}
+
+.battleIntroLR {
+  animation: battleIntroLREnter 0.5s ease-out 0s 1 normal forwards,
+              battleIntroLRLeave 0.5s ease-out 1.5s 1 normal forwards;
+}
+
+@keyframes battleIntroLREnter {
+from { left: 0%; }
+to { left : 25%; }
+}
+
+@keyframes battleIntroLRLeave {
+from { left: 25%; }
+to { left : 100%; }
 }
 
 .battleIntroVS {
-    animation: battleVS 0.5s ease-in 0s 1 normal forwards,
-               battleVS 0.5s ease-out 1.5s 1 reverse forwards ;
+  animation: battleVS 0.5s ease-in 0s 1 normal forwards,
+              battleVS 0.5s ease-out 1.5s 1 reverse forwards ;
 }
 
-  @keyframes battleIntroRLEnter {
-    from {
-        left: 100%;
-        }
-    to { left : 75%;
-       }
-  }
-
-  @keyframes battleIntroRLLeave {
-    from {
-        left: 75%;
+@keyframes battleVS {
+from {
+    color: black;
+    transform: scale(0);
     }
-    to { left : -100%;
-       }
-  }
+to { 
+    color: red;
+    transform: scale(2.0);
+}
+}
+  
+.wonBlink {
+  animation: wonBlink 0.2s ease-in-out 0s infinite alternate forwards;
+}
 
-  @keyframes battleIntroLREnter {
-    from {
-        left: 0%;
-        }
-    to { left : 25%;
-       }
-  }
+@keyframes wonBlink {
+  from { color: forestgreen;}
+  to { color: lawngreen	;}
+}
 
-  @keyframes battleIntroLRLeave {
-    from {
-        left: 25%;
-    }
-    to { left : 100%;
-       }
-  }
+.lostBlink {
+  animation: lostBlink 0.2s ease-in-out 0s infinite alternate forwards;
+}
 
-  @keyframes battleVS {
-    from {
-        color: black;
-        transform: scale(0);
-        }
-    to { 
-        color: red;
-        transform: scale(2.0);
-    }
-  }
+@keyframes lostBlink {
+  from { color: maroon;}
+  to { color: crimson	;}
+}
+
 

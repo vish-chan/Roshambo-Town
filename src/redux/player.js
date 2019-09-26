@@ -119,6 +119,12 @@ export const Player = (state = INITIAL_STATE, action) => {
                 return({
                         ...state,
                         inBattle: false,
+                        battle: {
+                                level: action.payload.player.newlevel,
+                                exp: action.payload.player.newexp,
+                                won: action.payload.battleWinner===1? state.battle.won+1: state.battle.won,
+                                lost: action.payload.battleWinner===-1? state.battle.lost+1: state.battle.lost,
+                        },
                 });
         default: 
             return state;

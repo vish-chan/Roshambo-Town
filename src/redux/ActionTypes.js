@@ -30,3 +30,4 @@ export const START_BATTLE = "START_BATTLE";
 export const END_BATTLE_INTRO = "END_BATTLE_INTRO";
 export const SUBMIT_MOVES = "SUBMIT_MOVES";
 export const END_BATTLE = "END_BATTLE";
+export const CLOSE_BATTLE = "CLOSE_BATTLE";

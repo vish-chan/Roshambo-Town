@@ -1,5 +1,4 @@
 import * as ActionTypes from './ActionTypes';
-import { start } from 'pretty-error';
 
 
 const squareMatrix = (n) => {
@@ -20,21 +19,27 @@ const getLives = (level) => {
 const INITIAL_STATE = { 
                         isOpen: false,
                         inIntro: true,
+                        inEnd: false,
                         currRound: 0,
                         maxRound: MAX_ROUNDS, 
                         player: {
                             name: "Player",
                             level: 1,
+                            exp: 0,
                             lastMove: null,
                             score: 0,
                             lives: BASE_LIVES,
                             maxLives: BASE_LIVES,
                             markovMatrix: squareMatrix(3), 
+                            initialStats: {
+                                level: 1,
+                                exp: 0,
+                            },
                         },
                         npc: {
                             id: null,
                             name: "NPC",
-                            level: 2,
+                            level: 1,
                             lastMove: null,
                             lives: BASE_LIVES,
                             maxLives: BASE_LIVES,
@@ -55,8 +60,14 @@ export const Battle = (state = INITIAL_STATE, action) => {
                     ...INITIAL_STATE.player,
                     name: action.payload.player.name,
                     level: action.payload.player.battle.level,
+                    exp: action.payload.player.battle.exp,
                     lives: getLives(action.payload.player.battle.level),
-                    maxLives: getLives(action.payload.player.battle.level),  
+                    maxLives: getLives(action.payload.player.battle.level), 
+                    markovMatrix: squareMatrix(3), 
+                    initialStats: {
+                        level: action.payload.player.battle.level,
+                        exp: action.payload.player.battle.exp,
+                    },
                 },
                 npc: {
                     ...INITIAL_STATE.npc,
@@ -99,11 +110,21 @@ export const Battle = (state = INITIAL_STATE, action) => {
             });
 
         case ActionTypes.END_BATTLE:
-        return({
-            ...state,
-            isOpen: false,
-            finalWinner: action.payload.battleWinner,
-        })
+            return({
+                ...state,
+                inEnd: true,
+                player: {
+                    ...state.player,
+                    level: action.payload.player.newlevel,
+                    exp: action.payload.player.newexp,
+                },
+                finalWinner: action.payload.battleWinner,
+            })
+        case ActionTypes.CLOSE_BATTLE:
+                return({
+                    ...state,
+                    isOpen: false,
+                })
         default: 
             return state;
     }

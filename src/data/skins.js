@@ -1,9 +1,10 @@
 const _80 = 80;
+const BASE_URL = "assets/images/80/"
 
 export const Skin = [
     {
         /*0*/
-        src: "assets/images/80/player_80.png", 
+        src: BASE_URL+ "player_80.png", 
         width: _80,
         height: _80,
         UP: 3,
@@ -14,7 +15,7 @@ export const Skin = [
     },
     {
         /*1*/
-        src: "assets/images/80/professor_80.png",
+        src: BASE_URL+"professor_80.png",
         width: _80,
         height: _80,
         UP: 0,
@@ -25,7 +26,7 @@ export const Skin = [
     },
     {
         /*2*/
-        src: "assets/images/80/cat_small_80.png",
+        src: BASE_URL + "cat_small_80.png",
         width: _80,
         height: _80,
         UP: 0,
@@ -36,7 +37,7 @@ export const Skin = [
     },
     {
         /*3*/
-        src: "assets/images/80/dog_small_bad_80.png",
+        src: BASE_URL + "dog_small_bad_80.png",
         width: _80,
         height: _80,
         UP: 0,
@@ -47,7 +48,7 @@ export const Skin = [
     },
     {
         /*4*/
-        src: "assets/images/80/friend_1_80.png",
+        src: BASE_URL + "friend_1_80.png",
         width: _80,
         height: _80,
         UP: 1,
@@ -58,7 +59,7 @@ export const Skin = [
     },
     {
         /*5*/
-        src: "assets/images/80/friend_2_80.png",
+        src: BASE_URL+"friend_2_80.png",
         width: _80,
         height: _80,
         UP: 1,
@@ -69,7 +70,7 @@ export const Skin = [
     },
     {
         /*6*/
-        src: "assets/images/80/friend_4_80.png",
+        src: BASE_URL + "friend_4_80.png",
         width: _80,
         height: _80,
         UP: 1,
@@ -80,7 +81,7 @@ export const Skin = [
     },
     {
         /*7*/
-        src: "assets/images/80/friend_5_80.png",
+        src: BASE_URL + "friend_5_80.png",
         width: _80,
         height: _80,
         UP: 1,

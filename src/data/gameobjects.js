@@ -1,11 +1,13 @@
 import { HEALER, EATABLE, CURRENCY, PORTAL } from "../helpers/constants";
 
+const BASE_URL = "assets/images/80/objectsAndProps/items.png";
+
 export const GAMEOBJECTS = [
     {
         /*0*/
         id: 0,
         name: "redpotion",
-        src: "assets/images/80/objectsAndProps/items.png",
+        src: BASE_URL,
         srcpos: [0,0],
         width: 40,
         height: 40,
@@ -16,7 +18,7 @@ export const GAMEOBJECTS = [
         /*1*/
         id: 1,
         name: "vaccine",
-        src: "assets/images/80/objectsAndProps/items.png",
+        src: BASE_URL,
         srcpos: [200,0],
         width: 40,
         height: 40,
@@ -27,7 +29,7 @@ export const GAMEOBJECTS = [
         /*2*/
         id: 2,
         name: "water",
-        src: "assets/images/80/objectsAndProps/items.png",
+        src: BASE_URL,
         srcpos: [240,0],
         width: 40,
         height: 40,
@@ -38,7 +40,7 @@ export const GAMEOBJECTS = [
         /*3*/
         id: 3,
         name: "berry",
-        src: "assets/images/80/objectsAndProps/items.png",
+        src: BASE_URL,
         srcpos: [240,280],
         width: 40,
         height: 40,
@@ -49,7 +51,7 @@ export const GAMEOBJECTS = [
         /*4*/
         id: 4,
         name: "diamond",
-        src: "assets/images/80/objectsAndProps/items.png",
+        src: BASE_URL,
         srcpos: [240,200],
         width: 40,
         height: 40,
@@ -60,7 +62,7 @@ export const GAMEOBJECTS = [
         /*5*/
         id: 5,
         name: "meat",
-        src: "assets/images/80/objectsAndProps/items.png",
+        src: BASE_URL,
         srcpos: [280,160],
         width: 40,
         height: 40,
@@ -71,7 +73,7 @@ export const GAMEOBJECTS = [
         /*6*/
         id: 6,
         name: "bone",
-        src: "assets/images/80/objectsAndProps/items.png",
+        src: BASE_URL,
         srcpos: [200,160],
         width: 40,
         height: 40,
@@ -82,7 +84,7 @@ export const GAMEOBJECTS = [
         /*7*/
         id: 7,
         name: "goldcoin",
-        src: "assets/images/80/objectsAndProps/items.png",
+        src: BASE_URL,
         srcpos: [280,120],
         width: 40,
         height: 40,
@@ -95,7 +97,7 @@ export const PORTALS = [
         /*0*/
         id: 0,
         name: "enter",
-        src: "assets/images/80/objectsAndProps/items.png",
+        src: BASE_URL,
         srcpos: [280,120],
         width: 40,
         height: 40,

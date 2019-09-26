@@ -586,7 +586,7 @@ const BattleSummary = (playername, playermove, npcname, npcmove, winner) => {
 
 export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
     
-    const battle = getState().battle;
+    let battle = getState().battle;
     const playerMarkovMatrix = battle.player.markovMatrix;
     const playerLastMove = battle.player.lastMove;
     const npcMove = BattleGetNextMove(playerMarkovMatrix, playerLastMove);
@@ -596,10 +596,30 @@ export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
 
     const finalWinner = CheckBattleWinner(getState().battle);
     if(finalWinner!=0) {
-        setTimeout( function(){dispatch(EndBattle(finalWinner, battle.npc.id))}, 1000);
+        battle = getState().battle;
+        let newexp = battle.player.exp + getPlayerNewExp(battle.player.score, battle.player.level, battle.npc.level);
+        let newlevel = getPlayerLevel(newexp);
+        setTimeout( function(){ dispatch(EndBattle(finalWinner, {newlevel, newexp}, battle.npc.id))}, 1500);
     }
 }
 
+const getPlayerNewExp = (score, playerLevel, npcLevel) => {
+    const BASE_EXP = 5, LEVEL_MULTIPLIER = 10;
+    return(BASE_EXP + score + Math.max((npcLevel - (playerLevel-1))*LEVEL_MULTIPLIER, LEVEL_MULTIPLIER));
+}
+
+const getPlayerLevel = (exp) => {
+    if(exp < 50) 
+        return 1;
+    else if(exp < 120)
+        return 2;
+    else if(exp < 250)
+        return 3;
+    else if(exp < 420)
+        return 4;
+    else 
+        return 5;
+}
 
 const CheckBattleWinner = (battle) => {
     if(battle.player.lives===0) {
@@ -611,13 +631,20 @@ const CheckBattleWinner = (battle) => {
     }
 }
 
-const EndBattle = (battleWinner, npcId) => {
+const EndBattle = (battleWinner, updatedPlayerStats, npcId) => {
     return({
         type: ActionTypes.END_BATTLE,
         payload: {
             battleWinner,
+            player: updatedPlayerStats,
             npcId,
         }
+    });
+}
+
+export const CloseBattle = () => {
+    return({
+        type: ActionTypes.CLOSE_BATTLE,
     });
 }
 
@@ -626,6 +653,7 @@ export const BattleEndIntro = () => {
         type: ActionTypes.END_BATTLE_INTRO,
     });
 }
+
 
 
 const UpdateBattleStatsAction = (playermove, npcmove, winner, summary) => {

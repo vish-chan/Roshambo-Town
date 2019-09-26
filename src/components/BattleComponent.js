@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { VIEWPORT_WIDTH, ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, VIEWPORT_HEIGHT } from '../helpers/constants';
-import { BattleHandleMove, BattleMoveIndexToStr, BattleEndIntro } from '../redux/ActionCreators';
-import { centerBgImg, solidBorder } from '../helpers/funcs';
+import { VIEWPORT_WIDTH, ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, SPACE_KEY } from '../helpers/constants';
+import { BattleHandleMove, BattleMoveIndexToStr, BattleEndIntro, CloseBattle } from '../redux/ActionCreators';
+import { centerBgImg, solidBorder, getKeyDiv } from '../helpers/funcs';
 
 const mapStatetoProps = state => {
     return({
@@ -14,10 +14,11 @@ const mapDispatchtoProps = dispatch => {
     return({
         submitMove: (move) => { dispatch(BattleHandleMove(parseInt(move))); } ,
         endIntro: () => {dispatch(BattleEndIntro());}, 
+        closeBattle: () => {dispatch(CloseBattle());},
     })
 }
 
-const FONT_ANIMATION = 30;
+const FONT_ANIMATION = 20;
 
 class HealthBar extends Component {
 
@@ -30,7 +31,7 @@ class HealthBar extends Component {
         if(this.props.blink) {
             this.timeout = setTimeout(function(){
                 this.hb.classList.add('blinkmomentary');
-            }.bind(this), 50);
+            }.bind(this), 600);
         }
     }
 
@@ -48,7 +49,7 @@ class HealthBar extends Component {
                 <div style={{fontSize: '20px', marginRight:'10px'}}>HP</div>
                 <div style={{width:'90%', height: '30%',...solidBorder(1, 'white', 0), backgroundColor: 'white' }}>
                     <div style={{position: 'relative', width:`${(this.props.currhealth/this.props.maxhealth)*100}%`, height:'100%', ...solidBorder(0, 'white', 0), backgroundImage: 'linear-gradient(mediumseagreen, forestgreen, mediumseagreen)'}}>
-                        <div style={{position:'absolute', left:'40%', top:'15%', fontSize:'20px'}}>{(this.props.currhealth/this.props.maxhealth)*100}%</div>
+                        <div style={{position:'absolute', left:'40%', top:'15%', fontSize:'20px'}}>{Math.floor((this.props.currhealth/this.props.maxhealth)*100)}%</div>
                     </div>
                 </div>
             </div>
@@ -74,8 +75,11 @@ const PlayerInfo = (props) => {
         <div style={style}>
             <div style={{width:'30%', height:'90%', alignSelf:'center', margin: '5px', ...centerBgImg("assets/images/80/player_head.png"), ...solidBorder(2, 'grey', 5) }}/>
             <div style={{width:'70%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'space-around', alignSelf:'center', margin: '5px'}}>
-                <div>{props.name}</div>
-                <HealthBar maxhealth={props.maxhealth} currhealth={props.currhealth} blink={props.blink}/>
+                <div style={{display: 'flex', justifyContent:'space-between'}}>
+                    <div>{props.player.name}</div>
+                    <div style={{color:'yellow', fontSize:'20px'}}>Lvl:{props.player.level}</div>
+                </div>
+                <HealthBar maxhealth={props.player.maxLives} currhealth={props.player.lives} blink={props.blink}/>
             </div> 
         </div>
     )
@@ -86,7 +90,7 @@ class MoveDiv extends Component  {
 
     constructor(props) {
         super(props);
-        this.timeout = null;
+        this.timeout = [];
         this.className = this.props.reverse? "moveInRL": "moveInLR";
     }
 
@@ -96,14 +100,24 @@ class MoveDiv extends Component  {
     }
 
     componentDidUpdate() {
-        this.timeout = setTimeout(function(){
-            this.image.style.backgroundImage = `url('assets/images/80/objectsAndProps/${BattleMoveIndexToStr(this.props.move)}.png')`;
-            this.image.classList.add(this.className);
-        }.bind(this), 50);
+        this.timeout = [];
+        this.timeout.push(setTimeout(function() {
+            if(this.image) {
+                this.image.style.backgroundImage = `url('assets/images/80/objectsAndProps/${BattleMoveIndexToStr(this.props.move)}.png')`;
+                this.image.classList.add(this.className);
+            }
+        }.bind(this), 50));
+        if(this.props.blink) {
+            this.timeout.push(setTimeout(function() {
+                if(this.image) {
+                    this.image.classList.add("blinkmomentary");
+                }
+            }.bind(this), 600));
+        }
     }
 
     componentWillUnmount() {
-        clearTimeout(this.timeout);
+        this.timeout.map(timeout => clearTimeout(timeout));
     }
 
     render() {
@@ -124,7 +138,8 @@ class MoveDiv extends Component  {
         }
 
         if(this.image) {
-            this.image.classList.remove(this.className)
+            this.image.classList.remove(this.className);
+            this.image.classList.remove("blinkmomentary");
         };
 
         return(
@@ -182,13 +197,54 @@ class Summary extends Component {
                 <p ref={p => this.p = p}></p>
             </div>
         );
-
     }     
 }
 
-class BattleIntro extends Component {
-    
+
+
+class BattleEnd extends Component {
+
+    constructor(props) {
+        super(props);
+        if(this.props.winner===1) {
+            this.winnerStr = "YOU WON!";
+            this.winnerClass = "wonBlink";
+        } else {
+            this.winnerStr = "YOU LOST!";
+            this.winnerClass = "lostBlink";
+        }
+        this.levelColor =  this.props.player.level>this.props.player.initialStats.level?"forestgreen":"black";
+        this.levelArrow = this.props.player.level>this.props.player.initialStats.level? "inline-block":"none";
+    }
+
     render() {
+        return(
+            <div  id="battleEnd" className="moveInLR" style={{position:'relative', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'center', fontSize:'25px' ,fontFamily:'gameboy'}}>
+                <div style={{width:'100%', height:'60%', display:'flex', justifyContent:'center'}}>
+                    <div style={{width:'60%', height: '100%', display:'flex', justifyContent:'center', backgroundColor: 'lightgrey'}}> 
+                            <div style={{width:'40%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center'}}>
+                                <div style={{width:'240px', height:'240px', alignSelf:'center', ...centerBgImg("assets/images/80/player_head.png"), ...solidBorder(2, 'grey', 5) }}/>
+                                <div style={{alignSelf:'center', fontSize:'30px'}}>{this.props.player.name}</div>
+                            </div> 
+                            <div style={{width:'50%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center', fontSize:'25px'}}>
+                                <div className={this.winnerClass} style={{alignSelf:'center', fontSize:'35px', marginBottom:'20px'}}>{this.winnerStr}</div>
+                                <div className="appearScore"  style={{marginLeft:'10px', opacity:0}}>Score: {this.props.player.score}</div>
+                                <div className="appearExp" style={{marginLeft:'10px', opacity:0}}>Exp: {this.props.player.exp}</div>
+                                <div className="appearLevel" style={{marginLeft:'10px', opacity:0, color: this.levelColor}}>Level: {this.props.player.level} <i class="fa fa-arrow-up blink" style={{display: this.levelArrow}}></i></div>
+                            </div>
+                    </div>
+                </div> 
+                <div className="blinkContinue" style={{alignSelf:'center', marginTop:'20px', opacity:0}}>Press {getKeyDiv("SPACE", 25)} to continue..</div>          
+            </div> 
+        );
+    }
+}
+
+class BattleIntro extends Component {
+
+    render() {
+        const character_bg = 'lightgrey';
+
         const style={
             position:'absolute', 
             width:'100%', height:'100%',
@@ -197,17 +253,17 @@ class BattleIntro extends Component {
         }
 
         return(
-            <div style={style}>
-                <div style={{position:'relative', height: '35%', backgroundColor:'lightgrey'}}>
-                    <div  className="battleIntroRL" style={{position:'absolute', top: '30%', width: '120px', height: '120px', ...centerBgImg("assets/images/80/player_head.png")}}></div>
+            <div id="battleIntro" style={style}>
+                <div style={{position:'relative', height: '35%', backgroundColor: character_bg}}>
+                    <div  className="battleIntroRL" style={{position:'absolute', top: '30%', width: '120px', height: '120px', ...centerBgImg("assets/images/80/player_head.png"), backgroundColor: character_bg, }}></div>
                 </div>
                 <div style={{position:'relative', height: '30%', display: 'flex', alignItems:'center', justifyContent:'center'}}>
                     <div className="battleIntroVS">
                         VS
                     </div>
                 </div>
-                <div style={{position:'relative', height: '35%', backgroundColor:'lightgrey'}}>
-                    <div  className="battleIntroLR" style={{position:'absolute', top: '30%', width: '120px', height: '120px', ...centerBgImg("assets/images/80/player_head.png")}} />
+                <div style={{position:'relative', height: '35%', backgroundColor: character_bg}}>
+                    <div  className="battleIntroLR" style={{position:'absolute', top: '30%', width: '120px', height: '120px', ...centerBgImg("assets/images/80/player_head.png"), backgroundColor: character_bg}} />
                 </div> 
             </div>
         );
@@ -224,19 +280,17 @@ class Battle extends Component {
     }
 
     componentDidMount() {
-        if(!this.props.battle.inIntro) {
-            window.addEventListener('keydown', this.handleKeyDown);
-            this.select.focus();
-        } else if(this.props.battle.inIntro){
-            setTimeout(function(){
-                this.props.endIntro();
+        window.addEventListener('keydown', this.handleKeyDown);
+        if(this.props.battle.inIntro){
+            setTimeout(function() {
+                if(this.props) 
+                    this.props.endIntro();
             }.bind(this), 3000);
         }
     }
 
     componentDidUpdate() {
-        if(!this.props.battle.inIntro) {
-            window.addEventListener('keydown', this.handleKeyDown);
+        if(!(this.props.battle.inIntro || this.props.battle.inEnd)) {
             this.select.focus();
         }
     }
@@ -246,11 +300,28 @@ class Battle extends Component {
     }
 
     handleKeyDown(event) {
+        if(this.props.battle.inIntro)
+            return;
+        
         const keyCode = event.keyCode;
-        if(ARROW_KEYCODES.includes(keyCode)) {
-            this.select.focus();
-        } else if(ENTER_KEY.includes(keyCode)) {
-            this.props.submitMove(this.select.value);
+        if(this.props.battle.inEnd) {
+            if(SPACE_KEY.includes(keyCode))
+                this.props.closeBattle();
+        } else {
+            if(ARROW_KEYCODES.includes(keyCode)) {
+                this.select.focus();
+            } else if(ENTER_KEY.includes(keyCode)) {
+                if(this.select.disabled)
+                    return;
+                this.select.disabled = true;
+                this.props.submitMove(this.select.value);
+                setTimeout(function() {
+                    if(this.select) {
+                        this.select.disabled = false; 
+                        this.select.focus();
+                    }
+                }.bind(this), 1000);
+            }
         }
     }
 
@@ -260,16 +331,20 @@ class Battle extends Component {
                 <BattleIntro player={this.props.battle.player} npc={this.props.battle.npc} />
             );
 
+        } else if(this.props.battle.inEnd) {
+            return(
+                <BattleEnd player={this.props.battle.player} winner={this.props.battle.finalWinner} />
+            );
         } else {
             return(
                 <div  id="battle" style={{position:'absolute', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-between', width:'100%', height: '25%', marginBottom: '5px'}}>
-                         <PlayerInfo name={this.props.battle.player.name} maxhealth={this.props.battle.player.maxLives} currhealth={this.props.battle.player.lives} reverse={false} bgcolor='Dodgerblue' blink={this.props.battle.lastWinner===-1} />    
-                         <PlayerInfo name={this.props.battle.npc.name} maxhealth={this.props.battle.npc.maxLives} currhealth={this.props.battle.npc.lives} reverse={true} bgcolor='crimson' blink={this.props.battle.lastWinner===1}/>
+                         <PlayerInfo player={this.props.battle.player} reverse={false} bgcolor='Dodgerblue' blink={this.props.battle.lastWinner===-1} />    
+                         <PlayerInfo player={this.props.battle.npc} reverse={true} bgcolor='crimson' blink={this.props.battle.lastWinner===1}/>
                     </div>
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-between', width:'100%', height: '50%', marginBottom: '5px'}}>
-                        <MoveDiv move={this.props.battle.player.lastMove} reverse={false}/>
-                        <MoveDiv move={this.props.battle.npc.lastMove} reverse={true}/>
+                        <MoveDiv move={this.props.battle.player.lastMove} reverse={false} blink={this.props.battle.lastWinner===-1}/>
+                        <MoveDiv move={this.props.battle.npc.lastMove} reverse={true} blink={this.props.battle.lastWinner===1}/>
                     </div>
                     <div style={{display: 'flex', width: VIEWPORT_WIDTH, height: '25%'}}>
                         <select defaultValue={ROCK} style={{fontFamily:'gameboy', fontSize:'30px', overflowY:'hidden', width: 600}} ref={select => this.select = select} size={3}>
