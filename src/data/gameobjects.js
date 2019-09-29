@@ -1,6 +1,7 @@
 import { HEALER, EATABLE, CURRENCY, PORTAL } from "../helpers/constants";
 
 const BASE_URL = "assets/images/80/objectsAndProps/items.png";
+const PORTAL_URL = "assets/images/80/objectsAndProps/portal.png"; 
 
 export const GAMEOBJECTS = [
     {
@@ -97,10 +98,11 @@ export const PORTALS = [
         /*0*/
         id: 0,
         name: "enter",
-        src: BASE_URL,
-        srcpos: [280,120],
-        width: 40,
-        height: 40,
+        src: PORTAL_URL,
+        srcpos: [0,0],
+        width: 64,
+        height: 64,
+        effects: "rotate",
         type: PORTAL,
     },
 ]

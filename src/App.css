@@ -156,4 +156,13 @@ to {
   to { color: crimson	;}
 }
 
+.rotate {
+  animation: rotate 2s linear 0s infinite normal none;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 

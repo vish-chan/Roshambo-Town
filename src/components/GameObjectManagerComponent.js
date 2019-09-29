@@ -28,7 +28,7 @@ const GameObject = (props) => {
     }
 
     return(
-        <div id={`GObj${props.self.id}`} style={objStyle}/>
+        <div id={`GObj${props.self.id}`} className={props.self.type.effects} style={objStyle}/>
     ); 
 }      
 
