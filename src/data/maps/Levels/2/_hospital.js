@@ -19,7 +19,7 @@ export const _hospital = {
 
     npc : [{ 
                 name: "Beast",
-                skin: Skin[5],
+                skin: Skin[2],
                 direction: DOWN,
                 stationary: true,
                 pathArr: [[1,6], [1,5], [1,4], [1,3], [1, 2]],
@@ -29,7 +29,7 @@ export const _hospital = {
             },
             { 
                 name: "Moon",
-                skin: Skin[6],
+                skin: Skin[3],
                 direction: LEFT,
                 stationary: true,
                 pathArr: [[7,12], [7,13], [7,14], [7,15]],

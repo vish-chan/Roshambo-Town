@@ -575,9 +575,9 @@ const BattleSummary = (playername, playermove, npcname, npcmove, winner) => {
     const npcline = npcname+ " chose "+ BattleMoveIndexToStr(npcmove)+". ";
     let winnerline; 
     if(winner===1) {
-        winnerline = playername + " wins!";
+        winnerline = playername + " wins this round!";
     } else if(winner===-1) {
-        winnerline = npcname+ " wins!";
+        winnerline = npcname+ " wins this round!";
     } else {
         winnerline = "Its a DRAW!";
     }

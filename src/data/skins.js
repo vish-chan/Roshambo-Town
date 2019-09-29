@@ -1,54 +1,54 @@
 const _80 = 80;
-const BASE_URL = "assets/images/80/"
+const BASE_URL = "assets/images/80/characters/"
 
 export const Skin = [
     {
         /*0*/
-        src: BASE_URL+ "player_80.png", 
+        src: BASE_URL + "player", 
         width: _80,
         height: _80,
         UP: 3,
         RIGHT: 1,
         DOWN: 0,
         LEFT: 2,
-        walkSpriteCount: 8,
+        walkSpriteCount: 4,
     },
     {
         /*1*/
-        src: BASE_URL+"professor_80.png",
+        src: BASE_URL+"prof",
         width: _80,
         height: _80,
         UP: 0,
         RIGHT: 1,
         DOWN: 2,
         LEFT: 3,
-        walkSpriteCount: 8,
+        walkSpriteCount: 4,
     },
     {
         /*2*/
-        src: BASE_URL + "cat_small_80.png",
+        src: BASE_URL + "friend_1",
         width: _80,
         height: _80,
-        UP: 0,
-        RIGHT: 0,
+        UP: 1,
+        RIGHT: 2,
         DOWN: 0,
-        LEFT: 1,
-        walkSpriteCount: 10,
+        LEFT: 3,
+        walkSpriteCount: 4,
     },
     {
         /*3*/
-        src: BASE_URL + "dog_small_bad_80.png",
+        src: BASE_URL+"friend_2",
         width: _80,
         height: _80,
-        UP: 0,
-        RIGHT: 0,
+        UP: 1,
+        RIGHT: 2,
         DOWN: 0,
-        LEFT: 1,
-        walkSpriteCount: 10,
+        LEFT: 3,
+        walkSpriteCount: 4,
     },
     {
         /*4*/
-        src: BASE_URL + "friend_1_80.png",
+        src: BASE_URL + "friend_3",
         width: _80,
         height: _80,
         UP: 1,
@@ -59,29 +59,7 @@ export const Skin = [
     },
     {
         /*5*/
-        src: BASE_URL+"friend_2_80.png",
-        width: _80,
-        height: _80,
-        UP: 1,
-        RIGHT: 2,
-        DOWN: 0,
-        LEFT: 3,
-        walkSpriteCount: 4,
-    },
-    {
-        /*6*/
-        src: BASE_URL + "friend_4_80.png",
-        width: _80,
-        height: _80,
-        UP: 1,
-        RIGHT: 2,
-        DOWN: 0,
-        LEFT: 3,
-        walkSpriteCount: 4,
-    },
-    {
-        /*7*/
-        src: BASE_URL + "friend_5_80.png",
+        src: BASE_URL + "friend_4",
         width: _80,
         height: _80,
         UP: 1,

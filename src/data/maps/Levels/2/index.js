@@ -28,7 +28,7 @@ export const level = {
     /* Compulsory */
     npc : [{ 
                 name: "Beast",
-                skin: Skin[5],
+                skin: Skin[4],
                 direction: DOWN,
                 stationary: false,
                 pathArr: [[12,26], [13,26], [14,26], [15,26], [15, 25]],
@@ -36,11 +36,11 @@ export const level = {
                 moveInterval: 500,
                 waitInterval: 1500,
                 battle: true,
-                level: 1,
+                level: 2,
             },
             { 
                 name: "Moon",
-                skin: Skin[6],
+                skin: Skin[1],
                 direction: LEFT,
                 stationary: false,
                 pathArr: [[15,12], [15,13], [15,14], [15,15]],
@@ -52,10 +52,10 @@ export const level = {
             },
             { 
                 name: "Ash",
-                skin: Skin[4],
+                skin: Skin[2],
                 direction: UP,
-                stationary: false,
-                pathArr: [[1,12], [0,13], [0,14], [0,15]],
+                stationary: true,
+                pathArr: [[1,12], [1,13], [1,14], [1,15]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 3000,

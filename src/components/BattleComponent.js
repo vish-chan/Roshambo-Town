@@ -73,7 +73,7 @@ const PlayerInfo = (props) => {
     }
     return(
         <div style={style}>
-            <div style={{width:'30%', height:'90%', alignSelf:'center', margin: '5px', ...centerBgImg("assets/images/80/player_head.png"), ...solidBorder(2, 'grey', 5) }}/>
+            <div style={{width:'30%', height:'90%', alignSelf:'center', margin: '5px', ...centerBgImg(props.player.src+"/head.png"), ...solidBorder(2, 'grey', 5) }}/>
             <div style={{width:'70%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'space-around', alignSelf:'center', margin: '5px'}}>
                 <div style={{display: 'flex', justifyContent:'space-between'}}>
                     <div>{props.player.name}</div>
@@ -223,14 +223,14 @@ class BattleEnd extends Component {
                 <div style={{width:'100%', height:'60%', display:'flex', justifyContent:'center'}}>
                     <div style={{width:'60%', height: '100%', display:'flex', justifyContent:'center', backgroundColor: 'lightgrey'}}> 
                             <div style={{width:'40%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center'}}>
-                                <div style={{width:'240px', height:'240px', alignSelf:'center', ...centerBgImg("assets/images/80/player_head.png"), ...solidBorder(2, 'grey', 5) }}/>
+                                <div style={{width:'240px', height:'240px', alignSelf:'center', ...centerBgImg(this.props.player.src+"/head.png"), ...solidBorder(2, 'grey', 5) }}/>
                                 <div style={{alignSelf:'center', fontSize:'30px'}}>{this.props.player.name}</div>
                             </div> 
                             <div style={{width:'50%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center', fontSize:'25px'}}>
                                 <div className={this.winnerClass} style={{alignSelf:'center', fontSize:'35px', marginBottom:'20px'}}>{this.winnerStr}</div>
-                                <div className="appearScore"  style={{marginLeft:'10px', opacity:0}}>Score: {this.props.player.score}</div>
-                                <div className="appearExp" style={{marginLeft:'10px', opacity:0}}>Exp: {this.props.player.exp}</div>
-                                <div className="appearLevel" style={{marginLeft:'10px', opacity:0, color: this.levelColor}}>Level: {this.props.player.level} <i class="fa fa-arrow-up blink" style={{display: this.levelArrow}}></i></div>
+                                <div className="appearScore"  style={{margin:'5px 0px 0px 10px', opacity:0}}>Score: {this.props.player.score}</div>
+                                <div className="appearExp" style={{margin:'5px 0px 0px 10px', opacity:0}}>Exp: {this.props.player.exp}</div>
+                                <div className="appearLevel" style={{margin:'5px 0px 0px 10px', opacity:0, color: this.levelColor}}>Level: {this.props.player.level} <i class="fa fa-arrow-up blink" style={{display: this.levelArrow}}></i></div>
                             </div>
                     </div>
                 </div> 
@@ -255,7 +255,7 @@ class BattleIntro extends Component {
         return(
             <div id="battleIntro" style={style}>
                 <div style={{position:'relative', height: '35%', backgroundColor: character_bg}}>
-                    <div  className="battleIntroRL" style={{position:'absolute', top: '30%', width: '120px', height: '120px', ...centerBgImg("assets/images/80/player_head.png"), backgroundColor: character_bg, }}></div>
+                    <div  className="battleIntroRL" style={{position:'absolute', top: '30%', width: '120px', height: '120px', ...centerBgImg(this.props.npc.src+"/head.png"), backgroundColor: character_bg, }}></div>
                 </div>
                 <div style={{position:'relative', height: '30%', display: 'flex', alignItems:'center', justifyContent:'center'}}>
                     <div className="battleIntroVS">
@@ -263,7 +263,7 @@ class BattleIntro extends Component {
                     </div>
                 </div>
                 <div style={{position:'relative', height: '35%', backgroundColor: character_bg}}>
-                    <div  className="battleIntroLR" style={{position:'absolute', top: '30%', width: '120px', height: '120px', ...centerBgImg("assets/images/80/player_head.png"), backgroundColor: character_bg}} />
+                    <div  className="battleIntroLR" style={{position:'absolute', top: '30%', width: '120px', height: '120px', ...centerBgImg(this.props.player.src+"/head.png"), backgroundColor: character_bg}} />
                 </div> 
             </div>
         );

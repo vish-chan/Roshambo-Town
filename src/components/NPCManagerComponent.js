@@ -36,7 +36,7 @@ class NPC extends Component {
             position: 'absolute',
             width: this.props.self.skin.width,
             height: this.props.self.skin.height, 
-            backgroundImage: `url('${this.props.self.skin.src}')`,
+            backgroundImage: `url('${this.props.self.skin.src}/sprite.png')`,
             left: this.props.self.position[0] + ((TILE_SIZE/2) - (this.props.self.skin.width/2)),
             top: this.props.self.position[1] + ((TILE_SIZE/2) - (this.props.self.skin.height/2)),
             backgroundPosition: `${this.props.self.walkIndex * this.props.self.skin.width}px ${this.props.self.spriteLocation * this.props.self.skin.height}px`,

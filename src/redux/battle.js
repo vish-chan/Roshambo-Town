@@ -24,6 +24,7 @@ const INITIAL_STATE = {
                         maxRound: MAX_ROUNDS, 
                         player: {
                             name: "Player",
+                            src: "",
                             level: 1,
                             exp: 0,
                             lastMove: null,
@@ -39,6 +40,7 @@ const INITIAL_STATE = {
                         npc: {
                             id: null,
                             name: "NPC",
+                            src:"",
                             level: 1,
                             lastMove: null,
                             lives: BASE_LIVES,
@@ -59,6 +61,7 @@ export const Battle = (state = INITIAL_STATE, action) => {
                 player: {
                     ...INITIAL_STATE.player,
                     name: action.payload.player.name,
+                    src:action.payload.player.skin.src,
                     level: action.payload.player.battle.level,
                     exp: action.payload.player.battle.exp,
                     lives: getLives(action.payload.player.battle.level),
@@ -73,6 +76,7 @@ export const Battle = (state = INITIAL_STATE, action) => {
                     ...INITIAL_STATE.npc,
                     id: action.payload.npc.id,
                     name: action.payload.npc.name,
+                    src: action.payload.npc.skin.src,
                     level: action.payload.npc.level,
                     lives: getLives(action.payload.npc.level),
                     maxLives: getLives(action.payload.npc.level),  
