@@ -207,10 +207,10 @@ class BattleEnd extends Component {
     constructor(props) {
         super(props);
         if(this.props.winner===1) {
-            this.winnerStr = "YOU WON!";
+            this.winnerStr =  `${this.props.player.name} WON!`;
             this.winnerClass = "wonBlink";
         } else {
-            this.winnerStr = "YOU LOST!";
+            this.winnerStr = `${this.props.player.name} LOST!`;
             this.winnerClass = "lostBlink";
         }
         this.levelColor =  this.props.player.level>this.props.player.initialStats.level?"forestgreen":"black";
