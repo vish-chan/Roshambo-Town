@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { VIEWPORT_WIDTH } from '../helpers/constants';
 import {connect} from 'react-redux';
-import { solidBorder, centerBgImg, getRounded } from '../helpers/funcs';
+import { solidBorder, centerBgImg, getRounded, getKeyDiv } from '../helpers/funcs';
 import { SaveGameToDisk } from '../redux/ActionCreators';
 
 
@@ -25,6 +25,19 @@ const bgStyle = () => {
     });
 }
 
+const AwareComponent = (props) => {
+
+    let instruction = props.player.nearbyNPC!==null? <div>Use {getKeyDiv("SPACE")} to talk</div> : null;
+    instruction = props.player.nearbyGameObj!==null? <div>Use {getKeyDiv("P")} to pickup</div> : instruction;
+    instruction = props.player.nearbyPortal!==null? <div>Use {getKeyDiv("E")} to enter</div> : instruction;
+
+    return(
+        <div>
+            {instruction}
+        </div>
+    );
+}
+
 class Stats extends Component {
     
     constructor(props) {
@@ -45,6 +58,7 @@ class Stats extends Component {
             width:  VIEWPORT_WIDTH,
             height: 80,
             margin:  'auto',
+            marginTop: '20px',
             borderLeft:'10px solid white',
             borderRight:'10px solid white',
             borderTop: '5px solid white',
@@ -59,7 +73,7 @@ class Stats extends Component {
 
         return(
             <div id="stats" style={style}>
-                <div style={{display:'flex', alignItems:'center'}}>
+                <div style={{width:'30%', display:'flex', alignItems:'center'}}>
                     <div style={{width:80, height:80, ...centerBgImg( `${this.props.player.skin.src}/head.png`), backgroundColor:bg_color}}/>
                     <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
                         <div style={{margin:'5px', alignSelf:'flex-start'}}> {this.props.player.name} </div>
@@ -70,11 +84,13 @@ class Stats extends Component {
                         </div>
                     </div>
                 </div>
-                <div style={{width:'200px', display:'flex', alignItems: 'center'}}>
+                <div style={{width:'50%', height:'70%', ...solidBorder(2, 'white', 10), backgroundColor:'grey', display:'flex', flexDirection:'column', justifyContent:'center', paddingLeft:'10px'}}>
+                    <AwareComponent player={this.props.player}/>
+                </div>
+                <div style={{width:'10%', display:'flex', alignItems: 'center'}}>
                     <button disabled={(this.props.player.isAnimating || this.props.player.frozen || this.props.player.inBattle || this.props.player.interacting)} 
-                            style={{margin:'5px', ...bgStyle()}} onClick={this.handleSaveBtnClick}><i className="fa fa-save fa-2x" style={{margin:'5px'}}/>
+                            style={{margin:'5px', ...bgStyle(), fontFamily:'gameboy'}} onClick={this.handleSaveBtnClick}><i className="fa fa-save fa-2x" style={{margin:'5px'}}/> Save
                     </button>
-                    <div> Save</div>
                 </div>
             </div>
         );

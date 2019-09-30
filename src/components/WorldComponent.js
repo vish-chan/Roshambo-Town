@@ -70,8 +70,8 @@ class World extends Component {
                     <Stats />
                     <div id="world" style={worldStyle}>
                         <Map map={this.props.map} viewport={this.props.viewport}/>
-                        <Player/>
-                        <ConversationDisplay/>
+                        <Player viewport={this.props.viewport}/>
+                        <ConversationDisplay />
                         <Inventory />
                     </div> 
                 </React.Fragment>

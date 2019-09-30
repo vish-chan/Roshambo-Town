@@ -7,7 +7,6 @@ import { mapToViewport, getKeyDiv } from '../helpers/funcs';
 const mapStatetoProps = state => {
     return({
         player: state.player,
-        viewport: state.viewport,
     });
 }
 
@@ -21,33 +20,6 @@ const mapDispatchToProps = dispatch => {
         checkPortalAndEnter: () => { dispatch(CheckPortalAndEnter()); },
         restoreState: () => { dispatch(RestoreState()); },
     });
-}
-
-
-const AwareComponent = (props) => {
-
-    const position = mapToViewport(props.player.position, props.viewport.start);
-    const style = {
-        position: 'absolute',
-        width: 160,
-        left: isNaN(position[0] +  TILE_SIZE/2 - 80)? 0: position[0] + TILE_SIZE/2 - 80,
-        top: position[1] - 40,
-        fontFamily: 'gameboy',
-        overflowWrap: 'break-word',
-        zIndex: 2,
-        fontSize:"15px",
-        display: !props.player.interacting? "inline-block" : "none",
-    };
-
-    let instruction = props.player.nearbyNPC!==null? <div>Use {getKeyDiv("SPACE")} to talk</div> : null;
-    instruction = props.player.nearbyGameObj!==null? <div>Use {getKeyDiv("P")} to pickup</div> : instruction;
-    instruction = props.player.nearbyPortal!==null? <div>Use {getKeyDiv("E")} to enter</div> : instruction;
-
-    return(
-        <div style={style}>
-            {instruction}
-        </div>
-    );
 }
 
 const PlayerSprite = (props) => {
@@ -121,7 +93,6 @@ class Player extends Component {
         return(
             <div>
                 <PlayerSprite player={this.props.player} viewport={this.props.viewport}/>
-                <AwareComponent player={this.props.player} viewport={this.props.viewport} />
             </div>
         );
     }
