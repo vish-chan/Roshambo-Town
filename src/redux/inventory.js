@@ -23,6 +23,11 @@ export const Inventory = (state = {
                     statecpy[action.payload.object.type.type] = state[action.payload.object.type.type].concat(action.payload.object);
                     return(statecpy);
 
+                case ActionTypes.RESTORE_STATE_FROM_DISK:
+                    return({
+                        ...action.payload.state.inventory,
+                    });
+
                 default: 
                     return state;
             }

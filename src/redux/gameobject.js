@@ -24,6 +24,10 @@ export const GameObject = (state = [], action) => {
             return(
                 action.payload.state.gameobjects.concat()
             );
+        case ActionTypes.RESTORE_STATE_FROM_DISK:
+            return(
+                    action.payload.state.gameobjects.concat()
+            );
 
         default: 
             return state;

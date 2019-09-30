@@ -144,10 +144,15 @@ export const NPC = (state = {
                     frozen: false,
                 });
         case ActionTypes.RESTORE_STATE:
-                    return({
-                        list: action.payload.state.npc.list.concat(),
-                        frozen: false,
-                    });
+                return({
+                    list: action.payload.state.npc.list.concat(),
+                    frozen: false,
+                });
+        case ActionTypes.RESTORE_STATE_FROM_DISK:
+                return({
+                    list: action.payload.state.npc.list.concat(),
+                    frozen: false,
+                });
 
         case ActionTypes.START_BATTLE:
                 return({

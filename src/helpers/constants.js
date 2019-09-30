@@ -38,3 +38,5 @@ export const SCISSORS = 2;
 
 export const BATTLE_QUESTION = "Hey! Do you wanna battle?";
 export const BATTLE_ANS = "Yeah, sure. Let's go!"
+
+export const SAVED_GAME = "SAVED GAME"

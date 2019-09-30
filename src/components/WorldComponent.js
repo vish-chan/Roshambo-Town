@@ -9,13 +9,14 @@ import ConversationDisplay from './ConversationDisplayComponent';
 import Inventory from './InventoryComponent';
 import Loading from './LoadingComponent';
 import Battle from './BattleComponent';
+import Stats from './StatsComponent';
 
 
 const worldStyle = {
     position: 'relative',
     width:  VIEWPORT_WIDTH,
     height: VIEWPORT_HEIGHT,
-    margin:  '20px auto',
+    margin:  'auto',
     border: '10px solid white',
     overflow: 'hidden',
     backgroundColor: 'white',
@@ -26,6 +27,7 @@ const mapStatetoProps = state => {
         map: state.map,
         viewport: state.viewport,
         battle: state.battle,
+        statemanager: state.statemanager,
     });
 }
 
@@ -45,25 +47,34 @@ class World extends Component {
     render() {
         if(this.props.map.isLoading) {
             return(
-                <div style={worldStyle}>
-                    <Loading />
+                <div id="world"  style={{...worldStyle, marginTop:'60px'}}>
+                    <Loading msg="Loading Map"/>
                 </div>
-        );
+            );
+        } else if (this.props.statemanager.savingState) {
+            return(
+                <div id="world"  style={{...worldStyle, marginTop:'60px'}}>
+                    <Loading msg="Saving state"/>
+                </div>
+            );
         } else if(this.props.battle.isOpen) {
             return(
-                <div style={worldStyle}>
+                <div id="world"  style={{...worldStyle, marginTop:'60px'}}>
                     <Battle battle={this.props.battle} />
                 </div> 
             );
         } 
         else {
             return(
-                <div style={worldStyle}>
-                    <Map map={this.props.map} viewport={this.props.viewport}/>
-                    <Player/>
-                    <ConversationDisplay/>
-                    <Inventory />
-                </div> 
+                <React.Fragment>
+                    <Stats />
+                    <div id="world" style={worldStyle}>
+                        <Map map={this.props.map} viewport={this.props.viewport}/>
+                        <Player/>
+                        <ConversationDisplay/>
+                        <Inventory />
+                    </div> 
+                </React.Fragment>
             );
         }
     }

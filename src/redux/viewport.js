@@ -24,7 +24,11 @@ export const ViewPort = ( state = INITIAL_STATE, action) => {
             return({
                 ...action.payload.state.viewport,
             });
-        
+
+        case ActionTypes.RESTORE_STATE_FROM_DISK:
+            return({
+                ...action.payload.state.viewport,
+            });
         default: 
             return state;
     }

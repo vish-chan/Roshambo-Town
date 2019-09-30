@@ -31,6 +31,11 @@ export const Map = (state = INITIAL_STATE, action) => {
                 ...action.payload.state.map,
                 isLoading: false,
             });
+        case ActionTypes.RESTORE_STATE_FROM_DISK:
+            return({
+                ...action.payload.state.map,
+                isLoading: false,
+            });
         default: 
             return state;
     }

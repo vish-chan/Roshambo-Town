@@ -48,11 +48,7 @@ const AwareComponent = (props) => {
             {instruction}
         </div>
     );
-
-    
 }
-
-
 
 const PlayerSprite = (props) => {
     
@@ -72,9 +68,6 @@ const PlayerSprite = (props) => {
         <div id="player" style={playerStyle} />
     );
 }
-
-    
-
 
 class Player extends Component {
 

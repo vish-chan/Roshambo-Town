@@ -96,6 +96,11 @@ export const Player = (state = INITIAL_STATE, action) => {
                         battle: {...state.battle},
                         frozen: false,
                 });
+        case ActionTypes.RESTORE_STATE_FROM_DISK:
+                return({
+                        ...action.payload.state.player,
+                                frozen: false,
+                });
         case ActionTypes.UPDATE_NEARBY_NPC: 
                 return({
                         ...state,

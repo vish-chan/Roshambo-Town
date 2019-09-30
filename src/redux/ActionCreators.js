@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ANS} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ANS, SAVED_GAME} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 
 
@@ -387,7 +387,6 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
                 dispatch(AddMap(portal.target, true));
             }
         }
-        dispatch(LoadingMapAction());
     }
 }
 
@@ -413,39 +412,65 @@ export const RestoreState = () => (dispatch, getState) => {
         if(npcAnimating.length > 0) {
             setTimeout(checkandRestoreMap, 500);
         } else {
+            dispatch(LoadingMapAction());
             const mapBg = new Image();
             mapBg.onload = renderMap;
             mapBg.src = oldState.map.src;
-
             function renderMap(){
                 dispatch(RestoreStateAction(mapname, gameobjects, oldState));
-            }
-            
+            }  
         }
     }
-    dispatch(LoadingMapAction());
 }
 
-
-export const SaveState = () => (dispatch, getState) => {
+export const SaveGameToDisk = () => (dispatch, getState) => {
     
     dispatch(SaveStateInitAction());
     clearIntervals();
-    saveStateandAddMap();
+    saveStateToLocalStorage();
         
-    function saveStateandAddMap() { 
+    function saveStateToLocalStorage() { 
         const npcList = getState().npc.list;
         const npcAnimating = npcList.filter( npc => npc.isAnimating);
         if(npcAnimating.length > 0) {
-            setTimeout(saveStateandAddMap, 500);
+            setTimeout(saveStateToLocalStorage, 500);
         } else {
-            dispatch(SaveStateAction(getState())); 
+            try {
+                const serializedState = JSON.stringify(getState());
+                localStorage.setItem(SAVED_GAME, serializedState);
+              } catch (err) {
+                alert("Saving state failed!!");
+              } 
             dispatch(SaveStateEndAction());
         }
     }
 }
 
+export const LoadGameFromDisk = () => (dispatch) => {
+    try {
+        const serializedState = localStorage.getItem(SAVED_GAME);
+    
+        if (serializedState === null) {
+          return undefined;
+        }
+    
+        const state =  JSON.parse(serializedState);
+        dispatch(LoadingMapAction());
+        const mapBg = new Image();
+        mapBg.onload = renderMap;
+        mapBg.src = state.map.src;
+        function renderMap(){
+            dispatch(RestoreStateFromDiskAction(state));
+        }  
+    
+      } catch (err) {
+            alert("Loading state failed!");
+            return undefined;
+      }
+}
+
 export const AddMap = (level, secondary=false) => (dispatch, getState) => {
+    dispatch(LoadingMapAction());
     let width = level.map.tiles[0].length*TILE_SIZE, height= level.map.tiles.length*TILE_SIZE;
     let playerPosition = tileToMapCoordinates(level.player.position, TILE_SIZE);
     let start_x, start_y, end_x, end_y;
@@ -845,6 +870,15 @@ const RestoreStateAction = (mapname, gameobjects, state) => {
         payload: {
             mapname,
             gameobjects,
+            state,
+        }
+    })
+}
+
+const RestoreStateFromDiskAction = (state) => {
+    return({
+        type: ActionTypes.RESTORE_STATE_FROM_DISK,
+        payload: {
             state,
         }
     })
