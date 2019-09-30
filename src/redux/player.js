@@ -93,6 +93,7 @@ export const Player = (state = INITIAL_STATE, action) => {
         case ActionTypes.RESTORE_STATE:
                 return({
                         ...action.payload.state.player,
+                        battle: {...state.battle},
                         frozen: false,
                 });
         case ActionTypes.UPDATE_NEARBY_NPC: 
