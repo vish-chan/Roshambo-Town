@@ -14,14 +14,14 @@ export const StateManager = ( state = INITIAL_STATE, action) => {
                 }
             });
         case ActionTypes.RESTORE_STATE:
-            let statecpy = {};
+            let statecpy = {
+                ...state,
+                prevState: null,
+            };
             statecpy[action.payload.mapname] = {
                 gameobjects: action.payload.gameobjects,
             }
-            return({
-                ...statecpy,
-                prevState: null,
-            });
+            return(statecpy);
         default: 
             return state;
     }
