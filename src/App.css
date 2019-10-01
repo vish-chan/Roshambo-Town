@@ -165,4 +165,10 @@ to {
   to { transform: rotate(360deg); }
 }
 
+a {color:black;} 
+a:disabled {color:black;}        /* Unvisited link  */
+a:visited {color:black;} /* Visited link    */
+a:hover {color:white;}   /* Mouse over link */
+a:active {color:lightseagreen;}  /* Selected link   */
+
 

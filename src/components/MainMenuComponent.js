@@ -37,12 +37,19 @@ const MenuBtn = (props) => {
         fontFamily: 'gameboy',
         fontSize:'20px',
         ...solidBorder(2, 'white', 5),
+        color: 'lightgrey',
         backgroundColor: 'grey'
     };
 
-    return(
-        <button style={style}><Link style={{textDecoration: 'none',}} to={props.disabled? '#': props.to}>{props.title}</Link></button>
-    );
+    if(props.disabled) {
+        return(
+            <button disabled style={style}>{props.title}</button>
+        )
+    } else {
+        return(
+            <button style={style}><Link style={{textDecoration: 'none',}} to={props.to}>{props.title}</Link></button>
+        )
+    }
 }
 
 class MainMenu extends Component {
@@ -52,7 +59,7 @@ class MainMenu extends Component {
         return(
             <div style={style}>
                 <div style={{width:'90%', height:'40%', margin:'20px'}}>TITLE</div>
-                <MenuBtn title="Start New Game" disabled={false} to={`/world/${FALSE}`} />
+                <MenuBtn title="Start New Game" disabled={false} to={`/world/${FALSE}`}/>
                 <MenuBtn title="Load Game" disabled={!checkSavedGame()} to={`/world/${TRUE}`}/>
             </div>
         );
