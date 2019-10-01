@@ -37,13 +37,23 @@ const MenuBtn = (props) => {
         fontFamily: 'gameboy',
         fontSize:'20px',
         ...solidBorder(2, 'white', 5),
-        color: 'lightgrey',
+        backgroundColor: 'grey'
+    };
+
+    const disbaledstyle = {
+        width:'350px',
+        padding: '10px',
+        fontFamily: 'gameboy',
+        fontSize:'20px',
+        ...solidBorder(2, 'white', 5),
+        color: 'black',
+        opacity: '0.5',
         backgroundColor: 'grey'
     };
 
     if(props.disabled) {
         return(
-            <button disabled style={style}>{props.title}</button>
+            <button disabled style={disbaledstyle}>{props.title}</button>
         )
     } else {
         return(
