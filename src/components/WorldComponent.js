@@ -59,7 +59,7 @@ class World extends Component {
         } else if (this.props.statemanager.savingState) {
             return(
                 <div id="world"  style={{...worldStyle, marginTop:'60px'}}>
-                    <Loading msg="Saving state"/>
+                    <Loading msg="Freezing state"/>
                 </div>
             );
         } else if(this.props.battle.isOpen) {

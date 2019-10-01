@@ -9,7 +9,7 @@ const checkSavedGame = () => {
         const serializedState = localStorage.getItem(SAVED_GAME);
         return serializedState!==null;
       } catch (err) {
-        alert("Loading state failed!");
+        alert("Issue accessing local storage. There will be problem in saving the game!");
         return false;
       }
 }

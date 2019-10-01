@@ -308,8 +308,9 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
         return;
     
     if(npc.isWaiting) {
-        if((performance.now() - npc.lastUpdated) < npc.waitInterval)
+        if((performance.now() - npc.lastUpdated) < npc.waitInterval) {
             return;
+        }
         else 
             dispatch(ResetNPCWaiting(npcId));
     }

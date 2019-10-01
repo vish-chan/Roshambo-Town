@@ -145,12 +145,22 @@ export const NPC = (state = {
                 });
         case ActionTypes.RESTORE_STATE:
                 return({
-                    list: action.payload.state.npc.list.concat(),
+                    list: action.payload.state.npc.list.map( npc => {
+                        return({
+                            ...npc,
+                            isWaiting: false,
+                        });
+                    } ),
                     frozen: false,
                 });
         case ActionTypes.RESTORE_STATE_FROM_DISK:
                 return({
-                    list: action.payload.state.npc.list.concat(),
+                    list: action.payload.state.npc.list.map( npc => {
+                        return({
+                            ...npc,
+                            isWaiting: false,
+                        });
+                    } ),
                     frozen: false,
                 });
 
