@@ -95,7 +95,7 @@ class MoveDiv extends Component  {
     }
 
     componentDidMount() {
-        this.image.style.backgroundImage = `url('assets/images/80/objectsAndProps/${BattleMoveIndexToStr(this.props.move)}.png')`;
+        this.image.style.backgroundImage = `url('/assets/images/80/objectsAndProps/${BattleMoveIndexToStr(this.props.move)}.png')`;
         this.image.classList.add(this.className);
     }
 
@@ -103,7 +103,7 @@ class MoveDiv extends Component  {
         this.timeout = [];
         this.timeout.push(setTimeout(function() {
             if(this.image) {
-                this.image.style.backgroundImage = `url('assets/images/80/objectsAndProps/${BattleMoveIndexToStr(this.props.move)}.png')`;
+                this.image.style.backgroundImage = `url('/assets/images/80/objectsAndProps/${BattleMoveIndexToStr(this.props.move)}.png')`;
                 this.image.classList.add(this.className);
             }
         }.bind(this), 50));
