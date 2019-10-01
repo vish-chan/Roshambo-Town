@@ -523,6 +523,17 @@ export const AddMap = (level, secondary=false) => (dispatch, getState) => {
 }
 
 
+export const SetPlayerInfoAction = (name, skinIdx) => {
+    return({
+        type: ActionTypes.SET_PLAYER_INFO,
+        payload : {
+            name,
+            skinIdx
+        }
+    })
+}
+
+
 const StartBattle = (player, npc) => {
     return({
         type: ActionTypes.START_BATTLE,

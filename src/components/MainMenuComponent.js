@@ -57,7 +57,7 @@ const MenuBtn = (props) => {
         )
     } else {
         return(
-            <button style={style}><Link style={{textDecoration: 'none',}} to={props.to}>{props.title}</Link></button>
+            <button style={style}><Link to={props.to}>{props.title}</Link></button>
         )
     }
 }
@@ -69,7 +69,7 @@ class MainMenu extends Component {
         return(
             <div style={style}>
                 <div style={{width:'90%', height:'40%', margin:'20px'}}>TITLE</div>
-                <MenuBtn title="Start New Game" disabled={false} to={`/world/${FALSE}`}/>
+                <MenuBtn title="Start New Game" disabled={false} to={`/playerselect`}/>
                 <MenuBtn title="Load Game" disabled={!checkSavedGame()} to={`/world/${TRUE}`}/>
             </div>
         );

@@ -165,7 +165,11 @@ to {
   to { transform: rotate(360deg); }
 }
 
-a {color:black;} 
+.selected {
+  border: 5px solid orangered;
+}
+
+a {color:black; text-decoration: none;} 
 a:disabled {color:black;}        /* Unvisited link  */
 a:visited {color:black;} /* Visited link    */
 a:hover {color:white;}   /* Mouse over link */

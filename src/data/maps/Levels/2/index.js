@@ -14,10 +14,7 @@ export const level = {
 
     /* Compulsory */
     player: {
-        name: "Player",
-        skin: SKINS["player"],
         position: [15, 17],
-        frameInterval: 5,
         talk: [
             null,
             ["Hey! Whatsup?", "Do you have any plans for Fifa today?", "Great, see you!"],
@@ -30,7 +27,7 @@ export const level = {
                 name: "Beast",
                 skin: SKINS["friend_1"],
                 direction: DOWN,
-                stationary: false,
+                stationary: true,
                 pathArr: [[12,26], [13,26], [14,26], [15,26], [15, 25]],
                 frameInterval: 100,
                 moveInterval: 500,
@@ -42,7 +39,7 @@ export const level = {
                 name: "Moon",
                 skin: SKINS["crush_1"],
                 direction: LEFT,
-                stationary: false,
+                stationary: true,
                 pathArr: [[15,12], [15,13], [15,14], [15,15]],
                 frameInterval: 100,
                 moveInterval: 500,
@@ -54,7 +51,7 @@ export const level = {
                 name: "Ash",
                 skin: SKINS["kid_3"],
                 direction: UP,
-                stationary: false,
+                stationary: true,
                 pathArr: [[1,12], [1,13], [1,14], [1,15]],
                 frameInterval: 100,
                 moveInterval: 500,

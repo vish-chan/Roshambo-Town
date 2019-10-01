@@ -1,19 +1,20 @@
 import * as ActionTypes from './ActionTypes';
 import { DOWN } from '../helpers/constants';
 import { getValue } from '../helpers/funcs';
+import { SKINS } from '../data/skins';
 
 const DEFAULT_DIALOG = "Hey! What's up?";
 
 const INITIAL_STATE = { 
-                        name: null,
-                        skin: {},
+                        name: "PLAYER",
+                        skin: SKINS["player_1"],
                         position: [0, 0],
                         direction: DOWN,
-                        spriteLocation: null,
+                        spriteLocation: SKINS["player_1"][DOWN],
                         isAnimating: false,
                         nextPosition: [],
                         walkIndex: 0,
-                        frameInterval: 0,
+                        frameInterval: 5,
                         interacting: false,
                         talk: [],
                         frozen: false,
@@ -33,14 +34,11 @@ const INITIAL_STATE = {
 export const Player = (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case ActionTypes.ADD_MAP:
-                return({...state, 
-                        name: getValue(state.name, action.payload.player.name), 
-                        skin: getValue(state.skin, action.payload.player.skin), 
+                return({
+                        ...state, 
                         position: getValue(state.position, action.payload.player.position), 
-                        frameInterval: getValue(state.frameInterval, action.payload.player.frameInterval),
-                        battleHealth: getValue(state.battleHealth, action.payload.battleHealth),
                         direction: DOWN,
-                        spriteLocation: getValue(state.skin, action.payload.player.skin)[DOWN],
+                        spriteLocation: state.skin[DOWN],
                         isAnimating: false,
                         nextPosition: [],
                         walkIndex: 0,
@@ -51,6 +49,13 @@ export const Player = (state = INITIAL_STATE, action) => {
                         nearbyNPC: null,
                         nearbyGameObj: null,
                         nearbyPortal: null,
+                });
+        case ActionTypes.SET_PLAYER_INFO:
+                return({
+                        ...state,
+                        name: action.payload.name,
+                        skin: SKINS[action.payload.skinIdx],
+
                 });
         case ActionTypes.UPDATE_PLAYER_POSITION:
                 return({...state, 
