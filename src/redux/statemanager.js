@@ -38,7 +38,7 @@ export const StateManager = ( state = INITIAL_STATE, action) => {
             return(statecpy);
         case ActionTypes.RESTORE_STATE_FROM_DISK:
             return({
-                ...action.payload.state.state.manager,
+                ...action.payload.state.statemanager,
                 savingState: false,
             });
         default: 

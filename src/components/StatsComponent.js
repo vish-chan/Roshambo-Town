@@ -32,7 +32,7 @@ const AwareComponent = (props) => {
     instruction = props.player.nearbyPortal!==null? <div>Use {getKeyDiv("E")} to enter</div> : instruction;
 
     return(
-        <div>
+        <div id="aware">
             {instruction}
         </div>
     );

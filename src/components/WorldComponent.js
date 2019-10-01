@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Player from './PlayerComponent';
 import Map from './MapComponent';
-import { AddMap  } from '../redux/ActionCreators';
+import { AddMap, LoadGameFromDisk  } from '../redux/ActionCreators';
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../helpers/constants';
 import { level } from '../data/maps/Levels/2/index';
 import { connect } from 'react-redux';
@@ -34,13 +34,18 @@ const mapStatetoProps = state => {
 const mapDispatchtoProps = dispatch => {
     return({
         loadMap: (level) => { dispatch(AddMap(level)); },
+        loadGameFromDisk: () => { dispatch(LoadGameFromDisk()); }
     });
 }
 
 class World extends Component {
 
     componentDidMount() {
-        this.props.loadMap(level);
+        if(!this.props.loadgame)
+            this.props.loadMap(level);
+        else {
+            this.props.loadGameFromDisk()
+        }
     }
 
     

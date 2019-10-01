@@ -40,3 +40,8 @@ export const BATTLE_QUESTION = "Hey! Do you wanna battle?";
 export const BATTLE_ANS = "Yeah, sure. Let's go!"
 
 export const SAVED_GAME = "SAVED GAME"
+
+export const TRUE = "true";
+export const FALSE = "false";
+
+export const NPC_BATTLE_MARKER = '/assets/images/80/objectsAndProps/battle_head.png';

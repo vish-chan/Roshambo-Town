@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UpdateNPCPosition } from '../redux/ActionCreators';
-import { TILE_SIZE } from '../helpers/constants';
+import { TILE_SIZE, NPC_BATTLE_MARKER } from '../helpers/constants';
 import { customSetInterval, intervalList, clearIntervals } from '../helpers/funcs';
 
 
@@ -46,7 +46,7 @@ class NPC extends Component {
             position: 'absolute',
             width: 30,
             height: 30, 
-            backgroundImage: `url('assets/images/80/objectsAndProps/battle_head.png')`,
+            backgroundImage: `url(${NPC_BATTLE_MARKER})`,
             backgroundSize: "contain",
             left: this.props.self.position[0] + ((TILE_SIZE/2) - (30/2)),
             top: (this.props.self.position[1] - 50) + ((TILE_SIZE/2) - (30/2)),

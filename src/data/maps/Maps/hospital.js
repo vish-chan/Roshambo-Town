@@ -13,7 +13,7 @@ export const hospital = {
         [  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,  10,],
     ],
 
-    src: 'assets/images/maps/hospital.png',
+    src: '/assets/images/maps/hospital.png',
 
     backgroundColor: "#ffffff",
 

@@ -438,8 +438,9 @@ export const SaveGameToDisk = () => (dispatch, getState) => {
             try {
                 const serializedState = JSON.stringify(getState());
                 localStorage.setItem(SAVED_GAME, serializedState);
+                alert("Game saved successfully!");
               } catch (err) {
-                alert("Saving state failed!!");
+                alert("Saving state failed! Try starting a new game.");
               } 
             dispatch(SaveStateEndAction());
         }
@@ -464,13 +465,15 @@ export const LoadGameFromDisk = () => (dispatch) => {
         }  
     
       } catch (err) {
-            alert("Loading state failed!");
+            alert("Loading state failed. Start a new game!");
             return undefined;
       }
+      return 1;
 }
 
 export const AddMap = (level, secondary=false) => (dispatch, getState) => {
     dispatch(LoadingMapAction());
+
     let width = level.map.tiles[0].length*TILE_SIZE, height= level.map.tiles.length*TILE_SIZE;
     let playerPosition = tileToMapCoordinates(level.player.position, TILE_SIZE);
     let start_x, start_y, end_x, end_y;
@@ -513,6 +516,7 @@ export const AddMap = (level, secondary=false) => (dispatch, getState) => {
     mapBg.src = level.map.src;
 
     function renderMap(){
+        console.log("HIT");
         dispatch(AddMapAction(level, width, height, playerPosition, start, end, oldState));
     }
 }

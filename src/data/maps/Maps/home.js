@@ -25,7 +25,7 @@ export const home = {
 
     ],
 
-    src: 'assets/images/maps/home.png',
+    src: '/assets/images/maps/home.png',
 
     backgroundColor: "#6df7b1",
 
