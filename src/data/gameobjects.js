@@ -3,6 +3,8 @@ import { HEALER, EATABLE, CURRENCY, PORTAL, PORTAL_ENTER, PORTAL_LEAVE } from ".
 const BASE_URL = "/assets/images/80/objectsAndProps/items.png";
 const PORTAL_URL = "/assets/images/80/objectsAndProps/portal.png"; 
 const ENTER_URL = "/assets/images/80/objectsAndProps/enter.png"; 
+const LEAVE_URL = "/assets/images/80/objectsAndProps/leave.png"; 
+
 
 export const GAMEOBJECTS = [
     {
@@ -110,6 +112,17 @@ export const PORTALS = [
     {   /*1*/
         id: 1,
         name: PORTAL_LEAVE,
+        src: LEAVE_URL,
+        srcpos: [0,0],
+        width: 40,
+        height: 40,
+        effects: "blink",
+        type: PORTAL,
+    },
+
+    {   /*2*/
+        id: 2,
+        name: "portal",
         src: PORTAL_URL,
         srcpos: [0,0],
         width: 64,
