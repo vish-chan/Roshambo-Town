@@ -37,9 +37,12 @@ export const PAPER = 1;
 export const SCISSORS = 2;
 
 export const BATTLE_QUESTION = "Hey! Do you wanna battle?";
-export const BATTLE_ANS = "Yeah, sure. Let's go!"
+export const BATTLE_ACCPET_ANS = "Yeah, sure. Let's go!";
+export const BATTLE_DECLINE_ANS = "FO! I don't waste time on losers. Comeback after leveling up.";
+export const BATTLE_THRESHOLD = 1;
 
-export const SAVED_GAME = "SAVED GAME"
+
+export const SAVED_GAME = "SAVED GAME";
 
 export const LOADGAME = "LOADGAME";
 export const NEWGAME = "NEWGAME";
