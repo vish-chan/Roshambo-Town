@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { VIEWPORT_WIDTH } from '../helpers/constants';
 import {connect} from 'react-redux';
-import { solidBorder, centerBgImg, getRounded, getKeyDiv } from '../helpers/funcs';
+import { solidBorder, centerBgImg, getRounded, getKeyDiv, getLevelColor, getWinPercColor } from '../helpers/funcs';
 import { SaveGameToDisk } from '../redux/ActionCreators';
 
 
@@ -71,6 +71,9 @@ class Stats extends Component {
             alignItems:'center',
         }
 
+        const level = this.props.player.battle.level;
+        const winperc = getRounded(this.props.player.battle.won*100/(this.props.player.battle.won + this.props.player.battle.lost))
+
         return(
             <div id="stats" style={style}>
                 <div style={{width:'30%', display:'flex', alignItems:'center'}}>
@@ -78,9 +81,9 @@ class Stats extends Component {
                     <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
                         <div style={{margin:'5px', alignSelf:'flex-start'}}> {this.props.player.name} </div>
                         <div style={{display:'flex'}}>
-                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle('WhiteSmoke')}}> Lvl:{this.props.player.battle.level} </div>
-                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle('WhiteSmoke')}}> Exp:{this.props.player.battle.exp} </div>
-                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle('WhiteSmoke')}}> Win%:{getRounded(this.props.player.battle.won*100/(this.props.player.battle.won + this.props.player.battle.lost))}</div>
+                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle(getLevelColor(level))}}> Lvl:{level} </div>
+                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle(getLevelColor(level))}}> Exp:{this.props.player.battle.exp} </div>
+                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle(getWinPercColor(winperc))}}> Win%:{winperc}</div>
                         </div>
                     </div>
                 </div>
@@ -89,7 +92,7 @@ class Stats extends Component {
                 </div>
                 <div style={{width:'10%', display:'flex', alignItems: 'center'}}>
                     <button disabled={(this.props.player.isAnimating || this.props.player.frozen || this.props.player.inBattle || this.props.player.interacting)} 
-                            style={{margin:'5px', ...bgStyle(), fontFamily:'gameboy'}} onClick={this.handleSaveBtnClick}><i className="fa fa-save fa-2x" style={{margin:'5px'}}/> Save
+                            style={{margin:'5px', ...bgStyle('DeepSkyBlue'), fontFamily:'gameboy', color:'white'}} onClick={this.handleSaveBtnClick}><i className="fa fa-save fa-2x" style={{margin:'5px'}}/> Save
                     </button>
                 </div>
             </div>

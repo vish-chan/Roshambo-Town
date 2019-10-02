@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UpdateNPCPosition } from '../redux/ActionCreators';
 import { TILE_SIZE, NPC_BATTLE_MARKER } from '../helpers/constants';
-import { customSetInterval, intervalList, clearIntervals } from '../helpers/funcs';
+import { customSetInterval, intervalList, clearIntervals, getLevelColor } from '../helpers/funcs';
 
 
 const mapStatetoProps = state => {
@@ -42,21 +42,30 @@ class NPC extends Component {
             backgroundPosition: `${this.props.self.walkIndex * this.props.self.skin.width}px ${this.props.self.spriteLocation * this.props.self.skin.height}px`,
         }
 
-        const battlemarkerstyle = {
+        const battlemarkerstylebase = {
+            position: 'absolute',
+            width: 30,
+            height: 30, 
+            left: this.props.self.position[0] + ((TILE_SIZE/2) - (30/2)),
+            top: (this.props.self.position[1] - 50) + ((TILE_SIZE/2) - (30/2)),
+            display: this.props.self.battle && !this.props.self.battleFlag ? 'block':'none'
+        }
+
+        const battlemarkerstyleoverlay = {
             position: 'absolute',
             width: 30,
             height: 30, 
             backgroundImage: `url(${NPC_BATTLE_MARKER})`,
             backgroundSize: "contain",
-            left: this.props.self.position[0] + ((TILE_SIZE/2) - (30/2)),
-            top: (this.props.self.position[1] - 50) + ((TILE_SIZE/2) - (30/2)),
-            display: this.props.self.battle && !this.props.self.battleFlag ? 'block':'none'
         }
     
         return(
             <div>
                 <div id={`NPC${this.props.self.id}`} style={npcStyle}/>
-                <div className="blink" style={battlemarkerstyle}></div>
+                <div className="blink" style={battlemarkerstylebase}>
+                    <div style={{position:'absolute', width:30, height:30,backgroundColor:getLevelColor(this.props.self.level)}}></div>
+                    <div style={battlemarkerstyleoverlay} />
+                </div>
             </div> 
         ); 
     }  

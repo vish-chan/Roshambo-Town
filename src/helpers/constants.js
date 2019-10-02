@@ -47,10 +47,19 @@ export const SAVED_GAME = "SAVED GAME";
 export const LOADGAME = "LOADGAME";
 export const NEWGAME = "NEWGAME";
 
-export const NPC_BATTLE_MARKER = '/assets/images/80/objectsAndProps/battle_head.png';
+export const NPC_BATTLE_MARKER = '/assets/images/80/objectsAndProps/battle_head_transparent.png';
 
 export const MAIN_MENU = "/menu";
 export const WORLD_BASE = "/world"
 
 export const PORTAL_ENTER = "enter";
 export const PORTAL_LEAVE = "leave";
+
+export const MAX_LEVEL = 5;
+export const LEVEL_COLORS =  {
+    L1: "MediumSeaGreen",
+    L2: "Gold",
+    L3: "DarkTurquoise",
+    L4: "RoyalBlue",
+    L5: "red",
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import { MAX_LEVEL, LEVEL_COLORS } from './constants';
 
 export const getRounded = (num) => {
     return isNaN(num)? 0: Math.round(num);
@@ -91,3 +92,20 @@ export const getKeyDiv = (keycode, fontSize=15) => {
     </div>
     );
 }
+
+export const getLevelColor = (level) => {
+   if(level<1 || level>MAX_LEVEL) 
+        return "white";
+    return(LEVEL_COLORS[`L${level}`]);
+}
+
+export const getWinPercColor = (winperc) => {
+    if(winperc < 25)
+        return 'Red';
+    else if(winperc < 50) 
+        return 'Crimson';
+    else if(winperc < 75)
+        return 'SpringGreen';
+    else 
+        return 'ForestGreen'
+ }

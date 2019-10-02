@@ -14,7 +14,7 @@ const INITIAL_STATE = {
                         isAnimating: false,
                         nextPosition: [],
                         walkIndex: 0,
-                        frameInterval: 5,
+                        frameInterval: 20,
                         interacting: false,
                         talk: [],
                         frozen: false,
