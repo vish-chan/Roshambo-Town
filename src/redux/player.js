@@ -36,9 +36,9 @@ export const Player = (state = INITIAL_STATE, action) => {
         case ActionTypes.ADD_MAP:
                 return({
                         ...state, 
-                        position: getValue(state.position, action.payload.player.position), 
-                        direction: DOWN,
-                        spriteLocation: state.skin[DOWN],
+                        position: action.payload.player.position, 
+                        direction: getValue(state.direction, action.payload.player.direction),
+                        spriteLocation: state.skin[getValue(state.direction, action.payload.player.direction)],
                         isAnimating: false,
                         nextPosition: [],
                         walkIndex: 0,
