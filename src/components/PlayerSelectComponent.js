@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, NEWGAME, WORLD_BASE } from '../helpers/constants';
-import { centerBgImg } from '../helpers/funcs';
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, NEWGAME, WORLD_BASE, MAIN_MENU } from '../helpers/constants';
+import { centerBgImg, solidBorder } from '../helpers/funcs';
 import { SetPlayerInfoAction } from '../redux/ActionCreators';
 
 const SELECT_URL = "/assets/images/80/objectsAndProps/playerselect/"
@@ -100,19 +100,20 @@ class PlayerSelect extends Component {
     render() {
         return(
             <div style={style}>
+                <button style={{position:'absolute', left:10, top:10, padding:'5px', backgroundColor:'whitesmoke', ...solidBorder(2, 'white', 5)}}><Link to={MAIN_MENU}><i className="fa fa-arrow-left fa-2x"></i></Link></button>
                 <div style={{margin:'20px'}}>Select Your Avatar</div>
                 <div style={{width:'70%', height:'50%', display: 'flex', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center',}}>
                     <CharacterPane option="player_1" click={this.handleCharacterClick} selected={this.state.character} />
                     <CharacterPane option="player_2" click={this.handleCharacterClick} selected={this.state.character} />
                 </div>
                 <div style={{width:'60%', height: '20px' ,display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-                    <label htmlFor = "player" style={{fontSize:'20px'}}> Enter name </label> 
+                    <label htmlFor = "player" style={{fontSize:'20px'}}> Avatar name </label> 
                     <div style={{width:'70%', fontFamily:'gameboy',}}>
                         <input onChange={this.handleNameChange} type = "text" name = "player" id = "player" style={{width:'100%', fontFamily:'gameboy' ,fontSize:'20px'}} value={this.state.name}/>
                         <div style={{width:'100%', fontSize:'10px', color:'grey'}}>{NAME_MIN} to {NAME_MAX} english alphabet characters</div>
                     </div>
                 </div>
-                <button onClick={this.validateAndSend} style={{fontFamily:'gameboy',fontSize:'25px', margin:'30px'}}>{this.getLink("Start Game", `${WORLD_BASE}/${NEWGAME}`)}</button>
+                <button onClick={this.validateAndSend} style={{fontFamily:'gameboy',fontSize:'25px', margin:'50px'}}>{this.getLink("Start Journey", `${WORLD_BASE}/${NEWGAME}`)}</button>
                 <p style={{color:'red', fontSize:'20px'}}>{this.state.errmsg}</p>
             </div>
         );
