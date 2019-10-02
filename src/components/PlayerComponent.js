@@ -19,7 +19,6 @@ const mapDispatchToProps = dispatch => {
         pickupObject: () => { dispatch(PickupGameObject()); },
         toggleInventory: () => { dispatch(ToggleInventory()); },
         checkPortalAndEnter: () => { dispatch(CheckPortalAndEnter()); },
-        restoreState: () => { dispatch(RestoreState()); },
     });
 }
 
@@ -91,9 +90,7 @@ class Player extends Component {
                 this.props.toggleInventory();
             } else if(SAVE_KEY.includes(keyCode) && !this.props.player.interacting) {
                 this.props.checkPortalAndEnter();
-            } else if(RESTORE_KEY.includes(keyCode) && !this.props.player.interacting) {
-                this.props.restoreState();
-            } else if(ESC_KEY.includes(keyCode)) {
+            }  else if(ESC_KEY.includes(keyCode)) {
                 this.toggleExitModalState();
             }
         } 

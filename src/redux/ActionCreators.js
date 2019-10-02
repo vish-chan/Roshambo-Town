@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ANS, SAVED_GAME} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 
 
@@ -371,56 +371,56 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
     const player = getState().player;
     const portals = player.nearbyPortal!==null? getState().gameobjects.filter( gobj => gobj.id === player.nearbyPortal ): null;
     if(portals!==null) {
-        const portal = portals[0];
+        if(portals[0].type.name===PORTAL_ENTER) {
+            const portal = portals[0];
+    
+            dispatch(SaveStateInitAction());
+            clearIntervals();
+            
+            saveStateandAddMap();
+            
+                function saveStateandAddMap() { 
+                    const npcList = getState().npc.list;
+                    const npcAnimating = npcList.filter( npc => npc.isAnimating);
+                    if(npcAnimating.length > 0) {
+                        setTimeout(saveStateandAddMap, 500);
+                    } else {
+                        dispatch(SaveStateAction(getState())); 
+                        dispatch(AddMap(portal.target, true));
+                    }
+                }
+        } else if(portals[0].type.name===PORTAL_LEAVE) {
+            const oldState = getState().statemanager.prevState;
+            if(!oldState)
+                return;
 
-        dispatch(SaveStateInitAction());
-        clearIntervals();
-        
-        saveStateandAddMap();
-        
-        function saveStateandAddMap() { 
-            const npcList = getState().npc.list;
-            const npcAnimating = npcList.filter( npc => npc.isAnimating);
-            if(npcAnimating.length > 0) {
-                setTimeout(saveStateandAddMap, 500);
-            } else {
-                dispatch(SaveStateAction(getState())); 
-                dispatch(AddMap(portal.target, true));
-            }
-        }
-    }
-}
-
-export const RestoreState = () => (dispatch, getState) => {
-    const oldState = getState().statemanager.prevState;
-    if(!oldState)
-        return;
-
-    const mapname = getState().map.name;
-    const gameobjects = getState().gameobjects.map( gameobject => {
-        return({
-            ...gameobject,
-            position: mapCoordinatesToTiles(gameobject.position, TILE_SIZE),
-        });
-    });
-    dispatch(SaveStateInitAction()); 
-    clearInterval();
-    checkandRestoreMap();
-        
-    function checkandRestoreMap() { 
-        const npcList = getState().npc.list;
-        const npcAnimating = npcList.filter( npc => npc.isAnimating);
-        if(npcAnimating.length > 0) {
-            setTimeout(checkandRestoreMap, 500);
-        } else {
-            dispatch(LoadingMapAction());
-            const mapBg = new Image();
-            mapBg.onload = renderMap;
-            mapBg.src = oldState.map.src;
-            function renderMap(){
-                dispatch(RestoreStateAction(mapname, gameobjects, oldState));
-            }  
-        }
+            const mapname = getState().map.name;
+            const gameobjects = getState().gameobjects.map( gameobject => {
+                return({
+                    ...gameobject,
+                    position: mapCoordinatesToTiles(gameobject.position, TILE_SIZE),
+                });
+            });
+            dispatch(SaveStateInitAction()); 
+            clearInterval();
+            checkandRestoreMap();
+                
+                function checkandRestoreMap() { 
+                    const npcList = getState().npc.list;
+                    const npcAnimating = npcList.filter( npc => npc.isAnimating);
+                    if(npcAnimating.length > 0) {
+                        setTimeout(checkandRestoreMap, 500);
+                    } else {
+                        dispatch(LoadingMapAction());
+                        const mapBg = new Image();
+                        mapBg.onload = renderMap;
+                        mapBg.src = oldState.map.src;
+                        function renderMap(){
+                            dispatch(RestoreStateAction(mapname, gameobjects, oldState));
+                        }  
+                    }
+                }
+            }   
     }
 }
 

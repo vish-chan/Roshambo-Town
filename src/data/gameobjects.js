@@ -1,4 +1,4 @@
-import { HEALER, EATABLE, CURRENCY, PORTAL } from "../helpers/constants";
+import { HEALER, EATABLE, CURRENCY, PORTAL, PORTAL_ENTER, PORTAL_LEAVE } from "../helpers/constants";
 
 const BASE_URL = "/assets/images/80/objectsAndProps/items.png";
 const PORTAL_URL = "/assets/images/80/objectsAndProps/portal.png"; 
@@ -95,19 +95,10 @@ export const GAMEOBJECTS = [
 ];
 
 export const PORTALS = [
+
     {   /*0*/
         id: 0,
-        name: "portal",
-        src: PORTAL_URL,
-        srcpos: [0,0],
-        width: 64,
-        height: 64,
-        effects: "rotate",
-        type: PORTAL,
-    },
-    {   /*0*/
-        id: 1,
-        name: "enter",
+        name: PORTAL_ENTER,
         src: ENTER_URL,
         srcpos: [0,0],
         width: 40,
@@ -115,4 +106,16 @@ export const PORTALS = [
         effects: "blink",
         type: PORTAL,
     },
+
+    {   /*1*/
+        id: 1,
+        name: PORTAL_LEAVE,
+        src: PORTAL_URL,
+        srcpos: [0,0],
+        width: 64,
+        height: 64,
+        effects: "rotate",
+        type: PORTAL,
+    },
+    
 ]
