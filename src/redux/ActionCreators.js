@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCPET_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 
 
@@ -230,6 +230,10 @@ const checkNearbyIdleNPC = (playerpos, direction, npcList) => {
     return nearByNPC;
 }
 
+const checkBattleEligibilty = (playerlevel, npclevel) => {
+    return(npclevel - playerlevel <= BATTLE_THRESHOLD);
+}
+
 
 const ForceBattleConversation = (player, npc) => (dispatch, getState) => {
    
@@ -237,11 +241,12 @@ const ForceBattleConversation = (player, npc) => (dispatch, getState) => {
     if(npc.direction!==oppdirection) {
         dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
     }
-    dispatch(SetConversationStatus(npc.id, 
-        {name: npc.name, dialogs: [BATTLE_QUESTION]}, 
-        {name: player.name, dialogs: [BATTLE_ANS]}, 
-        mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
-
+    if(checkBattleEligibilty(player.battle.level, npc.level)) {
+        dispatch(SetConversationStatus(npc.id, 
+            {name: npc.name, dialogs: [BATTLE_QUESTION]}, 
+            {name: player.name, dialogs: [BATTLE_ACCPET_ANS]}, 
+            mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
+    }
 }
 
 export const InitiateConversation = () => (dispatch, getState) => {
@@ -253,10 +258,17 @@ export const InitiateConversation = () => (dispatch, getState) => {
             dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
         }
         if(npc.battle) {
-            dispatch(SetConversationStatus(npc.id, 
-                {name: player.name, dialogs: [BATTLE_QUESTION]}, 
-                {name: npc.name, dialogs: [BATTLE_ANS]}, 
-                mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
+            if(checkBattleEligibilty(player.battle.level, npc.level)) {
+                dispatch(SetConversationStatus(npc.id, 
+                    {name: player.name, dialogs: [BATTLE_QUESTION]}, 
+                    {name: npc.name, dialogs: [BATTLE_ACCPET_ANS]}, 
+                    mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
+            } else {
+                dispatch(SetConversationStatus(npc.id, 
+                    {name: player.name, dialogs: [BATTLE_QUESTION]}, 
+                    {name: npc.name, dialogs: [BATTLE_DECLINE_ANS]}, 
+                    mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", false));
+            }
         } else {
             dispatch(SetConversationStatus(npc.id, 
                                         {name: player.name, dialogs: player.talk[npc.id]}, 
