@@ -1,9 +1,8 @@
 import * as ActionTypes from './ActionTypes';
 
 const INITIAL_STATE = {
-                        savedGame: null,
                         savingState: false,
-                        prevState: null,
+                        prevStates: [],
                     }
 
 export const StateManager = ( state = INITIAL_STATE, action) => {
@@ -14,11 +13,11 @@ export const StateManager = ( state = INITIAL_STATE, action) => {
                     savingState: true,
             });
         case ActionTypes.SAVE_STATE:
+            const cpyPrevStates = [...state.prevStates];
+            cpyPrevStates.push(action.payload.state);
             return({
                 ...state,
-                prevState: {
-                    ...action.payload.state,
-                },
+                prevStates: cpyPrevStates,
                 savingState: false,
             });
         case ActionTypes.SAVE_STATE_END:
@@ -29,7 +28,7 @@ export const StateManager = ( state = INITIAL_STATE, action) => {
         case ActionTypes.RESTORE_STATE:
             let statecpy = {
                 ...state,
-                prevState: null,
+                prevStates: action.payload.prevStates,
                 savingState: false,
             };
             statecpy[action.payload.mapname] = {

@@ -390,10 +390,11 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
                     }
                 }
         } else if(portals[0].type.name===PORTAL_LEAVE) {
-            const oldState = getState().statemanager.prevState;
-            if(!oldState)
+            const cpyPrevState = [...getState().statemanager.prevStates];
+            if(!cpyPrevState.length)
                 return;
 
+            const oldState = cpyPrevState.pop();
             const mapname = getState().map.name;
             const gameobjects = getState().gameobjects.map( gameobject => {
                 return({
@@ -416,7 +417,7 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
                         mapBg.onload = renderMap;
                         mapBg.src = oldState.map.src;
                         function renderMap(){
-                            dispatch(RestoreStateAction(mapname, gameobjects, oldState));
+                            dispatch(RestoreStateAction(mapname, gameobjects, oldState, cpyPrevState));
                         }  
                     }
                 }
@@ -879,13 +880,14 @@ const SaveStateEndAction = () => {
 }
 
 
-const RestoreStateAction = (mapname, gameobjects, state) => {
+const RestoreStateAction = (mapname, gameobjects, state, prevStates) => {
     return({
         type: ActionTypes.RESTORE_STATE,
         payload: {
             mapname,
             gameobjects,
             state,
+            prevStates,
         }
     })
 }
