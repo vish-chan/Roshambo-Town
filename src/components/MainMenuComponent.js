@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, SAVED_GAME, TRUE, FALSE } from '../helpers/constants';
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, SAVED_GAME, LOADGAME, NEWGAME } from '../helpers/constants';
 import { solidBorder } from '../helpers/funcs';
 
 
@@ -70,7 +70,7 @@ class MainMenu extends Component {
             <div style={style}>
                 <div style={{width:'90%', height:'40%', margin:'20px'}}>TITLE</div>
                 <MenuBtn title="Start New Game" disabled={false} to={`/playerselect`}/>
-                <MenuBtn title="Load Game" disabled={!checkSavedGame()} to={`/world/${TRUE}`}/>
+                <MenuBtn title="Load Game" disabled={!checkSavedGame()} to={`/world/${LOADGAME}`}/>
             </div>
         );
     }

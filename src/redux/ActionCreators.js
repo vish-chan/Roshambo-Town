@@ -517,7 +517,6 @@ export const AddMap = (level, secondary=false) => (dispatch, getState) => {
     mapBg.src = level.map.src;
 
     function renderMap(){
-        console.log("HIT");
         dispatch(AddMapAction(level, width, height, playerPosition, start, end, oldState));
     }
 }

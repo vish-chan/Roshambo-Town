@@ -18,7 +18,7 @@ export const _hospital = {
     },
 
     npc : [{ 
-                name: "Beast",
+                name: "PSYCH",
                 skin: SKINS["kid_1"],
                 direction: DOWN,
                 stationary: false,
@@ -28,8 +28,8 @@ export const _hospital = {
                 waitInterval: 1500,
             },
             { 
-                name: "Moon",
-                skin: SKINS["friend_3"],
+                name: "BELLA",
+                skin: SKINS["crush_1"],
                 direction: LEFT,
                 stationary: false,
                 pathArr: [[7,12], [7,13], [7,14], [7,15]],

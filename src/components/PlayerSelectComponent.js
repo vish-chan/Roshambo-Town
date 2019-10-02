@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, FALSE } from '../helpers/constants';
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, NEWGAME, WORLD_BASE } from '../helpers/constants';
 import { centerBgImg } from '../helpers/funcs';
 import { SetPlayerInfoAction } from '../redux/ActionCreators';
 
@@ -112,7 +112,7 @@ class PlayerSelect extends Component {
                         <div style={{width:'100%', fontSize:'10px', color:'grey'}}>{NAME_MIN} to {NAME_MAX} english alphabet characters</div>
                     </div>
                 </div>
-                <button onClick={this.validateAndSend} style={{fontFamily:'gameboy',fontSize:'25px', margin:'30px'}}>{this.getLink("Start Game", `/world/${FALSE}`)}</button>
+                <button onClick={this.validateAndSend} style={{fontFamily:'gameboy',fontSize:'25px', margin:'30px'}}>{this.getLink("Start Game", `${WORLD_BASE}/${NEWGAME}`)}</button>
                 <p style={{color:'red', fontSize:'20px'}}>{this.state.errmsg}</p>
             </div>
         );

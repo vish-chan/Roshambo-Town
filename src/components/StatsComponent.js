@@ -17,10 +17,10 @@ const mapDispatchtoProps = dispatch => {
     });
 }
 
-const bgStyle = () => {
+const bgStyle = (color) => {
     return({
         padding: '5px',
-        backgroundColor: 'WhiteSmoke',
+        backgroundColor: color,
         ...solidBorder(2, 'white', 5),
     });
 }
@@ -78,9 +78,9 @@ class Stats extends Component {
                     <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
                         <div style={{margin:'5px', alignSelf:'flex-start'}}> {this.props.player.name} </div>
                         <div style={{display:'flex'}}>
-                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle()}}> Lvl:{this.props.player.battle.level} </div>
-                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle()}}> Exp:{this.props.player.battle.exp} </div>
-                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle()}}> Win%:{getRounded(this.props.player.battle.won*100/(this.props.player.battle.won + this.props.player.battle.lost))}</div>
+                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle('WhiteSmoke')}}> Lvl:{this.props.player.battle.level} </div>
+                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle('WhiteSmoke')}}> Exp:{this.props.player.battle.exp} </div>
+                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle('WhiteSmoke')}}> Win%:{getRounded(this.props.player.battle.won*100/(this.props.player.battle.won + this.props.player.battle.lost))}</div>
                         </div>
                     </div>
                 </div>
