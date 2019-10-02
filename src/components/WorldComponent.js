@@ -3,7 +3,7 @@ import Player from './PlayerComponent';
 import Map from './MapComponent';
 import { AddMap, LoadGameFromDisk  } from '../redux/ActionCreators';
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../helpers/constants';
-import { level } from '../data/maps/Levels/2/index';
+import { level } from '../data/maps/Levels/1/index';
 import { connect } from 'react-redux';
 import ConversationDisplay from './ConversationDisplayComponent';
 import Inventory from './InventoryComponent';

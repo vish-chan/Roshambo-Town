@@ -1,7 +1,7 @@
 import { hospital } from '../../Maps/hospital';
 import { DOWN, LEFT } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
-import { GAMEOBJECTS } from "../../../gameobjects";
+import { GAMEOBJECTS, PORTALS } from "../../../gameobjects";
 
 export const _hospital = {
 
@@ -54,5 +54,9 @@ export const _hospital = {
     ],
 
     portals: [
+        {
+            position: [5, 8],
+            type: PORTALS[1],
+        }
     ],
 };
