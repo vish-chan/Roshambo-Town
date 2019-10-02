@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, SAVE_KEY, RESTORE_KEY } from '../helpers/constants';
+import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, SAVE_KEY, RESTORE_KEY, ESC_KEY, MAIN_MENU } from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject, ToggleInventory, RestoreState, CheckPortalAndEnter } from '../redux/ActionCreators';
 import { mapToViewport, getKeyDiv } from '../helpers/funcs';
+import CustomModal from './CustomModalComponent';
 
 const mapStatetoProps = state => {
     return({
@@ -47,6 +48,10 @@ class Player extends Component {
         super(props);
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.toggleExitModalState = this.toggleExitModalState.bind(this);
+        this.state = {
+            showExitModal: false,
+        }
     }
 
     componentDidMount() {
@@ -58,6 +63,11 @@ class Player extends Component {
         window.removeEventListener('keydown', this.handleKeyDown);
     }
 
+    toggleExitModalState() {
+        this.setState({
+            showExitModal: !this.state.showExitModal,
+        })
+    }
 
     handleKeyDown(event) {
         if(this.props.player.isAnimating || this.props.player.frozen || this.props.player.inBattle)
@@ -83,6 +93,8 @@ class Player extends Component {
                 this.props.checkPortalAndEnter();
             } else if(RESTORE_KEY.includes(keyCode) && !this.props.player.interacting) {
                 this.props.restoreState();
+            } else if(ESC_KEY.includes(keyCode)) {
+                this.toggleExitModalState();
             }
         } 
     }
@@ -93,6 +105,7 @@ class Player extends Component {
         return(
             <div>
                 <PlayerSprite player={this.props.player} viewport={this.props.viewport}/>
+                <CustomModal show={this.state.showExitModal} confirmLink={MAIN_MENU} cancelLink={this.toggleExitModalState} />
             </div>
         );
     }

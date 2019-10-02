@@ -21,9 +21,10 @@ export const PICKUP_KEY = [80]; /* P */
 export const INVENTORY_KEY = [73]; /* I */
 export const SAVE_KEY = [69]; /* E */
 export const RESTORE_KEY = [82]; /* R */
-export const ENTER_KEY = [13]; /* R */
+export const ENTER_KEY = [13]; /* ENTER */
+export const ESC_KEY = [27]; /* R */
 
-export const VALID_KEYCODES = ARROW_KEYCODES.concat(SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, SAVE_KEY, RESTORE_KEY, ENTER_KEY);
+export const VALID_KEYCODES = ARROW_KEYCODES.concat(SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, SAVE_KEY, RESTORE_KEY, ENTER_KEY, ESC_KEY);
 
 export const PASSIBLE_INDEX = 5;
 
@@ -41,7 +42,10 @@ export const BATTLE_ANS = "Yeah, sure. Let's go!"
 
 export const SAVED_GAME = "SAVED GAME"
 
-export const TRUE = "true";
-export const FALSE = "false";
+export const LOADGAME = "LOADGAME";
+export const NEWGAME = "NEWGAME";
 
 export const NPC_BATTLE_MARKER = '/assets/images/80/objectsAndProps/battle_head.png';
+
+export const MAIN_MENU = "/menu";
+export const WORLD_BASE = "/world"
