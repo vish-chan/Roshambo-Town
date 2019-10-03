@@ -56,7 +56,7 @@ class NPC extends Component {
             <div>
                 <div id={`NPC${this.props.self.id}`} style={npcStyle}/>
                 <div className="blink" style={battlemarkerstylebase}>
-                    <div style={{position:'relative', width:'100%', height:'100%', textAlign:'center',backgroundColor:getLevelColor(this.props.self.level), ...solidBorder(1,'black',5)}}><i class="fa fa-exclamation fa-lg"></i></div>
+                    <div style={{position:'relative', width:'100%', height:'100%', textAlign:'center',backgroundColor:getLevelColor(this.props.self.level), ...solidBorder(1,'black',5)}}><i className="fa fa-exclamation fa-lg"></i></div>
                 </div>
             </div> 
         ); 

@@ -213,8 +213,45 @@ class BattleEnd extends Component {
             this.winnerStr = `${this.props.player.name} LOST!`;
             this.winnerClass = "lostBlink";
         }
-        this.levelColor =  this.props.player.level>this.props.player.initialStats.level?"forestgreen":"black";
-        this.levelArrow = this.props.player.level>this.props.player.initialStats.level? "inline-block":"none";
+        this.levelColor =  this.props.player.level>this.props.player.initialStats.level? "forestgreen":"black";
+        this.levelArrow = this.props.player.level>this.props.player.initialStats.level?` <i class="fa fa-arrow-up blink"></i>`:"";
+
+        this.animateText = this.animateText.bind(this);
+        this.timeout = null;
+    }
+
+
+    animateText(base, from, to, speed, ref, count) {
+
+        const animate = function() {
+            
+            if(from>to) {
+                count++;
+                if(count===1) {
+                    this.animateText("Exp", this.props.player.initialStats.exp, this.props.player.exp, 20, this.exp, count);
+                } else if(count===2) {
+                    this.animateText("Level", this.props.player.initialStats.level, this.props.player.level, 100, this.level, count);
+                } else if (count===3) {
+                    this.level.style.color = this.levelColor;
+                    this.level.innerHTML+=this.levelArrow;
+                    this.cont.style.opacity = 1;
+                }
+                return;
+            }
+            ref.innerHTML = `${base}: ${from}`;
+            from++;
+            this.timeout = setTimeout(animate, speed);
+        }.bind(this);
+
+        animate();
+    }
+
+    componentDidMount() {
+        this.timeout = setTimeout(function(){this.animateText("Score", 0, this.props.player.score, 10, this.score, 0)}.bind(this), 600);
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timeout);
     }
 
     render() {
@@ -228,13 +265,13 @@ class BattleEnd extends Component {
                             </div> 
                             <div style={{width:'50%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center', fontSize:'25px'}}>
                                 <div className={this.winnerClass} style={{alignSelf:'center', fontSize:'35px', marginBottom:'20px'}}>{this.winnerStr}</div>
-                                <div className="appearScore"  style={{margin:'5px 0px 0px 10px', opacity:0}}>Score: {this.props.player.score}</div>
-                                <div className="appearExp" style={{margin:'5px 0px 0px 10px', opacity:0}}>Exp: {this.props.player.exp}</div>
-                                <div className="appearLevel" style={{margin:'5px 0px 0px 10px', opacity:0, color: this.levelColor}}>Level: {this.props.player.level} <i class="fa fa-arrow-up blink" style={{display: this.levelArrow}}></i></div>
+                                <div ref={score => this.score=score} style={{margin:'5px 0px 0px 10px'}}></div>
+                                <div  ref={exp => this.exp=exp}  style={{margin:'5px 0px 0px 10px'}}></div>
+                                <div  ref={level => this.level=level} style={{margin:'5px 0px 0px 10px', color: this.levelColor}}></div>
                             </div>
                     </div>
                 </div> 
-                <div className="blinkContinue" style={{alignSelf:'center', marginTop:'20px', opacity:0}}>Press {getKeyDiv("SPACE", 25)} to continue..</div>          
+                <div className="blinkContinue" ref={cont => this.cont=cont} style={{alignSelf:'center', marginTop:'20px', opacity:0}}>Press {getKeyDiv("SPACE", 25)} to continue..</div>          
             </div> 
         );
     }
