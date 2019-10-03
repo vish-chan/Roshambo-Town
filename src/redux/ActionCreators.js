@@ -152,6 +152,10 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
                 }
             }
         }
+    } else {
+        if(player.nearbyNPC!==null) {
+            dispatch(UpdateNearbyNPCAction());
+        }
     }
 
     function animatePlayer() {
@@ -659,7 +663,7 @@ export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
         battle = getState().battle;
         let newexp = battle.player.exp + getPlayerNewExp(battle.player.score, battle.player.level, battle.npc.level);
         let newlevel = getPlayerLevel(newexp);
-        setTimeout( function(){ dispatch(EndBattle(finalWinner, {newlevel, newexp}, battle.npc.id))}, 1500);
+        setTimeout( function(){ dispatch(EndBattle(finalWinner, {oldlevel: battle.player.initialStats.level, oldexp: battle.player.initialStats.exp, newlevel, newexp}, battle.npc.id))}, 1500);
     }
 }
 
