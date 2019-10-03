@@ -160,3 +160,13 @@ a:hover {color:white;}   /* Mouse over link */
 a:active {color:lightseagreen;}  /* Selected link   */
 
 
+.spotanimate {
+  animation: spotanimate 0.8s steps(4) 0s infinite normal forwards;
+}
+
+@keyframes spotanimate {  
+  0% { background-position: 0px 0px }
+  100% { background-position: 0px 72px }
+}
+
+

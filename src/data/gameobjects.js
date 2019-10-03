@@ -94,6 +94,17 @@ export const GAMEOBJECTS = [
         height: 40,
         type: CURRENCY,
     },
+
+    {
+        id:8,
+        name:'hen',
+        src:'/assets/images/80/objectsAndProps/hen.png',
+        srcpos: [0,0],
+        width: 16,
+        height: 18,
+        effects: "spotanimate",
+        type: "HEN",
+    },
 ];
 
 export const PORTALS = [

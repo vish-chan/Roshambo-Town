@@ -31,6 +31,7 @@ export const HEALER = "HEALER";
 export const EATABLE = "EATABLE";
 export const CURRENCY = "CURRENCY";
 export const PORTAL = "PORTAL";
+export const PICKABLES = [HEALER,EATABLE,CURRENCY];
 
 export const ROCK = 0;
 export const PAPER = 1;

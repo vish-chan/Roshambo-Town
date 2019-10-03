@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCEPT_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS, BATTLE_DEFEATED_ACCEPT_ANS, BATTLE_NEVER_DEFEATED_ACCEPT_ANS} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCEPT_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS, BATTLE_DEFEATED_ACCEPT_ANS, BATTLE_NEVER_DEFEATED_ACCEPT_ANS, PICKABLES} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 
 
@@ -202,7 +202,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
 const getPositionEquality = (pos1, pos2) => (pos1[0]===pos2[0] && pos1[1]===pos2[1])
 
 const getObjectForPickup = (position, gameobjects) => {
-    return(gameobjects.filter(gameobject => gameobject.type.type!==PORTAL && getPositionEquality(position, gameobject.position)))
+    return(gameobjects.filter(gameobject => PICKABLES.includes(gameobject.type.type)  && getPositionEquality(position, gameobject.position)))
 }
 
 export const PickupGameObject = () => (dispatch, getState) => {
