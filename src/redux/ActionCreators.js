@@ -541,7 +541,7 @@ export const AddMap = (level, secondary=false) => (dispatch, getState) => {
     mapBg.src = level.map.src;
 
     function renderMap(){
-        dispatch(AddMapAction(level, width, height, playerPosition, start, end, oldState));
+        dispatch(AddMapAction(level, width, height, playerPosition, start, end, oldState, secondary));
     }
 }
 
@@ -931,10 +931,11 @@ const LoadingMapAction = () => {
 }
 
 
-export const AddMapAction = (level, width, height ,playerPosition, vpstart, vpend, oldState=null) => { 
+export const AddMapAction = (level, width, height ,playerPosition, vpstart, vpend, oldState, secondary) => { 
     return({
         type: ActionTypes.ADD_MAP,
         payload: {
+            secondary,
             name: level.name,
             tiles: level.map.tiles,
             width,

@@ -45,10 +45,13 @@ export const Player = (state = INITIAL_STATE, action) => {
                         interacting: false,
                         talk: action.payload.player.talk.map(talk => talk? talk: [DEFAULT_DIALOG]),
                         frozen: false,
-                        inBattle: false,
                         nearbyNPC: null,
                         nearbyGameObj: null,
                         nearbyPortal: null,
+                        inBattle: false,
+                        battle: {
+                                ...action.payload.secondary? state.battle:INITIAL_STATE.battle, 
+                        }
                 });
         case ActionTypes.SET_PLAYER_INFO:
                 return({
