@@ -37,8 +37,11 @@ export const PAPER = 1;
 export const SCISSORS = 2;
 
 export const BATTLE_QUESTION = "Hey! Do you wanna battle?";
-export const BATTLE_ACCPET_ANS = "Yeah, sure. Let's go!";
-export const BATTLE_DECLINE_ANS = "FO! I don't waste time on losers. Comeback after leveling up.";
+export const BATTLE_ACCEPT_ANS = "Yeah, sure. Let's go!";
+export const BATTLE_DEFEATED_ACCEPT_ANS = "Yeah, sure. But, this time you won't be lucky!";
+export const BATTLE_NEVER_DEFEATED_ACCEPT_ANS = "How many times you wanna lose!!";
+
+export const BATTLE_DECLINE_ANS = "Dude... comeback after leveling up.";
 export const BATTLE_THRESHOLD = 1;
 
 
@@ -46,8 +49,6 @@ export const SAVED_GAME = "SAVED GAME";
 
 export const LOADGAME = "LOADGAME";
 export const NEWGAME = "NEWGAME";
-
-export const NPC_BATTLE_MARKER = '/assets/images/80/objectsAndProps/battle_head_transparent.png';
 
 export const MAIN_MENU = "/menu";
 export const WORLD_BASE = "/world"
@@ -58,8 +59,8 @@ export const PORTAL_LEAVE = "leave";
 export const MAX_LEVEL = 5;
 export const LEVEL_COLORS =  {
     L1: "MediumSeaGreen",
-    L2: "Gold",
-    L3: "DarkTurquoise",
-    L4: "RoyalBlue",
+    L2: "RoyalBlue",
+    L3: "Turquoise",
+    L4: "Gold",
     L5: "red",
 };

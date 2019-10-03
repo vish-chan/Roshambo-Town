@@ -31,6 +31,7 @@ export const NPC = (state = {
                                 interacting: false,
                                 inBattle: false,
                                 battleFlag: false,
+                                defeatedCount: 0,
                                 talk: npc.talk? npc.talk: DEFAULT_DIALOG,
                             })
                         })
@@ -171,7 +172,6 @@ export const NPC = (state = {
                         if(npc.id===action.payload.npc.id)
                             return({...npc,  
                                     inBattle: true,
-                                    battleFlag: true,
                                 });
                         else
                             return npc;
@@ -184,6 +184,8 @@ export const NPC = (state = {
                             if(npc.id===action.payload.npcId)
                                 return({...npc,  
                                         inBattle: false,
+                                        defeatedCount: action.payload.battleWinner===1? npc.defeatedCount+1:npc.defeatedCount,
+                                        battleFlag: true,
                                     });
                             else
                                 return npc;

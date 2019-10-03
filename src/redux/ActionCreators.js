@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCPET_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCEPT_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS, BATTLE_DEFEATED_ACCEPT_ANS, BATTLE_NEVER_DEFEATED_ACCEPT_ANS} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 
 
@@ -244,7 +244,7 @@ const ForceBattleConversation = (player, npc) => (dispatch, getState) => {
     if(checkBattleEligibilty(player.battle.level, npc.level)) {
         dispatch(SetConversationStatus(npc.id, 
             {name: npc.name, dialogs: [BATTLE_QUESTION]}, 
-            {name: player.name, dialogs: [BATTLE_ACCPET_ANS]}, 
+            {name: player.name, dialogs: [BATTLE_ACCEPT_ANS]}, 
             mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
     }
 }
@@ -259,10 +259,17 @@ export const InitiateConversation = () => (dispatch, getState) => {
         }
         if(npc.battle) {
             if(checkBattleEligibilty(player.battle.level, npc.level)) {
-                dispatch(SetConversationStatus(npc.id, 
-                    {name: player.name, dialogs: [BATTLE_QUESTION]}, 
-                    {name: npc.name, dialogs: [BATTLE_ACCPET_ANS]}, 
-                    mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
+                if(npc.defeatedCount > 0) {
+                    dispatch(SetConversationStatus(npc.id, 
+                        {name: player.name, dialogs: [BATTLE_QUESTION]}, 
+                        {name: npc.name, dialogs: [BATTLE_DEFEATED_ACCEPT_ANS]}, 
+                        mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
+                } else {
+                    dispatch(SetConversationStatus(npc.id, 
+                        {name: player.name, dialogs: [BATTLE_QUESTION]}, 
+                        {name: npc.name, dialogs: [BATTLE_NEVER_DEFEATED_ACCEPT_ANS]}, 
+                        mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
+                }
             } else {
                 dispatch(SetConversationStatus(npc.id, 
                     {name: player.name, dialogs: [BATTLE_QUESTION]}, 

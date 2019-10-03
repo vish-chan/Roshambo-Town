@@ -9,7 +9,7 @@ const squareMatrix = (n) => {
     return matrix;
 }
 
-const MAX_ROUNDS = 10, BASE_LIVES = 10;
+const BASE_LIVES = 5;
 
 
 const getLives = (level) => {
@@ -21,7 +21,6 @@ const INITIAL_STATE = {
                         inIntro: true,
                         inEnd: false,
                         currRound: 0,
-                        maxRound: MAX_ROUNDS, 
                         player: {
                             name: "Player",
                             src: "",
