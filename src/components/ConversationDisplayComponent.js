@@ -17,11 +17,12 @@ class Dialog extends Component {
     constructor(props) {
         super(props);
         this.animateConversation = this.animateConversation.bind(this);
+        this.timeout = null;
     }
 
     animateConversation(speakerIdx, name, content, idx, objref) {
         
-        function animate() {
+        const animate = function() {
             if(idx>content.length) {
                 return;
             }
@@ -36,10 +37,9 @@ class Dialog extends Component {
             }
             objref.innerHTML = name + ": " + content.substring(0, idx);
             idx++;
-            setTimeout(boundanimate, FONT_ANIMATION);
-        }
-        const boundanimate = animate.bind(this);
-        boundanimate();
+            this.timeout = setTimeout(animate, FONT_ANIMATION);
+        }.bind(this);
+        animate();
     }
 
     cleanBoard() {
@@ -58,6 +58,10 @@ class Dialog extends Component {
                 this.animateConversation(1, person.name, person.dialogs[this.props.dialogIdx], 1, this.p2);
             }
         }
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timeout);
     }
 
     render() {
