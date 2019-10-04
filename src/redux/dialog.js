@@ -17,7 +17,7 @@ export const Dialog = (state = {
             switch(action.type) {
                 case ActionTypes.SET_DIALOG_STATUS:
                     return({
-                        ...state,
+                        ...DEFAULT_STATE,
                         isOpen: true,
                         position: action.payload.position,
                         person1: action.payload.person1,
