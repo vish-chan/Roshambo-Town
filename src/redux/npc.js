@@ -4,11 +4,19 @@ import {TILE_SIZE } from '../helpers/constants';
 
 const DEFAULT_DIALOG = ["Ehhh! Leave me alone!"];
 
-export const NPC = (state = {
-                              list:  [],
-                              frozen: false,
-                            }, action) => {
+const INITIAL_STATE = {
+    list:  [],
+    frozen: false,
+  }
+
+export const NPC = (state = {...INITIAL_STATE}, action) => {
     switch(action.type) {
+
+        case ActionTypes.START_NEW_JOURNEY:
+            return({
+                ...INITIAL_STATE,
+            });
+
         case ActionTypes.ADD_MAP:
             let id = 0;
             if(!action.payload.npc)

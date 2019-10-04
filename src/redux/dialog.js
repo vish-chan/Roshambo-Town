@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 
-const DEFAULT_STATE = {
+const INITIAL_STATE = {
     isOpen: false, 
     position: "top",
     person1: {},
@@ -11,13 +11,15 @@ const DEFAULT_STATE = {
     battleConversation: false,
  };
 
-export const Dialog = (state = {
-                          ...DEFAULT_STATE,
-                        }, action) => {
+export const Dialog = (state = {...INITIAL_STATE}, action) => {
             switch(action.type) {
+                case ActionTypes.START_NEW_JOURNEY:
+                    return({
+                        ...INITIAL_STATE
+                    });
                 case ActionTypes.SET_DIALOG_STATUS:
                     return({
-                        ...DEFAULT_STATE,
+                        ...INITIAL_STATE,
                         isOpen: true,
                         position: action.payload.position,
                         person1: action.payload.person1,
@@ -29,7 +31,7 @@ export const Dialog = (state = {
                     });
                 case ActionTypes.RESET_DIALOG_STATUS:
                         return({
-                            ...DEFAULT_STATE,
+                            ...INITIAL_STATE,
                         });
                 case ActionTypes.NEXT_DIALOG:
                     if(state.speakerIdx===0) {

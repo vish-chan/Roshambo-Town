@@ -9,7 +9,7 @@ const squareMatrix = (n) => {
     return matrix;
 }
 
-const BASE_LIVES = 10;
+const BASE_LIVES = 1;
 
 
 const getLives = (level) => {
@@ -51,8 +51,12 @@ const INITIAL_STATE = {
                         summary: "Use arrow keys to select and press Enter",
                     };
 
-export const Battle = (state = INITIAL_STATE, action) => {
+export const Battle = (state = {...INITIAL_STATE}, action) => {
     switch(action.type) {
+        case ActionTypes.START_NEW_JOURNEY:
+            return({
+                ...INITIAL_STATE,
+            });
         case ActionTypes.START_BATTLE:
             return({
                 ...INITIAL_STATE,

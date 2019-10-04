@@ -5,8 +5,12 @@ const INITIAL_STATE = {
                         prevStates: [],
                     }
 
-export const StateManager = ( state = INITIAL_STATE, action) => {
+export const StateManager = ( state = {...INITIAL_STATE}, action) => {
     switch(action.type) {
+        case ActionTypes.START_NEW_JOURNEY:
+            return({
+                ...INITIAL_STATE,
+            })
         case ActionTypes.SAVE_STATE_INITIATED:
             return({
                     ...state,

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, NEWGAME, WORLD_BASE, MAIN_MENU } from '../helpers/constants';
 import { centerBgImg, solidBorder } from '../helpers/funcs';
-import { SetPlayerInfoAction } from '../redux/ActionCreators';
+import { SetPlayerInfoAction, StartNewJourneyAction } from '../redux/ActionCreators';
 
 const SELECT_URL = "/assets/images/80/objectsAndProps/playerselect/"
 const BG_MAIN = 'lightgrey';
@@ -29,6 +29,7 @@ const style = {
 const mapDispatchToProps = dispatch => {
     return({
         initPlayerInfo: ({name, character}) => { dispatch(SetPlayerInfoAction(name, character)) },
+        startNewJourney: () => { dispatch(StartNewJourneyAction()); },
     });
 }
 
@@ -85,6 +86,7 @@ class PlayerSelect extends Component {
             );
             return;
         } else {
+            this.props.startNewJourney();
             this.props.initPlayerInfo(this.state);
         }
     }

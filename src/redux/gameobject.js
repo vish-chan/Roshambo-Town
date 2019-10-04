@@ -5,6 +5,9 @@ import {TILE_SIZE } from '../helpers/constants';
 
 export const GameObject = (state = [], action) => {
     switch(action.type) {
+        case ActionTypes.START_NEW_JOURNEY:
+            return([]);
+            
         case ActionTypes.ADD_MAP:
             let id=0;
             if(!action.payload.gameobjects)

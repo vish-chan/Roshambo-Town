@@ -1,17 +1,19 @@
 import * as ActionTypes from './ActionTypes';
 
-const DEFAULT_STATE = {
+const INITIAL_STATE = {
     isOpen: false, 
     HEALER : [],
     CURRENCY: [],
     EATABLE: [],
  };
 
-export const Inventory = (state = {
-                          ...DEFAULT_STATE,
-                        }, action) => {
+export const Inventory = (state = {...INITIAL_STATE}, action) => {
             switch(action.type) {
-
+                case ActionTypes.START_NEW_JOURNEY:
+                    return({
+                        ...INITIAL_STATE,
+                    });
+                    
                 case ActionTypes.TOGGLE_INVENTORY_DISPLAY:
                     return({
                         ...state,

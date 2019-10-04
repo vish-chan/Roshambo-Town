@@ -7,8 +7,12 @@ const INITIAL_STATE = {
                         height:0,
                     }
 
-export const ViewPort = ( state = INITIAL_STATE, action) => {
+export const ViewPort = ( state = {...INITIAL_STATE}, action) => {
     switch(action.type) {
+        case ActionTypes.START_NEW_JOURNEY:
+            return({
+                ...INITIAL_STATE,
+            });
         case ActionTypes.ADD_MAP:
             return({...state,
                         start: action.payload.viewport.start,
