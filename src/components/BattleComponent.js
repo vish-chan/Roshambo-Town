@@ -228,9 +228,9 @@ class BattleEnd extends Component {
             if(from>to) {
                 count++;
                 if(count===1) {
-                    this.animateText("Exp", this.props.player.initialStats.exp, this.props.player.exp, 20, this.exp, count);
+                    this.timeout = setTimeout(function() {this.animateText("Exp", this.props.player.initialStats.exp, this.props.player.exp, 20, this.exp, count)}.bind(this), 200);
                 } else if(count===2) {
-                    this.animateText("Level", this.props.player.initialStats.level, this.props.player.level, 100, this.level, count);
+                    this.timeout = setTimeout(function() {this.animateText("Level", this.props.player.initialStats.level, this.props.player.level, 100, this.level, count);}.bind(this),200);
                 } else if (count===3) {
                     this.level.style.color = this.levelColor;
                     this.level.innerHTML+=this.levelArrow;
