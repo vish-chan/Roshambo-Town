@@ -413,18 +413,22 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
                     }
                 }
         } else if(portals[0].type.name===PORTAL_LEAVE) {
-            const cpyPrevState = [...getState().statemanager.prevStates];
-            if(!cpyPrevState.length)
+            const cpyPrevStates = [...getState().statemanager.prevStates];
+            if(!cpyPrevStates.length)
                 return;
 
-            const oldState = cpyPrevState.pop();
-            const mapname = getState().map.name;
-            const gameobjects = getState().gameobjects.map( gameobject => {
+            const oldState = cpyPrevStates.pop();
+            const currentMap = getState().map.name;
+            const currentGameobjects = getState().gameobjects.map( gameobject => {
                 return({
                     ...gameobject,
-                    position: mapCoordinatesToTiles(gameobject.position, TILE_SIZE),
+                    position: mapCoordinatesToTiles(gameobject.position, TILE_SIZE),});
                 });
-            });
+            const currentMapNPCBattleStatus = getState().npc.list.map( npc => {
+                return({ id: npc.id,
+                        battleFlag: npc.battleFlag,
+                        defeatedCount: npc.defeatedCount});
+                });
             dispatch(SaveStateInitAction()); 
             clearInterval();
             checkandRestoreMap();
@@ -440,7 +444,7 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
                         mapBg.onload = renderMap;
                         mapBg.src = oldState.map.src;
                         function renderMap(){
-                            dispatch(RestoreStateAction(mapname, gameobjects, oldState, cpyPrevState));
+                            dispatch(RestoreStateAction({map: currentMap, gameobjects: currentGameobjects, npc: currentMapNPCBattleStatus}, oldState, cpyPrevStates));
                         }  
                     }
                 }
@@ -911,12 +915,11 @@ const SaveStateEndAction = () => {
 }
 
 
-const RestoreStateAction = (mapname, gameobjects, state, prevStates) => {
+const RestoreStateAction = (currentMapInfo, state, prevStates) => {
     return({
         type: ActionTypes.RESTORE_STATE,
         payload: {
-            mapname,
-            gameobjects,
+            mapinfo: currentMapInfo,
             state,
             prevStates,
         }
@@ -938,8 +941,20 @@ const LoadingMapAction = () => {
     });
 }
 
+const getMergedNPCList = (base, diff) => {
+    let diffnpc = null;
+    return(base.map( npc => {
+                diffnpc = getNPC(diff, npc.id);
+                return({
+                    ...npc,
+                    battleFlag: diffnpc.battleFlag,
+                    defeatedCount: diffnpc.defeatedCount,
+                });
+            })
+    );
+}
 
-export const AddMapAction = (level, width, height ,playerPosition, vpstart, vpend, oldState, secondary) => { 
+const AddMapAction = (level, width, height ,playerPosition, vpstart, vpend, oldState, secondary) => { 
     return({
         type: ActionTypes.ADD_MAP,
         payload: {
@@ -957,7 +972,7 @@ export const AddMapAction = (level, width, height ,playerPosition, vpstart, vpen
                 ...level.player,
                 position: playerPosition,
             },
-            npc: level.npc,
+            npc: oldState? getMergedNPCList(level.npc, oldState.npc) : level.npc,
             gameobjects: oldState? oldState.gameobjects: level.gameobjects.concat(level.portals),
         },
     });

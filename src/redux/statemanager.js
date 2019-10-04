@@ -35,8 +35,9 @@ export const StateManager = ( state = {...INITIAL_STATE}, action) => {
                 prevStates: action.payload.prevStates,
                 savingState: false,
             };
-            statecpy[action.payload.mapname] = {
-                gameobjects: action.payload.gameobjects,
+            statecpy[action.payload.mapinfo.map] = {
+                gameobjects: action.payload.mapinfo.gameobjects,
+                npc: action.payload.mapinfo.npc,
             }
             return(statecpy);
         case ActionTypes.RESTORE_STATE_FROM_DISK:

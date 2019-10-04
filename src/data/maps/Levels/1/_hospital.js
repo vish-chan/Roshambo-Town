@@ -10,7 +10,7 @@ export const _hospital = {
     map: hospital,
 
     player: {  
-        position: [5, 8],
+        position: [7, 8],
         talk: [
             null,
             ["Hey! Whatsup?", "Do you have any plans for Fifa today?", "Great, see you!"],
@@ -18,20 +18,22 @@ export const _hospital = {
     },
 
     npc : [{ 
+                id: 0,
                 name: "PSYCH",
                 skin: SKINS["kid_1"],
                 direction: DOWN,
-                stationary: false,
+                stationary: true,
                 pathArr: [[1,6], [1,5], [1,4], [1,3], [1, 2]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 1500,
             },
             { 
+                id:1,
                 name: "BELLA",
                 skin: SKINS["crush_1"],
                 direction: LEFT,
-                stationary: false,
+                stationary: true,
                 pathArr: [[7,12], [7,13], [7,14], [7,15]],
                 frameInterval: 100,
                 moveInterval: 500,
@@ -55,8 +57,9 @@ export const _hospital = {
 
     portals: [
         {
-            position: [5, 8],
+            position: [8, 8],
             type: PORTALS[1],
+            rotate: 90,
         }
     ],
 };

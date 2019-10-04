@@ -15,6 +15,7 @@ export const level = {
     /* Compulsory */
     player: {
         position: [15, 17],
+        direction: 'DOWN',
         talk: [
             null,
             ["Hey! Whatsup?", "Do you have any plans for Fifa today?", "Great, see you!"],
@@ -23,7 +24,8 @@ export const level = {
     },
 
     /* Compulsory */
-    npc : [{ 
+    npc : [{
+                id:0, 
                 name: "Beast",
                 skin: SKINS["friend_1"],
                 direction: DOWN,
@@ -33,9 +35,10 @@ export const level = {
                 moveInterval: 500,
                 waitInterval: 1500,
                 battle: true,
-                level: 2,
+                level: 1,
             },
             { 
+                id:1,
                 name: "Moon",
                 skin: SKINS["crush_1"],
                 direction: LEFT,
@@ -48,6 +51,7 @@ export const level = {
                 battle: false,
             },
             { 
+                id:2,
                 name: "Ash",
                 skin: SKINS["kid_3"],
                 direction: UP,
@@ -70,6 +74,10 @@ export const level = {
                     { 
                         type: GAMEOBJECTS[7],
                         position: [15, 18],
+                    },
+                    { 
+                        type: GAMEOBJECTS[8],
+                        position: [15, 20],
                     },
     ],
 

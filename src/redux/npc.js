@@ -18,7 +18,6 @@ export const NPC = (state = {...INITIAL_STATE}, action) => {
             });
 
         case ActionTypes.ADD_MAP:
-            let id = 0;
             if(!action.payload.npc)
                 return state;
             return(
@@ -26,7 +25,6 @@ export const NPC = (state = {...INITIAL_STATE}, action) => {
                     frozen: false,
                     list :action.payload.npc.map( npc => {
                         return({...npc, 
-                                id: id++,
                                 position: tileToMapCoordinates(npc.pathArr[0], TILE_SIZE),
                                 spriteLocation: npc.skin[npc.direction],
                                 isAnimating: false,
@@ -37,9 +35,10 @@ export const NPC = (state = {...INITIAL_STATE}, action) => {
                                 lastUpdated: performance.now(),
                                 isWaiting: false,
                                 interacting: false,
+                                battle: 'battle' in npc? npc.battle: false,
                                 inBattle: false,
-                                battleFlag: false,
-                                defeatedCount: 0,
+                                battleFlag: 'battleFlag' in npc? npc.battleFlag : false,
+                                defeatedCount: 'defeatedCount' in npc? npc.defeatedCount: 0,
                                 talk: npc.talk? npc.talk: DEFAULT_DIALOG,
                             })
                         })
