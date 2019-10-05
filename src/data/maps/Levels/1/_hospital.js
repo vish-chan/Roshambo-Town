@@ -1,5 +1,5 @@
 import { hospital } from '../../Maps/hospital';
-import { DOWN, LEFT } from "../../../../helpers/constants";
+import { DOWN, LEFT, UP } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { GAMEOBJECTS, PORTALS } from "../../../gameobjects";
 
@@ -11,6 +11,7 @@ export const _hospital = {
 
     player: {  
         position: [7, 8],
+        direction: UP,
         talk: [
             null,
             ["Hey! Whatsup?", "Do you have any plans for Fifa today?", "Great, see you!"],

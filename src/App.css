@@ -166,7 +166,7 @@ a:active {color:lightseagreen;}  /* Selected link   */
 
 @keyframes spotanimate {  
   0% { background-position: 0px 0px }
-  100% { background-position: 0px 72px }
+  100% { background-position: 0px 144px }
 }
 
 

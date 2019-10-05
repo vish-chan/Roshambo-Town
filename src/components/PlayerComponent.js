@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, SAVE_KEY, RESTORE_KEY, ESC_KEY, MAIN_MENU } from '../helpers/constants';
+import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, SAVE_KEY, ESC_KEY, MAIN_MENU } from '../helpers/constants';
 import { connect } from 'react-redux';
-import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject, ToggleInventory, RestoreState, CheckPortalAndEnter } from '../redux/ActionCreators';
-import { mapToViewport, getKeyDiv } from '../helpers/funcs';
+import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject, ToggleInventory, CheckPortalAndEnter } from '../redux/ActionCreators';
+import { mapToViewport } from '../helpers/funcs';
 import CustomModal from './CustomModalComponent';
 
 const mapStatetoProps = state => {

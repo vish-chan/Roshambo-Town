@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, SAVED_GAME, LOADGAME, NEWGAME } from '../helpers/constants';
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, SAVED_GAME, LOADGAME } from '../helpers/constants';
 import { solidBorder } from '../helpers/funcs';
 
 
