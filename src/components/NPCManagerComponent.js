@@ -49,7 +49,7 @@ class NPC extends Component {
             left: this.props.self.position[0],
             top: this.props.self.position[1],
             transform: 'translate(100%, -100%)',
-            display: this.props.self.battle && !this.props.self.battleFlag ? 'block':'none',
+            display: this.props.self.battle && this.props.self.defeatedCount===0 ? 'block':'none',
         }
     
         return(
