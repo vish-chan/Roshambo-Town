@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, SAVE_KEY, ESC_KEY, MAIN_MENU } from '../helpers/constants';
+import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, SAVE_KEY, ESC_KEY } from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject, ToggleInventory, CheckPortalAndEnter } from '../redux/ActionCreators';
 import { mapToViewport } from '../helpers/funcs';
@@ -102,7 +102,7 @@ class Player extends Component {
         return(
             <div>
                 <PlayerSprite player={this.props.player} viewport={this.props.viewport}/>
-                <CustomModal show={this.state.showExitModal} confirmLink={MAIN_MENU} cancelLink={this.toggleExitModalState} />
+                <CustomModal show={this.state.showExitModal} confirmLink={this.props.handleBack} cancelLink={this.toggleExitModalState} />
             </div>
         );
     }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { Link } from 'react-router-dom';
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, NEWGAME, WORLD_BASE, MAIN_MENU } from '../helpers/constants';
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../helpers/constants';
 import { centerBgImg, solidBorder } from '../helpers/funcs';
 import { SetPlayerInfoAction, StartNewJourneyAction } from '../redux/ActionCreators';
 
@@ -88,21 +87,15 @@ class PlayerSelect extends Component {
         } else {
             this.props.startNewJourney();
             this.props.initPlayerInfo(this.state);
-        }
-    }
+            this.props.startJourney();
 
-    getLink(text, target) {
-        if(this.state.character!==null && checkName(this.state.name)) {
-            return(<Link to={target}>{text}</Link>);
-        } else {
-            return(<span>{text}</span>);
         }
     }
 
     render() {
         return(
             <div style={style}>
-                <button style={{position:'absolute', left:10, top:10, padding:'5px', backgroundColor:'whitesmoke', ...solidBorder(2, 'white', 5)}}><Link to={MAIN_MENU}><i className="fa fa-arrow-left fa-2x"></i></Link></button>
+                <button onClick={this.props.handleBack} style={{position:'absolute', left:10, top:10, padding:'5px', backgroundColor:'whitesmoke', ...solidBorder(2, 'white', 5)}}><i className="fa fa-arrow-left fa-2x"></i></button>
                 <div style={{margin:'20px'}}>Select Your Avatar</div>
                 <div style={{width:'70%', height:'50%', display: 'flex', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center',}}>
                     <CharacterPane option="player_1" click={this.handleCharacterClick} selected={this.state.character} />
@@ -115,7 +108,7 @@ class PlayerSelect extends Component {
                         <div style={{width:'100%', fontSize:'10px', color:'grey'}}>{NAME_MIN} to {NAME_MAX} english alphabet characters</div>
                     </div>
                 </div>
-                <button onClick={this.validateAndSend} style={{fontFamily:'gameboy',fontSize:'25px', margin:'50px'}}>{this.getLink("Start Journey", `${WORLD_BASE}/${NEWGAME}`)}</button>
+                <button onClick={this.validateAndSend} style={{fontFamily:'gameboy',fontSize:'25px', margin:'50px'}}>Start Journey</button>
                 <p style={{color:'red', fontSize:'20px'}}>{this.state.errmsg}</p>
             </div>
         );

@@ -75,7 +75,7 @@ class World extends Component {
                     <Stats />
                     <div id="world" style={worldStyle}>
                         <Map map={this.props.map} viewport={this.props.viewport}/>
-                        <Player viewport={this.props.viewport}/>
+                        <Player viewport={this.props.viewport} handleBack={this.props.handleBack}/>
                         <ConversationDisplay />
                         <Inventory />
                     </div> 

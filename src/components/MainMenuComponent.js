@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, SAVED_GAME, LOADGAME } from '../helpers/constants';
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, SAVED_GAME } from '../helpers/constants';
 import { solidBorder } from '../helpers/funcs';
 
 
@@ -57,7 +56,7 @@ const MenuBtn = (props) => {
         )
     } else {
         return(
-            <button style={style}><Link to={props.to}>{props.title}</Link></button>
+            <button onClick={props.onClick} style={style}>{props.title}</button>
         )
     }
 }
@@ -69,8 +68,8 @@ class MainMenu extends Component {
         return(
             <div style={style}>
                 <div style={{width:'90%', height:'40%', margin:'20px'}}>TITLE</div>
-                <MenuBtn title="Start New Game" disabled={false} to={`/playerselect`}/>
-                <MenuBtn title="Load Game" disabled={!checkSavedGame()} to={`/world/${LOADGAME}`}/>
+                <MenuBtn title="Start New Game" disabled={false} onClick={this.props.startNewGame}/>
+                <MenuBtn title="Load Game" disabled={!checkSavedGame()} onClick={this.props.loadGame}/>
             </div>
         );
     }
