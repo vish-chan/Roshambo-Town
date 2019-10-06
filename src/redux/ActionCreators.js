@@ -155,8 +155,20 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
             }
         }
     } else {
-        if(player.nearbyNPC!==null) {
-            dispatch(UpdateNearbyNPCAction());
+        const idlenpc = observeIdleNPC(newpos, getState().npc.list);
+        if(idlenpc.length > 0) {
+            if(player.nearbyNPC!==idlenpc[0].id) {
+                dispatch(UpdateNearbyNPCAction(idlenpc[0].id));
+                if(idlenpc[0].battle && !idlenpc[0].battleFlag) {
+                    dispatch(ForceBattleConversation(getState().player, idlenpc[0]));
+                } else if(!idlenpc[0].talkFlag) {
+                    dispatch(ForceNonBattleConversation(getState().player, idlenpc[0]));
+                }
+            }
+        }else {
+            if(player.nearbyNPC!==null) {
+                dispatch(UpdateNearbyNPCAction());
+            }
         }
     }
 

@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
     });
 }
 
-const FONT_ANIMATION = 50;
+const FONT_ANIMATION = 25;
 
 class Dialog extends Component {
 
