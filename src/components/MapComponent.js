@@ -12,7 +12,8 @@ class Map extends Component {
                         top: `${this.props.viewport.start[1]}px`,
                         position: "absolute",
                         backgroundImage: `url('${this.props.map.src}')`,
-                       }}>
+                        backgroundRepeat: 'no-repeat',
+                        backgroundColor: 'black', }}>
                 <GameObjectManager />
                 <NPCManager />
             </div>

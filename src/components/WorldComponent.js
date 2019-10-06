@@ -19,7 +19,7 @@ const worldStyle = {
     margin:  'auto',
     border: '10px solid white',
     overflow: 'hidden',
-    backgroundColor: 'white',
+    backgroundColor: 'black',
 }
 
 const mapStatetoProps = state => {
