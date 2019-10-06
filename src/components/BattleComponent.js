@@ -256,7 +256,7 @@ class BattleEnd extends Component {
 
     render() {
         return(
-            <div  id="battleEnd" className="moveInLR" style={{position:'relative', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'center', fontSize:'25px' ,fontFamily:'gameboy'}}>
+            <div  id="battleEnd" className="moveInLR" style={{position:'relative', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'center', fontSize:'25px' ,fontFamily:'gameboy', backgroundColor:'white'}}>
                 <div style={{width:'100%', height:'60%', display:'flex', justifyContent:'center'}}>
                     <div style={{width:'60%', height: '100%', display:'flex', justifyContent:'center', backgroundColor: 'lightgrey'}}> 
                             <div style={{width:'40%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center'}}>
@@ -287,6 +287,7 @@ class BattleIntro extends Component {
             width:'100%', height:'100%',
             display:'flex', flexDirection:'column', justifyContent:'space-between',
             fontFamily:'gameboy', fontSize: '60px',
+            backgroundColor:'white'
         }
 
         return(
@@ -374,7 +375,7 @@ class Battle extends Component {
             );
         } else {
             return(
-                <div  id="battle" style={{position:'absolute', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
+                <div  id="battle" style={{position:'absolute', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'space-between', backgroundColor:'white'}}>
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-between', width:'100%', height: '25%', marginBottom: '5px'}}>
                          <PlayerInfo player={this.props.battle.player} reverse={false} bgcolor='Dodgerblue' blink={this.props.battle.lastWinner===-1} />    
                          <PlayerInfo player={this.props.battle.npc} reverse={true} bgcolor='crimson' blink={this.props.battle.lastWinner===1}/>
