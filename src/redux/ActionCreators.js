@@ -149,6 +149,8 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
                 dispatch(UpdateNearbyNPCAction(idlenpc[0].id));
                 if(idlenpc[0].battle && !idlenpc[0].battleFlag) {
                     dispatch(ForceBattleConversation(getState().player, idlenpc[0]));
+                } else if(!idlenpc[0].talkFlag) {
+                    dispatch(ForceNonBattleConversation(getState().player, idlenpc[0]));
                 }
             }
         }
@@ -167,6 +169,8 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
                 dispatch(UpdateNearbyNPCAction(nearByNPC[0].id));
                 if(nearByNPC[0].battle && !nearByNPC[0].battleFlag) {
                     dispatch(ForceBattleConversation(getState().player, nearByNPC[0]));
+                } else if(!nearByNPC[0].talkFlag) {
+                    dispatch(ForceNonBattleConversation(getState().player, nearByNPC[0]));
                 }
             } else if(player.nearbyNPC!==null) {
                 dispatch(UpdateNearbyNPCAction());
@@ -240,17 +244,30 @@ const checkBattleEligibilty = (playerlevel, npclevel) => {
 
 
 const ForceBattleConversation = (player, npc) => (dispatch, getState) => {
+
+    if(!checkBattleEligibilty(player.battle.level, npc.level))
+        return;
    
     const oppdirection = getOppositeDirection(player.direction);
     if(npc.direction!==oppdirection) {
         dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
     }
-    if(checkBattleEligibilty(player.battle.level, npc.level)) {
-        dispatch(SetConversationStatus(npc.id, 
-            {name: npc.name, dialogs: [BATTLE_QUESTION]}, 
-            {name: player.name, dialogs: [BATTLE_ACCEPT_ANS]}, 
-            mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
+    dispatch(SetConversationStatus(npc.id, 
+        {name: npc.name, dialogs: [BATTLE_QUESTION]}, 
+        {name: player.name, dialogs: [BATTLE_ACCEPT_ANS]}, 
+        mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
+}
+
+const ForceNonBattleConversation = (player, npc) => (dispatch, getState) => {
+   
+    const oppdirection = getOppositeDirection(player.direction);
+    if(npc.direction!==oppdirection) {
+        dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
     }
+    dispatch(SetConversationStatus(npc.id,  
+        {name: player.name, dialogs: player.talk[npc.id]},
+        {name: npc.name, dialogs: npc.talk}, 
+        mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", false));
 }
 
 export const InitiateConversation = () => (dispatch, getState) => {
@@ -371,6 +388,8 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
                     dispatch(UpdateNearbyNPCAction(npc.id));
                     if(npc.battle && !npc.battleFlag) {
                         dispatch(ForceBattleConversation(getState().player, npc));
+                    }else if(!npc.talkFlag) {
+                        dispatch(ForceNonBattleConversation(getState().player, npc));
                     }
                 }
             } else if(player.nearbyNPC===npc.id) {

@@ -40,6 +40,7 @@ export const NPC = (state = {...INITIAL_STATE}, action) => {
                                 battleFlag: 'battleFlag' in npc? npc.battleFlag : false,
                                 defeatedCount: 'defeatedCount' in npc? npc.defeatedCount: 0,
                                 talk: npc.talk? npc.talk: DEFAULT_DIALOG,
+                                talkFlag: npc.talk? false: true,
                             })
                         })
                 }
@@ -136,6 +137,7 @@ export const NPC = (state = {...INITIAL_STATE}, action) => {
                             if(npc.id===action.payload.npcId)
                                 return({...npc,  
                                         interacting: false,
+                                        talkFlag: true,
                                     });
                             else
                                 return npc;
