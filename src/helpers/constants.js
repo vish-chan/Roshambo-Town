@@ -37,6 +37,12 @@ export const ROCK = 0;
 export const PAPER = 1;
 export const SCISSORS = 2;
 
+
+export const PLAYER_DEFAULT_DIALOG = "Hey! What's up?";
+export const NPC_DEFAULT_POLITE_DIALOG = "I already told you everything!";
+export const NPC_DEFAULT_RUDE_DIALOG = "Ehhh! Leave me alone!";
+
+
 export const BATTLE_QUESTION = "Hey! Do you wanna battle?";
 export const BATTLE_ACCEPT_ANS = "Yeah, sure. Let's go!";
 export const BATTLE_DEFEATED_ACCEPT_ANS = "Yeah, sure. But, this time you won't be lucky!";

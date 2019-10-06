@@ -2,8 +2,6 @@ import * as ActionTypes from './ActionTypes';
 import {tileToMapCoordinates} from '../helpers/funcs';
 import {TILE_SIZE } from '../helpers/constants';
 
-const DEFAULT_DIALOG = ["Ehhh! Leave me alone!"];
-
 const INITIAL_STATE = {
     list:  [],
     frozen: false,
@@ -36,10 +34,12 @@ export const NPC = (state = {...INITIAL_STATE}, action) => {
                                 isWaiting: false,
                                 interacting: false,
                                 battle: 'battle' in npc? npc.battle: false,
+                                battleDialog: npc.battleDialog? npc.battleDialog: null,
                                 inBattle: false,
                                 battleFlag: 'battleFlag' in npc? npc.battleFlag : false,
                                 defeatedCount: 'defeatedCount' in npc? npc.defeatedCount: 0,
-                                talk: npc.talk? npc.talk: DEFAULT_DIALOG,
+                                talk: npc.talk? npc.talk: null,
+                                talkSummary: npc.talkSummary? npc.talkSummary: null,
                                 talkFlag: npc.talk? false: true,
                             })
                         })

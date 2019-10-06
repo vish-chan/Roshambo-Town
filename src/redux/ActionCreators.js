@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCEPT_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS, BATTLE_DEFEATED_ACCEPT_ANS, BATTLE_NEVER_DEFEATED_ACCEPT_ANS, PICKABLES, BATTLE_WIN_NPC_DIALOG, BATTLE_WIN_PLAYER_DIALOG, BATTLE_LOSE_NPC_DIALOG, BATTLE_LOSE_PLAYER_DIALOG} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCEPT_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS, BATTLE_DEFEATED_ACCEPT_ANS, BATTLE_NEVER_DEFEATED_ACCEPT_ANS, PICKABLES, BATTLE_WIN_NPC_DIALOG, BATTLE_WIN_PLAYER_DIALOG, BATTLE_LOSE_NPC_DIALOG, BATTLE_LOSE_PLAYER_DIALOG, PLAYER_DEFAULT_DIALOG, NPC_DEFAULT_RUDE_DIALOG} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 
 
@@ -265,7 +265,7 @@ const ForceBattleConversation = (player, npc) => (dispatch, getState) => {
         dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
     }
     dispatch(SetConversationStatus(npc.id, 
-        {name: npc.name, dialogs: [BATTLE_QUESTION]}, 
+        {name: npc.name, dialogs: npc.battleDialog}, 
         {name: player.name, dialogs: [BATTLE_ACCEPT_ANS]}, 
         mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
 }
@@ -276,9 +276,9 @@ const ForceNonBattleConversation = (player, npc) => (dispatch, getState) => {
     if(npc.direction!==oppdirection) {
         dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
     }
-    dispatch(SetConversationStatus(npc.id,  
-        {name: player.name, dialogs: player.talk[npc.id]},
+    dispatch(SetConversationStatus(npc.id, 
         {name: npc.name, dialogs: npc.talk}, 
+        {name: player.name, dialogs: player.talk[npc.id]},
         mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", false));
 }
 
@@ -310,9 +310,15 @@ export const InitiateConversation = () => (dispatch, getState) => {
                     mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", false));
             }
         } else {
+            let npcDialog;
+            if(npc.talkSummary) {
+                npcDialog = npc.talkSummary;
+            } else {
+                npcDialog = [NPC_DEFAULT_RUDE_DIALOG];
+            }
             dispatch(SetConversationStatus(npc.id, 
-                                        {name: player.name, dialogs: player.talk[npc.id]}, 
-                                        {name: npc.name, dialogs: npc.talk}, 
+                                        {name: player.name, dialogs: [PLAYER_DEFAULT_DIALOG]}, 
+                                        {name: npc.name, dialogs: npcDialog}, 
                                         mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", false));
         }
     }

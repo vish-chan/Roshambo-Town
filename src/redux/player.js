@@ -47,7 +47,7 @@ export const Player = (state = {...INITIAL_STATE}, action) => {
                         nextPosition: [],
                         walkIndex: 0,
                         interacting: false,
-                        talk: action.payload.player.talk.map(talk => talk? talk: [DEFAULT_DIALOG]),
+                        talk: action.payload.player.talk,
                         frozen: false,
                         nearbyNPC: null,
                         nearbyGameObj: null,
