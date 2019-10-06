@@ -41,8 +41,11 @@ export const BATTLE_QUESTION = "Hey! Do you wanna battle?";
 export const BATTLE_ACCEPT_ANS = "Yeah, sure. Let's go!";
 export const BATTLE_DEFEATED_ACCEPT_ANS = "Yeah, sure. But, this time you won't be lucky!";
 export const BATTLE_NEVER_DEFEATED_ACCEPT_ANS = "How many times you wanna lose!!";
-
-export const BATTLE_DECLINE_ANS = "Dude... comeback after leveling up.";
+export const BATTLE_DECLINE_ANS = "You're not on my level";
+export const BATTLE_LOSE_NPC_DIALOG = "I win, as expected. You need more practice.";
+export const BATTLE_LOSE_PLAYER_DIALOG = "I'll be back in no time. See you then.";
+export const BATTLE_WIN_NPC_DIALOG = "Don't be on cloud nine. It was just one game!";
+export const BATTLE_WIN_PLAYER_DIALOG = "Losers will remain losers.";
 export const BATTLE_THRESHOLD = 1;
 
 

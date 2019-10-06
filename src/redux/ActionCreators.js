@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCEPT_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS, BATTLE_DEFEATED_ACCEPT_ANS, BATTLE_NEVER_DEFEATED_ACCEPT_ANS, PICKABLES} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCEPT_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS, BATTLE_DEFEATED_ACCEPT_ANS, BATTLE_NEVER_DEFEATED_ACCEPT_ANS, PICKABLES, BATTLE_WIN_NPC_DIALOG, BATTLE_WIN_PLAYER_DIALOG, BATTLE_LOSE_NPC_DIALOG, BATTLE_LOSE_PLAYER_DIALOG} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 
 
@@ -718,7 +718,26 @@ const EndBattle = (battleWinner, updatedPlayerStats, npcId) => {
     });
 }
 
-export const CloseBattle = () => {
+export const CloseBattleSequence = () => (dispatch, getState) => {
+    const npc = getNPC(getState().npc.list, getState().battle.npc.id), player = getState().player;
+    let npcDialog, playerDialog;
+
+    dispatch(CloseBattle());
+    
+    if(getState().battle.finalWinner===1) {
+        npcDialog = BATTLE_WIN_NPC_DIALOG;
+        playerDialog = BATTLE_WIN_PLAYER_DIALOG;
+    } else {
+        npcDialog = BATTLE_LOSE_NPC_DIALOG;
+        playerDialog = BATTLE_LOSE_PLAYER_DIALOG;
+    }
+    dispatch(SetConversationStatus(npc.id, 
+        {name: npc.name, dialogs: [npcDialog]}, 
+        {name: player.name, dialogs: [playerDialog]}, 
+        mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", false));
+} 
+
+const CloseBattle = () => {
     return({
         type: ActionTypes.CLOSE_BATTLE,
     });

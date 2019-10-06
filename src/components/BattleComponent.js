@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { VIEWPORT_WIDTH, ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, SPACE_KEY } from '../helpers/constants';
-import { BattleHandleMove, BattleMoveIndexToStr, BattleEndIntro, CloseBattle } from '../redux/ActionCreators';
+import { BattleHandleMove, BattleMoveIndexToStr, BattleEndIntro, CloseBattleSequence } from '../redux/ActionCreators';
 import { centerBgImg, solidBorder, getKeyDiv } from '../helpers/funcs';
 
 const mapStatetoProps = state => {
@@ -14,7 +14,7 @@ const mapDispatchtoProps = dispatch => {
     return({
         submitMove: (move) => { dispatch(BattleHandleMove(parseInt(move))); } ,
         endIntro: () => {dispatch(BattleEndIntro());}, 
-        closeBattle: () => {dispatch(CloseBattle());},
+        closeBattle: () => {dispatch(CloseBattleSequence())},
     })
 }
 
