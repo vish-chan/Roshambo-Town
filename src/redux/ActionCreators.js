@@ -256,6 +256,8 @@ const checkBattleEligibilty = (playerlevel, npclevel) => {
 
 
 const ForceBattleConversation = (player, npc) => (dispatch, getState) => {
+    
+    let npcDialog;
 
     if(!checkBattleEligibilty(player.battle.level, npc.level))
         return;
@@ -264,8 +266,14 @@ const ForceBattleConversation = (player, npc) => (dispatch, getState) => {
     if(npc.direction!==oppdirection) {
         dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
     }
+    if(npc.battleDialog) {
+        npcDialog = npc.battleDialog
+    } else {
+        npcDialog = [BATTLE_QUESTION];
+    }
+
     dispatch(SetConversationStatus(npc.id, 
-        {name: npc.name, dialogs: npc.battleDialog}, 
+        {name: npc.name, dialogs: npcDialog}, 
         {name: player.name, dialogs: [BATTLE_ACCEPT_ANS]}, 
         mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
 }
@@ -285,6 +293,7 @@ const ForceNonBattleConversation = (player, npc) => (dispatch, getState) => {
 export const InitiateConversation = () => (dispatch, getState) => {
     const player = getState().player;
     const npc = player.nearbyNPC!==null? getNPC(getState().npc.list, player.nearbyNPC):null;
+    let npcDialog;
     if(npc && !npc.isAnimating) {
         const oppdirection = getOppositeDirection(player.direction);
         if(npc.direction!==oppdirection) {
@@ -304,13 +313,17 @@ export const InitiateConversation = () => (dispatch, getState) => {
                         mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
                 }
             } else {
+                if(npc.battleDeclineDialog) {
+                    npcDialog = npc.battleDeclineDialog;
+                } else {
+                    npcDialog = [BATTLE_DECLINE_ANS];
+                }
                 dispatch(SetConversationStatus(npc.id, 
                     {name: player.name, dialogs: [BATTLE_QUESTION]}, 
-                    {name: npc.name, dialogs: [BATTLE_DECLINE_ANS]}, 
+                    {name: npc.name, dialogs: npcDialog}, 
                     mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", false));
             }
         } else {
-            let npcDialog;
             if(npc.talkSummary) {
                 npcDialog = npc.talkSummary;
             } else {
