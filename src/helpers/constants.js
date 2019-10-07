@@ -45,9 +45,11 @@ export const NPC_DEFAULT_RUDE_DIALOG = "Ehhh! Leave me alone!";
 
 export const BATTLE_QUESTION = "Hey! Do you wanna battle?";
 export const BATTLE_ACCEPT_ANS = "Yeah, sure. Let's go!";
+export const BATTLE_BOSS_ACCEPT_ANS = "HAHA! Sure. But you won't win.";
+
 export const BATTLE_DEFEATED_ACCEPT_ANS = "Yeah, sure. But, this time you won't be lucky!";
 export const BATTLE_NEVER_DEFEATED_ACCEPT_ANS = "How many times you wanna lose!!";
-export const BATTLE_DECLINE_ANS = "You're not on my level";
+export const BATTLE_DECLINE_ANS = "You're not on my level.";
 export const BATTLE_LOSE_NPC_DIALOG = "I win, as expected. You need more practice.";
 export const BATTLE_LOSE_PLAYER_DIALOG = "I'll be back in no time. See you then.";
 export const BATTLE_WIN_NPC_DIALOG = "Don't be on cloud nine. It was just one game!";
@@ -73,11 +75,12 @@ export const WORLD_BASE = "/world"
 export const PORTAL_ENTER = "enter";
 export const PORTAL_LEAVE = "leave";
 
-export const MAX_LEVEL = 5;
+export const MAX_LEVEL = 6;
 export const LEVEL_COLORS =  {
     L1: "MediumSeaGreen",
     L2: "RoyalBlue",
     L3: "Turquoise",
-    L4: "Gold",
+    L4: "darkorange",
     L5: "red",
+    L6: "gold"
 };

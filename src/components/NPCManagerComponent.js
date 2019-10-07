@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSkull, faExclamation, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { UpdateNPCPosition } from '../redux/ActionCreators';
-import { TILE_SIZE } from '../helpers/constants';
+import { TILE_SIZE, GANG_MEMBER, NON_GANG_MEMBER, BOSS } from '../helpers/constants';
 import { customSetInterval, intervalList, clearIntervals, getLevelColor, solidBorder } from '../helpers/funcs';
 
 
@@ -19,6 +21,18 @@ const mapDispatchToProps = dispatch => {
 
 class NPC extends Component {
 
+
+    constructor(props) {
+        super(props);
+        this.battlerMarkerIcon = null;
+        if(this.props.self.battle) {
+            if(this.props.self.battlerType===BOSS || this.props.self.battlerType===GANG_MEMBER)
+                this.battlerMarkerIcon = faSkull;
+            else if(this.props.self.battlerType===NON_GANG_MEMBER) 
+                this.battlerMarkerIcon = faExclamation;
+        }
+    }
+
     componentDidMount() {
         customSetInterval(this.props.updateNPCPosition.bind(this), this.props.self.moveInterval, this.props.self.id);
     }
@@ -32,6 +46,7 @@ class NPC extends Component {
     }
     
     render() {
+
         const npcStyle = {
             position: 'absolute',
             width: this.props.self.skin.width,
@@ -66,10 +81,10 @@ class NPC extends Component {
             <div>
                 <div id={`NPC${this.props.self.id}`} style={npcStyle}/>
                 <div className="blink" style={battlemarkerstylebase}>
-                    <div style={{position:'relative', width:'100%', height:'100%', textAlign:'center',backgroundColor:getLevelColor(this.props.self.level), ...solidBorder(1,'black',5)}}><i className="fa fa-exclamation fa-lg"></i></div>
+                    <div style={{position:'relative', width:'100%', height:'100%', textAlign:'center',backgroundColor:getLevelColor(this.props.self.level), ...solidBorder(1,'black',5)}}><FontAwesomeIcon icon={this.battlerMarkerIcon}/></div>
                 </div>
                 <div className="blink" style={messagestylebase}>
-                    <div style={{position:'relative', width:'100%', height:'100%', textAlign:'center'}}><i style={{color:"white"}} className="fa fa-envelope fa-lg"></i></div>
+                    <div style={{position:'relative', width:'100%', height:'100%', textAlign:'center'}}><FontAwesomeIcon style={{color:"white"}} size="lg" icon={faEnvelope }/></div>
                 </div>
             </div> 
         ); 

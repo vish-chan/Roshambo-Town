@@ -41,6 +41,7 @@ const INITIAL_STATE = {
                             name: "NPC",
                             src:"",
                             level: 1,
+                            battlerType: null,
                             lastMove: null,
                             lives: BASE_LIVES,
                             maxLives: BASE_LIVES,
@@ -81,6 +82,7 @@ export const Battle = (state = {...INITIAL_STATE}, action) => {
                     name: action.payload.npc.name,
                     src: action.payload.npc.skin.src,
                     level: action.payload.npc.level,
+                    battlerType: action.payload.npc.battlerType,
                     lives: getLives(action.payload.npc.level),
                     maxLives: getLives(action.payload.npc.level),  
                 }
