@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCEPT_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS, BATTLE_DEFEATED_ACCEPT_ANS, BATTLE_NEVER_DEFEATED_ACCEPT_ANS, PICKABLES, BATTLE_WIN_NPC_DIALOG, BATTLE_WIN_PLAYER_DIALOG, BATTLE_LOSE_NPC_DIALOG, BATTLE_LOSE_PLAYER_DIALOG, PLAYER_DEFAULT_DIALOG, NPC_DEFAULT_RUDE_DIALOG} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCEPT_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS, BATTLE_DEFEATED_ACCEPT_ANS, BATTLE_NEVER_DEFEATED_ACCEPT_ANS, PICKABLES, BATTLE_WIN_NPC_DIALOG, BATTLE_WIN_PLAYER_DIALOG, BATTLE_LOSE_NPC_DIALOG, BATTLE_LOSE_PLAYER_DIALOG, PLAYER_DEFAULT_DIALOG, NPC_DEFAULT_RUDE_DIALOG, GANG_MEMBER} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 
 
@@ -711,7 +711,7 @@ export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
         let newexp = battle.player.exp + getPlayerNewExp(battle.player.score, battle.player.level, battle.npc.level, finalWinner);
         let newlevel = getPlayerLevel(newexp);
         setTimeout( function() { 
-            dispatch(EndBattle(finalWinner, {oldlevel: battle.player.initialStats.level, oldexp: battle.player.initialStats.exp, newlevel, newexp}, battle.npc.id));
+            dispatch(EndBattle(finalWinner, {newlevel, newexp, gangMember:finalWinner===1 && battle.npc.battlerType===GANG_MEMBER?battle.npc.name:null}, battle.npc.id));
         }, 1500);
     }
 }

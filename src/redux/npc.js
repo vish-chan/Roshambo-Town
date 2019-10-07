@@ -35,6 +35,7 @@ export const NPC = (state = {...INITIAL_STATE}, action) => {
                                 interacting: false,
                                 battle: 'battle' in npc? npc.battle: false,
                                 battleDialog: npc.battleDialog? npc.battleDialog: null,
+                                battlerType: npc.battlerType? npc.battlerType: null,
                                 inBattle: false,
                                 battleFlag: 'battleFlag' in npc? npc.battleFlag : false,
                                 defeatedCount: 'defeatedCount' in npc? npc.defeatedCount: 0,

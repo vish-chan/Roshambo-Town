@@ -52,7 +52,14 @@ export const BATTLE_LOSE_NPC_DIALOG = "I win, as expected. You need more practic
 export const BATTLE_LOSE_PLAYER_DIALOG = "I'll be back in no time. See you then.";
 export const BATTLE_WIN_NPC_DIALOG = "Don't be on cloud nine. It was just one game!";
 export const BATTLE_WIN_PLAYER_DIALOG = "Losers will remain losers.";
+
 export const BATTLE_THRESHOLD = 1;
+export const BATTLE_GANG_MEMBERS = 5;
+export const BOSS_BATTLE_LEVEL = 6;
+
+export const BOSS = "BOSS";
+export const GANG_MEMBER = "GANG_MEMBER";
+export const NON_GANG_MEMBER = "NON_GANG_MEMBER";
 
 
 export const SAVED_GAME = "SAVED GAME";

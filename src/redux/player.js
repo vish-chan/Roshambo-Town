@@ -3,8 +3,6 @@ import { DOWN } from '../helpers/constants';
 import { getValue } from '../helpers/funcs';
 import { SKINS } from '../data/skins';
 
-const DEFAULT_DIALOG = "Hey! What's up?";
-
 const INITIAL_STATE = { 
                         name: "PLAYER",
                         skin: SKINS["player_1"],
@@ -27,8 +25,19 @@ const INITIAL_STATE = {
                                 exp: 0,
                                 won: 0,
                                 lost: 0,
+                                defeatedGangMembers:{},
                         }
         };
+
+const getUpdatedGangMembersList = (defeatedGangMembers, newGangMember) => {
+        if(newGangMember!==null) {
+                let newDefeatedGangMembers = {...defeatedGangMembers};
+                newDefeatedGangMembers[newGangMember] = 1;
+                return(newDefeatedGangMembers);
+        } else {
+                return({...defeatedGangMembers});
+        }
+}
 
 
 export const Player = (state = {...INITIAL_STATE}, action) => {
@@ -142,6 +151,7 @@ export const Player = (state = {...INITIAL_STATE}, action) => {
                                 exp: action.payload.player.newexp,
                                 won: action.payload.battleWinner===1? state.battle.won+1: state.battle.won,
                                 lost: action.payload.battleWinner===-1? state.battle.lost+1: state.battle.lost,
+                                defeatedGangMembers: getUpdatedGangMembersList(state.defeatedGangMembers, action.payload.player.gangMember),
                         },
                 });
         default: 
