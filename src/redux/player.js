@@ -30,13 +30,11 @@ const INITIAL_STATE = {
         };
 
 const getUpdatedGangMembersList = (defeatedGangMembers, newGangMember) => {
+        let newDefeatedGangMembers = {...defeatedGangMembers};
         if(newGangMember!==null) {
-                let newDefeatedGangMembers = {...defeatedGangMembers};
                 newDefeatedGangMembers[newGangMember] = 1;
-                return(newDefeatedGangMembers);
-        } else {
-                return({...defeatedGangMembers});
-        }
+        } 
+        return(newDefeatedGangMembers);
 }
 
 
@@ -151,7 +149,7 @@ export const Player = (state = {...INITIAL_STATE}, action) => {
                                 exp: action.payload.player.newexp,
                                 won: action.payload.battleWinner===1? state.battle.won+1: state.battle.won,
                                 lost: action.payload.battleWinner===-1? state.battle.lost+1: state.battle.lost,
-                                defeatedGangMembers: getUpdatedGangMembersList(state.defeatedGangMembers, action.payload.player.gangMember),
+                                defeatedGangMembers: getUpdatedGangMembersList(state.battle.defeatedGangMembers, action.payload.player.gangMember),
                         },
                 });
         default: 
