@@ -49,7 +49,17 @@ class NPC extends Component {
             left: this.props.self.position[0],
             top: this.props.self.position[1],
             transform: 'translate(100%, -100%)',
-            display: this.props.self.battle && this.props.self.defeatedCount===0 ? 'block':'none',
+            display: !this.props.self.interacting && this.props.self.battle && this.props.self.defeatedCount===0 ? 'block':'none',
+        }
+
+        const messagestylebase = {
+            position: 'absolute',
+            width: 25,
+            height: 25, 
+            left: this.props.self.position[0],
+            top: this.props.self.position[1],
+            transform: 'translate(100%, -70%)',
+            display: !this.props.self.interacting && !this.props.self.talkFlag? 'block':'none',
         }
     
         return(
@@ -57,6 +67,9 @@ class NPC extends Component {
                 <div id={`NPC${this.props.self.id}`} style={npcStyle}/>
                 <div className="blink" style={battlemarkerstylebase}>
                     <div style={{position:'relative', width:'100%', height:'100%', textAlign:'center',backgroundColor:getLevelColor(this.props.self.level), ...solidBorder(1,'black',5)}}><i className="fa fa-exclamation fa-lg"></i></div>
+                </div>
+                <div className="blink" style={messagestylebase}>
+                    <div style={{position:'relative', width:'100%', height:'100%', textAlign:'center'}}><i style={{color:"white"}} className="fa fa-envelope fa-lg"></i></div>
                 </div>
             </div> 
         ); 
