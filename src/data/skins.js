@@ -203,4 +203,16 @@ export const SKINS = {
         LEFT: 3,
         walkSpriteCount: 4,
     },
+
+    crush_2: {  
+        /*11*/
+       src: BASE_URL + "crush_2",
+       width: 68,
+       height: 72,
+       UP: 1,
+       RIGHT: 2,
+       DOWN: 0,
+       LEFT: 3,
+       walkSpriteCount: 4,
+   },
 }
