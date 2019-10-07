@@ -708,7 +708,7 @@ export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
     const finalWinner = CheckBattleWinner(getState().battle);
     if(finalWinner!=0) {
         battle = getState().battle;
-        let newexp = battle.player.exp + getPlayerNewExp(battle.player.score, battle.player.level, battle.npc.level);
+        let newexp = battle.player.exp + getPlayerNewExp(battle.player.score, battle.player.level, battle.npc.level, finalWinner);
         let newlevel = getPlayerLevel(newexp);
         setTimeout( function() { 
             dispatch(EndBattle(finalWinner, {oldlevel: battle.player.initialStats.level, oldexp: battle.player.initialStats.exp, newlevel, newexp}, battle.npc.id));
@@ -716,9 +716,9 @@ export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
     }
 }
 
-const getPlayerNewExp = (score, playerLevel, npcLevel) => {
-    const BASE_EXP = 5, LEVEL_MULTIPLIER = 10;
-    return(BASE_EXP + score + Math.max((npcLevel - (playerLevel-1))*LEVEL_MULTIPLIER, LEVEL_MULTIPLIER));
+const getPlayerNewExp = (score, playerLevel, npcLevel, winner) => {
+    const BASE_EXP = 5, LEVEL_MULTIPLIER = 10, WIN_BONUS=10;
+    return(BASE_EXP + score + Math.max((npcLevel - (playerLevel-1))*LEVEL_MULTIPLIER, LEVEL_MULTIPLIER) + Math.max(winner*WIN_BONUS, 0));
 }
 
 const getPlayerLevel = (exp) => {
