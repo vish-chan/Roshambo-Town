@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCEPT_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS, BATTLE_DEFEATED_ACCEPT_ANS, BATTLE_NEVER_DEFEATED_ACCEPT_ANS, PICKABLES, BATTLE_WIN_NPC_DIALOG, BATTLE_WIN_PLAYER_DIALOG, BATTLE_LOSE_NPC_DIALOG, BATTLE_LOSE_PLAYER_DIALOG, PLAYER_DEFAULT_DIALOG, NPC_DEFAULT_RUDE_DIALOG, GANG_MEMBER, BOSS, BATTLE_BOSS_ACCEPT_ANS, BATTLE_GANG_MEMBERS} from '../helpers/constants';
+        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, BATTLE_QUESTION, BATTLE_ACCEPT_ANS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, BATTLE_DECLINE_ANS, BATTLE_DEFEATED_ACCEPT_ANS, BATTLE_NEVER_DEFEATED_ACCEPT_ANS, PICKABLES, BATTLE_WIN_NGM_NPC_DIALOG, BATTLE_LOSE_NGM_NPC_DIALOG, BATTLE_LOSE_NGM_PLAYER_DIALOG, PLAYER_DEFAULT_DIALOG, NPC_DEFAULT_RUDE_DIALOG, GANG_MEMBER, BOSS, BATTLE_BOSS_ACCEPT_ANS, BATTLE_GANG_MEMBERS, BATTLE_WIN_NGM_PLAYER_DIALOG, BATTLE_WIN_GM_NPC_DIALOG, BATTLE_WIN_GM_PLAYER_DIALOG, BATTLE_LOSE_GM_NPC_DIALOG, BATTLE_LOSE_GM_PLAYER_DIALOG, BATTLE_WIN_BOSS_DIALOG, BATTLE_WIN_BOSS_PLAYER_DIALOG, BATTLE_LOSE_BOSS_DIALOG, BATTLE_LOSE_BOSS_PLAYER_DIALOG} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 
 
@@ -761,8 +761,10 @@ const getPlayerLevel = (exp) => {
         return 3;
     else if(exp < 420)
         return 4;
-    else 
+    else if(exp < 700)
         return 5;
+    else 
+        return 6;
 }
 
 const CheckBattleWinner = (battle) => {
@@ -793,11 +795,27 @@ export const CloseBattleSequence = () => (dispatch, getState) => {
     dispatch(CloseBattle());
     
     if(getState().battle.finalWinner===1) {
-        npcDialog = BATTLE_WIN_NPC_DIALOG;
-        playerDialog = BATTLE_WIN_PLAYER_DIALOG;
+        if(getState().battle.npc.battlerType===GANG_MEMBER) {
+            npcDialog = BATTLE_WIN_GM_NPC_DIALOG;
+            playerDialog = BATTLE_WIN_GM_PLAYER_DIALOG;
+        } else if(getState().battle.npc.battlerType===BOSS) {
+            npcDialog = BATTLE_WIN_BOSS_DIALOG;
+            playerDialog = BATTLE_WIN_BOSS_PLAYER_DIALOG;
+        } else {
+            npcDialog = BATTLE_WIN_NGM_NPC_DIALOG;
+            playerDialog = BATTLE_WIN_NGM_PLAYER_DIALOG;
+        }
     } else {
-        npcDialog = BATTLE_LOSE_NPC_DIALOG;
-        playerDialog = BATTLE_LOSE_PLAYER_DIALOG;
+        if(getState().battle.npc.battlerType===GANG_MEMBER) {
+            npcDialog = BATTLE_LOSE_GM_NPC_DIALOG;
+            playerDialog = BATTLE_LOSE_GM_PLAYER_DIALOG;
+        } else if(getState().battle.npc.battlerType===BOSS){
+            npcDialog = BATTLE_LOSE_BOSS_DIALOG;
+            playerDialog = BATTLE_LOSE_BOSS_PLAYER_DIALOG;
+        } else {
+            npcDialog = BATTLE_LOSE_NGM_NPC_DIALOG;
+            playerDialog = BATTLE_LOSE_NGM_PLAYER_DIALOG;
+        }
     }
     dispatch(SetConversationStatus(npc.id, 
         {name: npc.name, dialogs: [npcDialog]}, 
