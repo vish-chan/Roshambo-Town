@@ -34,14 +34,11 @@ export const NPC = (state = {...INITIAL_STATE}, action) => {
                                 isWaiting: false,
                                 interacting: false,
                                 battle: 'battle' in npc? npc.battle: false,
-                                battleDialog: npc.battleDialog? npc.battleDialog: null,
-                                battlerType: npc.battlerType? npc.battlerType: null,
+                                battlerType: 'battlerType' in npc? npc.battlerType: null,
                                 inBattle: false,
                                 battleFlag: 'battleFlag' in npc? npc.battleFlag : false,
                                 defeatedCount: 'defeatedCount' in npc? npc.defeatedCount: 0,
-                                talk: npc.talk? npc.talk: null,
-                                talkSummary: npc.talkSummary? npc.talkSummary: null,
-                                talkFlag: npc.talk? false: true,
+                                talkFlag: 'talkFlag' in npc? npc.talkFlag: true,
                             })
                         })
                 }
