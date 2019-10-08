@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VIEWPORT_WIDTH } from '../helpers/constants';
+import { VIEWPORT_WIDTH, BATTLE_GANG_MEMBERS } from '../helpers/constants';
 import {connect} from 'react-redux';
 import { solidBorder, centerBgImg, getRounded, getKeyDiv, getLevelColor, getWinPercColor } from '../helpers/funcs';
 import { SaveGameToDisk } from '../redux/ActionCreators';
@@ -76,7 +76,7 @@ class Stats extends Component {
 
         return(
             <div id="stats" style={style}>
-                <div style={{width:'30%', display:'flex', alignItems:'center'}}>
+                <div style={{width:'50%', display:'flex', alignItems:'center'}}>
                     <div style={{width:80, height:80, ...centerBgImg( `${this.props.player.skin.src}/head.png`), backgroundColor:bg_color}}/>
                     <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
                         <div style={{margin:'5px', alignSelf:'flex-start'}}> {this.props.player.name} </div>
@@ -86,8 +86,9 @@ class Stats extends Component {
                             <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle(getWinPercColor(winperc))}}> Win%:{winperc}</div>
                         </div>
                     </div>
+                    <div style={{margin:'5px', padding:'5px',width:220, height:50, backgroundColor:'orange', ...solidBorder(2, 'white', 5), }}>{`Tribes Defeated: ${Object.keys(this.props.player.battle.defeatedGangMembers).length}/${BATTLE_GANG_MEMBERS}`}</div>
                 </div>
-                <div style={{width:'50%', height:'70%', ...solidBorder(2, 'white', 10), backgroundColor:'grey', display:'flex', flexDirection:'column', justifyContent:'center', paddingLeft:'10px'}}>
+                <div style={{width:'35%', height:'70%', ...solidBorder(2, 'white', 10), backgroundColor:'grey', display:'flex', flexDirection:'column', justifyContent:'center', paddingLeft:'10px'}}>
                     <AwareComponent player={this.props.player}/>
                 </div>
                 <div style={{width:'10%', display:'flex', alignItems: 'center'}}>
