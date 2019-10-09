@@ -4,7 +4,8 @@ import { PORTALS } from "../../../gameobjects";
 import { townCenter } from '../../Maps/town_center';
 import { _home } from "./_home";
 import { _bakery } from "./_bakery";
-
+import { _townNorth } from "./_town_north";
+import { _townSouth } from "./_town_south";
 
 export const _townCenter = {
     /* Compulsory */
@@ -72,6 +73,18 @@ export const _townCenter = {
             type: PORTALS[0],
             rotate:270,
             target: _bakery,
+        },
+        {
+            position: [19, 0],
+            type: PORTALS[0],
+            rotate:180,
+            target: _townNorth,
+        },
+        {
+            position: [14, 21],
+            type: PORTALS[0],
+            rotate:0,
+            target: _townSouth,
         }
 
     ]
