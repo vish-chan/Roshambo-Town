@@ -18,9 +18,6 @@ export const _townCenter = {
     player: {
         position: [13, 15],
         direction: 'DOWN',
-        talk: [
-            ["Great to be back, Dad. The town looks very different to me!", "OMG! How can we get take it back from them?", "I need some practice beofre challenging them.", "Thanks Dad."],
-        ],
     },
 
     /* Compulsory */

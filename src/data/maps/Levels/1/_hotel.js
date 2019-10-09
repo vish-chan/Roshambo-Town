@@ -15,9 +15,6 @@ export const _hotel = {
     player: {
         position: [11, 6],
         direction: 'UP',
-        talk: [
-            ["Great to be back, Dad. The town looks very different to me!", "OMG! How can we get take it back from them?", "I need some practice beofre challenging them.", "Thanks Dad."],
-        ],
     },
 
     /* Compulsory */

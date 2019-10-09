@@ -1,22 +1,20 @@
 import { DOWN } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { PORTALS } from "../../../gameobjects";
-import { townSouth } from '../../Maps/town_south';
-import { _library } from "./_library";
-import { _hotel } from "./_hotel";
+import { gameroom } from '../../Maps/gameroom';
 
 
-export const _townSouth = {
+export const _gameroom = {
     /* Compulsory */
 
-    name: "townSouth",
+    name: "gameroom",
 
-    map: townSouth,
+    map: gameroom,
 
     /* Compulsory */
     player: {
-        position: [14, 1],
-        direction: 'RIGHT',
+        position: [3, 2],
+        direction: 'UP',
     },
 
     /* Compulsory */
@@ -28,10 +26,11 @@ export const _townSouth = {
                 skin: SKINS["prof"],
                 direction: DOWN,
                 stationary: true,
-                pathArr: [[6,3]],
+                pathArr: [[3,0]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 3000,
+                talkFlag: false,
             },
         ],
 
@@ -43,21 +42,9 @@ export const _townSouth = {
     /* Compulsory */
     portals: [
         {
-            position: [4, 5],
-            type: PORTALS[0],
-            rotate:-90,
-            target: _library,
-        },
-        {
-            position: [19, 7],
-            type: PORTALS[0],
-            rotate:-90,
-            target: _hotel,
-        },
-        {
-            position: [14, 0],
+            position: [4, 2],
             type: PORTALS[1],
-            rotate:180,
-        },
+            rotate:90,
+        }
     ]
 };

@@ -2,6 +2,7 @@ import { DOWN } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { PORTALS } from "../../../gameobjects";
 import { library } from '../../Maps/library';
+import { _gameroom } from "./_gameroom";
 
 
 export const _library = {
@@ -15,9 +16,6 @@ export const _library = {
     player: {
         position: [16, 8],
         direction: 'UP',
-        talk: [
-            ["Great to be back, Dad. The town looks very different to me!", "OMG! How can we get take it back from them?", "I need some practice beofre challenging them.", "Thanks Dad."],
-        ],
     },
 
     /* Compulsory */
@@ -44,9 +42,15 @@ export const _library = {
     /* Compulsory */
     portals: [
         {
+            position: [4, 15],
+            type: PORTALS[0],
+            rotate: 0,
+            target: _gameroom,
+        },
+        {
             position: [17, 8],
             type: PORTALS[1],
-            rotate:270,
+            rotate:90,
         }
     ]
 };
