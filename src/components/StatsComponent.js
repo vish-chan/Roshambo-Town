@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VIEWPORT_WIDTH, BATTLE_GANG_MEMBERS } from '../helpers/constants';
+import { BATTLE_GANG_MEMBERS } from '../helpers/constants';
 import {connect} from 'react-redux';
 import { solidBorder, centerBgImg, getRounded, getKeyDiv, getLevelColor, getWinPercColor } from '../helpers/funcs';
 import { SaveGameToDisk } from '../redux/ActionCreators';
@@ -55,7 +55,7 @@ class Stats extends Component {
         const bg_color = 'lightgrey';
 
         const style = {
-            width:  VIEWPORT_WIDTH,
+            width:  this.props.width,
             height: 80,
             margin:  'auto',
             marginTop: '20px',

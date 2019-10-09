@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { VIEWPORT_WIDTH, ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, SPACE_KEY } from '../helpers/constants';
+import { ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, SPACE_KEY } from '../helpers/constants';
 import { BattleHandleMove, BattleMoveIndexToStr, BattleEndIntro, CloseBattleSequence } from '../redux/ActionCreators';
 import { centerBgImg, solidBorder, getKeyDiv } from '../helpers/funcs';
 
@@ -183,7 +183,7 @@ class Summary extends Component {
 
         const style = {
             border: '5px inset black',
-            width: VIEWPORT_WIDTH-600,
+            width: '70%',
             padding: '5px',
             backgroundColor: 'lightgrey',
             color: 'black',
@@ -384,8 +384,8 @@ class Battle extends Component {
                         <MoveDiv move={this.props.battle.player.lastMove} reverse={false} blink={this.props.battle.lastWinner===-1}/>
                         <MoveDiv move={this.props.battle.npc.lastMove} reverse={true} blink={this.props.battle.lastWinner===1}/>
                     </div>
-                    <div style={{display: 'flex', width: VIEWPORT_WIDTH, height: '25%'}}>
-                        <select defaultValue={ROCK} style={{fontFamily:'gameboy', fontSize:'30px', overflowY:'hidden', width: 600}} ref={select => this.select = select} size={3}>
+                    <div style={{display: 'flex', width: '100%', height: '25%'}}>
+                        <select defaultValue={ROCK} style={{fontFamily:'gameboy', fontSize:'30px', overflowY:'hidden', width: '30%'}} ref={select => this.select = select} size={3}>
                                 <option value={ROCK} >Rock</option>
                                 <option value={PAPER}>Paper</option>
                                 <option value={SCISSORS}>Scissors</option>

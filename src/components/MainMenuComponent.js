@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, SAVED_GAME } from '../helpers/constants';
+import { SAVED_GAME } from '../helpers/constants';
 import { solidBorder, centerBgImg } from '../helpers/funcs';
 
 
@@ -17,8 +17,6 @@ const style = {
 
     position: 'relative',
     margin: '60px auto',
-    width:  VIEWPORT_WIDTH,
-    height: VIEWPORT_HEIGHT,
     border: '10px solid white',
     overflow: 'hidden',
     backgroundColor: 'lightgrey',
@@ -61,7 +59,7 @@ class MainMenu extends Component {
 
     render() {
         return(
-            <div style={style}>
+            <div style={{...style, width: this.props.width, height: this.props.height}}>
                 <div style={{position:'relative', width:'90%', height:'40%', margin:'20px', overflow:'hidden'}}>
                     <div  style={{ width:"100%", height:"100%", ...centerBgImg('/assets/images/80/objectsAndProps/title.png', null, 'auto')}}/>
                     <div className='shine'/>

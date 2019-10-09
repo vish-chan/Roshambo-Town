@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../helpers/constants';
 import { centerBgImg, solidBorder } from '../helpers/funcs';
 import { SetPlayerInfoAction, StartNewJourneyAction } from '../redux/ActionCreators';
 
@@ -12,8 +11,6 @@ const style = {
 
     position: 'relative',
     margin: '60px auto',
-    width:  VIEWPORT_WIDTH,
-    height: VIEWPORT_HEIGHT,
     border: '10px solid white',
     overflow: 'hidden',
     backgroundColor: BG_MAIN,
@@ -94,7 +91,7 @@ class PlayerSelect extends Component {
 
     render() {
         return(
-            <div style={style}>
+            <div style={{...style, width: this.props.width, height: this.props.height}}>
                 <button onClick={this.props.handleBack} style={{position:'absolute', left:10, top:10, padding:'5px', backgroundColor:'whitesmoke', ...solidBorder(2, 'white', 5)}}><i className="fa fa-arrow-left fa-2x"></i></button>
                 <div style={{margin:'20px'}}>Select Your Avatar</div>
                 <div style={{width:'70%', height:'50%', display: 'flex', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center',}}>

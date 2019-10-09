@@ -5,6 +5,17 @@ export const getRounded = (num) => {
     return isNaN(num)? 0: Math.round(num);
 }
 
+export const getViewportDim = (screenWidth) => {
+    const dims = [[1040, 480], [1120,640], [1440, 800]];
+    if(screenWidth < 1400) 
+        return dims[0];
+    else if(screenWidth < 1680) 
+        return dims[1];
+    else 
+        return dims[2];
+    
+}
+
 export const viewportToMap = (viewportpos, mapstart) => {
     return([viewportpos[0] + (-1*mapstart[0]),viewportpos[1] + (-1*mapstart[1])]);
 }

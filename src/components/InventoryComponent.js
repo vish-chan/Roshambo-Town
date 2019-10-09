@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, EATABLE, HEALER, CURRENCY } from '../helpers/constants';
+import { EATABLE, HEALER, CURRENCY } from '../helpers/constants';
 import { GAMEOBJECTS } from '../data/gameobjects';
 
 
@@ -76,8 +76,9 @@ const InventoryDialog = (props) => {
 
     const inventoryStyle = {
         position: 'absolute',
-        left: VIEWPORT_WIDTH/2 - width/2,
-        top: VIEWPORT_HEIGHT/2 - height/2,
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%,-50%)',
         backgroundColor: 'darkgreen',
         border: '5px solid white',
         borderRadius: '10px',

@@ -5,14 +5,18 @@ const INITIAL_STATE = {
                         end: [],
                         width:0,
                         height:0,
+                        viewportDims:[0, 0], //width X height
+                        camera:[[0,0],[0,0]],
                     }
 
 export const ViewPort = ( state = {...INITIAL_STATE}, action) => {
     switch(action.type) {
-        case ActionTypes.START_NEW_JOURNEY:
+        case ActionTypes.INIT_VIEWPORT_DIMS:
             return({
-                ...INITIAL_STATE,
-            });
+                ...state,
+                viewportDims: action.payload.viewportDims,
+                camera: action.payload.camera,
+            })
         case ActionTypes.ADD_MAP:
             return({...state,
                         start: action.payload.viewport.start,

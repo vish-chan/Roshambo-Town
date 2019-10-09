@@ -1,7 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
-        PASSIBLE_INDEX,  VIEWPORT_WIDTH,
-        VIEWPORT_HEIGHT, CAMERA, PORTAL, ROCK, PAPER, SCISSORS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, PICKABLES, BATTLE_GANG_MEMBERS, BOSS, GANG_MEMBER} from '../helpers/constants';
+        PASSIBLE_INDEX, PORTAL, ROCK, PAPER, SCISSORS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, PICKABLES, BATTLE_GANG_MEMBERS, BOSS, GANG_MEMBER} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 import { PLAYERDIALOGS, NPCDIALOGS } from '../helpers/script';
 
@@ -17,12 +16,12 @@ const observeImpassible = (tiles, newpos) => {
     return (Math.abs(tiles[row][col]) <= PASSIBLE_INDEX);
 }
 
-const observeCamera = (position, direction, mapstart) => {
+const observeCamera = (position, direction, mapstart, camera) => {
     const viewportPos = mapToViewport(position, mapstart);
     if(direction===LEFT || direction===RIGHT)
-        return (viewportPos[0] >= CAMERA[0][0]) && (viewportPos[0] <= CAMERA[0][1])
+        return (viewportPos[0] >= camera[0][0]) && (viewportPos[0] <= camera[0][1])
     else if(direction===UP || direction===DOWN)
-        return (viewportPos[1] >= CAMERA[1][0]) && (viewportPos[1] <= CAMERA[1][1])
+        return (viewportPos[1] >= camera[1][0]) && (viewportPos[1] <= camera[1][1])
 }
 
 const observeIdleNPC = (newpos, npcList) => {
@@ -61,16 +60,16 @@ const observePlayer = (newpos, player) => {
         return !((newpos[0] === player.nextPosition[0]) && (newpos[1] === player.nextPosition[1]));
 }
 
-const mapScrollable = (direction, mapstart, mapend) => {
+const mapScrollable = (direction, mapstart, mapend, viewportWidth, viewportHeight) => {
     switch(direction) {
         case LEFT:
             return (mapstart[0] < 0);
         case UP:
             return (mapstart[1] < 0);
         case RIGHT:
-            return (mapend[0] > VIEWPORT_WIDTH);
+            return (mapend[0] > viewportWidth);
         case DOWN:
-            return (mapend[1] > VIEWPORT_HEIGHT);
+            return (mapend[1] > viewportHeight);
         
     }
 }
@@ -110,6 +109,7 @@ const getNPC = (npclist, npcid) => {
 
 export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     const player = getState().player;
+    const VIEWPORT_WIDTH = getState().viewport.viewportDims[0], VIEWPORT_HEIGHT = getState().viewport.viewportDims[1];
     let oldpos = player.position, newpos = [];
     let mapstart = getState().viewport.start, mapend = getState().viewport.end;
     const map = getState().map;
@@ -138,7 +138,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
         const animatingnpc = observeAnimatingNPC(newpos, getState().npc.list);
         if(idlenpc.length === 0 && animatingnpc.length===0) {
             dispatch(UpdatePlayerAnimationAction(true, newpos));
-                if(observeCamera(oldpos, direction, mapstart) && mapScrollable(direction, mapstart, mapend)) {
+                if(observeCamera(oldpos, direction, mapstart, getState().viewport.camera) && mapScrollable(direction, mapstart, mapend, VIEWPORT_WIDTH, VIEWPORT_HEIGHT)) {
                     movemap = true;
                     requestAnimationFrame(animatePlayer);
                 } else {
@@ -261,6 +261,8 @@ const checkBossBattleEligibilty = (defeatedGangMembersList) => {
 
 const ForceBattleConversation = (player, npc) => (dispatch, getState) => {
     
+    const VIEWPORT_HEIGHT = getState().viewport.viewportDims[1];
+
     if(!checkBattleEligibilty(player.battle.level, npc.level))
         return;
 
@@ -282,7 +284,9 @@ const ForceBattleConversation = (player, npc) => (dispatch, getState) => {
 
 const ForceNonBattleConversation = (player, npc) => (dispatch, getState) => {
    
+    const VIEWPORT_HEIGHT = getState().viewport.viewportDims[1];
     const oppdirection = getOppositeDirection(player.direction);
+
     if(npc.direction!==oppdirection) {
         dispatch(UpdateNPCDirectionAction(npc.id, oppdirection));
     }
@@ -295,6 +299,7 @@ const ForceNonBattleConversation = (player, npc) => (dispatch, getState) => {
 export const InitiateConversation = () => (dispatch, getState) => {
     const player = getState().player;
     const npc = player.nearbyNPC!==null? getNPC(getState().npc.list, player.nearbyNPC):null;
+    const VIEWPORT_HEIGHT = getState().viewport.viewportDims[1];
     if(npc && !npc.isAnimating) {
         const oppdirection = getOppositeDirection(player.direction);
         if(npc.direction!==oppdirection) {
@@ -559,8 +564,9 @@ export const LoadGameFromDisk = () => (dispatch) => {
 export const AddMap = (level, secondary=false) => (dispatch, getState) => {
     dispatch(LoadingMapAction());
 
-    let width = level.map.tiles[0].length*TILE_SIZE, height= level.map.tiles.length*TILE_SIZE;
-    let playerPosition = tileToMapCoordinates(level.player.position, TILE_SIZE);
+    const width = level.map.tiles[0].length*TILE_SIZE, height= level.map.tiles.length*TILE_SIZE;
+    const playerPosition = tileToMapCoordinates(level.player.position, TILE_SIZE);
+    const VIEWPORT_WIDTH = getState().viewport.viewportDims[0], VIEWPORT_HEIGHT = getState().viewport.viewportDims[1];
     let start_x, start_y, end_x, end_y;
     if(width <= VIEWPORT_WIDTH) {
         start_x = VIEWPORT_WIDTH/2 - width/2;
@@ -616,9 +622,22 @@ export const SetPlayerInfoAction = (name, skinIdx) => {
     })
 }
 
+
 export const StartNewJourneyAction = () => {
     return({
         type: ActionTypes.START_NEW_JOURNEY,
+    });
+}
+
+
+export const InitViewportAction = (viewportDims) => {
+    const camera = [[(viewportDims[0]/2) - (TILE_SIZE*2), (viewportDims[0]/2) + (TILE_SIZE)], [(viewportDims[1]/2) - (TILE_SIZE*2), (viewportDims[1]/2) + (TILE_SIZE)]];
+    return({
+        type: ActionTypes.INIT_VIEWPORT_DIMS,
+        payload: {
+            viewportDims,
+            camera,
+        }
     });
 }
 
@@ -778,6 +797,7 @@ const EndBattle = (battleWinner, updatedPlayerStats, npcId) => {
 
 export const CloseBattleSequence = () => (dispatch, getState) => {
     const npc = getNPC(getState().npc.list, getState().battle.npc.id), player = getState().player;
+    const VIEWPORT_HEIGHT=getState().viewport.viewportDims[1];
 
     dispatch(CloseBattle());
     

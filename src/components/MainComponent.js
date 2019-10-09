@@ -1,8 +1,24 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import World from './WorldComponent';
 import MainMenu from './MainMenuComponent';
 import PlayerSelectComponent from './PlayerSelectComponent';
+import { getViewportDim } from '../helpers/funcs';
+import { InitViewportAction } from '../redux/ActionCreators';
 
+const INITIAL_STATE = {
+    menu: true,
+    playerselect: false,
+    world: false,
+    loadgame: false,
+};
+
+
+const mapDispatchToProps = (dispatch) => {
+    return({
+        initViewport: (dims) => { dispatch(InitViewportAction(dims)); },
+    });
+}
 
 class Main extends Component {
 
@@ -11,13 +27,19 @@ class Main extends Component {
         this.state = {
             menu: true,
             playerselect: false,
-            world: false,
+            world: true,
             loadgame: false,
+            screenDim: getViewportDim(window.screen.width),
         }
         this.handleStartNewGame = this.handleStartNewGame.bind(this);
         this.handleLoadGame = this.handleLoadGame.bind(this);
         this.handleStartJourney = this.handleStartJourney.bind(this);
         this.handleBack = this.handleBack.bind(this);
+    }
+
+
+    componentDidMount() {
+        this.props.initViewport(this.state.screenDim);
     }
 
     handleStartNewGame() {
@@ -58,15 +80,15 @@ class Main extends Component {
 
     render() {
         if(this.state.menu) {
-            return(<MainMenu startNewGame={this.handleStartNewGame} loadGame={this.handleLoadGame} />);
+            return(<MainMenu width={this.state.screenDim[0]} height={this.state.screenDim[1]} startNewGame={this.handleStartNewGame} loadGame={this.handleLoadGame} />);
         } else if(this.state.playerselect) {
-            return( <PlayerSelectComponent startJourney={this.handleStartJourney} handleBack={this.handleBack}/>);
+            return( <PlayerSelectComponent width={this.state.screenDim[0]} height={this.state.screenDim[1]}  startJourney={this.handleStartJourney} handleBack={this.handleBack}/>);
         } else if(this.state.world) {
-            return(<World loadgame={this.state.loadgame} handleBack={this.handleBack}/>);
+            return(<World  width={this.state.screenDim[0]} height={this.state.screenDim[1]} loadgame={this.state.loadgame} handleBack={this.handleBack}/>);
         } else {
             return(<div>Unknown error. PLEASE RELOAD PAGE.</div>);
         }
     }
 }
 
-export default Main;
+export default connect(null, mapDispatchToProps)(Main);

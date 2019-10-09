@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Player from './PlayerComponent';
 import Map from './MapComponent';
 import { AddMap, LoadGameFromDisk  } from '../redux/ActionCreators';
-import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from '../helpers/constants';
 import { level } from '../data/maps/Levels/1/index';
 import { connect } from 'react-redux';
 import ConversationDisplay from './ConversationDisplayComponent';
@@ -11,16 +10,6 @@ import Loading from './LoadingComponent';
 import Battle from './BattleComponent';
 import Stats from './StatsComponent';
 
-
-const worldStyle = {
-    position: 'relative',
-    width:  VIEWPORT_WIDTH,
-    height: VIEWPORT_HEIGHT,
-    margin:  'auto',
-    border: '10px solid white',
-    overflow: 'hidden',
-    backgroundColor: 'black',
-}
 
 const mapStatetoProps = state => {
     return({
@@ -50,6 +39,17 @@ class World extends Component {
 
     
     render() {
+        
+        const worldStyle = {
+            position: 'relative',
+            margin:  'auto',
+            width: this.props.width,
+            height: this.props.height,
+            border: '10px solid white',
+            overflow: 'hidden',
+            backgroundColor: 'black',
+        }
+
         if(this.props.map.isLoading) {
             return(
                 <div id="world"  style={{...worldStyle, marginTop:'60px'}}>
@@ -72,7 +72,7 @@ class World extends Component {
         else {
             return(
                 <React.Fragment>
-                    <Stats />
+                    <Stats width={this.props.width} />
                     <div id="world" style={worldStyle}>
                         <Map map={this.props.map} viewport={this.props.viewport}/>
                         <Player viewport={this.props.viewport} handleBack={this.props.handleBack}/>

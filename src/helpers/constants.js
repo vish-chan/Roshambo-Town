@@ -1,11 +1,6 @@
 export const TILE_SIZE = 80;
 export const TOTAL_MOVEMENT_SIZE = TILE_SIZE;
 
-export const VIEWPORT_WIDTH = TILE_SIZE*18; //1440
-export const VIEWPORT_HEIGHT = TILE_SIZE*10; //800
-export const VIEWPORT_BOUNDARY = [VIEWPORT_WIDTH , VIEWPORT_HEIGHT];
-export const CAMERA = [[(VIEWPORT_WIDTH/2) - (TILE_SIZE*2), (VIEWPORT_WIDTH/2) + (TILE_SIZE)], [(VIEWPORT_HEIGHT/2) - (TILE_SIZE*2), (VIEWPORT_HEIGHT/2) + (TILE_SIZE)]]
-
 export const LEFT = "LEFT";
 export const RIGHT = "RIGHT";
 export const UP = "UP";

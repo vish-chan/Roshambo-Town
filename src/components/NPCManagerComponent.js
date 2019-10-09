@@ -24,12 +24,10 @@ class NPC extends Component {
 
     constructor(props) {
         super(props);
-        this.battlerMarkerIcon = null;
+        this.battlerMarkerIcon = faExclamation;
         if(this.props.self.battle) {
             if(this.props.self.battlerType===BOSS || this.props.self.battlerType===GANG_MEMBER)
                 this.battlerMarkerIcon = faSkull;
-            else if(this.props.self.battlerType===NON_GANG_MEMBER) 
-                this.battlerMarkerIcon = faExclamation;
         }
     }
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { VIEWPORT_WIDTH } from '../helpers/constants';
 import { connect } from 'react-redux';
 import { getKeyDiv } from '../helpers/funcs';
 
@@ -77,7 +76,7 @@ class Dialog extends Component {
             position: 'absolute',
             borderTop: '5px solid white',
             borderBottom: '5px solid white',
-            width: VIEWPORT_WIDTH,
+            width: '100%',
             height: 200,
             padding: '10px',
             backgroundColor: 'black',
