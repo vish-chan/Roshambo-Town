@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
 import World from './WorldComponent';
 import MainMenu from './MainMenuComponent';
 import PlayerSelectComponent from './PlayerSelectComponent';
 import { getViewportDim } from '../helpers/funcs';
-import { InitViewportAction } from '../redux/ActionCreators';
 
 const INITIAL_STATE = {
     menu: true,
@@ -13,19 +11,12 @@ const INITIAL_STATE = {
     loadgame: false,
 };
 
-
-const mapDispatchToProps = (dispatch) => {
-    return({
-        initViewport: (dims) => { dispatch(InitViewportAction(dims)); },
-    });
-}
-
 class Main extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            menu: true,
+            menu: false,
             playerselect: false,
             world: true,
             loadgame: false,
@@ -37,10 +28,6 @@ class Main extends Component {
         this.handleBack = this.handleBack.bind(this);
     }
 
-
-    componentDidMount() {
-        this.props.initViewport(this.state.screenDim);
-    }
 
     handleStartNewGame() {
         this.setState({
@@ -84,11 +71,11 @@ class Main extends Component {
         } else if(this.state.playerselect) {
             return( <PlayerSelectComponent width={this.state.screenDim[0]} height={this.state.screenDim[1]}  startJourney={this.handleStartJourney} handleBack={this.handleBack}/>);
         } else if(this.state.world) {
-            return(<World  width={this.state.screenDim[0]} height={this.state.screenDim[1]} loadgame={this.state.loadgame} handleBack={this.handleBack}/>);
+            return(<World width={this.state.screenDim[0]} height={this.state.screenDim[1]} loadgame={this.state.loadgame} handleBack={this.handleBack}/>);
         } else {
             return(<div>Unknown error. PLEASE RELOAD PAGE.</div>);
         }
     }
 }
 
-export default connect(null, mapDispatchToProps)(Main);
+export default Main;
