@@ -38,34 +38,6 @@ export const PAPER = 1;
 export const SCISSORS = 2;
 
 
-export const PLAYER_DEFAULT_DIALOG = "Hey! What's up?";
-export const NPC_DEFAULT_POLITE_DIALOG = "I already told you everything!";
-export const NPC_DEFAULT_RUDE_DIALOG = "Ehhh! Leave me alone!";
-
-
-export const BATTLE_QUESTION = "Hey! Do you wanna battle?";
-export const BATTLE_ACCEPT_ANS = "Yeah, sure. Let's go!";
-export const BATTLE_BOSS_ACCEPT_ANS = "HAHA! Sure. But you won't win.";
-
-export const BATTLE_DEFEATED_ACCEPT_ANS = "Yeah, sure. But, this time you won't be lucky!";
-export const BATTLE_NEVER_DEFEATED_ACCEPT_ANS = "How many times you wanna lose!!";
-export const BATTLE_DECLINE_ANS = "You're not on my level.";
-
-export const BATTLE_LOSE_NGM_NPC_DIALOG = "I win, as expected. You need more practice.";
-export const BATTLE_LOSE_NGM_PLAYER_DIALOG = "I'll be back in no time. See you then.";
-export const BATTLE_WIN_NGM_NPC_DIALOG = "Don't be on cloud nine. It was just one game!";
-export const BATTLE_WIN_NGM_PLAYER_DIALOG = "Losers will remain losers.";
-
-export const BATTLE_LOSE_GM_NPC_DIALOG = "HAHA! I win as expected. You'll not be able to dethrone us!";
-export const BATTLE_LOSE_GM_PLAYER_DIALOG = "I'll be back for you after more practice. See you then.";
-export const BATTLE_WIN_GM_NPC_DIALOG = "You could defeat me, but you would never be able to defeat our BOSS!";
-export const BATTLE_WIN_GM_PLAYER_DIALOG = "One step closer to your boss! Can't wait to battle him!";
-
-export const BATTLE_LOSE_BOSS_DIALOG = "You can't defeat me! Ever!";
-export const BATTLE_LOSE_BOSS_PLAYER_DIALOG = "I'll be back for you after more practice. See you then.";
-export const BATTLE_WIN_BOSS_DIALOG = "A worthy winner atlast. It was a pleasure battling you. You have the town now!";
-export const BATTLE_WIN_BOSS_PLAYER_DIALOG = "Thanks! I hope you won't get me killed after this. Haha!";
-
 export const BATTLE_THRESHOLD = 1;
 export const BATTLE_GANG_MEMBERS = 5;
 export const BOSS_BATTLE_LEVEL = 6;

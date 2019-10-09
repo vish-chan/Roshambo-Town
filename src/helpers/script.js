@@ -1,7 +1,10 @@
+const DEFAULT_START = "Hey! Whatsup!";
+const DEFAULT_FOLLOW = "Ehh! Leave me alone!";
+
 export const PLAYERDIALOGS = {
     Dad: {
-        follows:[],
-        starts:[],
+        follows:[DEFAULT_FOLLOW],
+        starts:[DEFAULT_START],
         battleAccept:[],
         battleAsk:[],
         battleWin:[],
@@ -30,8 +33,8 @@ export const PLAYERDIALOGS = {
 
 export const NPCDIALOGS = {
     Dad:{
-        starts: [],
-        follows: [],
+        starts: [DEFAULT_START],
+        follows: [DEFAULT_FOLLOW],
         battleAsk:[],
         battleAcceptNeverDefeated:[],
         battleAcceptDefeated:[],

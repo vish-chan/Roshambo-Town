@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT, SAVED_GAME } from '../helpers/constants';
-import { solidBorder } from '../helpers/funcs';
+import { solidBorder, centerBgImg } from '../helpers/funcs';
 
 
 const checkSavedGame = () => {
@@ -30,24 +30,19 @@ const style = {
 
 const MenuBtn = (props) => {
     
-    const style = {
+    const basestyle = {
         width:'350px',
         padding: '10px',
-        fontFamily: 'gameboy',
+        fontFamily: 'pixel',
         fontSize:'20px',
+        margin:'10px',
         ...solidBorder(2, 'white', 5),
-        backgroundColor: 'grey'
     };
 
     const disbaledstyle = {
-        width:'350px',
-        padding: '10px',
-        fontFamily: 'gameboy',
-        fontSize:'20px',
-        ...solidBorder(2, 'white', 5),
+        ...basestyle,
         color: 'black',
         opacity: '0.5',
-        backgroundColor: 'grey'
     };
 
     if(props.disabled) {
@@ -56,7 +51,7 @@ const MenuBtn = (props) => {
         )
     } else {
         return(
-            <button onClick={props.onClick} style={style}>{props.title}</button>
+            <button onClick={props.onClick} style={basestyle}>{props.title}</button>
         )
     }
 }
@@ -67,7 +62,10 @@ class MainMenu extends Component {
     render() {
         return(
             <div style={style}>
-                <div style={{width:'90%', height:'40%', margin:'20px'}}>TITLE</div>
+                <div style={{position:'relative', width:'90%', height:'40%', margin:'20px', overflow:'hidden'}}>
+                    <div  style={{ width:"100%", height:"100%", ...centerBgImg('/assets/images/80/objectsAndProps/title.png', null, 'auto')}}/>
+                    <div className='shine'/>
+                </div>
                 <MenuBtn title="Start New Game" disabled={false} onClick={this.props.startNewGame}/>
                 <MenuBtn title="Load Game" disabled={!checkSavedGame()} onClick={this.props.loadGame}/>
             </div>

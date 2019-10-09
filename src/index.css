@@ -1,7 +1,25 @@
 
 @font-face {
   font-family: gameboy;
+  src: url(fonts/PixelEmulator.ttf);
+}
+
+@font-face {
+  font-family: gameboy_lg;
   src: url(fonts/GamegirlClassic-9MVj.ttf);
+}
+
+
+
+@font-face {
+  font-family: bigspace;
+  src: url(fonts/BigSpace.otf);
+}
+
+
+@font-face {
+  font-family: pixel;
+  src: url(fonts/PixelEmulator.ttf);
 }
 
 body {

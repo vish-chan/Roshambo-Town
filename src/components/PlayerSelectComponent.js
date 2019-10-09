@@ -21,7 +21,7 @@ const style = {
     flexDirection: 'column',
     
     alignItems: 'center',
-    fontFamily: 'gameboy',
+    fontFamily: 'pixel',
     fontSize: '30px'
 }
 
@@ -103,12 +103,12 @@ class PlayerSelect extends Component {
                 </div>
                 <div style={{width:'60%', height: '20px' ,display:'flex', justifyContent:'space-between', alignItems:'center'}}>
                     <label htmlFor = "player" style={{fontSize:'20px'}}> Avatar name </label> 
-                    <div style={{width:'70%', fontFamily:'gameboy',}}>
-                        <input onChange={this.handleNameChange} type = "text" name = "player" id = "player" style={{width:'100%', fontFamily:'gameboy' ,fontSize:'20px'}} value={this.state.name}/>
+                    <div style={{width:'70%', fontFamily:'pixel',}}>
+                        <input onChange={this.handleNameChange} type = "text" name = "player" id = "player" style={{width:'100%', fontFamily:'pixel' ,fontSize:'20px'}} value={this.state.name}/>
                         <div style={{width:'100%', fontSize:'10px', color:'grey'}}>{NAME_MIN} to {NAME_MAX} english alphabet characters</div>
                     </div>
                 </div>
-                <button onClick={this.validateAndSend} style={{fontFamily:'gameboy',fontSize:'25px', margin:'50px'}}>Start Journey</button>
+                <button onClick={this.validateAndSend} style={{fontFamily:'pixel',fontSize:'25px', margin:'50px'}}>Start Journey</button>
                 <p style={{color:'red', fontSize:'20px'}}>{this.state.errmsg}</p>
             </div>
         );

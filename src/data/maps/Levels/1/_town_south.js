@@ -1,20 +1,22 @@
 import { DOWN } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { PORTALS } from "../../../gameobjects";
-import { hotel } from '../../Maps/hotel';
+import { townSouth } from '../../Maps/town_south';
+import { _library } from "./_library";
+import { _hotel } from "./_hotel";
 
 
-export const _hotel = {
+export const _townSouth = {
     /* Compulsory */
 
-    name: "hotel",
+    name: "townSouth",
 
-    map: hotel,
+    map: townSouth,
 
     /* Compulsory */
     player: {
-        position: [11, 6],
-        direction: 'UP',
+        position: [14, 1],
+        direction: 'RIGHT',
         talk: [
             ["Great to be back, Dad. The town looks very different to me!", "OMG! How can we get take it back from them?", "I need some practice beofre challenging them.", "Thanks Dad."],
         ],
@@ -29,7 +31,7 @@ export const _hotel = {
                 skin: SKINS["prof"],
                 direction: DOWN,
                 stationary: true,
-                pathArr: [[7,3]],
+                pathArr: [[6,3]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 3000,
@@ -44,9 +46,21 @@ export const _hotel = {
     /* Compulsory */
     portals: [
         {
-            position: [12, 6],
+            position: [4, 5],
+            type: PORTALS[0],
+            rotate:-90,
+            target: _library,
+        },
+        {
+            position: [19, 7],
+            type: PORTALS[0],
+            rotate:-90,
+            target: _hotel,
+        },
+        {
+            position: [14, 0],
             type: PORTALS[1],
-            rotate:90,
-        }
+            rotate:180,
+        },
     ]
 };

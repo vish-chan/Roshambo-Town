@@ -1,20 +1,23 @@
 import { DOWN } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { PORTALS } from "../../../gameobjects";
-import { home } from '../../Maps/home';
+import { library } from '../../Maps/library';
 
 
-export const _home = {
+export const _library = {
     /* Compulsory */
 
-    name: "home",
+    name: "library",
 
-    map: home,
+    map: library,
 
     /* Compulsory */
     player: {
-        position: [7, 4],
+        position: [16, 8],
         direction: 'UP',
+        talk: [
+            ["Great to be back, Dad. The town looks very different to me!", "OMG! How can we get take it back from them?", "I need some practice beofre challenging them.", "Thanks Dad."],
+        ],
     },
 
     /* Compulsory */
@@ -30,7 +33,6 @@ export const _home = {
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 3000,
-                talkFlag: false,
             },
         ],
 
@@ -42,9 +44,9 @@ export const _home = {
     /* Compulsory */
     portals: [
         {
-            position: [8, 4],
+            position: [17, 8],
             type: PORTALS[1],
-            rotate:90,
+            rotate:270,
         }
     ]
 };

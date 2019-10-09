@@ -1,20 +1,25 @@
 import { DOWN } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { PORTALS } from "../../../gameobjects";
-import { home } from '../../Maps/home';
+import { townNorth } from '../../Maps/town_north';
+import { _cave } from "./_cave";
 
 
-export const _home = {
+
+export const _townNorth = {
     /* Compulsory */
 
-    name: "home",
+    name: "townNorth",
 
-    map: home,
+    map: townNorth,
 
     /* Compulsory */
     player: {
-        position: [7, 4],
-        direction: 'UP',
+        position: [19, 14],
+        direction: 'LEFT',
+        talk: [
+            ["Great to be back, Dad. The town looks very different to me!", "OMG! How can we get take it back from them?", "I need some practice beofre challenging them.", "Thanks Dad."],
+        ],
     },
 
     /* Compulsory */
@@ -26,11 +31,10 @@ export const _home = {
                 skin: SKINS["prof"],
                 direction: DOWN,
                 stationary: true,
-                pathArr: [[4,1]],
+                pathArr: [[11,6]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 3000,
-                talkFlag: false,
             },
         ],
 
@@ -42,9 +46,15 @@ export const _home = {
     /* Compulsory */
     portals: [
         {
-            position: [8, 4],
+            position: [6, 6],
+            type: PORTALS[0],
+            rotate:270,
+            target: _cave,
+        },
+        {
+            position: [19, 15],
             type: PORTALS[1],
-            rotate:90,
-        }
+            rotate:0,
+        },
     ]
 };

@@ -67,13 +67,13 @@ export const getValue = (stateparam, payloadparam) => {
     return(payloadparam!=null ? payloadparam: stateparam);
 }
 
-export const centerBgImg = (image) => {
+export const centerBgImg = (image, color='white', size='contain') => {
     return({
-        backgroundColor: 'white',
+        backgroundColor: color,
         backgroundImage: `url('${image}')`, 
         backgroundRepeat: 'no-repeat', 
         backgroundPosition:'center',
-        backgroundSize: 'contain',
+        backgroundSize: size,
     });
 }
 

@@ -170,3 +170,26 @@ a:active {color:lightseagreen;}  /* Selected link   */
 }
 
 
+.shine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  animation: shine 2s linear 0s infinite normal none;
+  transform: rotate(-45deg);
+  background-color: lightgrey;
+
+}
+
+@keyframes shine {
+  0% { 
+       width: 0%;
+       height: 0%;
+       opacity: 0;
+       }
+  100% {
+      width: 200%;
+      height: 100%;
+       opacity: 0.4;
+  }
+}
+

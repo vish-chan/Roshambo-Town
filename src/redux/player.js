@@ -111,6 +111,8 @@ export const Player = (state = {...INITIAL_STATE}, action) => {
                 return({
                         ...action.payload.state.player,
                         battle: {...state.battle},
+                        direction: state.direction,
+                        spriteLocation: state.skin[state.direction],
                         frozen: false,
                 });
         case ActionTypes.RESTORE_STATE_FROM_DISK:
