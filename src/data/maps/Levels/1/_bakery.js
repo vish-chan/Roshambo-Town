@@ -43,7 +43,7 @@ export const _bakery = {
         {
             position: [9, 7],
             type: PORTALS[1],
-            rotate:270,
+            rotate:90,
         }
     ]
 };
