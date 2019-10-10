@@ -123,7 +123,7 @@ to {
 }
   
 .wonBlink {
-  animation: wonBlink 0.2s ease-in-out 0s infinite alternate forwards;
+  animation: wonBlink 0.2s ease-in-out 0.5s 4 alternate forwards;
 }
 
 @keyframes wonBlink {
@@ -132,7 +132,7 @@ to {
 }
 
 .lostBlink {
-  animation: lostBlink 0.2s ease-in-out 0s infinite alternate forwards;
+  animation: lostBlink 0.2s ease-in-out 0.5s 4 alternate forwards;
 }
 
 @keyframes lostBlink {
