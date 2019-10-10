@@ -756,7 +756,10 @@ export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
 
 const getPlayerNewExp = (score, playerLevel, npcLevel, winner) => {
     const BASE_EXP = 5, LEVEL_MULTIPLIER = 10, WIN_BONUS=10;
-    return(BASE_EXP + score + Math.max((npcLevel - (playerLevel-1))*LEVEL_MULTIPLIER, LEVEL_MULTIPLIER) + Math.max(winner*WIN_BONUS, 0));
+    if(winner===1)
+        return(BASE_EXP + score + Math.max((npcLevel - (playerLevel-1))*LEVEL_MULTIPLIER, 0) + WIN_BONUS);
+    else 
+        return(BASE_EXP);
 }
 
 const getPlayerLevel = (exp) => {
