@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, SPACE_KEY } from '../helpers/constants';
 import { BattleHandleMove, BattleMoveIndexToStr, BattleEndIntro, CloseBattleSequence } from '../redux/ActionCreators';
-import { centerBgImg, solidBorder, getKeyDiv } from '../helpers/funcs';
+import { centerBgImg, solidBorder, getKeyDiv, getLevelColor } from '../helpers/funcs';
 
 const mapStatetoProps = state => {
     return({
@@ -63,10 +63,10 @@ const PlayerInfo = (props) => {
     const style = {
         width: '40%',
         height: '100%',
-        backgroundColor: props.bgcolor,
+        backgroundColor: getLevelColor(props.player.level),
         color: 'black',
         fontSize: '25px',
-        fontFamily: 'gameboy',
+        fontFamily: 'gameboy_lg',
         display: 'flex',
         flexDirection: props.reverse? 'row-reverse' : 'row',
         justifyContent:'space-between'
@@ -377,15 +377,15 @@ class Battle extends Component {
             return(
                 <div  id="battle" style={{position:'absolute', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'space-between', backgroundColor:'white'}}>
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-between', width:'100%', height: '25%', marginBottom: '5px'}}>
-                         <PlayerInfo player={this.props.battle.player} reverse={false} bgcolor='Dodgerblue' blink={this.props.battle.lastWinner===-1} />    
-                         <PlayerInfo player={this.props.battle.npc} reverse={true} bgcolor='crimson' blink={this.props.battle.lastWinner===1}/>
+                         <PlayerInfo player={this.props.battle.player} reverse={false} blink={this.props.battle.lastWinner===-1} />    
+                         <PlayerInfo player={this.props.battle.npc} reverse={true} blink={this.props.battle.lastWinner===1}/>
                     </div>
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-between', width:'100%', height: '50%', marginBottom: '5px'}}>
                         <MoveDiv move={this.props.battle.player.lastMove} reverse={false} blink={this.props.battle.lastWinner===-1}/>
                         <MoveDiv move={this.props.battle.npc.lastMove} reverse={true} blink={this.props.battle.lastWinner===1}/>
                     </div>
                     <div style={{display: 'flex', width: '100%', height: '25%'}}>
-                        <select defaultValue={ROCK} style={{fontFamily:'gameboy', fontSize:'30px', overflowY:'hidden', width: '30%'}} ref={select => this.select = select} size={3}>
+                        <select defaultValue={ROCK} style={{fontFamily:'gameboy_lg', fontSize:'30px', overflowY:'hidden', width: '30%'}} ref={select => this.select = select} size={3}>
                                 <option value={ROCK} >Rock</option>
                                 <option value={PAPER}>Paper</option>
                                 <option value={SCISSORS}>Scissors</option>
