@@ -116,7 +116,7 @@ export const PORTALS = [
         srcpos: [0,0],
         width: 40,
         height: 40,
-        effects: "blink",
+        //effects: "blink",
         type: PORTAL,
     },
 
@@ -127,7 +127,7 @@ export const PORTALS = [
         srcpos: [0,0],
         width: 40,
         height: 40,
-        effects: "blink",
+       // effects: "blink",
         type: PORTAL,
     },
 
