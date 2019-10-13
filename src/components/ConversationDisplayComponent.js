@@ -82,7 +82,7 @@ class Dialog extends Component {
             backgroundColor: 'black',
             color: 'white',
             fontSize: '20px',
-            fontFamily: 'gameboy',
+            fontFamily: 'gameboy_lg',
             display: this.props.isOpen? 'block': 'none',
             overflowWrap: 'break-word',
             ...POS,
