@@ -141,7 +141,7 @@ to {
 }
 
 .rotate {
-  animation: rotate 2s linear 0s infinite normal none;
+  animation: rotate 1.5s linear 0s infinite normal none;
 }
 
 @keyframes rotate {
