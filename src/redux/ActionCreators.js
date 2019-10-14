@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
-        PASSIBLE_INDEX, PORTAL, ROCK, PAPER, SCISSORS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, PICKABLES, BATTLE_GANG_MEMBERS, BOSS, GANG_MEMBER} from '../helpers/constants';
+        PASSIBLE_INDEX, PORTAL, ROCK, PAPER, SCISSORS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, PICKABLES, BATTLE_GANG_MEMBERS, BOSS, GANG_MEMBER, NON_GANG_MEMBER} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
 import { PLAYERDIALOGS, NPCDIALOGS } from '../helpers/script';
 
@@ -669,10 +669,10 @@ const BattleGetWinningMove = (move, maxMove) => {
     }
 }
 
-const BattleGetNextMove = (markovMatrix, lastMove) => {
+const BattleGetNextMove = (battlerType, markovMatrix, lastMove) => {
     const maxMove = markovMatrix.length - 1;
     let nextMove, predictedMoveIdx;
-    if(lastMove===null) {
+    if(battlerType===NON_GANG_MEMBER ||  lastMove===null) {
         nextMove = BattleGetRandomMove(maxMove);
     } else {
         predictedMoveIdx = BattleGetPredictedMoveIdx(markovMatrix[lastMove]);
@@ -738,7 +738,7 @@ export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
     let battle = getState().battle;
     const playerMarkovMatrix = battle.player.markovMatrix;
     const playerLastMove = battle.player.lastMove;
-    const npcMove = BattleGetNextMove(playerMarkovMatrix, playerLastMove);
+    const npcMove = BattleGetNextMove(battle.npc.battlerType, playerMarkovMatrix, playerLastMove);
     const winner = BattleGetWinner(playerMove, npcMove);
     const summary = BattleSummary(battle.player.name, playerMove, battle.npc.name, npcMove, winner);
     dispatch(UpdateBattleStatsAction(playerMove, npcMove, winner, summary));
