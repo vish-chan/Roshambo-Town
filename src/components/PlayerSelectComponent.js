@@ -13,10 +13,9 @@ const style = {
     margin: '60px auto',
     border: '10px solid white',
     overflow: 'hidden',
-    backgroundColor: BG_MAIN,
+    backgroundImage: 'linear-gradient(#991b1e, #b61d20, #991b1e)',
     display: 'flex',
     flexDirection: 'column',
-    
     alignItems: 'center',
     fontFamily: 'pixel',
     fontSize: '30px'
@@ -36,8 +35,8 @@ const checkName = (name) => {
 
 const CharacterPane = (props) => {
     return(
-        <div onClick={() => props.click(props.option)}>
-            <button className={props.option===props.selected?"selected":""} style={{width:'220px', height:'300px',...centerBgImg(`${SELECT_URL}${props.option}.png`)}}></button>
+        <div style={{width:220, height:300}} onClick={() => props.click(props.option)} >
+            <button className={props.option===props.selected?"selected":""}  style={{width:'100%', height:'100%', ...centerBgImg(`${SELECT_URL}${props.option}.png`, '#FEF2E4')}}></button>
         </div>
     );
 }
@@ -92,8 +91,8 @@ class PlayerSelect extends Component {
     render() {
         return(
             <div style={{...style, width: this.props.width, height: this.props.height}}>
-                <button onClick={this.props.handleBack} style={{position:'absolute', left:10, top:10, padding:'5px', backgroundColor:'whitesmoke', ...solidBorder(2, 'white', 5)}}><i className="fa fa-arrow-left fa-2x"></i></button>
-                <div style={{margin:'20px'}}>Select Your Avatar</div>
+                <button onClick={this.props.handleBack} style={{position:'absolute', left:10, top:10, padding:'5px', backgroundColor: '#FD974F', ...solidBorder(1, 'white', 5)}}><i className="fa fa-arrow-left fa-2x"></i></button>
+                <div style={{margin:'20px', padding:'10px'}}>Select Your Avatar</div>
                 <div style={{width:'70%', height:'50%', display: 'flex', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center',}}>
                     <CharacterPane option="player_1" click={this.handleCharacterClick} selected={this.state.character} />
                     <CharacterPane option="player_2" click={this.handleCharacterClick} selected={this.state.character} />
@@ -102,11 +101,11 @@ class PlayerSelect extends Component {
                     <label htmlFor = "player" style={{fontSize:'20px'}}> Avatar name </label> 
                     <div style={{width:'70%', fontFamily:'pixel',}}>
                         <input onChange={this.handleNameChange} type = "text" name = "player" id = "player" style={{width:'100%', fontFamily:'pixel' ,fontSize:'20px'}} value={this.state.name}/>
-                        <div style={{width:'100%', fontSize:'10px', color:'grey'}}>{NAME_MIN} to {NAME_MAX} english alphabet characters</div>
+                        <div style={{width:'100%', fontSize:'10px', color:'#FD974F'}}>{NAME_MIN} to {NAME_MAX} english alphabet characters</div>
                     </div>
                 </div>
-                <button onClick={this.validateAndSend} style={{fontFamily:'pixel',fontSize:'25px', margin:'50px'}}>Start Journey</button>
-                <p style={{color:'red', fontSize:'20px'}}>{this.state.errmsg}</p>
+                <button onClick={this.validateAndSend} style={{width:350, fontFamily:'pixel',fontSize:'25px', margin:'50px', padding:'10px' ,backgroundColor: '#FD974F', ...solidBorder(2, 'white', 5),}}>Start Journey</button>
+                <p style={{color:'#FD974F', fontSize:'20px'}}>{this.state.errmsg}</p>
             </div>
         );
     }

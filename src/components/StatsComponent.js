@@ -94,7 +94,7 @@ class Stats extends Component {
                 </div>
                 <div style={{width:'10%', display:'flex', alignItems: 'center'}}>
                     <button disabled={(this.props.player.isAnimating || this.props.player.frozen || this.props.player.inBattle || this.props.player.interacting)} 
-                            style={{margin:'5px', ...bgStyle('lightgrey'), fontFamily:'gameboy'}} onClick={this.handleSaveBtnClick}><i className="fa fa-save fa-2x" style={{margin:'5px'}}/> Save
+                            style={{margin:'5px', ...bgStyle('lightgrey'), backgroundColor: '#FD974F', fontFamily:'gameboy'}} onClick={this.handleSaveBtnClick}><i className="fa fa-save fa-2x" style={{margin:'5px'}}/> Save
                     </button>
                 </div>
             </div>

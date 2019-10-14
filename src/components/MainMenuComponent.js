@@ -19,7 +19,7 @@ const style = {
     margin: '60px auto',
     border: '10px solid white',
     overflow: 'hidden',
-    backgroundColor: 'lightgrey',
+    backgroundImage: 'linear-gradient(#991b1e, #b61d20, #991b1e)',
     display: 'flex',
     flexDirection: 'column',
     justifyContent:'center',
@@ -34,6 +34,7 @@ const MenuBtn = (props) => {
         fontFamily: 'pixel',
         fontSize:'20px',
         margin:'10px',
+        backgroundColor: '#FD974F',
         ...solidBorder(2, 'white', 5),
     };
 
@@ -60,9 +61,9 @@ class MainMenu extends Component {
     render() {
         return(
             <div style={{...style, width: this.props.width, height: this.props.height}}>
-                <div style={{position:'relative', width:'90%', height:'40%', margin:'20px', overflow:'hidden'}}>
+                <div style={{position:'relative', width:840, height: 120, margin:'100px', overflow:'hidden'}}>
                     <div  style={{ width:"100%", height:"100%", ...centerBgImg('/assets/images/80/objectsAndProps/title.png', null, 'auto')}}/>
-                    <div className='shine'/>
+                    <div className="shine"/>
                 </div>
                 <MenuBtn title="Start New Game" disabled={false} onClick={this.props.startNewGame}/>
                 <MenuBtn title="Load Game" disabled={!checkSavedGame()} onClick={this.props.loadGame}/>

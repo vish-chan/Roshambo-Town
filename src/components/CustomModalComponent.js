@@ -12,7 +12,7 @@ const bgStyle = (bgcolor, bordercolor) => {
 const CustomModal = (props) => {
     const style = {
         position: 'absolute',
-        width: 500,
+        width: 600,
         height: 250,
         ...solidBorder(5, 'grey', 5), 
         left:'50%',
@@ -32,8 +32,8 @@ const CustomModal = (props) => {
         <div style={style}>
             <p style={{color:'black'}}>Exit to Main Menu?</p>
             <div style={{display:'flex', justifyContent:'space-between'}}>
-                <button style={{width:'230px', color:'white', fontFamily:'gameboy', fontSize:'23px', ...bgStyle('MediumSeaGreen', 'green'), margin:'10px'}} onClick={props.confirmLink}>Confirm <i className="fa fa-check-square fa-1.5x"></i></button>
-                <button style={{width:'230px', color:'white', fontFamily:'gameboy', fontSize:'23px', ...bgStyle('OrangeRed', 'red'), margin:'10px'}} onClick={props.cancelLink}>Cancel <i className="fa fa-window-close fa-1.5x"></i></button>
+                <button style={{width:'230px',  fontFamily:'gameboy', fontSize:'23px', ...bgStyle('MediumSeaGreen', 'green'), margin:'10px'}} onClick={props.confirmLink}>Confirm <i className="fa fa-check-square fa-1.5x"></i></button>
+                <button style={{width:'230px', fontFamily:'gameboy', fontSize:'23px', ...bgStyle('OrangeRed', 'red'), margin:'10px'}} onClick={props.cancelLink}>Cancel <i className="fa fa-window-close fa-1.5x"></i></button>
             </div>
         </div>
     )

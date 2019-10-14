@@ -120,6 +120,18 @@ export const SKINS = {
         walkSpriteCount: 4,
     },
 
+    friend_9: {  
+        /*11*/
+            src: BASE_URL + "friend_9",
+            width: 80,
+            height: 74,
+            UP: 1,
+            RIGHT: 2,
+            DOWN: 0,
+            LEFT: 3,
+            walkSpriteCount: 4,
+        },
+
     kid_1: {   
         /*6*/
         src: BASE_URL + "kid_1",
@@ -215,4 +227,16 @@ export const SKINS = {
        LEFT: 3,
        walkSpriteCount: 4,
    },
+
+   crush_3: {  
+    /*11*/
+   src: BASE_URL + "crush_3",
+   width: 80,
+   height: 72,
+   UP: 1,
+   RIGHT: 2,
+   DOWN: 0,
+   LEFT: 3,
+   walkSpriteCount: 4,
+},
 }
