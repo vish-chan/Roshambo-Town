@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import NPCManager from './NPCManagerComponent';
 import GameObjectManager from './GameObjectManagerComponent';
+import ReactHowler  from 'react-howler';
+
+
 
 class Map extends Component {
 
@@ -16,6 +19,7 @@ class Map extends Component {
                         backgroundColor: 'black', }}>
                 <GameObjectManager />
                 <NPCManager />
+                <ReactHowler src={this.props.map.audioSrc} loop={true} volume={0.4} html5={true}/>
             </div>
         );
     }

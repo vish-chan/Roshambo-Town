@@ -1,3 +1,5 @@
+import { HOTEL_MUSIC } from "../../../helpers/constants";
+
 export const hotel = {
 
     tiles: [
@@ -23,5 +25,7 @@ export const hotel = {
     src: '/assets/images/maps/hotel.png',
 
     backgroundColor: "#ffffff",
+
+    audioSrc: HOTEL_MUSIC,
 
 }

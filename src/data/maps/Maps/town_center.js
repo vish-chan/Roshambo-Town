@@ -1,3 +1,5 @@
+import { TOWN_CENTER_MUSIC } from "../../../helpers/constants";
+
 export const townCenter = {
 
     tiles: [
@@ -34,4 +36,5 @@ export const townCenter = {
 
     backgroundColor: "#ffffff",
 
+    audioSrc: TOWN_CENTER_MUSIC,
 }

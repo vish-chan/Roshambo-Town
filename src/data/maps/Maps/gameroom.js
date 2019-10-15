@@ -1,3 +1,5 @@
+import { GAMEROOM_MUSIC } from "../../../helpers/constants";
+
 export const gameroom = {
 
     tiles: [
@@ -14,4 +16,5 @@ export const gameroom = {
 
     backgroundColor: "#ffffff",
 
+    audioSrc: GAMEROOM_MUSIC,
 }

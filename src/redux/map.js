@@ -8,6 +8,7 @@ const INITIAL_STATE = {
                         height: 0,
                         isLoading: true,
                         src: null,
+                        audioSrc: null,
                     }
 
 export const Map = (state = {...INITIAL_STATE}, action) => {
@@ -24,6 +25,7 @@ export const Map = (state = {...INITIAL_STATE}, action) => {
                     width: action.payload.width,
                     height: action.payload.height,
                     src: action.payload.src,
+                    audioSrc: action.payload.audioSrc,
                     isLoading: false,
                     });
         case ActionTypes.MAP_LOADING:

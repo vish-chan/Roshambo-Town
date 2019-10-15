@@ -1,3 +1,5 @@
+import { TOWN_SOUTH_MUSIC } from "../../../helpers/constants";
+
 export const townSouth = {
 
     tiles: [
@@ -32,5 +34,7 @@ export const townSouth = {
     src: '/assets/images/maps/town_south.png',
 
     backgroundColor: "#ffffff",
+
+    audioSrc: TOWN_SOUTH_MUSIC,
 
 }

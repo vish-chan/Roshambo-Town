@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
-        PASSIBLE_INDEX, PORTAL, ROCK, PAPER, SCISSORS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_THRESHOLD, PICKABLES, BATTLE_GANG_MEMBERS, BOSS, GANG_MEMBER, NON_GANG_MEMBER} from '../helpers/constants';
-import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals } from '../helpers/funcs';
+        PASSIBLE_INDEX, PORTAL, ROCK, PAPER, SCISSORS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_ELIGIBILITY_THRESHOLD, PICKABLES, BATTLE_NUM_GANG_MEMBERS, BOSS, GANG_MEMBER, NON_GANG_MEMBER, DRIP_SOUND, LASER_SOUND, PICK_SOUND, BEEP_SOUND} from '../helpers/constants';
+import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals, playSoundEffect } from '../helpers/funcs';
 import { PLAYERDIALOGS, NPCDIALOGS } from '../helpers/script';
 
 
@@ -226,6 +226,7 @@ export const PickupGameObject = () => (dispatch, getState) => {
     const player = getState().player;
     const gameobject = player.nearbyGameObj!==null? getState().gameobjects.filter( gobj => gobj.id === player.nearbyGameObj ): null;
     if(gameobject!==null) {
+        playSoundEffect(PICK_SOUND);
         dispatch(AddObjecttoInventory(gameobject[0]));
         dispatch(UpdateNearbyGameObjAction()); 
     }
@@ -252,11 +253,11 @@ const checkNearbyIdleNPC = (playerpos, direction, npcList) => {
 }
 
 const checkBattleEligibilty = (playerlevel, npclevel) => {
-    return(npclevel - playerlevel <= BATTLE_THRESHOLD);
+    return(npclevel - playerlevel <= BATTLE_ELIGIBILITY_THRESHOLD);
 }
 
 const checkBossBattleEligibilty = (defeatedGangMembersList) => {
-    return(Object.keys(defeatedGangMembersList).length===BATTLE_GANG_MEMBERS);
+    return(Object.keys(defeatedGangMembersList).length===BATTLE_NUM_GANG_MEMBERS);
 }
 
 const ForceBattleConversation = (player, npc) => (dispatch, getState) => {
@@ -653,7 +654,7 @@ const StartBattle = (player, npc) => {
 } 
 
 const BattleGetRandomMove = (maxMove) => {
-    return (Math.floor(Math.random() * maxMove) % (maxMove+1));
+    return (Math.floor(Math.random() * (maxMove+1)) % (maxMove+1));
 }
 
 const BattleGetPredictedMoveIdx = (arr) => {
@@ -735,6 +736,7 @@ const BattleSummary = (playername, playermove, npcname, npcmove, winner) => {
 
 export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
     
+    playSoundEffect(LASER_SOUND);
     let battle = getState().battle;
     const playerMarkovMatrix = battle.player.markovMatrix;
     const playerLastMove = battle.player.lastMove;
@@ -759,7 +761,7 @@ const getPlayerNewExp = (score, playerLevel, npcLevel, winner) => {
     if(winner===1)
         return(BASE_EXP + score + Math.max((npcLevel - (playerLevel-1))*LEVEL_MULTIPLIER, 0) + WIN_BONUS);
     else 
-        return(BASE_EXP);
+        return(BASE_EXP + score);
 }
 
 const getPlayerLevel = (exp) => {
@@ -801,7 +803,6 @@ const EndBattle = (battleWinner, updatedPlayerStats, npcId) => {
 export const CloseBattleSequence = () => (dispatch, getState) => {
     const npc = getNPC(getState().npc.list, getState().battle.npc.id), player = getState().player;
     const VIEWPORT_HEIGHT=getState().viewport.viewportDims[1];
-
     dispatch(CloseBattle());
     
     if(getState().battle.finalWinner===1) {
@@ -950,6 +951,7 @@ export const UpdateOriginAction = (origin) => {
 
 
 const SetConversationStatus = (npcId, person1, person2, position, battleConversation) => {
+    playSoundEffect(DRIP_SOUND);
     return({
         type: ActionTypes.SET_DIALOG_STATUS,
         payload: {
@@ -972,12 +974,14 @@ const ResetConversationStatus = (npcId) => {
 }
 
 const NextDialogAction = () => {
+    playSoundEffect(DRIP_SOUND);
     return({
         type: ActionTypes.NEXT_DIALOG,
     })
 }
 
 export const ToggleInventory = () => {
+    playSoundEffect(PICK_SOUND);
     return({
         type: ActionTypes.TOGGLE_INVENTORY_DISPLAY,
     })
@@ -1064,6 +1068,7 @@ const AddMapAction = (level, width, height ,playerPosition, vpstart, vpend, oldS
             width,
             height,
             src: level.map.src,
+            audioSrc: level.map.audioSrc,
             viewport: {
                 start: vpstart,
                 end: vpend,

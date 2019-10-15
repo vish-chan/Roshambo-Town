@@ -1,3 +1,5 @@
+import { HOME_MUSIC } from "../../../helpers/constants";
+
 export const home = {
 
     tiles: [
@@ -17,4 +19,5 @@ export const home = {
 
     backgroundColor: "#ffffff",
 
+    audioSrc: HOME_MUSIC,
 }

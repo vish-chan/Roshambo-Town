@@ -1,3 +1,5 @@
+import { HELL_MUSIC } from "../../../helpers/constants";
+
 export const hell = {
 
     tiles: [
@@ -16,5 +18,7 @@ export const hell = {
     src: '/assets/images/maps/hell.png',
 
     backgroundColor: "#ffffff",
+
+    audioSrc: HELL_MUSIC,
 
 }

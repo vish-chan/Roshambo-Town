@@ -1,3 +1,5 @@
+import { LIBRARY_MUSIC } from "../../../helpers/constants";
+
 export const library = {
 
     tiles: [
@@ -25,5 +27,7 @@ export const library = {
     src: '/assets/images/maps/library.png',
 
     backgroundColor: "#ffffff",
+
+    audioSrc: LIBRARY_MUSIC,
 
 }

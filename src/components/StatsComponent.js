@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BATTLE_GANG_MEMBERS } from '../helpers/constants';
+import { BATTLE_NUM_GANG_MEMBERS } from '../helpers/constants';
 import {connect} from 'react-redux';
 import { solidBorder, centerBgImg, getRounded, getKeyDiv, getLevelColor, getWinPercColor } from '../helpers/funcs';
 import { SaveGameToDisk } from '../redux/ActionCreators';
@@ -84,12 +84,12 @@ class Stats extends Component {
                             <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle(getLevelColor(level))}}> Lvl:{level} </div>
                             <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle(getLevelColor(level))}}> Exp:{this.props.player.battle.exp} </div>
                             <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle(getWinPercColor(winperc))}}> Win%:{winperc}</div>
-                            <div style={{margin:'5px', padding:'5px', backgroundColor:'orange', ...solidBorder(2, 'white', 5), }}>{`Tribes Defeated: ${Object.keys(this.props.player.battle.defeatedGangMembers).length}/${BATTLE_GANG_MEMBERS}`}</div>
+                            <div style={{margin:'5px', padding:'5px', backgroundColor:'orange', ...solidBorder(2, 'white', 5), }}>{`Tribes Defeated: ${Object.keys(this.props.player.battle.defeatedGangMembers).length}/${BATTLE_NUM_GANG_MEMBERS}`}</div>
                         </div>
                     </div>
                     
                 </div>
-                <div style={{width:'35%', height:'70%', ...solidBorder(2, 'white', 10), backgroundColor:'grey', display:'flex', flexDirection:'column', justifyContent:'center', paddingLeft:'10px'}}>
+                <div style={{width:'35%', height:'70%', ...solidBorder(2, '#db5435', 10), backgroundColor:'#639aa1', color:'white', display:'flex', flexDirection:'column', justifyContent:'center', paddingLeft:'10px'}}>
                     <AwareComponent player={this.props.player}/>
                 </div>
                 <div style={{width:'10%', display:'flex', alignItems: 'center'}}>

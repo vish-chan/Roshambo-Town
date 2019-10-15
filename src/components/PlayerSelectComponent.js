@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { centerBgImg, solidBorder } from '../helpers/funcs';
+import { centerBgImg, solidBorder, playSoundEffect } from '../helpers/funcs';
 import { SetPlayerInfoAction, StartNewJourneyAction } from '../redux/ActionCreators';
+import { BEEP_3_SOUND } from '../helpers/constants';
 
 const SELECT_URL = "/assets/images/80/objectsAndProps/playerselect/"
 const BG_MAIN = 'lightgrey';
@@ -35,7 +36,7 @@ const checkName = (name) => {
 
 const CharacterPane = (props) => {
     return(
-        <div style={{width:220, height:300}} onClick={() => props.click(props.option)} >
+        <div style={{width:220, height:300}} onClick={function(){ props.click(props.option);}} >
             <button className={props.option===props.selected?"selected":""}  style={{width:'100%', height:'100%', ...centerBgImg(`${SELECT_URL}${props.option}.png`, '#FEF2E4')}}></button>
         </div>
     );
@@ -56,6 +57,7 @@ class PlayerSelect extends Component {
     }
 
     handleNameChange(event) {
+        playSoundEffect(BEEP_3_SOUND);
         this.setState({
             name: event.target.value,
             errmsg:""
@@ -63,6 +65,7 @@ class PlayerSelect extends Component {
     }
 
     handleCharacterClick(option) {
+        playSoundEffect(BEEP_3_SOUND);
         this.setState({
             character: option,
             errmsg:""
@@ -91,14 +94,14 @@ class PlayerSelect extends Component {
     render() {
         return(
             <div style={{...style, width: this.props.width, height: this.props.height}}>
-                <button onClick={this.props.handleBack} style={{position:'absolute', left:10, top:10, padding:'5px', backgroundColor: '#FD974F', ...solidBorder(1, 'white', 5)}}><i className="fa fa-arrow-left fa-2x"></i></button>
-                <div style={{margin:'20px', padding:'10px'}}>Select Your Avatar</div>
+                <button onClick= {this.props.handleBack} style={{position:'absolute', left:10, top:10, padding:'5px', backgroundColor: '#FD974F', ...solidBorder(1, 'white', 5)}}><i className="fa fa-arrow-left fa-2x"></i></button>
+                <div style={{margin:'20px', padding:'10px', color:'white'}}>Select Your Avatar</div>
                 <div style={{width:'70%', height:'50%', display: 'flex', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center',}}>
                     <CharacterPane option="player_1" click={this.handleCharacterClick} selected={this.state.character} />
                     <CharacterPane option="player_2" click={this.handleCharacterClick} selected={this.state.character} />
                 </div>
                 <div style={{width:'60%', height: '20px' ,display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-                    <label htmlFor = "player" style={{fontSize:'20px'}}> Avatar name </label> 
+                    <label htmlFor = "player" style={{fontSize:'20px', color:'white'}}> Avatar name </label> 
                     <div style={{width:'70%', fontFamily:'pixel',}}>
                         <input onChange={this.handleNameChange} type = "text" name = "player" id = "player" style={{width:'100%', fontFamily:'pixel' ,fontSize:'20px'}} value={this.state.name}/>
                         <div style={{width:'100%', fontSize:'10px', color:'#FD974F'}}>{NAME_MIN} to {NAME_MAX} english alphabet characters</div>

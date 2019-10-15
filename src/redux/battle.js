@@ -1,4 +1,5 @@
 import * as ActionTypes from './ActionTypes';
+import { BATTLE_MUSIC } from '../helpers/constants';
 
 
 const squareMatrix = (n) => {
@@ -50,6 +51,7 @@ const INITIAL_STATE = {
                         lastWinner: 0,
                         finalWinner: 0,
                         summary: "Use arrow keys to select and press Enter",
+                        music: null,
                     };
 
 export const Battle = (state = {...INITIAL_STATE}, action) => {
@@ -85,7 +87,8 @@ export const Battle = (state = {...INITIAL_STATE}, action) => {
                     battlerType: action.payload.npc.battlerType,
                     lives: getLives(action.payload.npc.level),
                     maxLives: getLives(action.payload.npc.level),  
-                }
+                },
+                music: 'battleMusic' in action.payload.npc? action.payload.npc.battleMusic: BATTLE_MUSIC,
             })
 
         case ActionTypes.END_BATTLE_INTRO:

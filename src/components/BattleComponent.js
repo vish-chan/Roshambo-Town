@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, SPACE_KEY } from '../helpers/constants';
+import { ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, SPACE_KEY, BATTLE_END_MUSIC, BEEP_SOUND } from '../helpers/constants';
 import { BattleHandleMove, BattleMoveIndexToStr, BattleEndIntro, CloseBattleSequence } from '../redux/ActionCreators';
-import { centerBgImg, solidBorder, getKeyDiv, getLevelColor } from '../helpers/funcs';
+import { centerBgImg, solidBorder, getKeyDiv, getLevelColor, playSoundEffect } from '../helpers/funcs';
 import ReactHowler from 'react-howler';
 
 const mapStatetoProps = state => {
@@ -236,7 +236,7 @@ class BattleEnd extends Component {
             if(from>to) {
                 count++;
                 if(count===1) {
-                    this.timeout = setTimeout(function() {this.animateText("Exp", this.props.player.initialStats.exp, this.props.player.exp, 20, this.exp, count)}.bind(this), 200);
+                    this.timeout = setTimeout(function() {this.animateText("Exp", this.props.player.initialStats.exp, this.props.player.exp, 40, this.exp, count)}.bind(this), 200);
                 } else if(count===2) {
                     this.timeout = setTimeout(function() {this.animateText("Level", this.props.player.initialStats.level, this.props.player.level, 100, this.level, count);}.bind(this),200);
                 } else if (count===3) {
@@ -247,6 +247,7 @@ class BattleEnd extends Component {
                 }
                 return;
             }
+            playSoundEffect(BEEP_SOUND);
             ref.innerHTML = `${base}: ${from}`;
             from++;
             this.timeout = setTimeout(animate, speed);
@@ -257,7 +258,7 @@ class BattleEnd extends Component {
 
     componentDidMount() {
         window.addEventListener('keydown', this.handleKeyDown);
-        this.timeout = setTimeout(function(){this.animateText("Score", 0, this.props.player.score, 10, this.score, 0)}.bind(this), 600);
+        this.timeout = setTimeout(function(){this.animateText("Score", 0, this.props.player.score, 40, this.score, 0)}.bind(this), 600);
     }
 
     componentWillUnmount() {
@@ -267,7 +268,7 @@ class BattleEnd extends Component {
 
     render() {
         return(
-            <div  id="battleEnd" className="moveInLR" style={{position:'relative', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'center', fontSize:'25px' ,fontFamily:'gameboy',  backgroundImage: 'repeating-linear-gradient(#def3c6, #def3c6 20px, #e7f6db 20px, #e7f6db 23px)'}}>
+            <div  id="battleEnd" className="moveInLR" style={{position:'absolute', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'center', fontSize:'25px' ,fontFamily:'gameboy',  backgroundImage: 'repeating-linear-gradient(#def3c6, #def3c6 20px, #e7f6db 20px, #e7f6db 23px)'}}>
                 <div style={{width:'100%', height:'60%', display:'flex', justifyContent:'center'}}>
                     <div style={{width:'60%', height: '100%', display:'flex', justifyContent:'center', backgroundColor: '#f7f8f7',...solidBorder(10, '#00b1b7', 10), color:'#5d5f5b'}}> 
                             <div style={{width:'40%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center'}}>
@@ -392,20 +393,25 @@ class Battle extends Component {
     }
     
     render() {
+        let UI_COMPONENT = null, AUDIO_COMPONENT = null;
         if(this.props.battle.inIntro) {
-            return(
-                <BattleIntro player={this.props.battle.player} npc={this.props.battle.npc} />
-            );
+               UI_COMPONENT =  <BattleIntro player={this.props.battle.player} npc={this.props.battle.npc} />;
+               AUDIO_COMPONENT = <ReactHowler src={this.props.battle.music} loop={true} html5={true}/>;
 
         } else if(this.props.battle.inEnd) {
-            return(
-                <BattleEnd player={this.props.battle.player} winner={this.props.battle.finalWinner} closeBattle={this.props.closeBattle} />
-            );
+                UI_COMPONENT = <BattleEnd player={this.props.battle.player} winner={this.props.battle.finalWinner} closeBattle={this.props.closeBattle} />;
+                AUDIO_COMPONENT = <ReactHowler src={BATTLE_END_MUSIC} />;
+        
         } else {
-            return(
-               <BattleArena battle={this.props.battle} submitMove={this.props.submitMove} />
-            );
+               UI_COMPONENT = <BattleArena battle={this.props.battle} submitMove={this.props.submitMove} />;
+               AUDIO_COMPONENT = <ReactHowler src={this.props.battle.music} loop={true} html5={true}/>;
         } 
+        return(
+            <div>
+                {UI_COMPONENT}
+                {AUDIO_COMPONENT}
+            </div>
+        )
     }
 }
 

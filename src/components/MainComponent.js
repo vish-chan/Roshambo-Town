@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import World from './WorldComponent';
 import MainMenu from './MainMenuComponent';
 import PlayerSelectComponent from './PlayerSelectComponent';
-import { getViewportDim } from '../helpers/funcs';
+import { getViewportDim, playSoundEffect } from '../helpers/funcs';
+import ReactHowler from 'react-howler';
+import { MAIN_MENU_MUSIC, BEEP_2_SOUND, BEEP_LONG_SOUND } from '../helpers/constants';
 
 const INITIAL_STATE = {
     menu: true,
@@ -30,6 +32,7 @@ class Main extends Component {
 
 
     handleStartNewGame() {
+        playSoundEffect(BEEP_2_SOUND);
         this.setState({
             menu: false,
             playerselect: true,
@@ -39,6 +42,7 @@ class Main extends Component {
     }
 
     handleLoadGame() {
+        playSoundEffect(BEEP_LONG_SOUND);
         this.setState({
             menu: false,
             playerselect: false,
@@ -48,6 +52,7 @@ class Main extends Component {
     }
 
     handleStartJourney() {
+        playSoundEffect(BEEP_LONG_SOUND);
         this.setState({
             menu: false,
             playerselect: false,
@@ -57,6 +62,7 @@ class Main extends Component {
     }
 
     handleBack() {
+        playSoundEffect(BEEP_2_SOUND);
         this.setState({
             menu: true,
             playerselect: false,
@@ -66,15 +72,27 @@ class Main extends Component {
     }
 
     render() {
+        let UI_COMPONENT = null, AUDIO_COMPONENT = null;
         if(this.state.menu) {
-            return(<MainMenu width={this.state.screenDim[0]} height={this.state.screenDim[1]} startNewGame={this.handleStartNewGame} loadGame={this.handleLoadGame} />);
+            UI_COMPONENT = <MainMenu width={this.state.screenDim[0]} height={this.state.screenDim[1]} startNewGame={this.handleStartNewGame} loadGame={this.handleLoadGame} />;
+            AUDIO_COMPONENT = <ReactHowler src={MAIN_MENU_MUSIC} loop={true} html5={true} volume={0.4}/>;
         } else if(this.state.playerselect) {
-            return( <PlayerSelectComponent width={this.state.screenDim[0]} height={this.state.screenDim[1]}  startJourney={this.handleStartJourney} handleBack={this.handleBack}/>);
+            UI_COMPONENT = <PlayerSelectComponent width={this.state.screenDim[0]} height={this.state.screenDim[1]}  startJourney={this.handleStartJourney} handleBack={this.handleBack}/>;
+            AUDIO_COMPONENT = <ReactHowler src={MAIN_MENU_MUSIC} loop={true} html5={true}  volume={0.4}/>;
         } else if(this.state.world) {
-            return(<World width={this.state.screenDim[0]} height={this.state.screenDim[1]} loadgame={this.state.loadgame} handleBack={this.handleBack}/>);
+            UI_COMPONENT = <World width={this.state.screenDim[0]} height={this.state.screenDim[1]} loadgame={this.state.loadgame} handleBack={this.handleBack}/>;
+            AUDIO_COMPONENT = null;
         } else {
-            return(<div>Unknown error. PLEASE RELOAD PAGE.</div>);
+            UI_COMPONENT = <div>Unknown error. PLEASE RELOAD PAGE.</div>;
+            AUDIO_COMPONENT = null;
         }
+
+        return(
+            <React.Fragment>
+                {UI_COMPONENT}
+                {AUDIO_COMPONENT}
+            </React.Fragment>
+        )
     }
 }
 

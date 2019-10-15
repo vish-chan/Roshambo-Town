@@ -1,3 +1,5 @@
+import { CAVE_MUSIC } from "../../../helpers/constants";
+
 export const cave = {
 
     tiles: [
@@ -13,5 +15,5 @@ export const cave = {
     src: '/assets/images/maps/cave.png',
 
     backgroundColor: "#ffffff",
-
+    audioSrc: CAVE_MUSIC,
 }

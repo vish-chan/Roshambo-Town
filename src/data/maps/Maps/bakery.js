@@ -1,3 +1,5 @@
+import { BAKERY_MUSIC } from "../../../helpers/constants";
+
 export const bakery = {
 
     tiles: [
@@ -18,4 +20,5 @@ export const bakery = {
 
     backgroundColor: "#ffffff",
 
+    audioSrc: BAKERY_MUSIC,
 }

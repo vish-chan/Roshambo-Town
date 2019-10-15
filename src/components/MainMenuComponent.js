@@ -3,6 +3,7 @@ import { SAVED_GAME } from '../helpers/constants';
 import { solidBorder, centerBgImg } from '../helpers/funcs';
 
 
+
 const checkSavedGame = () => {
     try {
         const serializedState = localStorage.getItem(SAVED_GAME);
@@ -50,7 +51,7 @@ const MenuBtn = (props) => {
         )
     } else {
         return(
-            <button onClick={props.onClick} style={basestyle}>{props.title}</button>
+            <button onClick={function() {props.onClick();}} style={basestyle}>{props.title}</button>
         )
     }
 }

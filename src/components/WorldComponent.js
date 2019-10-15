@@ -80,7 +80,7 @@ class World extends Component {
                         <Player viewport={this.props.viewport} handleBack={this.props.handleBack}/>
                         <ConversationDisplay />
                         <Inventory />
-                    </div> 
+                    </div>
                 </React.Fragment>
             );
         }

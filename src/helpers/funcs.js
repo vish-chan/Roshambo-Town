@@ -98,7 +98,7 @@ export const solidBorder = (size, color, radius) => {
 
 export const getKeyDiv = (keycode, fontSize=15) => {
     return(
-    <div style={{padding:'3px', border: '1px inset grey', borderRadius:'5px', backgroundColor:'white', display: 'inline-block', fontSize:`${fontSize}px`, color:'black' }}>
+    <div style={{padding:'3px', border: '1px inset grey', borderRadius:'5px', backgroundColor:'white', display: 'inline-block', fontSize:`${fontSize}px`, color:'#5d5f5b' }}>
         <div style={{backgroundColor:'lightgrey'}}>{keycode}</div>
     </div>
     );
@@ -119,4 +119,9 @@ export const getWinPercColor = (winperc) => {
         return 'SpringGreen';
     else 
         return 'ForestGreen'
+ }
+
+ export const playSoundEffect = (src) => {
+     const click = new Audio(src);
+     click.play();
  }

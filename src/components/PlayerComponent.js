@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, SAVE_KEY, ESC_KEY } from '../helpers/constants';
+import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, SAVE_KEY, ESC_KEY, BEEP_3_SOUND } from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject, ToggleInventory, CheckPortalAndEnter } from '../redux/ActionCreators';
-import { mapToViewport } from '../helpers/funcs';
+import { mapToViewport, playSoundEffect } from '../helpers/funcs';
 import CustomModal from './CustomModalComponent';
 
 const mapStatetoProps = state => {
@@ -63,6 +63,7 @@ class Player extends Component {
     }
 
     toggleExitModalState() {
+        playSoundEffect(BEEP_3_SOUND)
         this.setState({
             showExitModal: !this.state.showExitModal,
         })
