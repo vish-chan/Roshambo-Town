@@ -38,6 +38,9 @@
 
 .moveInLR {
   animation: moveInLR 0.5s linear 0s 1 normal none;
+  -webkit-animation: moveInLR 0.5s linear 0s 1 normal none;
+  -moz-animation: moveInLR 0.5s linear 0s 1 normal none;
+  -o-animation: moveInLR 0.5s linear 0s 1 normal none;
 }
 
 .moveInRL {
@@ -197,4 +200,28 @@ button:disabled { color: lightgray; }
       height: 200%;
   }
 }
+
+.animateTitle {
+  animation: moveTitle 1s ease-in-out 0s 1 normal forwards;
+}
+
+@keyframes moveTitle {
+  from {
+    top: -100%;
+    filter: brightness(0%);
+    -webkit-filter: brightness(0%);
+  }
+  to {
+    top: 20%;
+    filter: brightness(130%);
+    -webkit-filter: brightness(130%);
+  }
+}
+
+
+
+.showMenu {
+  animation: blink 0.3s linear 1s 1 normal forwards;
+}
+
 

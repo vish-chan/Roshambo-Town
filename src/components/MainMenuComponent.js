@@ -15,7 +15,6 @@ const checkSavedGame = () => {
 }
 
 const style = {
-
     position: 'relative',
     margin: '60px auto',
     border: '10px solid white',
@@ -62,12 +61,13 @@ class MainMenu extends Component {
     render() {
         return(
             <div style={{...style, width: this.props.width, height: this.props.height}}>
-                <div style={{position:'relative', width:840, height: 120, margin:'100px', overflow:'hidden'}}>
-                    <div  style={{ width:"100%", height:"100%", ...centerBgImg('/assets/images/80/objectsAndProps/title.png', null, 'auto')}}/>
-                    <div className="shine"/>
+                <div style={{position:'relative', width:'100%', height: '50%', overflow:'hidden'}}>
+                    <div className="animateTitle" style={{position:'absolute',width:"100%", height:"100%", ...centerBgImg('/assets/images/80/objectsAndProps/title.png', null, 'auto')}}/>
                 </div>
-                <MenuBtn title="Start New Game" disabled={false} onClick={this.props.startNewGame}/>
-                <MenuBtn title="Load Game" disabled={!checkSavedGame()} onClick={this.props.loadGame}/>
+                <div className="showMenu" style={{position:'relative', width:'100%', height: '50%', display:'flex', flexDirection:'column', alignItems:'center', marginTop:'100px', opacity:0}}>
+                    <MenuBtn title="Start New Game" disabled={false} onClick={this.props.startNewGame}/>
+                    <MenuBtn title="Load Game" disabled={!checkSavedGame()} onClick={this.props.loadGame}/>
+                </div>
             </div>
         );
     }
