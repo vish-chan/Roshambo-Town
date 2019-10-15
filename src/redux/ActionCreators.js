@@ -752,7 +752,7 @@ export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
         let newlevel = getPlayerLevel(newexp);
         setTimeout( function() { 
             dispatch(EndBattle(finalWinner, {newlevel, newexp, gangMember:finalWinner===1 && battle.npc.battlerType===GANG_MEMBER?battle.npc.name:null}, battle.npc.id));
-        }, 1500);
+        }, 1200);
     }
 }
 

@@ -19,8 +19,6 @@ const mapDispatchtoProps = dispatch => {
     })
 }
 
-const FONT_ANIMATION = 20;
-
 class HealthBar extends Component {
 
     constructor(props) {
@@ -160,15 +158,14 @@ class Summary extends Component {
 
     animateText(text) {
         let idx = 0; const p = this.p;
-        function animate() {
+        const animate = function() {
             if(idx > text.length)
                 return;
             p.innerHTML = text.substring(0, idx);
             idx++;
-            this.timeout = setTimeout(boundanimate, FONT_ANIMATION);
-        }
-        const boundanimate = animate.bind(this);
-        boundanimate();
+            this.timeout = setTimeout(animate, 10);
+        }.bind(this);
+        animate();
     }
 
     componentDidMount() {
@@ -178,6 +175,10 @@ class Summary extends Component {
     componentDidUpdate() {
         clearTimeout(this.timeout);
         this.animateText(this.props.summary);
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timeout);
     }
 
     render() {
@@ -351,7 +352,7 @@ class BattleArena extends Component {
                     this.select.disabled = false; 
                     this.select.focus();
                 }
-            }.bind(this), 1000);
+            }.bind(this), 1200);
         }
     }
 
@@ -396,15 +397,15 @@ class Battle extends Component {
         let UI_COMPONENT = null, AUDIO_COMPONENT = null;
         if(this.props.battle.inIntro) {
                UI_COMPONENT =  <BattleIntro player={this.props.battle.player} npc={this.props.battle.npc} />;
-               AUDIO_COMPONENT = <ReactHowler src={this.props.battle.music} loop={true} html5={true}/>;
+               AUDIO_COMPONENT = <ReactHowler src={this.props.battle.music} loop={true} html5={true} volume={0.5}/>;
 
         } else if(this.props.battle.inEnd) {
                 UI_COMPONENT = <BattleEnd player={this.props.battle.player} winner={this.props.battle.finalWinner} closeBattle={this.props.closeBattle} />;
-                AUDIO_COMPONENT = <ReactHowler src={BATTLE_END_MUSIC} />;
+                AUDIO_COMPONENT = <ReactHowler src={BATTLE_END_MUSIC} volume={0.3}/>;
         
         } else {
                UI_COMPONENT = <BattleArena battle={this.props.battle} submitMove={this.props.submitMove} />;
-               AUDIO_COMPONENT = <ReactHowler src={this.props.battle.music} loop={true} html5={true}/>;
+               AUDIO_COMPONENT = <ReactHowler src={this.props.battle.music} loop={true} html5={true} volume={0.5}/>;
         } 
         return(
             <div>
