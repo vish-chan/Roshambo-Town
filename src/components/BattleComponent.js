@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, SPACE_KEY } from '../helpers/constants';
 import { BattleHandleMove, BattleMoveIndexToStr, BattleEndIntro, CloseBattleSequence } from '../redux/ActionCreators';
 import { centerBgImg, solidBorder, getKeyDiv, getLevelColor } from '../helpers/funcs';
+import ReactHowler from 'react-howler';
 
 const mapStatetoProps = state => {
     return({
@@ -64,6 +65,7 @@ const PlayerInfo = (props) => {
         width: '40%',
         height: '100%',
         backgroundColor: getLevelColor(props.player.level),
+        ...solidBorder(2, 'black', 5),
         color: 'black',
         fontSize: '25px',
         fontFamily: 'gameboy_lg',
@@ -131,7 +133,6 @@ class MoveDiv extends Component  {
             width: '100%',
             height: '100%',
             position: "absolute",
-            backgroundColor: 'white', 
             backgroundRepeat: 'no-repeat', 
             backgroundPosition:'center',
             transform: this.props.reverse? 'rotate(180deg)' : 'rotate(0deg)',
@@ -182,11 +183,12 @@ class Summary extends Component {
     render() {
 
         const style = {
-            border: '5px inset black',
+            border: '10px solid #db5435',
+            borderRadius:'20px',
             width: '70%',
             padding: '5px',
-            backgroundColor: 'lightgrey',
-            color: 'black',
+            backgroundColor: '#639aa1',
+            color: 'white',
             fontSize: '30px',
             fontFamily: 'gameboy',
             overflowWrap: 'break-word',
@@ -204,8 +206,11 @@ class Summary extends Component {
 
 class BattleEnd extends Component {
 
+
     constructor(props) {
         super(props);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.continue = false;
         if(this.props.winner===1) {
             this.winnerStr =  `${this.props.player.name} WON!`;
             this.winnerClass = "wonBlink";
@@ -213,18 +218,21 @@ class BattleEnd extends Component {
             this.winnerStr = `${this.props.player.name} LOST!`;
             this.winnerClass = "lostBlink";
         }
-        this.levelColor =  this.props.player.level>this.props.player.initialStats.level? "forestgreen":"black";
+        this.levelColor =  this.props.player.level>this.props.player.initialStats.level? "forestgreen":"#5d5f5b";
         this.levelArrow = this.props.player.level>this.props.player.initialStats.level?` <i class="fa fa-arrow-up blink"></i>`:"";
 
         this.animateText = this.animateText.bind(this);
         this.timeout = null;
     }
 
+    handleKeyDown(event) {        
+        if(SPACE_KEY.includes( event.keyCode) && this.continue)
+            this.props.closeBattle();
+    }
+
 
     animateText(base, from, to, speed, ref, count) {
-
         const animate = function() {
-            
             if(from>to) {
                 count++;
                 if(count===1) {
@@ -235,6 +243,7 @@ class BattleEnd extends Component {
                     this.level.style.color = this.levelColor;
                     this.level.innerHTML+=this.levelArrow;
                     this.cont.style.opacity = 1;
+                    this.continue = true;
                 }
                 return;
             }
@@ -247,18 +256,20 @@ class BattleEnd extends Component {
     }
 
     componentDidMount() {
+        window.addEventListener('keydown', this.handleKeyDown);
         this.timeout = setTimeout(function(){this.animateText("Score", 0, this.props.player.score, 10, this.score, 0)}.bind(this), 600);
     }
 
     componentWillUnmount() {
         clearTimeout(this.timeout);
+        window.removeEventListener('keydown', this.handleKeyDown);
     }
 
     render() {
         return(
-            <div  id="battleEnd" className="moveInLR" style={{position:'relative', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'center', fontSize:'25px' ,fontFamily:'gameboy', backgroundColor:'white'}}>
+            <div  id="battleEnd" className="moveInLR" style={{position:'relative', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'center', fontSize:'25px' ,fontFamily:'gameboy',  backgroundImage: 'repeating-linear-gradient(#def3c6, #def3c6 20px, #e7f6db 20px, #e7f6db 23px)'}}>
                 <div style={{width:'100%', height:'60%', display:'flex', justifyContent:'center'}}>
-                    <div style={{width:'60%', height: '100%', display:'flex', justifyContent:'center', backgroundColor: 'lightgrey'}}> 
+                    <div style={{width:'60%', height: '100%', display:'flex', justifyContent:'center', backgroundColor: '#f7f8f7',...solidBorder(10, '#00b1b7', 10), color:'#5d5f5b'}}> 
                             <div style={{width:'40%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center'}}>
                                 <div style={{width:'240px', height:'240px', alignSelf:'center', ...centerBgImg(this.props.player.src+"/head.png"), ...solidBorder(2, 'grey', 5) }}/>
                                 <div style={{alignSelf:'center', fontSize:'30px'}}>{this.props.player.name}</div>
@@ -271,7 +282,7 @@ class BattleEnd extends Component {
                             </div>
                     </div>
                 </div> 
-                <div className="blinkContinue" ref={cont => this.cont=cont} style={{alignSelf:'center', marginTop:'20px', opacity:0}}>Press {getKeyDiv("SPACE", 25)} to continue..</div>          
+                <div className="blinkContinue" ref={cont => this.cont=cont} style={{alignSelf:'center', marginTop:'40px', opacity:0, color:'#5d5f5b'}}>Press {getKeyDiv("SPACE", 25)} to continue...</div>          
             </div> 
         );
     }
@@ -280,6 +291,7 @@ class BattleEnd extends Component {
 class BattleIntro extends Component {
 
     render() {
+
         const character_bg = 'lightgrey';
 
         const style={
@@ -308,9 +320,7 @@ class BattleIntro extends Component {
     }
 }
 
-
-
-class Battle extends Component {
+class BattleArena extends Component {
 
     constructor(props) {
         super(props);
@@ -319,18 +329,7 @@ class Battle extends Component {
 
     componentDidMount() {
         window.addEventListener('keydown', this.handleKeyDown);
-        if(this.props.battle.inIntro){
-            setTimeout(function() {
-                if(this.props) 
-                    this.props.endIntro();
-            }.bind(this), 3000);
-        }
-    }
-
-    componentDidUpdate() {
-        if(!(this.props.battle.inIntro || this.props.battle.inEnd)) {
-            this.select.focus();
-        }
+        this.select.focus();
     }
 
     componentWillUnmount() {
@@ -338,44 +337,26 @@ class Battle extends Component {
     }
 
     handleKeyDown(event) {
-        if(this.props.battle.inIntro)
-            return;
-        
         const keyCode = event.keyCode;
-        if(this.props.battle.inEnd) {
-            if(SPACE_KEY.includes(keyCode))
-                this.props.closeBattle();
-        } else {
-            if(ARROW_KEYCODES.includes(keyCode)) {
-                this.select.focus();
-            } else if(ENTER_KEY.includes(keyCode)) {
-                if(this.select.disabled)
-                    return;
-                this.select.disabled = true;
-                this.props.submitMove(this.select.value);
-                setTimeout(function() {
-                    if(this.select) {
-                        this.select.disabled = false; 
-                        this.select.focus();
-                    }
-                }.bind(this), 1000);
-            }
+        if(ARROW_KEYCODES.includes(keyCode)) {
+            this.select.focus();
+        } else if(ENTER_KEY.includes(keyCode)) {
+            if(this.select.disabled)
+                return;
+            this.select.disabled = true;
+            this.props.submitMove(this.select.value);
+            setTimeout(function() {
+                if(this.select) {
+                    this.select.disabled = false; 
+                    this.select.focus();
+                }
+            }.bind(this), 1000);
         }
     }
 
     render() {
-        if(this.props.battle.inIntro) {
             return(
-                <BattleIntro player={this.props.battle.player} npc={this.props.battle.npc} />
-            );
-
-        } else if(this.props.battle.inEnd) {
-            return(
-                <BattleEnd player={this.props.battle.player} winner={this.props.battle.finalWinner} />
-            );
-        } else {
-            return(
-                <div  id="battle" style={{position:'absolute', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'space-between', backgroundColor:'white'}}>
+                <div  id="battle" style={{position:'absolute', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'space-between', backgroundImage: 'repeating-linear-gradient(#def3c6, #def3c6 20px, #e7f6db 20px, #e7f6db 23px)'}}>
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-between', width:'100%', height: '25%', marginBottom: '5px'}}>
                          <PlayerInfo player={this.props.battle.player} reverse={false} blink={this.props.battle.lastWinner===-1} />    
                          <PlayerInfo player={this.props.battle.npc} reverse={true} blink={this.props.battle.lastWinner===1}/>
@@ -385,7 +366,7 @@ class Battle extends Component {
                         <MoveDiv move={this.props.battle.npc.lastMove} reverse={true} blink={this.props.battle.lastWinner===1}/>
                     </div>
                     <div style={{display: 'flex', width: '100%', height: '25%'}}>
-                        <select defaultValue={ROCK} style={{fontFamily:'gameboy_lg', fontSize:'30px', overflowY:'hidden', width: '30%'}} ref={select => this.select = select} size={3}>
+                        <select defaultValue={ROCK} style={{fontFamily:'gameboy_lg', fontSize:'30px', overflowY:'hidden', width: '30%', backgroundColor:'#f9f6d6', ...solidBorder(8, '#4d655e', 10)}} ref={select => this.select = select} size={3}>
                                 <option value={ROCK} >Rock</option>
                                 <option value={PAPER}>Paper</option>
                                 <option value={SCISSORS}>Scissors</option>
@@ -393,6 +374,36 @@ class Battle extends Component {
                         <Summary summary={this.props.battle.summary} />
                     </div>
                 </div> 
+            );
+    }
+}
+
+
+
+class Battle extends Component {
+
+    componentDidMount() {
+        if(this.props.battle.inIntro){
+            setTimeout(function() {
+                if(this.props) 
+                    this.props.endIntro();
+            }.bind(this), 3000);
+        }
+    }
+    
+    render() {
+        if(this.props.battle.inIntro) {
+            return(
+                <BattleIntro player={this.props.battle.player} npc={this.props.battle.npc} />
+            );
+
+        } else if(this.props.battle.inEnd) {
+            return(
+                <BattleEnd player={this.props.battle.player} winner={this.props.battle.finalWinner} closeBattle={this.props.closeBattle} />
+            );
+        } else {
+            return(
+               <BattleArena battle={this.props.battle} submitMove={this.props.submitMove} />
             );
         } 
     }
