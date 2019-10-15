@@ -12,6 +12,7 @@
 /build
 
 /public/assets/images
+/public/assets/audio
 
 # misc
 .DS_Store
