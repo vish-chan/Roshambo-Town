@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BATTLE_NUM_GANG_MEMBERS } from '../helpers/constants';
+import { BATTLE_NUM_GANG_MEMBERS, PORTAL_ENTER, PORTAL_LEAVE } from '../helpers/constants';
 import {connect} from 'react-redux';
 import { solidBorder, centerBgImg, getRounded, getKeyDiv, getLevelColor, getWinPercColor } from '../helpers/funcs';
 import { SaveGameToDisk } from '../redux/ActionCreators';
@@ -25,11 +25,20 @@ const bgStyle = (bgcolor, bordercolor='white') => {
     });
 }
 
+const getPortalInstruction = (portal) => {
+    let targetname = "", action = PORTAL_LEAVE;
+    if(portal.type.name===PORTAL_ENTER) {
+        action = PORTAL_ENTER;
+        targetname = portal.target.name;
+    }
+    return (<div>Use {getKeyDiv("E")} to {action} {targetname}</div>);
+}
+
 const AwareComponent = (props) => {
 
     let instruction = props.player.nearbyNPC!==null? <div>Use {getKeyDiv("SPACE")} to talk</div> : null;
     instruction = props.player.nearbyGameObj!==null? <div>Use {getKeyDiv("P")} to pickup</div> : instruction;
-    instruction = props.player.nearbyPortal!==null? <div>Use {getKeyDiv("E")} to enter or leave</div> : instruction;
+    instruction = props.player.nearbyPortal!==null?  getPortalInstruction(props.player.nearbyPortal) : instruction;
 
     return(
         <div id="aware" style={{display:props.player.interacting?'none':'block'}}>

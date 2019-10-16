@@ -133,7 +133,7 @@ export const Player = (state = {...INITIAL_STATE}, action) => {
         case ActionTypes.UPDATE_NEARBY_PORTAL: 
                 return({
                         ...state,
-                        nearbyPortal: action.payload.id,
+                        nearbyPortal: action.payload.portal? {...action.payload.portal}:null,
                 });
         case ActionTypes.START_BATTLE:
                 return({

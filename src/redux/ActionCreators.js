@@ -198,7 +198,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
 
             const portals = getPortal(getState().player.position, getState().gameobjects);
             if(portals.length) {
-                dispatch(UpdateNearbyPortalAction(portals[0].id));
+                dispatch(UpdateNearbyPortalAction(portals[0]));
             } else if(player.nearbyPortal!==null) {
                 dispatch(UpdateNearbyPortalAction());
             }
@@ -454,10 +454,9 @@ const getPortal = (position, gameobjects) => {
 
 export const CheckPortalAndEnter = () => (dispatch, getState) =>{
     const player = getState().player;
-    const portals = player.nearbyPortal!==null? getState().gameobjects.filter( gobj => gobj.id === player.nearbyPortal ): null;
-    if(portals!==null) {
-        if(portals[0].type.name===PORTAL_ENTER) {
-            const portal = portals[0];
+    const portal = player.nearbyPortal;
+    if(portal!==null) {
+        if(portal.type.name===PORTAL_ENTER) {
     
             dispatch(SaveStateInitAction());
             clearIntervals();
@@ -474,7 +473,7 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
                         dispatch(AddMap(portal.target, true));
                     }
                 }
-        } else if(portals[0].type.name===PORTAL_LEAVE) {
+        } else if(portal.type.name===PORTAL_LEAVE) {
             const cpyPrevStates = [...getState().statemanager.prevStates];
             if(!cpyPrevStates.length)
                 return;
@@ -492,7 +491,7 @@ export const CheckPortalAndEnter = () => (dispatch, getState) =>{
                         defeatedCount: npc.defeatedCount});
                 });
             dispatch(SaveStateInitAction()); 
-            clearInterval();
+            clearIntervals();
             checkandRestoreMap();
                 
                 function checkandRestoreMap() { 
@@ -912,11 +911,11 @@ const UpdateNearbyGameObjAction = (gameobjId=null) => {
     });
 }
 
-const UpdateNearbyPortalAction = (portalId=null) => {
+const UpdateNearbyPortalAction = (portal=null) => {
     return({
         type: ActionTypes.UPDATE_NEARBY_PORTAL,
         payload: {
-            id: portalId,
+           portal
         }
     });
 }
