@@ -4,8 +4,8 @@ const BASE_URL = "/assets/images/80/characters/"
 export const SKINS = {
     player_1: {  
         src: BASE_URL + "player_1",
-        width: 68,
-        height: 72,
+        width: 80,
+        height: 60,
         UP: 1,
         RIGHT: 2,
         DOWN: 0,
@@ -16,8 +16,8 @@ export const SKINS = {
     player_2: {
         /*5*/
         src: BASE_URL + "player_2",
-        width: 64,
-        height: 64,
+        width: 80,
+        height: 60,
         UP: 1,
         RIGHT: 2,
         DOWN: 0,
@@ -229,14 +229,26 @@ export const SKINS = {
    },
 
    crush_3: {  
-    /*11*/
-   src: BASE_URL + "crush_3",
-   width: 80,
-   height: 72,
-   UP: 1,
-   RIGHT: 2,
-   DOWN: 0,
-   LEFT: 3,
-   walkSpriteCount: 4,
-},
+            /*11*/
+        src: BASE_URL + "crush_3",
+        width: 80,
+        height: 72,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
+
+    crush_4: {  
+        /*11*/
+    src: BASE_URL + "crush_4",
+    width: 64,
+    height: 64,
+    UP: 1,
+    RIGHT: 2,
+    DOWN: 0,
+    LEFT: 3,
+    walkSpriteCount: 4,
+}
 }

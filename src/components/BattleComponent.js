@@ -73,7 +73,7 @@ const PlayerInfo = (props) => {
     }
     return(
         <div style={style}>
-            <div style={{width:'30%', height:'90%', alignSelf:'center', margin: '5px', ...centerBgImg(props.player.src+"/head.png"), ...solidBorder(2, 'grey', 5) }}/>
+            <div style={{width:'30%', height:'90%', alignSelf:'center', margin: '5px', ...centerBgImg(props.player.src+"/head.png", "lightgrey"), ...solidBorder(2, 'grey', 5) }}/>
             <div style={{width:'70%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'space-around', alignSelf:'center', margin: '5px'}}>
                 <div style={{display: 'flex', justifyContent:'space-between'}}>
                     <div>{props.player.name}</div>
@@ -273,7 +273,7 @@ class BattleEnd extends Component {
                 <div style={{width:'100%', height:'60%', display:'flex', justifyContent:'center'}}>
                     <div style={{width:'60%', height: '100%', display:'flex', justifyContent:'center', backgroundColor: '#f7f8f7',...solidBorder(10, '#00b1b7', 10), color:'#5d5f5b'}}> 
                             <div style={{width:'40%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center'}}>
-                                <div style={{width:'240px', height:'240px', alignSelf:'center', ...centerBgImg(this.props.player.src+"/head.png"), ...solidBorder(2, 'grey', 5) }}/>
+                                <div style={{width:'240px', height:'240px', alignSelf:'center', ...centerBgImg(this.props.player.src+"/head.png", "lightgrey"), ...solidBorder(2, 'grey', 5) }}/>
                                 <div style={{alignSelf:'center', fontSize:'30px'}}>{this.props.player.name}</div>
                             </div> 
                             <div style={{width:'50%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center', fontSize:'25px'}}>
