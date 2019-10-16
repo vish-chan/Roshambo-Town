@@ -81,6 +81,7 @@ class World extends Component {
                         <ConversationDisplay />
                         <Inventory />
                     </div>
+                    <Loading msg="" display="none"/>
                 </React.Fragment>
             );
         }
