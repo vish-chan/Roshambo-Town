@@ -32,7 +32,7 @@ const MenuBtn = (props) => {
         fontSize:'20px',
         margin:'10px',
         backgroundColor: '#FD974F',
-        ...solidBorder(2, 'white', 5),
+        ...solidBorder(2, '#57ABB3', 5),
     };
 
     const disbaledstyle = {

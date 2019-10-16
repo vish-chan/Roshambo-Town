@@ -17,11 +17,11 @@ const mapDispatchtoProps = dispatch => {
     });
 }
 
-const bgStyle = (color) => {
+const bgStyle = (bgcolor, bordercolor='white') => {
     return({
         padding: '5px',
-        backgroundColor: color,
-        ...solidBorder(2, 'white', 5),
+        backgroundColor: bgcolor,
+        ...solidBorder(2, bordercolor , 5),
     });
 }
 
@@ -94,7 +94,7 @@ class Stats extends Component {
                 </div>
                 <div style={{width:'10%', display:'flex', alignItems: 'center'}}>
                     <button disabled={(this.props.player.isAnimating || this.props.player.frozen || this.props.player.inBattle || this.props.player.interacting)} 
-                            style={{margin:'5px', ...bgStyle('lightgrey'), backgroundColor: '#FD974F', fontFamily:'gameboy'}} onClick={this.handleSaveBtnClick}><i className="fa fa-save fa-2x" style={{margin:'5px'}}/> Save
+                            style={{margin:'5px', ...bgStyle("#FD974F" , '#57ABB3'), backgroundColor: '#FD974F', fontFamily:'gameboy'}} onClick={this.handleSaveBtnClick}><i className="fa fa-save fa-2x" style={{margin:'5px'}}/> Save
                     </button>
                 </div>
             </div>
