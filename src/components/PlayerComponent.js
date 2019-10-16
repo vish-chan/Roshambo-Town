@@ -44,7 +44,7 @@ const PlayerSprite = (props) => {
         height: 25, 
         left: position[0],
         top:  position[1],
-        transform: 'translate(100%, -60%)',
+        transform: 'translate(110%, -60%)',
         display: !props.player.interacting? 'block': 'none',
     }
 
