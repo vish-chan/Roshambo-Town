@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, SAVE_KEY, ESC_KEY, BEEP_3_SOUND } from '../helpers/constants';
 import { connect } from 'react-redux';
 import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject, ToggleInventory, CheckPortalAndEnter } from '../redux/ActionCreators';
-import { mapToViewport, playSoundEffect } from '../helpers/funcs';
+import { mapToViewport, playSoundEffect, getLevelColor } from '../helpers/funcs';
 import CustomModal from './CustomModalComponent';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 const mapStatetoProps = state => {
     return({
@@ -36,8 +38,24 @@ const PlayerSprite = (props) => {
         zIndex: 2,
     };
 
+    const playermarkerstyle = {
+        position: 'absolute',
+        width: 25,
+        height: 25, 
+        left: position[0],
+        top:  position[1],
+        transform: 'translate(100%, -60%)',
+        display: !props.player.interacting? 'block': 'none',
+    }
+
     return(
-        <div id="player" style={playerStyle} />
+        <div>
+            <div id="player" style={playerStyle} />
+            <div style={playermarkerstyle}>
+                <FontAwesomeIcon className="wind" style={{color:getLevelColor(props.player.battle.level), position:'absolute', left:'50%', top:'50%'}} icon={faCaretDown} size="2x"/>
+            </div>
+        </div>
+       
     );
 }
 

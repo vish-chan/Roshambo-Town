@@ -216,9 +216,20 @@ button:disabled { color: lightgray; }
 }
 
 
-
 .showMenu {
   animation: blink 0.3s linear 1s 1 normal forwards;
 }
 
+.wind {
+  animation: wind 0.5s linear 0s infinite alternate forwards;
+}
+
+@keyframes wind {
+  from {
+    transform: translate(-50%, -50%);    
+  }
+  to {
+    transform: translate(-50%, -40%);
+  }
+}
 
