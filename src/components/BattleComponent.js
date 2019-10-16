@@ -397,7 +397,7 @@ class Battle extends Component {
         let UI_COMPONENT = null, AUDIO_COMPONENT = null;
         if(this.props.battle.inIntro) {
                UI_COMPONENT =  <BattleIntro player={this.props.battle.player} npc={this.props.battle.npc} />;
-               AUDIO_COMPONENT = <ReactHowler src={this.props.battle.music} loop={true} html5={true} volume={0.5}/>;
+               AUDIO_COMPONENT = <ReactHowler src={this.props.battle.music} loop={true} html5={false} volume={0.5}/>;
 
         } else if(this.props.battle.inEnd) {
                 UI_COMPONENT = <BattleEnd player={this.props.battle.player} winner={this.props.battle.finalWinner} closeBattle={this.props.closeBattle} />;
@@ -405,7 +405,7 @@ class Battle extends Component {
         
         } else {
                UI_COMPONENT = <BattleArena battle={this.props.battle} submitMove={this.props.submitMove} />;
-               AUDIO_COMPONENT = <ReactHowler src={this.props.battle.music} loop={true} html5={true} volume={0.5}/>;
+               AUDIO_COMPONENT = <ReactHowler src={this.props.battle.music} loop={true} html5={false} volume={0.5}/>;
         } 
         return(
             <div>

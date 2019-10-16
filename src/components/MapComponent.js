@@ -19,7 +19,7 @@ class Map extends Component {
                         backgroundColor: 'black', }}>
                 <GameObjectManager />
                 <NPCManager />
-                <ReactHowler src={this.props.map.audioSrc} loop={true} volume={0.4} html5={true}/>
+                <ReactHowler src={this.props.map.audioSrc} loop={true} volume={0.4} html5={false}/>
             </div>
         );
     }
