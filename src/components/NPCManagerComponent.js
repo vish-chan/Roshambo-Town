@@ -71,7 +71,7 @@ class NPC extends Component {
             height: 25, 
             left: this.props.self.position[0],
             top: this.props.self.position[1],
-            transform: 'translate(100%, -70%)',
+            transform: 'translate(100%, -100%)',
             display: !this.props.self.interacting && !this.props.self.talkFlag? 'block':'none',
         }
     
@@ -82,7 +82,7 @@ class NPC extends Component {
                     <div style={{position:'relative', width:'100%', height:'100%', textAlign:'center',backgroundColor:getLevelColor(this.props.self.level), ...solidBorder(1,'black',5)}}><FontAwesomeIcon icon={this.battlerMarkerIcon}/></div>
                 </div>
                 <div className="blink" style={messagestylebase}>
-                    <div style={{position:'relative', width:'100%', height:'100%', textAlign:'center'}}><FontAwesomeIcon style={{color:"white"}} size="lg" icon={faEnvelope }/></div>
+                    <FontAwesomeIcon style={{color:"white",  position:'absolute', left:'50%', top:'50%', transform: 'translate(-50%, -50%)'}} size="lg" icon={faEnvelope }/>
                 </div>
             </div> 
         ); 
