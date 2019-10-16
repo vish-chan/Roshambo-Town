@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import World from './WorldComponent';
 import MainMenu from './MainMenuComponent';
 import PlayerSelectComponent from './PlayerSelectComponent';
-import { getViewportDim, playSoundEffect } from '../helpers/funcs';
+import { getViewportDim, playSoundEffect, centerBgImg } from '../helpers/funcs';
 import ReactHowler from 'react-howler';
 import { MAIN_MENU_MUSIC, BEEP_2_SOUND, BEEP_LONG_SOUND } from '../helpers/constants';
 
@@ -18,9 +18,9 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            menu: false,
+            menu: true,
             playerselect: false,
-            world: true,
+            world: false,
             loadgame: false,
             screenDim: getViewportDim(window.screen.width),
         }
@@ -72,13 +72,24 @@ class Main extends Component {
     }
 
     render() {
+        
+        const style = {
+            position: 'relative',
+            margin: '60px auto',
+            border: '10px solid white',
+            overflow: 'hidden',
+            width: this.state.screenDim[0],
+            height: this.state.screenDim[1],
+            ...centerBgImg("/assets/images/80/objectsAndProps/town.png", 'black', 'cover'),
+        }
+
         let UI_COMPONENT = null, AUDIO_COMPONENT = null;
         if(this.state.menu) {
-            UI_COMPONENT = <MainMenu width={this.state.screenDim[0]} height={this.state.screenDim[1]} startNewGame={this.handleStartNewGame} loadGame={this.handleLoadGame} />;
-            AUDIO_COMPONENT = <ReactHowler src={MAIN_MENU_MUSIC} loop={true} html5={true} volume={0.4}/>;
+            UI_COMPONENT = <div style={style}><MainMenu width={this.state.screenDim[0]} height={this.state.screenDim[1]} startNewGame={this.handleStartNewGame} loadGame={this.handleLoadGame} /></div>;
+            AUDIO_COMPONENT = <ReactHowler src={MAIN_MENU_MUSIC} loop={true} html5={false} volume={0.4}/>;
         } else if(this.state.playerselect) {
-            UI_COMPONENT = <PlayerSelectComponent width={this.state.screenDim[0]} height={this.state.screenDim[1]}  startJourney={this.handleStartJourney} handleBack={this.handleBack}/>;
-            AUDIO_COMPONENT = <ReactHowler src={MAIN_MENU_MUSIC} loop={true} html5={true}  volume={0.4}/>;
+            UI_COMPONENT = <div style={style}><PlayerSelectComponent width={this.state.screenDim[0]} height={this.state.screenDim[1]}  startJourney={this.handleStartJourney} handleBack={this.handleBack}/></div>;
+            AUDIO_COMPONENT = <ReactHowler src={MAIN_MENU_MUSIC} loop={true} html5={false}  volume={0.4}/>;
         } else if(this.state.world) {
             UI_COMPONENT = <World width={this.state.screenDim[0]} height={this.state.screenDim[1]} loadgame={this.state.loadgame} handleBack={this.handleBack}/>;
             AUDIO_COMPONENT = null;

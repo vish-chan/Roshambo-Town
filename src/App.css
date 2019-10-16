@@ -153,7 +153,7 @@ to {
 }
 
 .selected {
- border: 10px #FD974F solid;
+ border: 10px #57ABB3 solid;
  border-radius: 5px;
 }
 
@@ -208,13 +208,10 @@ button:disabled { color: lightgray; }
 @keyframes moveTitle {
   from {
     top: -100%;
-    filter: brightness(0%);
-    -webkit-filter: brightness(0%);
+   
   }
   to {
-    top: 20%;
-    filter: brightness(130%);
-    -webkit-filter: brightness(130%);
+    top: 0%;
   }
 }
 
