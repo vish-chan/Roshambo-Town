@@ -3,16 +3,18 @@ import { DOWN } from '../helpers/constants';
 import { getValue } from '../helpers/funcs';
 import { SKINS } from '../data/skins';
 
+const DEFAULT_SKIN = "player_1";
+
 const INITIAL_STATE = { 
                         name: "PLAYER",
-                        skin: SKINS["player_1"],
+                        skin: SKINS[DEFAULT_SKIN],
                         position: [0, 0],
                         direction: DOWN,
-                        spriteLocation: SKINS["player_1"][DOWN],
+                        spriteLocation: SKINS[DEFAULT_SKIN][DOWN],
                         isAnimating: false,
                         nextPosition: [],
                         walkIndex: 0,
-                        frameInterval: 0,
+                        frameInterval: 10,
                         interacting: false,
                         frozen: false,
                         nearbyNPC: null,
