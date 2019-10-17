@@ -53,7 +53,7 @@ export const PLAYERDIALOGS = {
         starts:[],
         battleAccept:["Yeah sure, lets go!"],
         battleAsk:["Hey! do you wanna battle?"],
-        battleWin:["Thanks mate! I think I am ready to defeat him or her, whatever."],
+        battleWin:["Thanks mate! I think I am ready to defeat him, whatever."],
         battleLose:["I'll be back in no time. See you then."],
     },
 
@@ -62,8 +62,24 @@ export const PLAYERDIALOGS = {
         starts:[],
         battleAccept:["Yeah sure, who doesn't like a freebie ;)"],
         battleAsk:["Hey! do you wanna battle?"],
-        battleWin:["Thanks! I think I am ready to defeat him or her, whateve.", "Great! Now I have 2 reasons to defeat him haha."],
+        battleWin:["Thanks! I think I am ready to defeat him.", "Great! Now I have 2 reasons to defeat him haha."],
         battleLose:["I'll be back in no time. See you then."],
+    },
+
+    Eden:{
+
+        follows:[],
+        starts:[],
+        battleAccept:["I'm $PLAYERNAME. I'm not new, you are new here. Btw, I came here for an eclair.",
+                      "Really? I thought I need to have a Roshambo battle with you. Guess you are not that bad.",
+                      "And I thought for a moment that the tribe isn't that bad. Nevertheless, I can defeat you, pretty easily.",
+                      "Yup, lets go!!!"],
+        battleAsk:["I want to challenge you for a battle!"],
+        battleWin:["I'll take care of your boss later. I need my eclair now. Step aside.", 
+                   "But you said so. And I believed you!",
+                   "F*** man. What else can I expect from the tribe! Where can I find your boss?",
+                   "Ughhhhhh."],
+        battleLose:["I'll be back in no time. "],
     }
 
 }
@@ -139,7 +155,8 @@ export const NPCDIALOGS = {
         battleAcceptNeverDefeated:["How many times you wanna lose!!"],
         battleAcceptDefeated:["Yeah, sure. But, this time you won't be lucky!"],
         battleDecline:["I don't think you're on my level. Go and Practice"],
-        battleLose:["You are great! Now you need to defeat the tribe member to get the free swiss roll. Hehe.", "Really! You'll get a brownie as well if you defeat him."],
+        battleLose:["You are great! Now you need to defeat the tribe member to get the free swiss roll. Hehe.",
+                     "Really! You'll get a brownie as well if you defeat him."],
         battleWin: ["Gosh! You're aweful. You need to practice. I don't think I'll ever get the swiss roll lol."],
     },
 
@@ -147,11 +164,16 @@ export const NPCDIALOGS = {
         starts: [],
         follows: [],
         battleAsk: ["Hey you! I think you're new here.",
-                    ""],
+                    "Just an eclair? You can have one.",
+                    "No, I was kidding. You need to defeat me in Roshambo first.",
+                    "I like defeating overconfident kids, lets go!"],
         battleAcceptNeverDefeated:["How many times you wanna lose!!"],
-        battleAcceptDefeated:["Yeah, sure. But, this time you won't be lucky!"],
-        battleDecline:["I don't think you're on my level. Go and Practice"],
-        battleLose:["You are great! Now you need to defeat the tribe member to get the free swiss roll. Hehe.", "Really! You'll get a brownie as well if you defeat him."],
-        battleWin: ["Gosh! You're aweful. You need to practice. I don't think I'll ever get the swiss roll lol."],
+        battleAcceptDefeated:["This time you won't be lucky!"],
+        battleDecline:["I don't think you're on my level. Go, battle and level up."],
+        battleLose:["You have defeated me, but you won't be able to defeat our boss.", 
+                    "If you think you can get your eclair now, you are a fool!",
+                    "Ah, I lied. You need to defeat our boss in order to change the rules. Hahahahaha.",
+                    "Find him yourself. All the best. Hahahahahahahaha."],
+        battleWin: ["Typical overconfident kid. You can never defeat me, nevermind our boss!!"],
     }
 }
