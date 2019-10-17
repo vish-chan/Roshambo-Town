@@ -72,7 +72,7 @@ export const SKINS = {
         walkSpriteCount: 4,
     },
 
-    friend_5: {
+    friend_4: {
         /*4*/
         src: BASE_URL + "friend_4",
         width: _80,
