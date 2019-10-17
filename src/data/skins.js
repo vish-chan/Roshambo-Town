@@ -72,6 +72,18 @@ export const SKINS = {
         walkSpriteCount: 4,
     },
 
+    friend_5: {
+        /*4*/
+        src: BASE_URL + "friend_4",
+        width: _80,
+        height: _80,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
+
     friend_5: {  
         /*11*/
        src: BASE_URL + "friend_5",
@@ -120,17 +132,6 @@ export const SKINS = {
         walkSpriteCount: 4,
     },
 
-    friend_9: {  
-        /*11*/
-            src: BASE_URL + "friend_9",
-            width: 80,
-            height: 74,
-            UP: 1,
-            RIGHT: 2,
-            DOWN: 0,
-            LEFT: 3,
-            walkSpriteCount: 4,
-        },
 
     kid_1: {   
         /*6*/
@@ -192,18 +193,6 @@ export const SKINS = {
         walkSpriteCount: 4,
    },
 
-   bully_2: {  
-    /*10*/
-        src: BASE_URL + "bully_2",
-        width: 64,
-        height: 64,
-        UP: 1,
-        RIGHT: 2,
-        DOWN: 0,
-        LEFT: 3,
-        walkSpriteCount: 4,
-    },
-
    crush_1: {  
          /*11*/
         src: BASE_URL + "crush_1",
@@ -232,7 +221,7 @@ export const SKINS = {
             /*11*/
         src: BASE_URL + "crush_3",
         width: 80,
-        height: 72,
+        height: 80,
         UP: 1,
         RIGHT: 2,
         DOWN: 0,
@@ -242,13 +231,85 @@ export const SKINS = {
 
     crush_4: {  
         /*11*/
-    src: BASE_URL + "crush_4",
-    width: 64,
-    height: 64,
-    UP: 1,
-    RIGHT: 2,
-    DOWN: 0,
-    LEFT: 3,
-    walkSpriteCount: 4,
-}
+        src: BASE_URL + "crush_4",
+        width: 64,
+        height: 64,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
+
+    tribe_1: {  
+        /*11*/
+        src: BASE_URL + "tribe_1",
+        width: 80,
+        height: 80,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
+
+    tribe_2: {  
+        /*11*/
+        src: BASE_URL + "tribe_2",
+        width: 80,
+        height: 80,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
+
+    tribe_3: {  
+        /*10*/
+        src: BASE_URL + "tribe_3",
+        width: 64,
+        height: 64,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+        },
+
+    tribe_4: {  
+        /*11*/
+        src: BASE_URL + "tribe_4",
+        width: 80,
+        height: 80,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
+
+    tribe_5: {  
+        /*11*/
+            src: BASE_URL + "tribe_5",
+            width: 80,
+            height: 80,
+            UP: 1,
+            RIGHT: 2,
+            DOWN: 0,
+            LEFT: 3,
+            walkSpriteCount: 4,
+    },
+
+    boss: {  
+        /*11*/
+        src: BASE_URL + "boss",
+        width: 80,
+        height: 80,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
 }
