@@ -387,7 +387,7 @@ const getNewDirection = (oldpos, newpos, oldirection) => {
 export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
     let npc = getNPC(getState().npc.list, npcId);
     
-    if(npc.stationary ||  npc.isAnimating || npc.interacting || npc.inBattle)
+    if(npc.pathArr.length<2 || npc.stationary ||  npc.isAnimating || npc.interacting || npc.inBattle)
         return;
     
     if(npc.isWaiting) {
