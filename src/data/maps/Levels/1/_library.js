@@ -1,4 +1,4 @@
-import { DOWN } from "../../../../helpers/constants";
+import { DOWN, UP, LEFT, RIGHT, NON_GANG_MEMBER } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { PORTALS } from "../../../gameobjects";
 import { library } from '../../Maps/library';
@@ -20,18 +20,100 @@ export const _library = {
 
     /* Compulsory */
     npc : [
-            { 
-                //informational
-                id: 0,
-                name: "Dad",
-                skin: SKINS["prof"],
-                direction: DOWN,
-                stationary: true,
-                pathArr: [[4,1]],
-                frameInterval: 100,
-                moveInterval: 500,
-                waitInterval: 3000,
-            },
+        { 
+            //prop
+            id: 0,
+            name: "Jordan",
+            skin: SKINS["kid_2"],
+            direction: UP,
+            stationary: false,
+            pathArr: [[14,0], [14,1], [14,2]],
+            frameInterval: 100,
+            moveInterval: 500,
+            waitInterval: 3000,
+        },
+
+        { 
+            //prop
+            id: 1,
+            name: "Prick",
+            skin: SKINS["friend_5"],
+            direction: RIGHT,
+            stationary: false,
+            pathArr: [[14,16]],
+            frameInterval: 100,
+            moveInterval: 500,
+            waitInterval: 6000,
+        },
+
+        { 
+            //prop
+            id: 2,
+            name: "Pom",
+            skin: SKINS["friend_3"],
+            direction: LEFT,
+            stationary: false,
+            pathArr: [[14,17]],
+            frameInterval: 100,
+            moveInterval: 500,
+            waitInterval: 6000,
+        },
+
+        { 
+            //prop
+            id: 3,
+            name: "Bam",
+            skin: SKINS["friend_6"],
+            direction: UP,
+            stationary: false,
+            pathArr: [[10,13], [10,14], [9,14]],
+            frameInterval: 100,
+            moveInterval: 500,
+            waitInterval: 6000,
+        },
+
+        { 
+            //prop
+            id: 4,
+            name: "Boo",
+            skin: SKINS["friend_2"],
+            direction: UP,
+            stationary: false,
+            pathArr: [[7,16]],
+            frameInterval: 100,
+            moveInterval: 500,
+            waitInterval: 6000,
+        },
+
+        {   //battler
+            id: 5,
+            name: "Tori",
+            skin: SKINS["kid_3"],
+            direction: DOWN,
+            stationary: false,
+            pathArr: [[8,0]],
+            frameInterval: 100,
+            moveInterval: 500,
+            waitInterval: 6000,
+            battle: true,
+            level: 2,
+            battlerType: NON_GANG_MEMBER,
+        },
+
+        {
+            //informational
+            id:6,
+            name: "Ghissu",
+            skin: SKINS["kid_1"],
+            direction: RIGHT,
+            stationary: false,
+            pathArr: [[4,3], [4,4], [4,5]],
+            frameInterval: 100,
+            moveInterval: 500,
+            waitInterval: 1500,
+            talkFlag: false,
+        },
+
         ],
 
     /* Compulsory */

@@ -1,4 +1,4 @@
-import { DOWN, GANG_MEMBER } from "../../../../helpers/constants";
+import { DOWN, GANG_MEMBER, NON_GANG_MEMBER, BATTLE_MUSIC, BATTLE_BOSS_MUSIC, BATTLE_NUM_GANG_MEMBERS, BATTLE_GM_MUSIC, LEFT, RIGHT } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { PORTALS } from "../../../gameobjects";
 import { townCenter } from '../../Maps/town_center';
@@ -16,7 +16,7 @@ export const _townCenter = {
 
     /* Compulsory */
     player: {
-        position: [13, 15],
+        position: [14, 11],
         direction: 'DOWN',
     },
 
@@ -25,31 +25,121 @@ export const _townCenter = {
             { 
                 //informational
                 id: 0,
-                name: "Dad",
-                skin: SKINS["prof"],
-                direction: DOWN,
+                name: "Frank",
+                skin: SKINS["friend_5"],
+                direction: LEFT,
                 stationary: true,
-                pathArr: [[14,14]],
+                pathArr: [[14,16], [14,17], [14,18]],
+                frameInterval: 100,
+                moveInterval: 500,
+                waitInterval: 2000,
+                talkFlag: false,
+            },
+
+            { 
+                //informational
+                id: 1,
+                name: "Tia",
+                skin: SKINS["crush_4"],
+                direction: RIGHT,
+                stationary: false,
+                pathArr: [[7,7], [7,8]],
+                frameInterval: 100,
+                moveInterval: 500,
+                waitInterval: 2000,
+                talkFlag: false,
+            },
+
+            {
+                //battler
+                id:2,
+                name: "Nathan",
+                skin: SKINS["friend_2"],
+                direction: DOWN,
+                stationary: false,
+                pathArr: [[3,6], [4,6]],
+                frameInterval: 100,
+                moveInterval: 500,
+                waitInterval: 1500,
+                battle: true,
+                level: 1,
+                battlerType: NON_GANG_MEMBER,
+                //battleMusic: BATTLE_GM_MUSIC,
+            },
+
+            {
+                //informational
+                id:3,
+                name: "Tracer",
+                skin: SKINS["friend_7"],
+                direction: DOWN,
+                stationary: false,
+                pathArr: [[11,2], [12,2], [13,2], [14,2], [14,3]],
+                frameInterval: 100,
+                moveInterval: 500,
+                waitInterval: 1500,
+                talkFlag: false,
+            },
+
+            {
+                //informational
+                id:4,
+                name: "Sean",
+                skin: SKINS["chef"],
+                direction: LEFT,
+                stationary: false,
+                pathArr: [[20,11], [20,12], [20,13]],
+                frameInterval: 100,
+                moveInterval: 500,
+                waitInterval: 3000,
+                talkFlag: false,
+            },
+
+            {
+                //battler
+                id:5,
+                name: "Pathay",
+                skin: SKINS["tribe_2"],
+                direction: RIGHT,
+                stationary: false,
+                pathArr: [[19, 15], [19,16]],
+                frameInterval: 100,
+                moveInterval: 500,
+                waitInterval: 1500,
+                battle: true,
+                level: 3,
+                battlerType: GANG_MEMBER,
+                battleMusic: BATTLE_GM_MUSIC,
+            },
+
+            {   //prop
+                id: 6,
+                name: "Rock",
+                skin: SKINS["friend_1"],
+                direction: LEFT,
+                stationary: true,
+                pathArr: [[19,16]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 3000,
             },
 
             {
-                //battle
-                    id:1,
-                    name: "Beast",
-                    skin: SKINS["crush_2"],
-                    direction: DOWN,
-                    stationary: true,
-                    pathArr: [[14,12], [13,26], [14,26], [15,26], [15, 25]],
-                    frameInterval: 100,
-                    moveInterval: 500,
-                    waitInterval: 1500,
-                    battle: true,
-                    level: 1,
-                    battlerType: GANG_MEMBER,
-                },
+                //battler
+                id:7,
+                name: "Chop",
+                skin: SKINS["bully_1"],
+                direction: RIGHT,
+                stationary: true,
+                pathArr: [[19,20], [19, 21], [20,21]],
+                frameInterval: 100,
+                moveInterval: 500,
+                waitInterval: 1500,
+                battle: true,
+                level: 2,
+                battlerType: NON_GANG_MEMBER,
+            },
+
         ],
 
     /* Compulsory */

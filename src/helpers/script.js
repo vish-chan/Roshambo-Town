@@ -53,7 +53,7 @@ export const PLAYERDIALOGS = {
         starts:[],
         battleAccept:["Yeah sure, lets go!"],
         battleAsk:["Hey! do you wanna battle?"],
-        battleWin:["Thanks mate! I think I am ready to defeat him, whatever."],
+        battleWin:["Thanks mate! I think I am ready to defeat him."],
         battleLose:["I'll be back in no time. See you then."],
     },
 
@@ -80,8 +80,125 @@ export const PLAYERDIALOGS = {
                    "F*** man. What else can I expect from the tribe! Where can I find your boss?",
                    "Ughhhhhh."],
         battleLose:["I'll be back in no time. "],
-    }
+    },
 
+    Tracer: {
+        follows:["Hey Tracer. I'm looking for the tribe boss. Do you know where he lives?",
+                 "North? How do you know?",
+                 "And I'm John Snow. Stop joking. Are you sure about this info?",
+                 "No... sadly :( I'll probably go to the north.",
+                 "Thanks :) Hopefully."
+                ],
+        starts:["Hey Tracer! Whatsup?"],
+        battleAccept:[],
+        battleAsk:[],
+        battleWin:[],
+        battleLose:[],
+    },
+
+    Sean: {
+        follows:["Hey Sean. I'm great. Hows your business?",
+                 "Why? What happened?",
+                 "Tell me!",
+                 "Who is Pathay? Why didn't you call police for help?",
+                 "I knew it. A tribe member doing what tribe members do best, bully others. I'll teach him a lesson by defeating him in a Roshambo battle.",
+                 "Don't decide the winner before the battle. Atleast I want to try.",
+                 "Yup, I will. Thanks."
+                ],
+        starts:["Hey Sean! Whatsup?"],
+        battleAccept:[],
+        battleAsk:[],
+        battleWin:[],
+        battleLose:[],
+    },
+
+    Pathay:{
+
+        follows:[],
+        starts:[],
+        battleAccept:["No, this isn't your property. This is my friend Sean's property.",
+                      "I've got big hands as well. I challenge you for a Roshambo battle.",
+                      "One tribe defeated is one tribe less. Lets go"],
+        battleAsk:["I want to challenge you for a battle!"],
+        battleWin:["Not for long. I'll soon defeat your boss."],
+        battleLose:["I'm pretty sure you cheated. I'll be back."],
+    },
+
+    Chop:{
+
+        follows:[],
+        starts:[],
+        battleAccept:["Do I have a choice?"],
+        battleAsk:["Do you wanna battle?"],
+        battleWin:["You are pretty good. I got lucky."],
+        battleLose:["No! I underestimated you. See you next time."],
+    },
+
+    Molly: {
+        follows:["Hey Molly. Why are you outside the library?",
+                 "Have they occupied the library as well? I thought its just the bakery and the chinese van.",
+                 "Don't worry. I'll soon defeat their boss.",
+                 "Really! I didn't know that. I should go inside and battle them. Wish me luck.",
+                 "Thanks!"],
+        starts:["Hey Molly! Whatsup?"],
+        battleAccept:[],
+        battleAsk:[],
+        battleWin:[],
+        battleLose:[],
+    },
+
+    Grindel:{
+        follows:[],
+        starts:[],
+        battleAccept:["Do I have a choice?"],
+        battleAsk:["Do you wanna battle?"],
+        battleWin:["You are pretty good. I got lucky."],
+        battleLose:["No! I underestimated you. See you next time."],
+    },
+
+    Tori:{
+        follows:[],
+        starts:[],
+        battleAccept:["Definitely! I need to practice as well."],
+        battleAsk:["Do you wanna battle?"],
+        battleWin:["Losers will be losers"],
+        battleLose:["I underestimated you. See you next time."],
+    },
+
+    Ghissu: {
+        follows:["Hey Ghissu. Done with all the ghisai?",
+                 "Molly told me the tribe has occupied the library as well. I'm looking for them.",
+                 "Atleast you have a source of entertainment now. Haha. Jokes aside, where are they?",
+                 "I should have known. Thanks! See you after the battle.",
+                 "Haha. Bbye."],
+        starts:["Hey Ghissu! Whatsup?"],
+        battleAccept:[],
+        battleAsk:[],
+        battleWin:[],
+        battleLose:[],
+    },
+
+    Razor:{
+
+        follows:[],
+        starts:[],
+        battleAccept:["Its a public TV, you can't watch something private here.",
+                      "Not for long. Soon I'll defeat your boss.",
+                      "You stole words from my mouth. I accept the challenge.",
+                      "Stop talking and start battling!"],
+        battleAsk:["I want to challenge you for a battle!"],
+        battleWin:["Not for long. I'll soon defeat your boss."],
+        battleLose:["I'm pretty sure you cheated.", "I'll be back in no time."],
+    },
+
+    LT: {
+        follows:["Okay... I get it."],
+        starts:["Hey! Can I play?"],
+        battleAccept:[],
+        battleAsk:[],
+        battleWin:[],
+        battleLose:[],
+    },
 }
 
 export const NPCDIALOGS = {
@@ -144,7 +261,7 @@ export const NPCDIALOGS = {
         battleAcceptNeverDefeated:["How many times you wanna lose!!"],
         battleAcceptDefeated:["Yeah, sure. But, this time you won't be lucky!"],
         battleDecline:["I don't think you're on my level. Go and Practice"],
-        battleLose:["You are great man! Hopefully you'll be able to defeat the tribe member."],
+        battleLose:["You are great man! Cheers!."],
         battleWin: ["You're aweful. You need to practice."],
     },
 
@@ -175,5 +292,139 @@ export const NPCDIALOGS = {
                     "Ah, I lied. You need to defeat our boss in order to change the rules. Hahahahaha.",
                     "Find him yourself. All the best. Hahahahahahahaha."],
         battleWin: ["Typical overconfident kid. You can never defeat me, nevermind our boss!!"],
-    }
+    },
+
+    Tracer:{
+        starts: ["Hey $PLAYERNAME! Where are you heading towards?", 
+                 "I heard he lives in a cave somewhere in the north.", 
+                 "I'm the master of whisperers. Haha.", 
+                 "Hehe. Do you have any other option?", 
+                 "All the best. May the luck be with you."],
+        follows: ["Ohh, you are still alive!"],
+        battleAsk:[],
+        battleAcceptNeverDefeated:[],
+        battleAcceptDefeated:[],
+        battleDecline:[],
+        battleLose:[],
+        battleWin:[],
+    },
+
+    Sean:{
+        starts: ["Hey $PLAYERNAME! Long time no see?", 
+                 "Ummm...not great.",
+                 "Ummm....",
+                 "Pathay and his bully friends are not allowing me to run my business!", 
+                 "He is a tribe member. That't why nobody is willing to help me.", 
+                 "He's on level 3, I don't think you can defeat him. I don't want to give you any trouble.", 
+                 "Okay, your call. But, be careful."],
+        follows: ["Be careful of the tribe, $PLAYERNAME."],
+        battleAsk:[],
+        battleAcceptNeverDefeated:[],
+        battleAcceptDefeated:[],
+        battleDecline:[],
+        battleLose:[],
+        battleWin:[],
+    },
+
+    Pathay:{
+        starts: [],
+        follows: [],
+        battleAsk: ["Hey kid! Stop wandering around here. This is tribe's property!",
+                    "Your big mouth will lead you into trouble.",
+                    "I can defeat you in 2 minutes. Challenge accepted."],
+        battleAcceptNeverDefeated:["Again? Save your self respect!"],
+        battleAcceptDefeated:["You won't be lucky this time."],
+        battleDecline:["You need to level up, loser!"],
+        battleLose:["You got lucky. Nevermind, this town still belongs to us!"],
+        battleWin: ["You were a total waste of time."],
+    },
+
+    Chop:{
+        starts: [],
+        follows: [],
+        battleAsk: ["Do you wanna test your Roshambo skills against a real player?"],
+        battleAcceptNeverDefeated:["How many times you wanna lose!!"],
+        battleAcceptDefeated:["Yeah, sure. But, this time you won't be lucky!"],
+        battleDecline:["I don't think you're on my level. Go and Practice."],
+        battleLose:["Today is not my day. I should get some rest."],
+        battleWin: ["Was this your first time lol?"],
+    },
+
+    Molly:{
+        starts: ["Hey $PLAYERNAME. Glad you are here.",
+                 "There's a lot of noise inside. The tribe members you know.",
+                 "They are everywhere. We need to get rid of them.",
+                 "First you need to defeat all of the tribe members. Only then you can battle their boss. I hope you knew this.",
+                 "All the best! May the luck be with you."],
+        follows: ["Not great. I hope you defeat the tribe soon."],
+        battleAsk:[],
+        battleAcceptNeverDefeated:[],
+        battleAcceptDefeated:[],
+        battleDecline:[],
+        battleLose:[],
+        battleWin:[],
+    },
+
+    Grindel:{
+        starts: [],
+        follows: [],
+        battleAsk: ["Do you wanna test your Roshambo skills against a real player?"],
+        battleAcceptNeverDefeated:["How many times you wanna lose!!"],
+        battleAcceptDefeated:["Yeah, sure. But, this time you won't be lucky!"],
+        battleDecline:["I don't think you're on my level. Go and Practice."],
+        battleLose:["Today is not my day. I should get some rest."],
+        battleWin: ["Was this your first time lol?"],
+    },
+
+    Tori:{
+        starts: [],
+        follows: [],
+        battleAsk: ["Test your Roshambo skills against a real player. Battle?"],
+        battleAcceptNeverDefeated:["How many times you wanna lose!!"],
+        battleAcceptDefeated:["Yeah, sure. But, this time you won't be lucky!"],
+        battleDecline:["I don't think you're on my level. Go and Practice."],
+        battleLose:["So lucky you are! So lucky you are!"],
+        battleWin: ["Was this your first time lol?"],
+    },
+
+    Ghissu:{
+        starts: ["Hey $PLAYERNAME! Whatsup!", 
+                 "No man! still 4th revision remaining. BTW, what are you doing here?", 
+                 "Yeah, they play all sorts of horrible music here, and particularly during daytime.",
+                 "In the gameroom, first floor.",
+                 "Hopefully your Roshambo is better than your sense of humour."
+                ],
+        follows: ["Hey! Get lost now. I have to study."],
+        battleAsk:[],
+        battleAcceptNeverDefeated:[],
+        battleAcceptDefeated:[],
+        battleDecline:[],
+        battleLose:[],
+        battleWin:[],
+    },
+
+    Razor:{
+        starts: [],
+        follows: [],
+        battleAsk: ["Hey! Stop disturbing me! I watching something important.",
+                    "Don't teach me the rules. I make the rules here.",
+                    "Stop day dreaming you idiot. I challenge you for a Roshambo battle.",
+                    "You won't dare to speak a word against the tribe after this."],
+        battleAcceptNeverDefeated:["Again? Save your self respect!"],
+        battleAcceptDefeated:["You won't be lucky this time."],
+        battleDecline:["You need to level up, loser!"],
+        battleLose:["You got lucky. Nevermind, this town still belongs to us!"],
+        battleWin: ["You were a total waste of time.", "Now shut up and FO!"],
+    },
+
+    LT:{
+        starts: ["Hey you! Don't disturb Razor. He doesn't like interruptions in between a movie."],
+        follows: ["Get lost from here."],
+        battleAsk:[],
+        battleAcceptNeverDefeated:[],
+        battleAcceptDefeated:[],
+        battleDecline:[],
+        battleLose:[],
+        battleWin:[],
+    },
 }
