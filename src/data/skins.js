@@ -181,6 +181,18 @@ export const SKINS = {
         walkSpriteCount: 4,
     },
 
+    chef: {  
+        /*9*/
+       src: BASE_URL + "chef",
+       width: 80,
+       height: 80,
+       UP: 1,
+       RIGHT: 2,
+       DOWN: 0,
+       LEFT: 3,
+       walkSpriteCount: 4,
+   },
+
     bully_1: {  
         /*10*/
         src: BASE_URL + "bully_1",
