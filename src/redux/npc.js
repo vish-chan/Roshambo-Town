@@ -25,6 +25,7 @@ export const NPC = (state = {...INITIAL_STATE}, action) => {
                         return({...npc, 
                                 position: tileToMapCoordinates(npc.pathArr[0], TILE_SIZE),
                                 spriteLocation: npc.skin[npc.direction],
+                                defaultDirection: npc.direction,
                                 isAnimating: false,
                                 nextPosition: [],
                                 walkIndex: 0,

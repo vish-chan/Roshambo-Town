@@ -176,7 +176,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     function animatePlayer() {
         if(steps === 0) {
             dispatch(UpdatePlayerAnimationAction(false));
-
+            console.log(mapCoordinatesToTiles(getState().player.position, TILE_SIZE));
             const nearByNPC = checkNearbyIdleNPC(getState().player.position, getState().player.direction, getState().npc.list);
             if(nearByNPC.length) {
                 dispatch(UpdateNearbyNPCAction(nearByNPC[0].id));
@@ -387,7 +387,7 @@ const getNewDirection = (oldpos, newpos, oldirection) => {
 export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
     let npc = getNPC(getState().npc.list, npcId);
     
-    if(npc.pathArr.length<2 || npc.stationary ||  npc.isAnimating || npc.interacting || npc.inBattle)
+    if(npc.stationary ||  npc.isAnimating || npc.interacting || npc.inBattle)
         return;
     
     if(npc.isWaiting) {
@@ -398,8 +398,14 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
             dispatch(ResetNPCWaiting(npcId));
     }
         
-    let oldpos = npc.position;
-    let curdirection = npc.direction, steps = npc.skin.walkSpriteCount;
+    let curdirection = npc.direction;
+    if(npc.pathArr.length < 2) {
+        if(curdirection!==npc.defaultDirection)
+            dispatch(UpdateNPCDirectionAction(npcId, npc.defaultDirection));
+        return;
+    } 
+
+    let steps = npc.skin.walkSpriteCount, oldpos = npc.position;
     const frameMovementSize = TOTAL_MOVEMENT_SIZE/steps;
     let newpos = tileToMapCoordinates(npc.pathArr[npc.pathIdx + npc.pathDir], TILE_SIZE);
     let newdirection = getNewDirection(oldpos, newpos, curdirection);
@@ -409,15 +415,26 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
 
     const map = getState().map;
     
-    if(observeMapBoundaries(newpos, map.width, map.height) && 
-                                            observeImpassible(map.tiles, newpos) && 
-                                            observePlayer(newpos, getState().player)) {
+    if(observeMapBoundaries(newpos, map.width, map.height)){
 
-        const idlenpc = observeIdleNPC(newpos, getState().npc.list);
-        const animatingnpc = observeAnimatingNPC(newpos, getState().npc.list);
-        if(idlenpc.length === 0 && animatingnpc.length===0) {
-            dispatch(UpdateNPCAnimationAction(npcId, true, newpos));
-            requestAnimationFrame(animateNPC)
+        if(observePlayer(newpos, getState().player)) {
+            const idlenpc = observeIdleNPC(newpos, getState().npc.list);
+            const animatingnpc = observeAnimatingNPC(newpos, getState().npc.list);
+            if(idlenpc.length === 0 && animatingnpc.length===0) {
+                dispatch(UpdateNPCAnimationAction(npcId, true, newpos));
+                requestAnimationFrame(animateNPC)
+            }
+        } else {
+            if(getState().player.nearByNPC!==npc.id) {
+                if(getState().player.direction===getOppositeDirection(npc.direction)) {
+                    dispatch(UpdateNearbyNPCAction(npc.id));
+                    if(npc.battle && !npc.battleFlag) {
+                        dispatch(ForceBattleConversation(getState().player, npc));
+                    }else if(!npc.talkFlag) {
+                        dispatch(ForceNonBattleConversation(getState().player, npc));
+                    }
+                }
+            }
         }
     }
 
