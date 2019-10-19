@@ -324,4 +324,64 @@ export const SKINS = {
         LEFT: 3,
         walkSpriteCount: 4,
     },
+
+    whitepuppy: {  
+        /*11*/
+        src: BASE_URL + "puppy_white",
+        width: 40,
+        height: 40,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
+
+    brownpuppy: {  
+        /*11*/
+        src: BASE_URL + "puppy_brown",
+        width: 40,
+        height: 40,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
+
+    blackcat: {  
+        /*11*/
+        src: BASE_URL + "cat_black",
+        width: 40,
+        height: 40,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
+
+    whitecat: {  
+        /*11*/
+        src: BASE_URL + "cat_white",
+        width: 40,
+        height: 40,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
+
+    orangecat: {  
+        /*11*/
+        src: BASE_URL + "cat_orange",
+        width: 40,
+        height: 40,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
 }
