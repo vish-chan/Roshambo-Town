@@ -143,7 +143,7 @@ export const _hotel = {
                 moveInterval: 500,
                 waitInterval: 3000,
                 battle: true,
-                level: 3,
+                level: 4,
                 battlerType: NON_GANG_MEMBER,
             },
         ],
