@@ -52,8 +52,8 @@ export const SKINS = {
     friend_2:  {
         /*3*/
         src: BASE_URL+"friend_2",
-        width: _80,
-        height: _80,
+        width: 70,
+        height: 70,
         UP: 1,
         RIGHT: 2,
         DOWN: 0,
@@ -63,8 +63,8 @@ export const SKINS = {
     friend_3: {
         /*4*/
         src: BASE_URL + "friend_3",
-        width: _80,
-        height: _80,
+        width: 70,
+        height: 70,
         UP: 1,
         RIGHT: 2,
         DOWN: 0,
@@ -75,8 +75,8 @@ export const SKINS = {
     friend_4: {
         /*4*/
         src: BASE_URL + "friend_4",
-        width: _80,
-        height: _80,
+        width: 70,
+        height: 70,
         UP: 1,
         RIGHT: 2,
         DOWN: 0,
@@ -130,6 +130,18 @@ export const SKINS = {
         DOWN: 0,
         LEFT: 3,
         walkSpriteCount: 4,
+    },
+
+    friend_9: {  
+        /*11*/
+            src: BASE_URL + "friend_9",
+            width: 68,
+            height: 72,
+            UP: 1,
+            RIGHT: 2,
+            DOWN: 0,
+            LEFT: 3,
+            walkSpriteCount: 4,
     },
 
 
@@ -378,6 +390,18 @@ export const SKINS = {
         src: BASE_URL + "cat_orange",
         width: 40,
         height: 40,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
+
+    baby: {  
+        /*11*/
+        src: BASE_URL + "baby",
+        width: 30,
+        height: 45,
         UP: 1,
         RIGHT: 2,
         DOWN: 0,
