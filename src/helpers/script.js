@@ -1,6 +1,3 @@
-const DEFAULT_START = "Hey! Whatsup!";
-const DEFAULT_FOLLOW = "Ehh! Leave me alone!";
-
 export const PLAYERDIALOGS = {
     Frank: {
         follows:["Hey Frank! I'm great.", 
@@ -8,7 +5,7 @@ export const PLAYERDIALOGS = {
                  "Oh wow! That's awesome.", 
                  "Ohh, thanks for informing :). I'll probably go now.", 
                  "BBye, Takecare."],
-        starts:[DEFAULT_START, 
+        starts:["Hey! Whatsup!", 
                 "Yup. He told me about that markov tribe."],
         battleAccept:[],
         battleAsk:[],

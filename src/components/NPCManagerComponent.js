@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSkull, faExclamation, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { UpdateNPCPosition } from '../redux/ActionCreators';
-import { TILE_SIZE, GANG_MEMBER, NON_GANG_MEMBER, BOSS } from '../helpers/constants';
+import { TILE_SIZE, GANG_MEMBER, BOSS } from '../helpers/constants';
 import { customSetInterval, intervalList, clearIntervals, getLevelColor, solidBorder } from '../helpers/funcs';
 
 

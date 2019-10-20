@@ -6,13 +6,6 @@ import { getViewportDim, playSoundEffect, centerBgImg } from '../helpers/funcs';
 import ReactHowler from 'react-howler';
 import { MAIN_MENU_MUSIC, BEEP_2_SOUND, BEEP_LONG_SOUND } from '../helpers/constants';
 
-const INITIAL_STATE = {
-    menu: true,
-    playerselect: false,
-    world: false,
-    loadgame: false,
-};
-
 class Main extends Component {
 
     constructor(props) {
@@ -94,7 +87,7 @@ class Main extends Component {
             UI_COMPONENT = <World width={this.state.screenDim[0]} height={this.state.screenDim[1]} loadgame={this.state.loadgame} handleBack={this.handleBack}/>;
             AUDIO_COMPONENT = null;
         } else {
-            UI_COMPONENT = <div>Unknown error. PLEASE RELOAD PAGE.</div>;
+            UI_COMPONENT = <div style={{fontFamily:'gameboy', fontSize:'20px', color:'white'}}>Unknown error. PLEASE RELOAD PAGE.</div>;
             AUDIO_COMPONENT = null;
         }
 

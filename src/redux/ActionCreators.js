@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
-        PASSIBLE_INDEX, PORTAL, ROCK, PAPER, SCISSORS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_ELIGIBILITY_THRESHOLD, PICKABLES, BATTLE_NUM_GANG_MEMBERS, BOSS, GANG_MEMBER, NON_GANG_MEMBER, DRIP_SOUND, LASER_SOUND, PICK_SOUND, BEEP_SOUND} from '../helpers/constants';
+        PASSIBLE_INDEX, PORTAL, ROCK, PAPER, SCISSORS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_ELIGIBILITY_THRESHOLD, PICKABLES, BATTLE_NUM_GANG_MEMBERS, BOSS, GANG_MEMBER, NON_GANG_MEMBER, DRIP_SOUND, LASER_SOUND, PICK_SOUND} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals, playSoundEffect } from '../helpers/funcs';
 import { PLAYERDIALOGS, NPCDIALOGS } from '../helpers/script';
 
@@ -70,6 +70,8 @@ const mapScrollable = (direction, mapstart, mapend, viewportWidth, viewportHeigh
             return (mapend[0] > viewportWidth);
         case DOWN:
             return (mapend[1] > viewportHeight);
+        default:
+            return false;
         
     }
 }
@@ -85,6 +87,8 @@ const getNewPostion = (oldpos, direction, movementSize) => {
             return [oldpos[0], oldpos[1] - movementSize];
         case DOWN:
             return [oldpos[0], oldpos[1] + movementSize];
+        default:
+            window.alert("Something went wrong! Please relaunch the game.");
     }
 }
 
@@ -98,6 +102,8 @@ const getNewOrigin = (start, direction, movementSize) => {
             return [start[0], start[1] + movementSize];
         case DOWN:
             return [start[0], start[1] - movementSize];
+        default:
+                window.alert("Something went wrong! Please relaunch the game.");
     }
 }
 
@@ -176,7 +182,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     function animatePlayer() {
         if(steps === 0) {
             dispatch(UpdatePlayerAnimationAction(false));
-            console.log(mapCoordinatesToTiles(getState().player.position, TILE_SIZE));
+            //console.log(mapCoordinatesToTiles(getState().player.position, TILE_SIZE));
             const nearByNPC = checkNearbyIdleNPC(getState().player.position, getState().player.direction, getState().npc.list);
             if(nearByNPC.length) {
                 dispatch(UpdateNearbyNPCAction(nearByNPC[0].id));
@@ -238,6 +244,8 @@ const getOppositeDirection = (direction) => {
         case RIGHT: return LEFT;
         case DOWN: return UP;
         case LEFT: return RIGHT;
+        default:
+            window.alert("Something went wrong! Please relaunch the game.");
     }
 }
 
@@ -762,7 +770,7 @@ export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
     dispatch(UpdateBattleStatsAction(playerMove, npcMove, winner, summary));
 
     const finalWinner = CheckBattleWinner(getState().battle);
-    if(finalWinner!=0) {
+    if(finalWinner!==0) {
         battle = getState().battle;
         let newexp = battle.player.exp + getPlayerNewExp(battle.player.score, battle.player.level, battle.npc.level, finalWinner);
         let newlevel = getPlayerLevel(newexp);

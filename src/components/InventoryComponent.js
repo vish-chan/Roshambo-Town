@@ -72,8 +72,6 @@ const InventoryRow = (props) => {
 
 const InventoryDialog = (props) => {
 
-    const width = 620, height = 550;
-
     const inventoryStyle = {
         position: 'absolute',
         left: '50%',

@@ -1,4 +1,4 @@
-import { DOWN, BOSS_BATTLE_LEVEL, BOSS, BATTLE_BOSS_MUSIC, RIGHT, LEFT } from "../../../../helpers/constants";
+import { BOSS_BATTLE_LEVEL, BOSS, BATTLE_BOSS_MUSIC, RIGHT, LEFT } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { PORTALS } from "../../../gameobjects";
 import { hell } from '../../Maps/hell';

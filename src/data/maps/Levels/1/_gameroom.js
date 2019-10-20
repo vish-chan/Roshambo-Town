@@ -1,4 +1,4 @@
-import { DOWN, GANG_MEMBER, BATTLE_GM_MUSIC, LEFT, UP, NON_GANG_MEMBER } from "../../../../helpers/constants";
+import { DOWN, GANG_MEMBER, BATTLE_GM_MUSIC, UP, NON_GANG_MEMBER } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { PORTALS } from "../../../gameobjects";
 import { gameroom } from '../../Maps/gameroom';

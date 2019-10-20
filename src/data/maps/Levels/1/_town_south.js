@@ -1,4 +1,4 @@
-import { DOWN, LEFT, RIGHT, NON_GANG_MEMBER } from "../../../../helpers/constants";
+import { LEFT, RIGHT, NON_GANG_MEMBER } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { PORTALS } from "../../../gameobjects";
 import { townSouth } from '../../Maps/town_south';

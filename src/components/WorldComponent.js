@@ -81,7 +81,7 @@ class World extends Component {
                         <ConversationDisplay />
                         <Inventory />
                     </div>
-                    <Loading msg="" display="none"/>
+                    <img src="/assets/images/80/objectsAndProps/loading.png" alt="Loading" style={{display:'none'}}></img>
                 </React.Fragment>
             );
         }

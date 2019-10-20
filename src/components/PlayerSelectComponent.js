@@ -5,7 +5,6 @@ import { SetPlayerInfoAction, StartNewJourneyAction } from '../redux/ActionCreat
 import { BEEP_3_SOUND } from '../helpers/constants';
 
 const SELECT_URL = "/assets/images/80/objectsAndProps/playerselect/"
-const BG_MAIN = 'lightgrey';
 const NAME_MIN = 3, NAME_MAX = 15;
 
 
