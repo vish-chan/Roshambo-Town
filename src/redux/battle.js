@@ -10,7 +10,7 @@ const squareMatrix = (n) => {
     return matrix;
 }
 
-const BASE_LIVES = 1;
+const BASE_LIVES = 5;
 
 
 const getLives = (level) => {

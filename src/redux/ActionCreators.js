@@ -325,8 +325,8 @@ export const InitiateConversation = () => (dispatch, getState) => {
                     if(npc.defeatedCount > 0) {
                         dispatch(SetConversationStatus(npc.id, 
                             {name: player.name, dialogs: PLAYERDIALOGS[npc.name].battleAsk.map(dialog => dialog.replace("$PLAYERNAME", player.name))}, 
-                            {name: npc.name, dialogs:  NPCDIALOGS[npc.name].battleAcceptDefeated.map(dialog => dialog.replace("$PLAYERNAME", player.name))}, 
-                            mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", true));
+                            {name: npc.name, dialogs:  NPCDIALOGS[npc.name].battleDeclineDefeated.map(dialog => dialog.replace("$PLAYERNAME", player.name))}, 
+                            mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", false));
                     } else {
                         dispatch(SetConversationStatus(npc.id, 
                             {name: player.name, dialogs: PLAYERDIALOGS[npc.name].battleAsk.map(dialog => dialog.replace("$PLAYERNAME", player.name))}, 
@@ -775,7 +775,7 @@ export const BattleHandleMove = (playerMove) => (dispatch, getState) => {
 const getPlayerNewExp = (score, playerLevel, npcLevel, winner) => {
     const BASE_EXP = 5, LEVEL_MULTIPLIER = 10, WIN_BONUS=10;
     if(winner===1)
-        return(BASE_EXP + score + Math.max((npcLevel - (playerLevel-1))*LEVEL_MULTIPLIER, 0) + WIN_BONUS);
+        return(BASE_EXP + score + Math.max((npcLevel - (playerLevel-1))*LEVEL_MULTIPLIER, LEVEL_MULTIPLIER) + WIN_BONUS);
     else 
         return(BASE_EXP + score);
 }
@@ -783,13 +783,13 @@ const getPlayerNewExp = (score, playerLevel, npcLevel, winner) => {
 const getPlayerLevel = (exp) => {
     if(exp < 50) 
         return 1;
-    else if(exp < 120)
+    else if(exp < 150)
         return 2;
-    else if(exp < 250)
+    else if(exp < 300)
         return 3;
-    else if(exp < 420)
+    else if(exp < 500)
         return 4;
-    else if(exp < 700)
+    else if(exp < 1000)
         return 5;
     else 
         return 6;
