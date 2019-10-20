@@ -14,7 +14,7 @@ const INITIAL_STATE = {
                         isAnimating: false,
                         nextPosition: [],
                         walkIndex: 0,
-                        frameInterval: 10,
+                        frameInterval: 0,
                         interacting: false,
                         frozen: false,
                         nearbyNPC: null,
