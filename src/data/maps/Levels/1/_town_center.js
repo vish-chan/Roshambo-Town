@@ -16,7 +16,7 @@ export const _townCenter = {
 
     /* Compulsory */
     player: {
-        position: [14, 11],
+        position: [14, 14],
         direction: 'DOWN',
     },
 
@@ -96,28 +96,28 @@ export const _townCenter = {
             },
 
             {
-                //battler
+                //tribe
                 id:5,
                 name: "Pathay",
                 skin: SKINS["tribe_2"],
                 direction: RIGHT,
                 stationary: false,
-                pathArr: [[19, 15], [19,16]],
+                pathArr: [[19, 15]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 1500,
                 battle: true,
-                level: 3,
+                level: 4,
                 battlerType: GANG_MEMBER,
                 battleMusic: BATTLE_GM_MUSIC,
             },
 
             {   //prop
                 id: 6,
-                name: "Rock",
-                skin: SKINS["friend_1"],
+                name: "Rocky",
+                skin: SKINS["friend_8"],
                 direction: LEFT,
-                stationary: true,
+                stationary: false,
                 pathArr: [[19,16]],
                 frameInterval: 100,
                 moveInterval: 500,
@@ -130,7 +130,7 @@ export const _townCenter = {
                 name: "Chop",
                 skin: SKINS["bully_1"],
                 direction: RIGHT,
-                stationary: true,
+                stationary: false,
                 pathArr: [[19,20], [19, 21], [20,21]],
                 frameInterval: 100,
                 moveInterval: 500,
@@ -139,7 +139,6 @@ export const _townCenter = {
                 level: 2,
                 battlerType: NON_GANG_MEMBER,
             },
-
         ],
 
     /* Compulsory */

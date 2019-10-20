@@ -1,4 +1,4 @@
-import { DOWN, GANG_MEMBER, BATTLE_GM_MUSIC, LEFT, UP } from "../../../../helpers/constants";
+import { DOWN, GANG_MEMBER, BATTLE_GM_MUSIC, LEFT, UP, NON_GANG_MEMBER } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { PORTALS } from "../../../gameobjects";
 import { gameroom } from '../../Maps/gameroom';
@@ -19,32 +19,35 @@ export const _gameroom = {
 
     /* Compulsory */
     npc : [
-        {   //battler
+        {   //tribe
             id: 0,
             name: "Razor",
             skin: SKINS["tribe_3"],
             direction: UP,
             stationary: false,
-            pathArr: [[1,2], [0,2]],
+            pathArr: [[1,2]],
             frameInterval: 100,
             moveInterval: 500,
             waitInterval: 6000,
             battle: true,
-            level: 2,
+            level: 4,
             battlerType: GANG_MEMBER,
             battleMusic: BATTLE_GM_MUSIC,
         },
         { 
             //prop
             id: 1,
-            name: "Pik",
+            name: "Prick",
             skin: SKINS["friend_1"],
             direction: DOWN,
             stationary: false,
-            pathArr: [[1,0], [2,0]],
+            pathArr: [[1,0]],
             frameInterval: 100,
             moveInterval: 500,
             waitInterval: 6000,
+            battle: true,
+            level: 3,
+            battlerType: NON_GANG_MEMBER,
         },
         { 
             //prop
@@ -53,7 +56,7 @@ export const _gameroom = {
             skin: SKINS["friend_4"],
             direction: UP,
             stationary: false,
-            pathArr: [[3,0], [2,0]],
+            pathArr: [[3,0]],
             frameInterval: 100,
             moveInterval: 500,
             waitInterval: 6000,
@@ -62,10 +65,10 @@ export const _gameroom = {
             //informational
             id: 3,
             name: "LT",
-            skin: SKINS["kid_2"],
+            skin: SKINS["friend_7"],
             direction: UP,
             stationary: false,
-            pathArr: [[3,4], [2,4]],
+            pathArr: [[3,4]],
             frameInterval: 100,
             moveInterval: 500,
             waitInterval: 6000,

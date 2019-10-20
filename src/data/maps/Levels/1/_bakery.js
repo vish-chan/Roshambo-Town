@@ -26,7 +26,7 @@ export const _bakery = {
                 skin: SKINS["friend_3"],
                 direction: RIGHT,
                 stationary: false,
-                pathArr: [[3,0], [3,1]],
+                pathArr: [[3,0]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 3000,
@@ -38,7 +38,7 @@ export const _bakery = {
                 skin: SKINS["friend_2"],
                 direction: LEFT,
                 stationary: false,
-                pathArr: [[3,1], [3,0]],
+                pathArr: [[3,1]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 3000,
@@ -55,7 +55,7 @@ export const _bakery = {
                 moveInterval: 500,
                 waitInterval: 4000,
                 battle: true,
-                level: 1,
+                level: 2,
                 battlerType: NON_GANG_MEMBER,
             },
             { 
@@ -70,22 +70,24 @@ export const _bakery = {
                 moveInterval: 500,
                 waitInterval: 2000,
                 battle: true,
-                level: 2,
+                level: 3,
                 battlerType: GANG_MEMBER,
                 battleMusic: BATTLE_GM_MUSIC,
             },
 
-            { 
-                //prop
+            {  //battler
                 id: 4,
                 name: "John",
                 skin: SKINS["kid_1"],
                 direction: UP,
                 stationary: false,
-                pathArr: [[2,13], [1,13]],
+                pathArr: [[2,13]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 3000,
+                battle: true,
+                level: 1,
+                battlerType: NON_GANG_MEMBER,
             },
 
             { 

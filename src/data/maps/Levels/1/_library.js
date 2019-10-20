@@ -31,6 +31,9 @@ export const _library = {
             frameInterval: 100,
             moveInterval: 500,
             waitInterval: 3000,
+            battle: true,
+            level: 3,
+            battlerType: NON_GANG_MEMBER,
         },
 
         { 

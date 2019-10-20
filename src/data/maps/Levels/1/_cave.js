@@ -1,4 +1,4 @@
-import { DOWN } from "../../../../helpers/constants";
+import { DOWN, RIGHT } from "../../../../helpers/constants";
 import { SKINS } from '../../../skins';
 import { PORTALS } from "../../../gameobjects";
 import { cave } from '../../Maps/cave';
@@ -21,16 +21,30 @@ export const _cave = {
     /* Compulsory */
     npc : [
             { 
-                //informational
+                //props
                 id: 0,
-                name: "Dad",
-                skin: SKINS["prof"],
+                name: "Misty",
+                skin: SKINS["blackcat"],
                 direction: DOWN,
-                stationary: true,
-                pathArr: [[3,0]],
+                stationary: false,
+                pathArr: [[1,0], [2,0], [3,0], [4,0],],
                 frameInterval: 100,
                 moveInterval: 500,
-                waitInterval: 3000,
+                waitInterval: 1000,
+            },
+
+            { 
+                //props
+                id: 1,
+                name: "Trigger",
+                skin: SKINS["orangecat"],
+                direction: RIGHT,
+                stationary: false,
+                pathArr: [[1,1], [1,2], [1,3], [1,4],],
+                frameInterval: 100,
+                moveInterval: 500,
+                waitInterval: 2000,
+                talkFlag: false,
             },
         ],
 
