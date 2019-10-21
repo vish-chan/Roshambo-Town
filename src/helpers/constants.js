@@ -65,7 +65,7 @@ export const LEVEL_COLORS =  {
 
 const ASSETS_PATH = "assets";
 const AUDIO_PATH = `${ASSETS_PATH}/audio`;
-const IMAGES_PATH = `${ASSETS_PATH}/images`;
+export const IMAGES_PATH = `${ASSETS_PATH}/images`;
 export const MAPS_BASE = `${IMAGES_PATH}/maps`;
 export const CHARACTER_SPRITES_BASE = `${IMAGES_PATH}/80/characters`;
 export const PROPS_PATH = `${IMAGES_PATH}/80/objectsAndProps`;

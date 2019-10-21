@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import World from './WorldComponent';
 import MainMenu from './MainMenuComponent';
 import PlayerSelectComponent from './PlayerSelectComponent';
-import { getViewportDim, playSoundEffect, centerBgImg } from '../helpers/funcs';
+import { getViewportDim, playSoundEffect, centerBgImg, preloadPictures } from '../helpers/funcs';
 import ReactHowler from 'react-howler';
 import { MAIN_MENU_MUSIC, BEEP_2_SOUND, BEEP_LONG_SOUND, PROPS_PATH } from '../helpers/constants';
 import Loading from './LoadingComponent';
+import { RESOURCES } from '../data/resourcepaths';
 
 class Main extends Component {
 
@@ -38,9 +39,7 @@ class Main extends Component {
             });
         }.bind(this);
 
-        let bg = new Image();
-        bg.onload = renderMenu;
-        bg.src = this.bg;
+        preloadPictures(RESOURCES, renderMenu);
     }
 
     handleStartNewGame() {
