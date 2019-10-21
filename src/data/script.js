@@ -5,8 +5,7 @@ export const PLAYERDIALOGS = {
                  "Oh wow! That's awesome.", 
                  "Ohh, thanks for informing :). I'll probably go now.", 
                  "BBye, Takecare."],
-        starts:["Hey! Whatsup!", 
-                "Yup. He told me about that markov tribe."],
+        starts:["Hey! Whatsup!"],
         battleAccept:[],
         battleAsk:[],
         battleWin:[],
@@ -39,6 +38,15 @@ export const PLAYERDIALOGS = {
         battleAsk:["Hey Joey! you wanna play?"],
         battleWin:["Nevermind...."],
         battleLose:["I always let you win."],
+    },
+
+    Ace: {
+        follows:["I missed you too....."],
+        starts:["Ace!! Come here...."],
+        battleAccept:[],
+        battleAsk:[],
+        battleWin:[],
+        battleLose:[],
     },
 
     Tia: {
@@ -417,8 +425,7 @@ export const NPCDIALOGS = {
                 "I'm preparing for this year's RoShamBo competition.", 
                 "BTW, your father is waiting for you inside. You should go and meet him.", 
                 "Sure, see you."],
-        follows: ["I'm great. You talked to your father right!",
-                  "They are dangerous! Try to stay away from them!"],
+        follows: ["I'm great. You talked to your father right!"],
         battleAsk:[],
         battleAcceptNeverDefeated:[],
         battleDeclineDefeated:[],
@@ -457,6 +464,17 @@ export const NPCDIALOGS = {
         battleDecline:["I don't think you're on my level. Go and Practice"],
         battleLose:["You cheated!!!!"],
         battleWin: ["I'm the best!!"],
+    },
+
+    Ace:{
+        starts: ["..."],
+        follows: ["Huff...I missed you..Huff...."],
+        battleAsk:[],
+        battleAcceptNeverDefeated:[],
+        battleDeclineDefeated:[],
+        battleDecline:[],
+        battleLose:[],
+        battleWin:[],
     },
 
 

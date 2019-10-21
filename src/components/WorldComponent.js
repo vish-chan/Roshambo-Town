@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Player from './PlayerComponent';
 import Map from './MapComponent';
 import { AddMap, LoadGameFromDisk, InitViewportAction  } from '../redux/ActionCreators';
-import { level } from '../data/maps/Levels/1/index';
+import { level } from '../data/Levels/1/index';
 import { connect } from 'react-redux';
 import ConversationDisplay from './ConversationDisplayComponent';
 import Inventory from './InventoryComponent';
@@ -81,7 +81,7 @@ class World extends Component {
                         <ConversationDisplay />
                         <Inventory />
                     </div>
-                    <img src="/assets/images/80/objectsAndProps/loading.png" alt="Loading" style={{display:'none'}}></img>
+                    <img src="assets/images/80/objectsAndProps/loading.png" alt="Loading" style={{display:'none'}}></img>
                 </React.Fragment>
             );
         }

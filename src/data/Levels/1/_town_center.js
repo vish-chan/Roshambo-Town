@@ -1,6 +1,6 @@
-import { DOWN, GANG_MEMBER, NON_GANG_MEMBER, BATTLE_GM_MUSIC, LEFT, RIGHT } from "../../../../helpers/constants";
-import { SKINS } from '../../../skins';
-import { PORTALS } from "../../../gameobjects";
+import { DOWN, GANG_MEMBER, NON_GANG_MEMBER, BATTLE_GM_MUSIC, LEFT, RIGHT } from "../../../helpers/constants";
+import { SKINS } from '../../skins';
+import { PORTALS } from "../../gameobjects";
 import { townCenter } from '../../Maps/town_center';
 import { _home } from "./_home";
 import { _bakery } from "./_bakery";
@@ -16,8 +16,8 @@ export const _townCenter = {
 
     /* Compulsory */
     player: {
-        position: [14, 14],
-        direction: 'DOWN',
+        position: [14, 15],
+        direction: 'RIGHT',
     },
 
     /* Compulsory */
@@ -28,8 +28,8 @@ export const _townCenter = {
                 name: "Frank",
                 skin: SKINS["friend_5"],
                 direction: LEFT,
-                stationary: true,
-                pathArr: [[14,16], [14,17], [14,18]],
+                stationary: false,
+                pathArr: [[14,16], [14,15]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 2000,

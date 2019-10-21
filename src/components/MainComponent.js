@@ -73,7 +73,7 @@ class Main extends Component {
             overflow: 'hidden',
             width: this.state.screenDim[0],
             height: this.state.screenDim[1],
-            ...centerBgImg("/assets/images/80/objectsAndProps/town.png", 'black', 'cover'),
+            ...centerBgImg("assets/images/80/objectsAndProps/town.png", 'black', 'cover'),
         }
 
         let UI_COMPONENT = null, AUDIO_COMPONENT = null;

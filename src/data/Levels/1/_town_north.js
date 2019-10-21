@@ -1,6 +1,6 @@
-import { DOWN, RIGHT, GANG_MEMBER, BATTLE_GM_MUSIC, LEFT, NON_GANG_MEMBER } from "../../../../helpers/constants";
-import { SKINS } from '../../../skins';
-import { PORTALS } from "../../../gameobjects";
+import { DOWN, RIGHT, GANG_MEMBER, BATTLE_GM_MUSIC, LEFT, NON_GANG_MEMBER } from "../../../helpers/constants";
+import { SKINS } from '../../skins';
+import { PORTALS } from "../../gameobjects";
 import { townNorth } from '../../Maps/town_north';
 import { _cave } from "./_cave";
 

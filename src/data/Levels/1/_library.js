@@ -1,6 +1,6 @@
-import { DOWN, UP, LEFT, RIGHT, NON_GANG_MEMBER } from "../../../../helpers/constants";
-import { SKINS } from '../../../skins';
-import { PORTALS } from "../../../gameobjects";
+import { DOWN, UP, LEFT, RIGHT, NON_GANG_MEMBER } from "../../../helpers/constants";
+import { SKINS } from '../../skins';
+import { PORTALS } from "../../gameobjects";
 import { library } from '../../Maps/library';
 import { _gameroom } from "./_gameroom";
 

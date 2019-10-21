@@ -1,9 +1,9 @@
 import { HEALER, EATABLE, CURRENCY, PORTAL, PORTAL_ENTER, PORTAL_LEAVE } from "../helpers/constants";
 
-const BASE_URL = "/assets/images/80/objectsAndProps/items.png";
-const PORTAL_URL = "/assets/images/80/objectsAndProps/portal.png"; 
-const ENTER_URL = "/assets/images/80/objectsAndProps/enter.png"; 
-const LEAVE_URL = "/assets/images/80/objectsAndProps/leave.png"; 
+const BASE_URL = "assets/images/80/objectsAndProps/items.png";
+const PORTAL_URL = "assets/images/80/objectsAndProps/portal.png"; 
+const ENTER_URL = "assets/images/80/objectsAndProps/enter.png"; 
+const LEAVE_URL = "assets/images/80/objectsAndProps/leave.png"; 
 
 
 export const GAMEOBJECTS = [
@@ -98,7 +98,7 @@ export const GAMEOBJECTS = [
     {
         id:8,
         name:'hen',
-        src:'/assets/images/80/objectsAndProps/hen.png',
+        src:'assets/images/80/objectsAndProps/hen.png',
         srcpos: [0,0],
         width: 32,
         height: 36,

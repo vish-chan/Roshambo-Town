@@ -2,7 +2,7 @@ import * as ActionTypes from './ActionTypes';
 import { TOTAL_MOVEMENT_SIZE, LEFT, RIGHT, UP, DOWN, TILE_SIZE,
         PASSIBLE_INDEX, PORTAL, ROCK, PAPER, SCISSORS, SAVED_GAME, PORTAL_LEAVE, PORTAL_ENTER, BATTLE_ELIGIBILITY_THRESHOLD, PICKABLES, BATTLE_NUM_GANG_MEMBERS, BOSS, GANG_MEMBER, NON_GANG_MEMBER, DRIP_SOUND, LASER_SOUND, PICK_SOUND} from '../helpers/constants';
 import { tileToMapCoordinates, mapToViewport, mapCoordinatesToTiles, customSetTimeout, clearIntervals, playSoundEffect } from '../helpers/funcs';
-import { PLAYERDIALOGS, NPCDIALOGS } from '../helpers/script';
+import { PLAYERDIALOGS, NPCDIALOGS } from '../data/script';
 
 
 const observeMapBoundaries = (newpos, mapwidth, mapheight) => {
@@ -789,13 +789,13 @@ const getPlayerNewExp = (score, playerLevel, npcLevel, winner) => {
 }
 
 const getPlayerLevel = (exp) => {
-    if(exp < 50) 
+    if(exp < 60) 
         return 1;
-    else if(exp < 150)
+    else if(exp < 180)
         return 2;
-    else if(exp < 300)
+    else if(exp < 360)
         return 3;
-    else if(exp < 500)
+    else if(exp < 540)
         return 4;
     else if(exp < 1000)
         return 5;

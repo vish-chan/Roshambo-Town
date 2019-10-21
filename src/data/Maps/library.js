@@ -1,4 +1,4 @@
-import { LIBRARY_MUSIC } from "../../../helpers/constants";
+import { LIBRARY_MUSIC } from "../../helpers/constants";
 
 export const library = {
 
@@ -24,7 +24,7 @@ export const library = {
 
     ],
 
-    src: '/assets/images/maps/library.png',
+    src: 'assets/images/maps/library.png',
 
     backgroundColor: "#ffffff",
 

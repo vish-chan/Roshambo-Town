@@ -59,7 +59,7 @@ class MainMenu extends Component {
         return(
             <div style={{...style, width: this.props.width, height: this.props.height}}>
                 <div style={{position:'relative', width:'100%', height: '50%', overflow:'hidden'}}>
-                    <div className="animateTitle" style={{position:'absolute',width:"100%", height:"100%", marginTop:'100px',...centerBgImg('/assets/images/80/objectsAndProps/title.png', null, 'auto')}}/>
+                    <div className="animateTitle" style={{position:'absolute',width:"100%", height:"100%", marginTop:'100px',...centerBgImg('assets/images/80/objectsAndProps/title.png', null, 'auto')}}/>
                 </div>
                 <div className="showMenu" style={{position:'relative', width:'100%', height: '50%', display:'flex', flexDirection:'column', alignItems:'center', marginTop:'100px', opacity:0}}>
                     <MenuBtn title="Start New Game" disabled={false} onClick={this.props.startNewGame}/>

@@ -1,6 +1,6 @@
-import { DOWN, RIGHT } from "../../../../helpers/constants";
-import { SKINS } from '../../../skins';
-import { PORTALS } from "../../../gameobjects";
+import { DOWN, RIGHT } from "../../../helpers/constants";
+import { SKINS } from '../../skins';
+import { PORTALS } from "../../gameobjects";
 import { cave } from '../../Maps/cave';
 import { _hell } from "./_hell";
 

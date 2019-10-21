@@ -1,4 +1,4 @@
-import { CAVE_MUSIC } from "../../../helpers/constants";
+import { CAVE_MUSIC } from "../../helpers/constants";
 
 export const cave = {
 
@@ -12,7 +12,7 @@ export const cave = {
 
     ],
 
-    src: '/assets/images/maps/cave.png',
+    src: 'assets/images/maps/cave.png',
 
     backgroundColor: "#ffffff",
     audioSrc: CAVE_MUSIC,

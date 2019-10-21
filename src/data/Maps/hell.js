@@ -1,4 +1,4 @@
-import { HELL_MUSIC } from "../../../helpers/constants";
+import { HELL_MUSIC } from "../../helpers/constants";
 
 export const hell = {
 
@@ -15,7 +15,7 @@ export const hell = {
 
     ],
 
-    src: '/assets/images/maps/hell.png',
+    src: 'assets/images/maps/hell.png',
 
     backgroundColor: "#ffffff",
 

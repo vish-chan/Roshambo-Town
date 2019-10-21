@@ -1,4 +1,4 @@
-import { BAKERY_MUSIC } from "../../../helpers/constants";
+import { BAKERY_MUSIC } from "../../helpers/constants";
 
 export const bakery = {
 
@@ -16,7 +16,7 @@ export const bakery = {
 
     ],
 
-    src: '/assets/images/maps/bakery.png',
+    src: 'assets/images/maps/bakery.png',
 
     backgroundColor: "#ffffff",
 

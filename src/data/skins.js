@@ -1,5 +1,5 @@
 const _80 = 80;
-const BASE_URL = "/assets/images/80/characters/"
+const BASE_URL = "assets/images/80/characters/"
 
 export const SKINS = {
     player_1: {  

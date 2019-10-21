@@ -1,6 +1,6 @@
-import { DOWN, NON_GANG_MEMBER } from "../../../../helpers/constants";
-import { SKINS } from '../../../skins';
-import { PORTALS } from "../../../gameobjects";
+import { DOWN, NON_GANG_MEMBER, LEFT } from "../../../helpers/constants";
+import { SKINS } from '../../skins';
+import { PORTALS } from "../../gameobjects";
 import { home } from '../../Maps/home';
 
 
@@ -24,9 +24,9 @@ export const _home = {
                 id: 0,
                 name: "Dad",
                 skin: SKINS["prof"],
-                direction: DOWN,
+                direction: LEFT,
                 stationary: false,
-                pathArr: [[4,1], [5,1]],
+                pathArr: [[6,3], [6,4]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 1000,
@@ -41,13 +41,27 @@ export const _home = {
                 direction: DOWN,
                 stationary: false,
                 pathArr: [[4,7],[4,8],[5,8],[6,8],[6,7],[5,7],[4,7]],
-                frameInterval: 100,
+                frameInterval: 200,
                 moveInterval: 500,
                 waitInterval: 1000,
                 battle: true,
                 level: 1,
                 battlerType: NON_GANG_MEMBER,
             },
+
+            { 
+                //informational
+                id: 2,
+                name: "Ace",
+                skin: SKINS["brownpuppy"],
+                direction: DOWN,
+                stationary: false,
+                pathArr: [[3,1], [4,1],[5,1]],
+                frameInterval: 100,
+                moveInterval: 500,
+                waitInterval: 1000,
+            },
+
         ],
 
     /* Compulsory */

@@ -1,4 +1,4 @@
-import { TOWN_CENTER_MUSIC } from "../../../helpers/constants";
+import { TOWN_CENTER_MUSIC } from "../../helpers/constants";
 
 export const townCenter = {
 
@@ -32,7 +32,7 @@ export const townCenter = {
 
     ],
 
-    src: '/assets/images/maps/town_center.png',
+    src: 'assets/images/maps/town_center.png',
 
     backgroundColor: "#ffffff",
 
