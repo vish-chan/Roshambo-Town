@@ -1,4 +1,4 @@
-import { HOME_MUSIC } from "../../helpers/constants";
+import { HOME_MUSIC, MAPS_BASE } from "../../helpers/constants";
 
 export const home = {
 
@@ -15,7 +15,7 @@ export const home = {
 
     ],
 
-    src: 'assets/images/maps/home.png',
+    src: `${MAPS_BASE}/home.png`,
 
     backgroundColor: "#ffffff",
 

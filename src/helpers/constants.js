@@ -63,29 +63,36 @@ export const LEVEL_COLORS =  {
     L6: "gold"
 };
 
-export const DRIP_SOUND = "/assets/audio/effects/drip.wav";
-export const BEEP_SOUND = "/assets/audio/effects/beep.wav";
-export const BEEP_2_SOUND = "/assets/audio/effects/beep2.wav";
-export const BEEP_3_SOUND = "/assets/audio/effects/beep3.wav";
-export const BEEP_LONG_SOUND = "/assets/audio/effects/longbeep.wav";
-export const PICK_SOUND = "/assets/audio/effects/getcoin.wav";
-export const LASER_SOUND = "/assets/audio/effects/laser.wav";
+const ASSETS_PATH = "assets";
+const AUDIO_PATH = `${ASSETS_PATH}/audio`;
+const IMAGES_PATH = `${ASSETS_PATH}/images`;
+export const MAPS_BASE = `${IMAGES_PATH}/maps`;
+export const CHARACTER_SPRITES_BASE = `${IMAGES_PATH}/80/characters`;
+export const PROPS_PATH = `${IMAGES_PATH}/80/objectsAndProps`;
 
-export const MAIN_MENU_MUSIC = "/assets/audio/MainMenu.mp3";
-export const TOWN_CENTER_MUSIC = "/assets/audio/TownCenter.mp3";
-export const TOWN_NORTH_MUSIC = "/assets/audio/TownSouth.mp3";
-export const TOWN_SOUTH_MUSIC = "/assets/audio/TownSouth.mp3";
-export const HOME_MUSIC = "/assets/audio/Home.mp3";
-export const BAKERY_MUSIC = "/assets/audio/Bakery.mp3";
-export const HOTEL_MUSIC = "/assets/audio/Hotel.mp3";
-export const LIBRARY_MUSIC = "/assets/audio/Library.mp3";
-export const GAMEROOM_MUSIC = "/assets/audio/GameRoom.mp3";
-export const CAVE_MUSIC = "/assets/audio/Cave.mp3";
-export const HELL_MUSIC = "/assets/audio/Hell.mp3";
+export const DRIP_SOUND = `${AUDIO_PATH}/effects/drip.wav`;
+export const BEEP_SOUND = `${AUDIO_PATH}/effects/beep.wav`;
+export const BEEP_2_SOUND = `${AUDIO_PATH}/effects/beep2.wav`;
+export const BEEP_3_SOUND = `${AUDIO_PATH}/effects/beep3.wav`;
+export const BEEP_LONG_SOUND = `${AUDIO_PATH}/effects/longbeep.wav`;
+export const PICK_SOUND = `${AUDIO_PATH}/effects/getcoin.wav`;
+export const LASER_SOUND = `${AUDIO_PATH}/effects/laser.wav`;
+
+export const MAIN_MENU_MUSIC = `${AUDIO_PATH}/MainMenu.mp3`;
+export const TOWN_CENTER_MUSIC = `${AUDIO_PATH}/TownCenter.mp3`;
+export const TOWN_NORTH_MUSIC = `${AUDIO_PATH}/TownSouth.mp3`;
+export const TOWN_SOUTH_MUSIC = `${AUDIO_PATH}/TownSouth.mp3`;
+export const HOME_MUSIC = `${AUDIO_PATH}/Home.mp3`;
+export const BAKERY_MUSIC = `${AUDIO_PATH}/Bakery.mp3`;
+export const HOTEL_MUSIC = `${AUDIO_PATH}/Hotel.mp3`;
+export const LIBRARY_MUSIC = `${AUDIO_PATH}/Library.mp3`;
+export const GAMEROOM_MUSIC = `${AUDIO_PATH}/GameRoom.mp3`;
+export const CAVE_MUSIC = `${AUDIO_PATH}/Cave.mp3`;
+export const HELL_MUSIC = `${AUDIO_PATH}/Hell.mp3`;
 
 
 
-export const BATTLE_MUSIC = "/assets/audio/Battle.mp3";
-export const BATTLE_BOSS_MUSIC = "/assets/audio/BattleBoss.mp3";
-export const BATTLE_GM_MUSIC = "/assets/audio/BattleGangMember.mp3";
-export const BATTLE_END_MUSIC = "/assets/audio/BattleEnd.mp3";
+export const BATTLE_MUSIC = `${AUDIO_PATH}/Battle.mp3`;
+export const BATTLE_BOSS_MUSIC = `${AUDIO_PATH}/BattleBoss.mp3`;
+export const BATTLE_GM_MUSIC = `${AUDIO_PATH}/BattleGangMember.mp3`;
+export const BATTLE_END_MUSIC = `${AUDIO_PATH}/BattleEnd.mp3`;

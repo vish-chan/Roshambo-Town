@@ -1,4 +1,4 @@
-import { HOTEL_MUSIC } from "../../helpers/constants";
+import { HOTEL_MUSIC, MAPS_BASE } from "../../helpers/constants";
 
 export const hotel = {
 
@@ -22,7 +22,7 @@ export const hotel = {
 
     ],
 
-    src: 'assets/images/maps/hotel.png',
+    src: `${MAPS_BASE}/hotel.png`,
 
     backgroundColor: "#ffffff",
 

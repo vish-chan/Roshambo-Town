@@ -1,4 +1,4 @@
-import { TOWN_SOUTH_MUSIC } from "../../helpers/constants";
+import { TOWN_SOUTH_MUSIC, MAPS_BASE } from "../../helpers/constants";
 
 export const townSouth = {
 
@@ -31,7 +31,7 @@ export const townSouth = {
        
     ],
 
-    src: 'assets/images/maps/town_south.png',
+    src: `${MAPS_BASE}/town_south.png`,
 
     backgroundColor: "#ffffff",
 

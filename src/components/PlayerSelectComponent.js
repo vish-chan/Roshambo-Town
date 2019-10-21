@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { centerBgImg, solidBorder, playSoundEffect } from '../helpers/funcs';
 import { SetPlayerInfoAction, StartNewJourneyAction } from '../redux/ActionCreators';
-import { BEEP_3_SOUND } from '../helpers/constants';
+import { BEEP_3_SOUND, PROPS_PATH } from '../helpers/constants';
 
-const SELECT_URL = "assets/images/80/objectsAndProps/playerselect/"
+const SELECT_URL = `${PROPS_PATH}/playerselect/`;
 const NAME_MIN = 3, NAME_MAX = 15;
 
 

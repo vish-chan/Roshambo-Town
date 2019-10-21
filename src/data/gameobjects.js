@@ -1,9 +1,9 @@
-import { HEALER, EATABLE, CURRENCY, PORTAL, PORTAL_ENTER, PORTAL_LEAVE } from "../helpers/constants";
+import { HEALER, EATABLE, CURRENCY, PORTAL, PORTAL_ENTER, PORTAL_LEAVE, PROPS_PATH } from "../helpers/constants";
 
-const BASE_URL = "assets/images/80/objectsAndProps/items.png";
-const PORTAL_URL = "assets/images/80/objectsAndProps/portal.png"; 
-const ENTER_URL = "assets/images/80/objectsAndProps/enter.png"; 
-const LEAVE_URL = "assets/images/80/objectsAndProps/leave.png"; 
+const ITEMS_URL =  `${PROPS_PATH}/items.png`;
+const PORTAL_URL = `${PROPS_PATH}/portal.png`; 
+const ENTER_URL = `${PROPS_PATH}/enter.png`; 
+const LEAVE_URL = `${PROPS_PATH}/leave.png`; 
 
 
 export const GAMEOBJECTS = [
@@ -11,7 +11,7 @@ export const GAMEOBJECTS = [
         /*0*/
         id: 0,
         name: "redpotion",
-        src: BASE_URL,
+        src: ITEMS_URL,
         srcpos: [0,0],
         width: 40,
         height: 40,
@@ -22,7 +22,7 @@ export const GAMEOBJECTS = [
         /*1*/
         id: 1,
         name: "vaccine",
-        src: BASE_URL,
+        src: ITEMS_URL,
         srcpos: [200,0],
         width: 40,
         height: 40,
@@ -33,7 +33,7 @@ export const GAMEOBJECTS = [
         /*2*/
         id: 2,
         name: "water",
-        src: BASE_URL,
+        src: ITEMS_URL,
         srcpos: [240,0],
         width: 40,
         height: 40,
@@ -44,7 +44,7 @@ export const GAMEOBJECTS = [
         /*3*/
         id: 3,
         name: "berry",
-        src: BASE_URL,
+        src: ITEMS_URL,
         srcpos: [240,280],
         width: 40,
         height: 40,
@@ -55,7 +55,7 @@ export const GAMEOBJECTS = [
         /*4*/
         id: 4,
         name: "diamond",
-        src: BASE_URL,
+        src: ITEMS_URL,
         srcpos: [240,200],
         width: 40,
         height: 40,
@@ -66,7 +66,7 @@ export const GAMEOBJECTS = [
         /*5*/
         id: 5,
         name: "meat",
-        src: BASE_URL,
+        src: ITEMS_URL,
         srcpos: [280,160],
         width: 40,
         height: 40,
@@ -77,7 +77,7 @@ export const GAMEOBJECTS = [
         /*6*/
         id: 6,
         name: "bone",
-        src: BASE_URL,
+        src: ITEMS_URL,
         srcpos: [200,160],
         width: 40,
         height: 40,
@@ -88,7 +88,7 @@ export const GAMEOBJECTS = [
         /*7*/
         id: 7,
         name: "goldcoin",
-        src: BASE_URL,
+        src: ITEMS_URL,
         srcpos: [280,120],
         width: 40,
         height: 40,

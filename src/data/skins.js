@@ -1,9 +1,11 @@
+import { CHARACTER_SPRITES_BASE } from '../helpers/constants';
+
 const _80 = 80;
-const BASE_URL = "assets/images/80/characters/"
+const BASE_URL = CHARACTER_SPRITES_BASE;
 
 export const SKINS = {
     player_1: {  
-        src: BASE_URL + "player_1",
+        src: BASE_URL + "/player_1",
         width: 80,
         height: 60,
         UP: 1,
@@ -15,7 +17,7 @@ export const SKINS = {
 
     player_2: {
         /*5*/
-        src: BASE_URL + "player_2",
+        src: BASE_URL + "/player_2",
         width: 80,
         height: 60,
         UP: 1,
@@ -27,7 +29,7 @@ export const SKINS = {
 
     prof: {
         /*1*/
-        src: BASE_URL+"prof",
+        src: BASE_URL+"/prof",
         width: _80,
         height: _80,
         UP: 1,
@@ -39,7 +41,7 @@ export const SKINS = {
 
     friend_1: {
         /*2*/
-        src: BASE_URL + "friend_1",
+        src: BASE_URL + "/friend_1",
         width: 64,
         height: 64,
         UP: 1,
@@ -51,7 +53,7 @@ export const SKINS = {
 
     friend_2:  {
         /*3*/
-        src: BASE_URL+"friend_2",
+        src: BASE_URL+"/friend_2",
         width: 70,
         height: 70,
         UP: 1,
@@ -62,7 +64,7 @@ export const SKINS = {
     },
     friend_3: {
         /*4*/
-        src: BASE_URL + "friend_3",
+        src: BASE_URL + "/friend_3",
         width: 70,
         height: 70,
         UP: 1,
@@ -74,7 +76,7 @@ export const SKINS = {
 
     friend_4: {
         /*4*/
-        src: BASE_URL + "friend_4",
+        src: BASE_URL + "/friend_4",
         width: 70,
         height: 70,
         UP: 1,
@@ -86,7 +88,7 @@ export const SKINS = {
 
     friend_5: {  
         /*11*/
-       src: BASE_URL + "friend_5",
+       src: BASE_URL + "/friend_5",
        width: 64,
        height: 64,
        UP: 1,
@@ -98,7 +100,7 @@ export const SKINS = {
 
    friend_6: {  
     /*11*/
-        src: BASE_URL + "friend_6",
+        src: BASE_URL + "/friend_6",
         width: 68,
         height: 72,
         UP: 1,
@@ -110,7 +112,7 @@ export const SKINS = {
 
     friend_7: {  
     /*11*/
-        src: BASE_URL + "friend_7",
+        src: BASE_URL + "/friend_7",
         width: 68,
         height: 72,
         UP: 1,
@@ -122,7 +124,7 @@ export const SKINS = {
 
     friend_8: {  
     /*11*/
-        src: BASE_URL + "friend_8",
+        src: BASE_URL + "/friend_8",
         width: 64,
         height: 91,
         UP: 1,
@@ -134,7 +136,7 @@ export const SKINS = {
 
     friend_9: {  
         /*11*/
-            src: BASE_URL + "friend_9",
+            src: BASE_URL + "/friend_9",
             width: 68,
             height: 72,
             UP: 1,
@@ -147,7 +149,7 @@ export const SKINS = {
 
     kid_1: {   
         /*6*/
-        src: BASE_URL + "kid_1",
+        src: BASE_URL + "/kid_1",
         width: 64,
         height: 64,
         UP: 1,
@@ -159,7 +161,7 @@ export const SKINS = {
 
     kid_2: {  
          /*7*/
-        src: BASE_URL + "kid_2",
+        src: BASE_URL + "/kid_2",
         width: 64,
         height: 64,
         UP: 1,
@@ -171,7 +173,7 @@ export const SKINS = {
     
     kid_3: {  
          /*8*/
-        src: BASE_URL + "kid_3",
+        src: BASE_URL + "/kid_3",
         width: 64,
         height: 64,
         UP: 1,
@@ -183,7 +185,7 @@ export const SKINS = {
 
     nurse: {  
          /*9*/
-        src: BASE_URL + "nurse",
+        src: BASE_URL + "/nurse",
         width: 68,
         height: 72,
         UP: 1,
@@ -195,7 +197,7 @@ export const SKINS = {
 
     chef: {  
         /*9*/
-       src: BASE_URL + "chef",
+       src: BASE_URL + "/chef",
        width: 80,
        height: 80,
        UP: 1,
@@ -207,7 +209,7 @@ export const SKINS = {
 
     bully_1: {  
         /*10*/
-        src: BASE_URL + "bully_1",
+        src: BASE_URL + "/bully_1",
         width: 48,
         height: 60,
         UP: 1,
@@ -219,7 +221,7 @@ export const SKINS = {
 
    crush_1: {  
          /*11*/
-        src: BASE_URL + "crush_1",
+        src: BASE_URL + "/crush_1",
         width: 68,
         height: 72,
         UP: 1,
@@ -231,7 +233,7 @@ export const SKINS = {
 
     crush_2: {  
         /*11*/
-       src: BASE_URL + "crush_2",
+       src: BASE_URL + "/crush_2",
        width: 68,
        height: 72,
        UP: 1,
@@ -243,7 +245,7 @@ export const SKINS = {
 
    crush_3: {  
             /*11*/
-        src: BASE_URL + "crush_3",
+        src: BASE_URL + "/crush_3",
         width: 80,
         height: 80,
         UP: 1,
@@ -255,7 +257,7 @@ export const SKINS = {
 
     crush_4: {  
         /*11*/
-        src: BASE_URL + "crush_4",
+        src: BASE_URL + "/crush_4",
         width: 64,
         height: 64,
         UP: 1,
@@ -267,7 +269,7 @@ export const SKINS = {
 
     tribe_1: {  
         /*11*/
-        src: BASE_URL + "tribe_1",
+        src: BASE_URL + "/tribe_1",
         width: 80,
         height: 80,
         UP: 1,
@@ -279,7 +281,7 @@ export const SKINS = {
 
     tribe_2: {  
         /*11*/
-        src: BASE_URL + "tribe_2",
+        src: BASE_URL + "/tribe_2",
         width: 80,
         height: 80,
         UP: 1,
@@ -291,7 +293,7 @@ export const SKINS = {
 
     tribe_3: {  
         /*10*/
-        src: BASE_URL + "tribe_3",
+        src: BASE_URL + "/tribe_3",
         width: 64,
         height: 64,
         UP: 1,
@@ -303,7 +305,7 @@ export const SKINS = {
 
     tribe_4: {  
         /*11*/
-        src: BASE_URL + "tribe_4",
+        src: BASE_URL + "/tribe_4",
         width: 80,
         height: 80,
         UP: 1,
@@ -315,7 +317,7 @@ export const SKINS = {
 
     tribe_5: {  
         /*11*/
-            src: BASE_URL + "tribe_5",
+            src: BASE_URL + "/tribe_5",
             width: 80,
             height: 80,
             UP: 1,
@@ -327,7 +329,7 @@ export const SKINS = {
 
     boss: {  
         /*11*/
-        src: BASE_URL + "boss",
+        src: BASE_URL + "/boss",
         width: 80,
         height: 80,
         UP: 1,
@@ -339,7 +341,7 @@ export const SKINS = {
 
     whitepuppy: {  
         /*11*/
-        src: BASE_URL + "puppy_white",
+        src: BASE_URL + "/puppy_white",
         width: 40,
         height: 40,
         UP: 1,
@@ -351,7 +353,7 @@ export const SKINS = {
 
     brownpuppy: {  
         /*11*/
-        src: BASE_URL + "puppy_brown",
+        src: BASE_URL + "/puppy_brown",
         width: 40,
         height: 40,
         UP: 1,
@@ -363,7 +365,7 @@ export const SKINS = {
 
     blackcat: {  
         /*11*/
-        src: BASE_URL + "cat_black",
+        src: BASE_URL + "/cat_black",
         width: 40,
         height: 40,
         UP: 1,
@@ -375,7 +377,7 @@ export const SKINS = {
 
     whitecat: {  
         /*11*/
-        src: BASE_URL + "cat_white",
+        src: BASE_URL + "/cat_white",
         width: 40,
         height: 40,
         UP: 1,
@@ -387,7 +389,7 @@ export const SKINS = {
 
     orangecat: {  
         /*11*/
-        src: BASE_URL + "cat_orange",
+        src: BASE_URL + "/cat_orange",
         width: 40,
         height: 40,
         UP: 1,
@@ -399,7 +401,7 @@ export const SKINS = {
 
     baby: {  
         /*11*/
-        src: BASE_URL + "baby",
+        src: BASE_URL + "/baby",
         width: 30,
         height: 45,
         UP: 1,

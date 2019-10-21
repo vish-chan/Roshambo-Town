@@ -1,4 +1,4 @@
-import { GAMEROOM_MUSIC } from "../../helpers/constants";
+import { GAMEROOM_MUSIC, MAPS_BASE } from "../../helpers/constants";
 
 export const gameroom = {
 
@@ -12,7 +12,7 @@ export const gameroom = {
 
     ],
 
-    src: 'assets/images/maps/gameroom.png',
+    src: `${MAPS_BASE}/gameroom.png`,
 
     backgroundColor: "#ffffff",
 

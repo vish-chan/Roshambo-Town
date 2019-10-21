@@ -4,7 +4,7 @@ import MainMenu from './MainMenuComponent';
 import PlayerSelectComponent from './PlayerSelectComponent';
 import { getViewportDim, playSoundEffect, centerBgImg } from '../helpers/funcs';
 import ReactHowler from 'react-howler';
-import { MAIN_MENU_MUSIC, BEEP_2_SOUND, BEEP_LONG_SOUND } from '../helpers/constants';
+import { MAIN_MENU_MUSIC, BEEP_2_SOUND, BEEP_LONG_SOUND, PROPS_PATH } from '../helpers/constants';
 
 class Main extends Component {
 
@@ -73,7 +73,7 @@ class Main extends Component {
             overflow: 'hidden',
             width: this.state.screenDim[0],
             height: this.state.screenDim[1],
-            ...centerBgImg("assets/images/80/objectsAndProps/town.png", 'black', 'cover'),
+            ...centerBgImg(`${PROPS_PATH}/town.png`, 'black', 'cover'),
         }
 
         let UI_COMPONENT = null, AUDIO_COMPONENT = null;

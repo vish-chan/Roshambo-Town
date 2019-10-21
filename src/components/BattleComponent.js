@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, SPACE_KEY, BATTLE_END_MUSIC, BEEP_SOUND } from '../helpers/constants';
+import { ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, SPACE_KEY, BATTLE_END_MUSIC, BEEP_SOUND, PROPS_PATH } from '../helpers/constants';
 import { BattleHandleMove, BattleMoveIndexToStr, BattleEndIntro, CloseBattleSequence } from '../redux/ActionCreators';
 import { centerBgImg, solidBorder, getKeyDiv, getLevelColor, playSoundEffect } from '../helpers/funcs';
 import ReactHowler from 'react-howler';
@@ -95,7 +95,7 @@ class MoveDiv extends Component  {
     }
 
     componentDidMount() {
-        this.image.style.backgroundImage = `url('assets/images/80/objectsAndProps/${BattleMoveIndexToStr(this.props.move)}.png')`;
+        this.image.style.backgroundImage = `url('${PROPS_PATH}/${BattleMoveIndexToStr(this.props.move)}.png')`;
         this.image.classList.add(this.className);
     }
 
@@ -103,7 +103,7 @@ class MoveDiv extends Component  {
         this.timeout = [];
         this.timeout.push(setTimeout(function() {
             if(this.image) {
-                this.image.style.backgroundImage = `url('assets/images/80/objectsAndProps/${BattleMoveIndexToStr(this.props.move)}.png')`;
+                this.image.style.backgroundImage = `url('${PROPS_PATH}/${BattleMoveIndexToStr(this.props.move)}.png')`;
                 this.image.classList.add(this.className);
             }
         }.bind(this), 50));

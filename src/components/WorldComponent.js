@@ -9,6 +9,7 @@ import Inventory from './InventoryComponent';
 import Loading from './LoadingComponent';
 import Battle from './BattleComponent';
 import Stats from './StatsComponent';
+import { PROPS_PATH } from '../helpers/constants';
 
 
 const mapStatetoProps = state => {
@@ -81,7 +82,7 @@ class World extends Component {
                         <ConversationDisplay />
                         <Inventory />
                     </div>
-                    <img src="assets/images/80/objectsAndProps/loading.png" alt="Loading" style={{display:'none'}}></img>
+                    <img src={`${PROPS_PATH}/loading.png`} alt="Loading" style={{display:'none'}}></img>
                 </React.Fragment>
             );
         }
