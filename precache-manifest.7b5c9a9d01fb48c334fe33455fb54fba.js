@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b486ca211058f9e3e34443279cbb3e60",
+    "revision": "044713782e208c46157e68669cf0999d",
     "url": "/Roshambo-Town/index.html"
   },
   {
-    "revision": "c83c3215d7f0a0095aa5",
+    "revision": "1b473717c19459108b16",
     "url": "/Roshambo-Town/static/css/2.204c08ce.chunk.css"
   },
   {
-    "revision": "7d67c1897419889096d0",
+    "revision": "a85edf7c1cf06b77f6c0",
     "url": "/Roshambo-Town/static/css/main.8dee37cc.chunk.css"
   },
   {
-    "revision": "c83c3215d7f0a0095aa5",
-    "url": "/Roshambo-Town/static/js/2.f3a30932.chunk.js"
+    "revision": "1b473717c19459108b16",
+    "url": "/Roshambo-Town/static/js/2.5255f290.chunk.js"
   },
   {
-    "revision": "7d67c1897419889096d0",
-    "url": "/Roshambo-Town/static/js/main.9f739e0f.chunk.js"
+    "revision": "a85edf7c1cf06b77f6c0",
+    "url": "/Roshambo-Town/static/js/main.ecfaa7c2.chunk.js"
   },
   {
-    "revision": "ee56de6dd20fef45a297",
-    "url": "/Roshambo-Town/static/js/runtime~main.eefc1796.js"
+    "revision": "8a827bf65992ecb87c6a",
+    "url": "/Roshambo-Town/static/js/runtime~main.cc34d17f.js"
   },
   {
     "revision": "aa1519137a01780c9b51e7a90d41f29d",
