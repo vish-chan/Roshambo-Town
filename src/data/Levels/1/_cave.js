@@ -8,7 +8,7 @@ import { _hell } from "./_hell";
 export const _cave = {
     /* Compulsory */
 
-    name: "cave",
+    name: "hauntedhouse",
 
     map: cave,
 

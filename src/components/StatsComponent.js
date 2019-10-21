@@ -3,6 +3,8 @@ import { BATTLE_NUM_GANG_MEMBERS, PORTAL_ENTER, PORTAL_LEAVE } from '../helpers/
 import {connect} from 'react-redux';
 import { solidBorder, centerBgImg, getRounded, getKeyDiv, getLevelColor, getWinPercColor } from '../helpers/funcs';
 import { SaveGameToDisk } from '../redux/ActionCreators';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 
 const mapStatetoProps = state => {
@@ -98,12 +100,12 @@ class Stats extends Component {
                     </div>
                     
                 </div>
-                <div style={{width:'35%', height:'70%', ...solidBorder(2, '#db5435', 10), backgroundColor:'#639aa1', color:'white', display:'flex', flexDirection:'column', justifyContent:'center', paddingLeft:'10px'}}>
+                <div style={{width:'40%', height:'70%', ...solidBorder(2, '#DB5435', 10), backgroundColor:'#639AA1', color:'white', display:'flex', flexDirection:'column', justifyContent:'center', paddingLeft:'10px'}}>
                     <AwareComponent player={this.props.player}/>
                 </div>
-                <div style={{width:'10%', display:'flex', alignItems: 'center'}}>
+                <div style={{width:'5%', display:'flex', alignItems: 'center'}}>
                     <button disabled={(this.props.player.isAnimating || this.props.player.frozen || this.props.player.inBattle || this.props.player.interacting)} 
-                            style={{margin:'5px', ...bgStyle("#FD974F" , '#57ABB3'), backgroundColor: '#FD974F', fontFamily:'gameboy'}} onClick={this.handleSaveBtnClick}><i className="fa fa-save fa-2x" style={{margin:'5px'}}/> Save
+                            style={{margin:'5px', ...bgStyle("#FD974F" , '#57ABB3'), backgroundColor: '#FD974F', fontFamily:'gameboy'}} onClick={this.handleSaveBtnClick}><FontAwesomeIcon style={{color:"white", marginBottom:'4px'}} size="2x" icon={faSave}/> Save
                     </button>
                 </div>
             </div>
