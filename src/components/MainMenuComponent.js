@@ -53,8 +53,6 @@ const MenuBtn = (props) => {
 }
 
 class MainMenu extends Component {
-
-
     render() {
         return(
             <div style={{...style, width: this.props.width, height: this.props.height}}>
