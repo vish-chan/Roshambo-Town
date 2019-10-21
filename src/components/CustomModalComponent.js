@@ -1,5 +1,5 @@
 import React from 'react';
-import { solidBorder } from '../helpers/funcs';
+import { solidBorder, getFontSize } from '../helpers/funcs';
 import { faCheckSquare, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -27,16 +27,16 @@ const CustomModal = (props) => {
         justifyContent: 'space-around',
         alignItems: 'center',
         fontFamily: 'gameboy',
-        fontSize:'25px',
+        fontSize: getFontSize(2.5),
     };
 
     return(
         <div style={style}>
             <p style={{color:'black'}}>Exit to Main Menu?</p>
             <div style={{display:'flex', justifyContent:'space-between'}}>
-                <button style={{width:'230px',  fontFamily:'gameboy', fontSize:'23px', ...bgStyle('MediumSeaGreen', 'green'), margin:'10px'}} onClick={props.confirmLink}>
+                <button style={{width:'230px',  fontFamily:'gameboy', fontSize: getFontSize(2.3), ...bgStyle('MediumSeaGreen', 'green'), margin:'10px'}} onClick={props.confirmLink}>
                     Confirm <FontAwesomeIcon style={{color:"white"}} size="1x" icon={faCheckSquare}/></button>
-                <button style={{width:'230px', fontFamily:'gameboy', fontSize:'23px', ...bgStyle('OrangeRed', 'red'), margin:'10px'}} onClick={props.cancelLink}>
+                <button style={{width:'230px', fontFamily:'gameboy', fontSize: getFontSize(2.3), ...bgStyle('OrangeRed', 'red'), margin:'10px'}} onClick={props.cancelLink}>
                     Cancel <FontAwesomeIcon style={{color:"white"}} size="1x" icon={faWindowClose}/></button>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getKeyDiv } from '../helpers/funcs';
+import { getKeyDiv, getFontSize } from '../helpers/funcs';
 
 const mapStateToProps = (state) => {
     return({
@@ -74,14 +74,15 @@ class Dialog extends Component {
 
         const style = {
             position: 'absolute',
-            width: '98%',
             height: '25%',
             border: '10px solid #00b4bc',
+            left: 0,
+            right: 0,
             borderRadius: '10px',
             padding: '5px',
             backgroundColor: '#f7f8f7',
             color: '#5d5f5b',
-            fontSize: '20px',
+            fontSize: getFontSize(2),
             fontFamily: 'gameboy_lg',
             display: this.props.isOpen? 'block': 'none',
             overflowWrap: 'break-word',

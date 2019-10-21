@@ -18,7 +18,7 @@ class Main extends Component {
             playerselect: false,
             world: false,
             loadgame: false,
-            screenDim: getViewportDim(window.screen.width),
+            screenDim: getViewportDim(window.screen.width, window.screen.height),
         }
         this.bg = `${PROPS_PATH}/town.png`;
         this.handleStartNewGame = this.handleStartNewGame.bind(this);

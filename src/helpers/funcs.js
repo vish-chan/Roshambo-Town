@@ -5,15 +5,34 @@ export const getRounded = (num) => {
     return isNaN(num)? 0: Math.round(num);
 }
 
-export const getViewportDim = (screenWidth) => {
-    const dims = [[1040, 480], [1120,640], [1440, 800]];
-    if(screenWidth < 1400) 
-        return dims[0];
-    else if(screenWidth < 1680) 
-        return dims[1];
+let BASE_FONT_SIZE = 10;
+
+export const getViewportDim = (screenWidth, screenHeight) => {
+    const width = [960, 1200, 1440];
+    const height = [640, 720, 800];
+    let viewportdim = [];
+    if(screenWidth < 1200) 
+        viewportdim[0] = width[0];
+    else if(screenWidth < 1440) 
+        viewportdim[0] = width[1];
     else 
-        return dims[2];
+        viewportdim[0] = width[2];
     
+    if(screenHeight < 720) {
+        viewportdim[1] = height[0];
+        BASE_FONT_SIZE = 8;
+    } else if(screenHeight < 800) {
+        viewportdim[1] = height[1];
+        BASE_FONT_SIZE = 9;
+    } else {
+        viewportdim[1] = height[2];
+        BASE_FONT_SIZE = 10;
+    } 
+    return viewportdim;
+}
+
+export const getFontSize = (multiplier = 1) => {
+    return BASE_FONT_SIZE*multiplier;
 }
 
 export const viewportToMap = (viewportpos, mapstart) => {
@@ -96,7 +115,7 @@ export const solidBorder = (size, color, radius) => {
 }
 
 
-export const getKeyDiv = (keycode, fontSize=15) => {
+export const getKeyDiv = (keycode, fontSize=getFontSize(1.5)) => {
     return(
     <div style={{padding:'3px', border: '1px inset grey', borderRadius:'5px', backgroundColor:'white', display: 'inline-block', fontSize:`${fontSize}px`, color:'#5d5f5b' }}>
         <div style={{backgroundColor:'lightgrey'}}>{keycode}</div>

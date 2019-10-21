@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { EATABLE, HEALER, CURRENCY } from '../helpers/constants';
 import { GAMEOBJECTS } from '../data/gameobjects';
+import { getFontSize } from '../helpers/funcs';
 
 
 
@@ -39,7 +40,7 @@ const InventoryItem = (props) => {
     return(
         <div className="inventorybtn">
             <div style={imageStyle}/>
-            <p style={{fontSize: '20px', position: 'absolute', margin: '5px', left: 5, bottom: 5}}>{props.count}</p>
+            <p style={{fontSize: getFontSize(2), position: 'absolute', margin: '5px', left: 5, bottom: 5}}>{props.count}</p>
         </div>
     );
 }
@@ -90,8 +91,8 @@ const InventoryDialog = (props) => {
 
     return(
             <div id="inventory" style={inventoryStyle}>
-                <div style={{ fontSize: '20px', padding: '5px', margin:'5px', textAlign: 'center'}}>
-                    <p style={{ fontSize: '20px', padding: '3px', margin:'0px', display:'inline-block', border: '2px groove white'}}>Inventory</p>
+                <div style={{ fontSize: getFontSize(2), padding: '5px', margin:'5px', textAlign: 'center'}}>
+                    <p style={{ fontSize: getFontSize(2), padding: '3px', margin:'0px', display:'inline-block', border: '2px groove white'}}>Inventory</p>
                 </div>
                 <div style={{display: 'flex', padding: '5px', flexDirection: 'column', justifyContent: 'center'}}>
                     <InventoryRow type={HEALER} inventorylist={props.inventory[HEALER]} />

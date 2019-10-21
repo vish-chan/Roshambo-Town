@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, SPACE_KEY, BATTLE_END_MUSIC, BEEP_SOUND, PROPS_PATH } from '../helpers/constants';
 import { BattleHandleMove, BattleMoveIndexToStr, BattleEndIntro, CloseBattleSequence } from '../redux/ActionCreators';
-import { centerBgImg, solidBorder, getKeyDiv, getLevelColor, playSoundEffect } from '../helpers/funcs';
+import { centerBgImg, solidBorder, getKeyDiv, getLevelColor, playSoundEffect, getFontSize } from '../helpers/funcs';
 import ReactHowler from 'react-howler';
 
 const mapStatetoProps = state => {
@@ -45,10 +45,10 @@ class HealthBar extends Component {
 
         return(
             <div ref={hb => this.hb = hb} style={{width:'90%', height: '50%', display: 'flex', flexDirection: 'row', justifyContent:'space-between', alignItems:'center' }}>
-                <div style={{fontSize: '20px', marginRight:'10px'}}>HP</div>
+                <div style={{fontSize: getFontSize(2), marginRight:'10px'}}>HP</div>
                 <div style={{width:'90%', height: '30%',...solidBorder(1, 'white', 0), backgroundColor: 'white' }}>
                     <div style={{position: 'relative', width:`${(this.props.currhealth/this.props.maxhealth)*100}%`, height:'100%', ...solidBorder(0, 'white', 0), backgroundImage: 'linear-gradient(mediumseagreen, forestgreen, mediumseagreen)'}}>
-                        <div style={{position:'absolute', left:'40%', top:'15%', fontSize:'20px'}}>{Math.floor((this.props.currhealth/this.props.maxhealth)*100)}%</div>
+                        <div style={{position:'absolute', left:'40%', top:'15%', fontSize:getFontSize(2)}}>{Math.floor((this.props.currhealth/this.props.maxhealth)*100)}%</div>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@ const PlayerInfo = (props) => {
         backgroundColor: getLevelColor(props.player.level),
         ...solidBorder(2, 'black', 5),
         color: 'black',
-        fontSize: '25px',
+        fontSize: getFontSize(2.5),
         fontFamily: 'gameboy_lg',
         display: 'flex',
         flexDirection: props.reverse? 'row-reverse' : 'row',
@@ -77,7 +77,7 @@ const PlayerInfo = (props) => {
             <div style={{width:'70%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'space-around', alignSelf:'center', margin: '5px'}}>
                 <div style={{display: 'flex', justifyContent:'space-between'}}>
                     <div>{props.player.name}</div>
-                    <div style={{color:'yellow', fontSize:'20px'}}>Lvl:{props.player.level}</div>
+                    <div style={{color:'yellow', fontSize:getFontSize(2)}}>Lvl:{props.player.level}</div>
                 </div>
                 <HealthBar maxhealth={props.player.maxLives} currhealth={props.player.lives} blink={props.blink}/>
             </div> 
@@ -133,6 +133,7 @@ class MoveDiv extends Component  {
             position: "absolute",
             backgroundRepeat: 'no-repeat', 
             backgroundPosition:'center',
+            backgroundSize: 'contain',
             transform: this.props.reverse? 'rotate(180deg)' : 'rotate(0deg)',
         }
 
@@ -190,7 +191,7 @@ class Summary extends Component {
             padding: '5px',
             backgroundColor: '#639aa1',
             color: 'white',
-            fontSize: '30px',
+            fontSize: getFontSize(3),
             fontFamily: 'gameboy',
             overflowWrap: 'break-word',
         };
@@ -269,15 +270,15 @@ class BattleEnd extends Component {
 
     render() {
         return(
-            <div  id="battleEnd" className="moveInLR" style={{position:'absolute', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'center', fontSize:'25px' ,fontFamily:'gameboy',  backgroundImage: 'repeating-linear-gradient(#def3c6, #def3c6 20px, #e7f6db 20px, #e7f6db 23px)'}}>
+            <div  id="battleEnd" className="moveInLR" style={{position:'absolute', width:'100%', height:'100%', display:'flex', flexDirection:'column', justifyContent:'center', fontSize: getFontSize(2.5) ,fontFamily:'gameboy',  backgroundImage: 'repeating-linear-gradient(#def3c6, #def3c6 20px, #e7f6db 20px, #e7f6db 23px)'}}>
                 <div style={{width:'100%', height:'60%', display:'flex', justifyContent:'center'}}>
                     <div style={{width:'60%', height: '100%', display:'flex', justifyContent:'center', backgroundColor: '#f7f8f7',...solidBorder(10, '#00b1b7', 10), color:'#5d5f5b'}}> 
                             <div style={{width:'40%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center'}}>
                                 <div style={{width:'240px', height:'240px', alignSelf:'center', ...centerBgImg(`${this.props.player.src}/head.png`, "lightgrey"), ...solidBorder(2, 'grey', 5) }}/>
-                                <div style={{alignSelf:'center', fontSize:'30px'}}>{this.props.player.name}</div>
+                                <div style={{alignSelf:'center', fontSize: getFontSize(3)}}>{this.props.player.name}</div>
                             </div> 
-                            <div style={{width:'50%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center', fontSize:'25px'}}>
-                                <div className={this.winnerClass} style={{alignSelf:'center', fontSize:'35px', marginBottom:'20px'}}>{this.winnerStr}</div>
+                            <div style={{width:'50%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center', fontSize: getFontSize(2.5)}}>
+                                <div className={this.winnerClass} style={{alignSelf:'center', fontSize: getFontSize(3.5), marginBottom:'20px'}}>{this.winnerStr}</div>
                                 <div ref={score => this.score=score} style={{margin:'5px 0px 0px 10px'}}></div>
                                 <div  ref={exp => this.exp=exp}  style={{margin:'5px 0px 0px 10px'}}></div>
                                 <div  ref={level => this.level=level} style={{margin:'5px 0px 0px 10px', color: this.levelColor}}></div>
@@ -300,7 +301,7 @@ class BattleIntro extends Component {
             position:'absolute', 
             width:'100%', height:'100%',
             display:'flex', flexDirection:'column', justifyContent:'space-between',
-            fontFamily:'gameboy', fontSize: '60px',
+            fontFamily:'gameboy', fontSize: getFontSize(6),
             backgroundColor:'white'
         }
 
@@ -368,7 +369,7 @@ class BattleArena extends Component {
                         <MoveDiv move={this.props.battle.npc.lastMove} reverse={true} blink={this.props.battle.lastWinner===1}/>
                     </div>
                     <div style={{display: 'flex', width: '100%', height: '25%'}}>
-                        <select defaultValue={ROCK} style={{fontFamily:'gameboy_lg', fontSize:'30px', overflowY:'hidden', width: '30%', backgroundColor:'#f9f6d6', ...solidBorder(8, '#4d655e', 10)}} ref={select => this.select = select} size={3}>
+                        <select defaultValue={ROCK} style={{fontFamily:'gameboy_lg', fontSize: getFontSize(3), overflowY:'hidden', width: '30%', backgroundColor:'#f9f6d6', ...solidBorder(8, '#4d655e', 10)}} ref={select => this.select = select} size={3}>
                                 <option value={ROCK} >Rock</option>
                                 <option value={PAPER}>Paper</option>
                                 <option value={SCISSORS}>Scissors</option>
