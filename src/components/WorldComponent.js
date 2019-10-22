@@ -49,7 +49,7 @@ class World extends Component {
 
     handleKeyDown(event) {
         var keyCode = event.keyCode;
-        console.log(keyCode);
+        //console.log(keyCode);
         if(VALID_KEYCODES.includes(keyCode)) {
             //console.log(keyCode);
             event.preventDefault();
