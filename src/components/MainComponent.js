@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import World from './WorldComponent';
+import Game from './GameComponent';
 import MainMenu from './MainMenuComponent';
 import PlayerSelectComponent from './PlayerSelectComponent';
 import { getViewportDim, playSoundEffect, centerBgImg, preloadPictures } from '../helpers/funcs';
@@ -16,7 +16,7 @@ class Main extends Component {
             loading: true,
             menu: false,
             playerselect: false,
-            world: false,
+            game: false,
             loadgame: false,
             screenDim: getViewportDim(window.screen.width, window.screen.height),
         }
@@ -34,7 +34,7 @@ class Main extends Component {
                 loading: false,
                 menu: true,
                 playerselect: false,
-                world: false,
+                game: false,
                 loadgame: false,
             });
         }.bind(this);
@@ -47,7 +47,7 @@ class Main extends Component {
         this.setState({
             menu: false,
             playerselect: true,
-            world: false,
+            game: false,
             loadgame: false,
         });
     }
@@ -57,7 +57,7 @@ class Main extends Component {
         this.setState({
             menu: false,
             playerselect: false,
-            world: true,
+            game: true,
             loadgame: true,
         });
     }
@@ -67,7 +67,7 @@ class Main extends Component {
         this.setState({
             menu: false,
             playerselect: false,
-            world: true,
+            game: true,
             loadgame: false,
         })
     }
@@ -77,7 +77,7 @@ class Main extends Component {
         this.setState({
             menu: true,
             playerselect: false,
-            world: false,
+            game: false,
             loadgame: false,
         })
     }
@@ -105,8 +105,8 @@ class Main extends Component {
         } else if(this.state.playerselect) {
             UI_COMPONENT = <div style={style}><PlayerSelectComponent width={this.state.screenDim[0]} height={this.state.screenDim[1]}  startJourney={this.handleStartJourney} handleBack={this.handleBack}/></div>;
             AUDIO_COMPONENT = <ReactHowler src={MAIN_MENU_MUSIC} loop={true} html5={false}  volume={0.4}/>;
-        } else if(this.state.world) {
-            UI_COMPONENT = <World width={this.state.screenDim[0]} height={this.state.screenDim[1]} loadgame={this.state.loadgame} handleBack={this.handleBack}/>;
+        } else if(this.state.game) {
+            UI_COMPONENT = <Game width={this.state.screenDim[0]} height={this.state.screenDim[1]} loadgame={this.state.loadgame} handleBack={this.handleBack}/>;
             AUDIO_COMPONENT = null;
         } else {
             UI_COMPONENT = <div style={{fontFamily:'gameboy', fontSize:'20px', color:'white'}}>Unknown error. PLEASE RELOAD PAGE.</div>;

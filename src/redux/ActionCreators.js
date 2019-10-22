@@ -128,6 +128,10 @@ const checkPortalEnter = (playerdir, portaldir) => {
 
 export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     const player = getState().player;
+
+    if(player.interacting || player.isAnimating || player.frozen || player.inBattle)
+        return;
+
     const VIEWPORT_WIDTH = getState().viewport.viewportDims[0], VIEWPORT_HEIGHT = getState().viewport.viewportDims[1];
     let oldpos = player.position, newpos = [];
     let mapstart = getState().viewport.start, mapend = getState().viewport.end;
@@ -241,6 +245,8 @@ const getObjectForPickup = (position, gameobjects) => {
 
 export const PickupGameObject = () => (dispatch, getState) => {
     const player = getState().player;
+    if(player.interacting)
+        return;
     const gameobject = player.nearbyGameObj!==null? getState().gameobjects.filter( gobj => gobj.id === player.nearbyGameObj ): null;
     if(gameobject!==null) {
         playSoundEffect(PICK_SOUND);
@@ -316,7 +322,16 @@ const ForceNonBattleConversation = (player, npc) => (dispatch, getState) => {
         mapToViewport(player.position, getState().viewport.start)[1]>(VIEWPORT_HEIGHT/3)? "top": "bottom", false));
 }
 
-export const InitiateConversation = () => (dispatch, getState) => {
+
+export const HandleConversation = () => (dispatch, getState) => {
+    const player = getState().player;
+    if(!player.interacting)
+        dispatch(InitiateConversation());
+    else 
+        dispatch(UpdateConversation());
+}
+
+const InitiateConversation = () => (dispatch, getState) => {
     const player = getState().player;
     const npc = player.nearbyNPC!==null? getNPC(getState().npc.list, player.nearbyNPC):null;
     const VIEWPORT_HEIGHT = getState().viewport.viewportDims[1];
@@ -370,7 +385,7 @@ export const InitiateConversation = () => (dispatch, getState) => {
 
 
 
-export const UpdateConversation = () => (dispatch, getState) => {
+const UpdateConversation = () => (dispatch, getState) => {
     const dialog = getState().dialog;
     if(dialog.speakerIdx===0) {
         dispatch(NextDialogAction());

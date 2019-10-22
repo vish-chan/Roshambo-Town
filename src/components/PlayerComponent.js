@@ -1,25 +1,13 @@
 import React, { Component } from 'react';
-import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, ESC_KEY, BEEP_3_SOUND } from '../helpers/constants';
+import { TILE_SIZE } from '../helpers/constants';
 import { connect } from 'react-redux';
-import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject, ToggleInventory } from '../redux/ActionCreators';
-import { mapToViewport, playSoundEffect, getLevelColor } from '../helpers/funcs';
-import CustomModal from './CustomModalComponent';
+import { mapToViewport, getLevelColor } from '../helpers/funcs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 const mapStatetoProps = state => {
     return({
         player: state.player,
-    });
-}
-
-const mapDispatchToProps = dispatch => {
-    return({
-        updatePlayerPosition: (keyCode) => { dispatch(UpdatePlayerPosition(keyCode)); },
-        initiateConversation: () => { dispatch(InitiateConversation()); },
-        updateConversation: () => { dispatch(UpdateConversation()); },
-        pickupObject: () => { dispatch(PickupGameObject()); },
-        toggleInventory: () => { dispatch(ToggleInventory()); },
     });
 }
 
@@ -60,68 +48,13 @@ const PlayerSprite = (props) => {
 
 class Player extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.handleKeyDown = this.handleKeyDown.bind(this);
-        this.toggleExitModalState = this.toggleExitModalState.bind(this);
-        this.state = {
-            showExitModal: false,
-        }
-    }
-
-    componentDidMount() {
-        window.addEventListener('keydown', this.handleKeyDown);
-    }
-    
-
-    componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleKeyDown);
-    }
-
-    toggleExitModalState() {
-        playSoundEffect(BEEP_3_SOUND)
-        this.setState({
-            showExitModal: !this.state.showExitModal,
-        })
-    }
-
-    handleKeyDown(event) {
-        if(this.props.player.isAnimating || this.props.player.frozen || this.props.player.inBattle)
-            return;
-        var keyCode = event.keyCode;
-        //console.log(keyCode);
-        if(VALID_KEYCODES.includes(keyCode)) {
-            //console.log(keyCode);
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            if(ARROW_KEYCODES.includes(keyCode) && !this.props.player.interacting) {
-                this.props.updatePlayerPosition(keyCode);
-            } else if(SPACE_KEY.includes(keyCode)) {
-                if(!this.props.player.interacting)
-                    this.props.initiateConversation();
-                else
-                    this.props.updateConversation();
-            } else if(PICKUP_KEY.includes(keyCode) && !this.props.player.interacting) {
-                this.props.pickupObject();
-            } else if(INVENTORY_KEY.includes(keyCode)) {
-                this.props.toggleInventory();
-            } else if(ESC_KEY.includes(keyCode)) {
-                this.toggleExitModalState();
-            }
-        } 
-    }
-
     
     render() {
 
         return(
-            <div>
-                <PlayerSprite player={this.props.player} viewport={this.props.viewport}/>
-                <CustomModal show={this.state.showExitModal} confirmLink={this.props.handleBack} cancelLink={this.toggleExitModalState} />
-            </div>
+            <PlayerSprite player={this.props.player} viewport={this.props.viewport}/>
         );
     }
 }
 
-export default connect(mapStatetoProps, mapDispatchToProps)(Player);
+export default connect(mapStatetoProps)(Player);
