@@ -90,13 +90,13 @@ export const _townSouth = {
         {
             position: [4, 5],
             type: PORTALS[0],
-            rotate:-90,
+            rotate:270,
             target: _library,
         },
         {
             position: [19, 7],
             type: PORTALS[0],
-            rotate:-90,
+            rotate:270,
             target: _hotel,
         },
         {

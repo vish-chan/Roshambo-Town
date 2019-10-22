@@ -113,6 +113,19 @@ const getNPC = (npclist, npcid) => {
 }
 
 
+const checkPortalEnter = (playerdir, portaldir) => {
+    if(playerdir===RIGHT && portaldir===0)
+        return true;
+    if(playerdir===DOWN && portaldir===90)
+        return true;
+    if(playerdir===LEFT && portaldir===180)
+        return true;
+    if(playerdir===UP && portaldir===270)
+        return true;
+    return false; 
+}
+
+
 export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     const player = getState().player;
     const VIEWPORT_WIDTH = getState().viewport.viewportDims[0], VIEWPORT_HEIGHT = getState().viewport.viewportDims[1];
@@ -203,7 +216,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
             }
 
             const portals = getPortal(getState().player.position, getState().gameobjects);
-            if(portals.length) {
+            if(portals.length>0 && checkPortalEnter(getState().player.direction, portals[0].rotate)) {
                 dispatch(EnterPortal(portals[0]));
             }
             return;
