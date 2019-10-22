@@ -155,7 +155,7 @@ export const _townCenter = {
             target: _home,
         },
         {
-            position: [7, 10],
+            position: [6, 10],
             type: PORTALS[0],
             rotate:270,
             target: _bakery,
