@@ -220,7 +220,7 @@ class BattleEnd extends Component {
             this.winnerStr = `${this.props.player.name} LOST!`;
             this.winnerClass = "lostBlink";
         }
-        this.levelColor =  this.props.player.level>this.props.player.initialStats.level? "forestgreen":"#5d5f5b";
+        this.levelColor =  getLevelColor(this.props.player.level);
         this.levelArrow = this.props.player.level>this.props.player.initialStats.level?` <i class="fa fa-arrow-up blink"></i>`:"";
 
         this.animateText = this.animateText.bind(this);
@@ -338,9 +338,8 @@ class BattleArena extends Component {
         setTimeout(function() {
             if(this.select) {
                 this.select.disabled = false; 
-                this.select.focus();
             }
-        }.bind(this), 1200);
+        }.bind(this), 1100);
     }
 
     render() {
