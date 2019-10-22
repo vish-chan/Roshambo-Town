@@ -14,11 +14,10 @@ export const ARROW_KEYCODES = [37, 38, 39, 40];
 export const SPACE_KEY = [32];
 export const PICKUP_KEY = [80]; /* P */
 export const INVENTORY_KEY = [73]; /* I */
-export const SAVE_KEY = [69]; /* E */
 export const ENTER_KEY = [13]; /* ENTER */
 export const ESC_KEY = [27]; /* R */
 
-export const VALID_KEYCODES = ARROW_KEYCODES.concat(SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, SAVE_KEY, ENTER_KEY, ESC_KEY);
+export const VALID_KEYCODES = ARROW_KEYCODES.concat(SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, ENTER_KEY, ESC_KEY);
 
 export const PASSIBLE_INDEX = 5;
 

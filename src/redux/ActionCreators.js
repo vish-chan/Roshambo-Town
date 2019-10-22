@@ -204,9 +204,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
 
             const portals = getPortal(getState().player.position, getState().gameobjects);
             if(portals.length) {
-                dispatch(UpdateNearbyPortalAction(portals[0]));
-            } else if(player.nearbyPortal!==null) {
-                dispatch(UpdateNearbyPortalAction());
+                dispatch(EnterPortal(portals[0]));
             }
             return;
         } 
@@ -477,9 +475,7 @@ const getPortal = (position, gameobjects) => {
     return(gameobjects.filter(gameobject => gameobject.type.type===PORTAL && getPositionEquality(position, gameobject.position)))
 }
 
-export const CheckPortalAndEnter = () => (dispatch, getState) =>{
-    const player = getState().player;
-    const portal = player.nearbyPortal;
+const EnterPortal = (portal) => (dispatch, getState) =>{
     if(portal!==null) {
         if(portal.type.name===PORTAL_ENTER) {
     
@@ -936,14 +932,6 @@ const UpdateNearbyGameObjAction = (gameobjId=null) => {
     });
 }
 
-const UpdateNearbyPortalAction = (portal=null) => {
-    return({
-        type: ActionTypes.UPDATE_NEARBY_PORTAL,
-        payload: {
-           portal
-        }
-    });
-}
 
 const UpdateNPCDirectionAction = (npcId, direction) => {
     return({

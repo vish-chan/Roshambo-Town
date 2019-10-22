@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, SAVE_KEY, ESC_KEY, BEEP_3_SOUND } from '../helpers/constants';
+import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, TILE_SIZE, ESC_KEY, BEEP_3_SOUND } from '../helpers/constants';
 import { connect } from 'react-redux';
-import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject, ToggleInventory, CheckPortalAndEnter } from '../redux/ActionCreators';
+import { UpdatePlayerPosition, InitiateConversation, UpdateConversation, PickupGameObject, ToggleInventory } from '../redux/ActionCreators';
 import { mapToViewport, playSoundEffect, getLevelColor } from '../helpers/funcs';
 import CustomModal from './CustomModalComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,7 +20,6 @@ const mapDispatchToProps = dispatch => {
         updateConversation: () => { dispatch(UpdateConversation()); },
         pickupObject: () => { dispatch(PickupGameObject()); },
         toggleInventory: () => { dispatch(ToggleInventory()); },
-        checkPortalAndEnter: () => { dispatch(CheckPortalAndEnter()); },
     });
 }
 
@@ -107,9 +106,7 @@ class Player extends Component {
                 this.props.pickupObject();
             } else if(INVENTORY_KEY.includes(keyCode)) {
                 this.props.toggleInventory();
-            } else if(SAVE_KEY.includes(keyCode) && !this.props.player.interacting) {
-                this.props.checkPortalAndEnter();
-            }  else if(ESC_KEY.includes(keyCode)) {
+            } else if(ESC_KEY.includes(keyCode)) {
                 this.toggleExitModalState();
             }
         } 

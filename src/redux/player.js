@@ -19,7 +19,6 @@ const INITIAL_STATE = {
                         frozen: false,
                         nearbyNPC: null,
                         nearbyGameObj: null,
-                        nearbyPortal: null,
                         inBattle: false,
                         battle: {
                                 level: 1,
@@ -58,7 +57,6 @@ export const Player = (state = {...INITIAL_STATE}, action) => {
                         frozen: false,
                         nearbyNPC: null,
                         nearbyGameObj: null,
-                        nearbyPortal: null,
                         inBattle: false,
                         battle: {
                                 ...action.payload.secondary? state.battle:INITIAL_STATE.battle, 
@@ -131,11 +129,6 @@ export const Player = (state = {...INITIAL_STATE}, action) => {
                 return({
                         ...state,
                         nearbyGameObj: action.payload.id,
-                });
-        case ActionTypes.UPDATE_NEARBY_PORTAL: 
-                return({
-                        ...state,
-                        nearbyPortal: action.payload.portal? {...action.payload.portal}:null,
                 });
         case ActionTypes.START_BATTLE:
                 return({
