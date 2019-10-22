@@ -11,22 +11,26 @@ export const getViewportDim = (screenWidth, screenHeight) => {
     const width = [960, 1200, 1440];
     const height = [640, 720, 800];
     let viewportdim = [];
-    if(screenWidth < 1200) 
+    if(screenWidth < 1200) {
         viewportdim[0] = width[0];
-    else if(screenWidth < 1440) 
+        BASE_FONT_SIZE = 8;
+    } else if(screenWidth < 1440) {
         viewportdim[0] = width[1];
-    else 
+        BASE_FONT_SIZE = 9;
+    } else {
         viewportdim[0] = width[2];
+        BASE_FONT_SIZE = 10;
+    } 
     
     if(screenHeight < 720) {
         viewportdim[1] = height[0];
-        BASE_FONT_SIZE = 8;
+        BASE_FONT_SIZE = Math.min(BASE_FONT_SIZE, 8);
     } else if(screenHeight < 800) {
         viewportdim[1] = height[1];
-        BASE_FONT_SIZE = 9;
+        BASE_FONT_SIZE = Math.min(BASE_FONT_SIZE, 9);
     } else {
         viewportdim[1] = height[2];
-        BASE_FONT_SIZE = 10;
+        BASE_FONT_SIZE = Math.min(BASE_FONT_SIZE, 10);
     } 
     return viewportdim;
 }
