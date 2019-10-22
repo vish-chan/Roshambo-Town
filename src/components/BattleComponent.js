@@ -355,9 +355,9 @@ class BattleArena extends Component {
                     </div>
                     <div style={{display: 'flex', width: '100%', height: '25%'}}>
                         <select onClick={this.handleMoveSelect} defaultValue={ROCK} style={{fontFamily:'gameboy_lg', fontSize: getFontSize(3), overflowY:'hidden', width: '30%', backgroundColor:'#f9f6d6', ...solidBorder(8, '#4d655e', 10)}} ref={select => this.select = select} size={3}>
-                                <option style={{height:'33%'}} value={ROCK} >Rock</option>
-                                <option style={{height:'33%'}} value={PAPER}>Paper</option>
-                                <option style={{height:'33%'}} value={SCISSORS}>Scissors</option>
+                                <option style={{padding:'10px 0'}} value={ROCK} >Rock</option>
+                                <option style={{padding:'10px 0'}} value={PAPER}>Paper</option>
+                                <option style={{padding:'10px 0'}} value={SCISSORS}>Scissors</option>
                         </select>
                         <Summary summary={this.props.battle.summary} />
                     </div>
