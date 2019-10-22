@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BATTLE_NUM_GANG_MEMBERS, PORTAL_ENTER, PORTAL_LEAVE } from '../helpers/constants';
+import { BATTLE_NUM_GANG_MEMBERS} from '../helpers/constants';
 import {connect} from 'react-redux';
 import { solidBorder, centerBgImg, getRounded, getKeyDiv, getLevelColor, getWinPercColor, getFontSize } from '../helpers/funcs';
 import { SaveGameToDisk } from '../redux/ActionCreators';
@@ -25,15 +25,6 @@ const bgStyle = (bgcolor, bordercolor='white') => {
         backgroundColor: bgcolor,
         ...solidBorder(2, bordercolor , 5),
     });
-}
-
-const getPortalInstruction = (portal) => {
-    let targetname = "", action = PORTAL_LEAVE;
-    if(portal.type.name===PORTAL_ENTER) {
-        action = PORTAL_ENTER;
-        targetname = portal.target.name;
-    }
-    return (<div>Use {getKeyDiv("E")} to {action} {targetname}</div>);
 }
 
 const AwareComponent = (props) => {
