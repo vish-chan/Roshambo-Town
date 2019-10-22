@@ -330,15 +330,18 @@ class BattleArena extends Component {
         this.handleMoveSelect = this.handleMoveSelect.bind(this);
     }
 
-    handleMoveSelect() {
-        if(this.select.disabled)
-            return;
-        this.select.disabled = true;
-        this.props.submitMove(this.select.value);
+    handleMoveSelect(move) {
+        var moveelements = document.getElementsByClassName("move");
+        for(var i = 0; i < moveelements.length; i++) {
+            moveelements[i].disabled = true;
+        }
+
+        this.props.submitMove(move);
         setTimeout(function() {
-            if(this.select) {
-                this.select.disabled = false; 
-            }
+            var moveelements = document.getElementsByClassName("move");
+            for(var i = 0; i < moveelements.length; i++) {
+                moveelements[i].disabled = false;
+        }
         }.bind(this), 1100);
     }
 
@@ -354,11 +357,11 @@ class BattleArena extends Component {
                         <MoveDiv move={this.props.battle.npc.lastMove} reverse={true} blink={this.props.battle.lastWinner===1}/>
                     </div>
                     <div style={{display: 'flex', width: '100%', height: '25%'}}>
-                        <select onClick={this.handleMoveSelect} defaultValue={ROCK} style={{fontFamily:'gameboy_lg', fontSize: getFontSize(3), overflowY:'hidden', width: '30%', backgroundColor:'#f9f6d6', ...solidBorder(8, '#4d655e', 10)}} ref={select => this.select = select} size={3}>
-                                <option style={{padding:'10px 0'}} value={ROCK} >Rock</option>
-                                <option style={{padding:'10px 0'}} value={PAPER}>Paper</option>
-                                <option style={{padding:'10px 0'}} value={SCISSORS}>Scissors</option>
-                        </select>
+                        <div style={{display:'flex', flexDirection:'column', width: '30%', backgroundColor:'#f9f6d6', ...solidBorder(8, '#4d655e', 10)}}>
+                            <button className="move" onClick={() => this.handleMoveSelect(ROCK)} style={{ fontFamily:'gameboy_lg', fontSize: getFontSize(3),  ...solidBorder(1,'#4d655e',0), padding:'10px 0'}}>Rock</button>
+                            <button className="move" onClick={() => this.handleMoveSelect(PAPER)} style={{ fontFamily:'gameboy_lg', fontSize: getFontSize(3), ...solidBorder(1,'#4d655e',0), padding:'10px 0'}}>Paper</button>
+                            <button className="move" onClick={() => this.handleMoveSelect(SCISSORS)} style={{ fontFamily:'gameboy_lg', fontSize: getFontSize(3), ...solidBorder(1,'#4d655e',0), padding:'10px 0'}}>Scissors</button>
+                        </div>
                         <Summary summary={this.props.battle.summary} />
                     </div>
                 </div> 
