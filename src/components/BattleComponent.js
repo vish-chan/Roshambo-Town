@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ARROW_KEYCODES, ENTER_KEY, ROCK, PAPER, SCISSORS, SPACE_KEY, BATTLE_END_MUSIC, BEEP_SOUND, PROPS_PATH } from '../helpers/constants';
+import { ROCK, PAPER, SCISSORS, SPACE_KEY, BATTLE_END_MUSIC, BEEP_SOUND, PROPS_PATH } from '../helpers/constants';
 import { BattleHandleMove, BattleMoveIndexToStr, BattleEndIntro, CloseBattleSequence } from '../redux/ActionCreators';
 import { centerBgImg, solidBorder, getKeyDiv, getLevelColor, playSoundEffect, getFontSize } from '../helpers/funcs';
 import ReactHowler from 'react-howler';
