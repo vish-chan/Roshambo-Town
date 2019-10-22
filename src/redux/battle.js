@@ -50,7 +50,7 @@ const INITIAL_STATE = {
                         },
                         lastWinner: 0,
                         finalWinner: 0,
-                        summary: "Use arrow keys to select and press Enter",
+                        summary: "Use arrow keys to select and press SPACE",
                         music: null,
                     };
 

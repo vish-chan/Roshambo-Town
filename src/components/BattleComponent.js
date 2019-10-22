@@ -343,7 +343,7 @@ class BattleArena extends Component {
         const keyCode = event.keyCode;
         if(ARROW_KEYCODES.includes(keyCode)) {
             this.select.focus();
-        } else if(ENTER_KEY.includes(keyCode)) {
+        } else if(SPACE_KEY.includes(keyCode)) {
             if(this.select.disabled)
                 return;
             this.select.disabled = true;
