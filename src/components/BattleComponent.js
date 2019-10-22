@@ -327,34 +327,20 @@ class BattleArena extends Component {
 
     constructor(props) {
         super(props);
-        this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.handleMoveSelect = this.handleMoveSelect.bind(this);
     }
 
-    componentDidMount() {
-        window.addEventListener('keydown', this.handleKeyDown);
-        this.select.focus();
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleKeyDown);
-    }
-
-    handleKeyDown(event) {
-        const keyCode = event.keyCode;
-        if(ARROW_KEYCODES.includes(keyCode)) {
-            this.select.focus();
-        } else if(SPACE_KEY.includes(keyCode)) {
-            if(this.select.disabled)
-                return;
-            this.select.disabled = true;
-            this.props.submitMove(this.select.value);
-            setTimeout(function() {
-                if(this.select) {
-                    this.select.disabled = false; 
-                    this.select.focus();
-                }
-            }.bind(this), 1200);
-        }
+    handleMoveSelect() {
+        if(this.select.disabled)
+            return;
+        this.select.disabled = true;
+        this.props.submitMove(this.select.value);
+        setTimeout(function() {
+            if(this.select) {
+                this.select.disabled = false; 
+                this.select.focus();
+            }
+        }.bind(this), 1200);
     }
 
     render() {
@@ -369,10 +355,10 @@ class BattleArena extends Component {
                         <MoveDiv move={this.props.battle.npc.lastMove} reverse={true} blink={this.props.battle.lastWinner===1}/>
                     </div>
                     <div style={{display: 'flex', width: '100%', height: '25%'}}>
-                        <select defaultValue={ROCK} style={{fontFamily:'gameboy_lg', fontSize: getFontSize(3), overflowY:'hidden', width: '30%', backgroundColor:'#f9f6d6', ...solidBorder(8, '#4d655e', 10)}} ref={select => this.select = select} size={3}>
-                                <option value={ROCK} >Rock</option>
-                                <option value={PAPER}>Paper</option>
-                                <option value={SCISSORS}>Scissors</option>
+                        <select onClick={this.handleMoveSelect} defaultValue={ROCK} style={{fontFamily:'gameboy_lg', fontSize: getFontSize(3), overflowY:'hidden', width: '30%', backgroundColor:'#f9f6d6', ...solidBorder(8, '#4d655e', 10)}} ref={select => this.select = select} size={3}>
+                                <option style={{height:'33%'}} value={ROCK} >Rock</option>
+                                <option style={{height:'33%'}} value={PAPER}>Paper</option>
+                                <option style={{height:'33%'}} value={SCISSORS}>Scissors</option>
                         </select>
                         <Summary summary={this.props.battle.summary} />
                     </div>

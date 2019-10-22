@@ -50,7 +50,7 @@ const INITIAL_STATE = {
                         },
                         lastWinner: 0,
                         finalWinner: 0,
-                        summary: "Use arrow keys to select and press SPACE",
+                        summary: "Use mouse/touch to select your move.",
                         music: null,
                     };
 
