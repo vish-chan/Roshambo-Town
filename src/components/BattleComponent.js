@@ -328,6 +328,18 @@ class BattleArena extends Component {
     constructor(props) {
         super(props);
         this.handleMoveSelect = this.handleMoveSelect.bind(this);
+        this.handleMouseEnter = this.handleMouseEnter.bind(this);
+        this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    }
+
+    handleMouseEnter(event) {
+        if(event && event.target)
+            event.target.style.backgroundColor = "#639aa1";
+    }
+
+    handleMouseLeave(event) {
+        if(event && event.target)
+            event.target.style.backgroundColor = "#f9f6d6";
     }
 
     handleMoveSelect(move) {
@@ -357,10 +369,10 @@ class BattleArena extends Component {
                         <MoveDiv move={this.props.battle.npc.lastMove} reverse={true} blink={this.props.battle.lastWinner===1}/>
                     </div>
                     <div style={{display: 'flex', width: '100%', height: '25%'}}>
-                        <div style={{display:'flex', flexDirection:'column', width: '30%', backgroundColor:'#f9f6d6', ...solidBorder(8, '#4d655e', 10)}}>
-                            <button className="move" onClick={() => this.handleMoveSelect(ROCK)} style={{ fontFamily:'gameboy_lg', fontSize: getFontSize(3),  ...solidBorder(1,'#4d655e',0), padding:'10px 0'}}>Rock</button>
-                            <button className="move" onClick={() => this.handleMoveSelect(PAPER)} style={{ fontFamily:'gameboy_lg', fontSize: getFontSize(3), ...solidBorder(1,'#4d655e',0), padding:'10px 0'}}>Paper</button>
-                            <button className="move" onClick={() => this.handleMoveSelect(SCISSORS)} style={{ fontFamily:'gameboy_lg', fontSize: getFontSize(3), ...solidBorder(1,'#4d655e',0), padding:'10px 0'}}>Scissors</button>
+                        <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', flexWrap:'nowrap' ,width: '30%', backgroundColor:'#f9f6d6', ...solidBorder(8, '#4d655e', 10)}}>
+                            <button onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="move" onClick={() => this.handleMoveSelect(ROCK)} style={{height:'32%',  backgroundColor:'#f9f6d6', fontFamily:'gameboy_lg', fontSize: getFontSize(3)}}>Rock</button>
+                            <button onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="move" onClick={() => this.handleMoveSelect(PAPER)} style={{height:'32%', backgroundColor:'#f9f6d6',fontFamily:'gameboy_lg', fontSize: getFontSize(3)}}>Paper</button>
+                            <button  onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="move" onClick={() => this.handleMoveSelect(SCISSORS)} style={{height:'32%', backgroundColor:'#f9f6d6',fontFamily:'gameboy_lg', fontSize: getFontSize(3)}}>Scissors</button>
                         </div>
                         <Summary summary={this.props.battle.summary} />
                     </div>
