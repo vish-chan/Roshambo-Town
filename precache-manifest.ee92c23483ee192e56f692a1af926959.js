@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "438db4600f7c544070791154f6e3c5a9",
+    "revision": "7314c0f7e3a0a76d816e7323cfaeafe8",
     "url": "/Roshambo-Town/index.html"
   },
   {
-    "revision": "b7595c79f56495835f7a",
+    "revision": "a44ac8abc97e22881e05",
     "url": "/Roshambo-Town/static/css/2.204c08ce.chunk.css"
   },
   {
-    "revision": "978de96210f72741c975",
+    "revision": "f050e56f6771a7f4b794",
     "url": "/Roshambo-Town/static/css/main.7d565da8.chunk.css"
   },
   {
-    "revision": "b7595c79f56495835f7a",
-    "url": "/Roshambo-Town/static/js/2.5c039485.chunk.js"
+    "revision": "a44ac8abc97e22881e05",
+    "url": "/Roshambo-Town/static/js/2.75c8a8d3.chunk.js"
   },
   {
-    "revision": "978de96210f72741c975",
-    "url": "/Roshambo-Town/static/js/main.e2bf5348.chunk.js"
+    "revision": "f050e56f6771a7f4b794",
+    "url": "/Roshambo-Town/static/js/main.452bacae.chunk.js"
   },
   {
     "revision": "ee56de6dd20fef45a297",
