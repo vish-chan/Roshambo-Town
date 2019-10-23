@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/Roshambo-Town/static/css/main.8dee37cc.chunk.css",
-    "main.js": "/Roshambo-Town/static/js/main.80d3e43a.chunk.js",
-    "main.js.map": "/Roshambo-Town/static/js/main.80d3e43a.chunk.js.map",
-    "runtime~main.js": "/Roshambo-Town/static/js/runtime~main.cc34d17f.js",
-    "runtime~main.js.map": "/Roshambo-Town/static/js/runtime~main.cc34d17f.js.map",
+    "main.css": "/Roshambo-Town/static/css/main.cf02690b.chunk.css",
+    "main.js": "/Roshambo-Town/static/js/main.ce2bfefd.chunk.js",
+    "main.js.map": "/Roshambo-Town/static/js/main.ce2bfefd.chunk.js.map",
+    "runtime~main.js": "/Roshambo-Town/static/js/runtime~main.eefc1796.js",
+    "runtime~main.js.map": "/Roshambo-Town/static/js/runtime~main.eefc1796.js.map",
     "static/css/2.204c08ce.chunk.css": "/Roshambo-Town/static/css/2.204c08ce.chunk.css",
-    "static/js/2.5255f290.chunk.js": "/Roshambo-Town/static/js/2.5255f290.chunk.js",
-    "static/js/2.5255f290.chunk.js.map": "/Roshambo-Town/static/js/2.5255f290.chunk.js.map",
+    "static/js/2.5c039485.chunk.js": "/Roshambo-Town/static/js/2.5c039485.chunk.js",
+    "static/js/2.5c039485.chunk.js.map": "/Roshambo-Town/static/js/2.5c039485.chunk.js.map",
     "index.html": "/Roshambo-Town/index.html",
-    "precache-manifest.687b7b2fca3ac2ea70356ba17816d4db.js": "/Roshambo-Town/precache-manifest.687b7b2fca3ac2ea70356ba17816d4db.js",
+    "precache-manifest.35385f514ee05d9309221beb147ec780.js": "/Roshambo-Town/precache-manifest.35385f514ee05d9309221beb147ec780.js",
     "service-worker.js": "/Roshambo-Town/service-worker.js",
     "static/css/2.204c08ce.chunk.css.map": "/Roshambo-Town/static/css/2.204c08ce.chunk.css.map",
-    "static/css/main.8dee37cc.chunk.css.map": "/Roshambo-Town/static/css/main.8dee37cc.chunk.css.map",
+    "static/css/main.cf02690b.chunk.css.map": "/Roshambo-Town/static/css/main.cf02690b.chunk.css.map",
     "static/media/index.css": "/Roshambo-Town/static/media/PixelEmulator.ac0c25b4.ttf",
     "static/media/font-awesome.min.css": "/Roshambo-Town/static/media/fontawesome-webfont.fee66e71.woff"
   }
