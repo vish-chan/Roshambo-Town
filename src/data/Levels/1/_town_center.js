@@ -43,7 +43,7 @@ export const _townCenter = {
                 skin: SKINS["crush_4"],
                 direction: RIGHT,
                 stationary: false,
-                pathArr: [[7,7], [7,8]],
+                pathArr: [[7,6], [7,7]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 2000,
