@@ -47,10 +47,10 @@ class HealthBar extends Component {
         return(
             <div ref={hb => this.hb = hb} style={{width:'90%', height: '50%', display: 'flex', flexDirection: 'row', justifyContent:'space-between', alignItems:'center' }}>
                 <div style={{fontSize: getFontSize(2), marginRight:'10px'}}>HP</div>
-                <div style={{width:'90%', height: '30%',...solidBorder(1, 'white', 0), backgroundColor: 'white' }}>
-                    <div style={{position: 'relative', width:`${(this.props.currhealth/this.props.maxhealth)*100}%`, height:'100%', ...solidBorder(0, 'white', 0), backgroundImage: 'linear-gradient(mediumseagreen, forestgreen, mediumseagreen)'}}>
-                        <div style={{position:'absolute', left:'50%', top:'50%', transform: 'translate(-50%, -50%)',fontSize:getFontSize(2)}}>{Math.floor((this.props.currhealth/this.props.maxhealth)*100)}%</div>
+                <div style={{ position: 'relative', width:'90%', height: '30%',...solidBorder(1, 'white', 0), backgroundColor: 'white' }}>
+                    <div style={{ width:`${(this.props.currhealth/this.props.maxhealth)*100}%`, height:'100%', ...solidBorder(0, 'white', 0), backgroundImage: 'linear-gradient(mediumseagreen, forestgreen, mediumseagreen)'}}>
                     </div>
+                    <div style={{position:'absolute', left:'50%', top:'50%', transform: 'translate(-50%, -50%)',fontSize:getFontSize(2)}}>{Math.floor((this.props.currhealth/this.props.maxhealth)*100)}%</div>
                 </div>
             </div>
         );
