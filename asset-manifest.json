@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/Roshambo-Town/static/css/main.cf02690b.chunk.css",
-    "main.js": "/Roshambo-Town/static/js/main.ce2bfefd.chunk.js",
-    "main.js.map": "/Roshambo-Town/static/js/main.ce2bfefd.chunk.js.map",
+    "main.css": "/Roshambo-Town/static/css/main.7d565da8.chunk.css",
+    "main.js": "/Roshambo-Town/static/js/main.e2bf5348.chunk.js",
+    "main.js.map": "/Roshambo-Town/static/js/main.e2bf5348.chunk.js.map",
     "runtime~main.js": "/Roshambo-Town/static/js/runtime~main.eefc1796.js",
     "runtime~main.js.map": "/Roshambo-Town/static/js/runtime~main.eefc1796.js.map",
     "static/css/2.204c08ce.chunk.css": "/Roshambo-Town/static/css/2.204c08ce.chunk.css",
     "static/js/2.5c039485.chunk.js": "/Roshambo-Town/static/js/2.5c039485.chunk.js",
     "static/js/2.5c039485.chunk.js.map": "/Roshambo-Town/static/js/2.5c039485.chunk.js.map",
     "index.html": "/Roshambo-Town/index.html",
-    "precache-manifest.35385f514ee05d9309221beb147ec780.js": "/Roshambo-Town/precache-manifest.35385f514ee05d9309221beb147ec780.js",
+    "precache-manifest.15a869938443edaffa285c075e5f6b26.js": "/Roshambo-Town/precache-manifest.15a869938443edaffa285c075e5f6b26.js",
     "service-worker.js": "/Roshambo-Town/service-worker.js",
     "static/css/2.204c08ce.chunk.css.map": "/Roshambo-Town/static/css/2.204c08ce.chunk.css.map",
-    "static/css/main.cf02690b.chunk.css.map": "/Roshambo-Town/static/css/main.cf02690b.chunk.css.map",
+    "static/css/main.7d565da8.chunk.css.map": "/Roshambo-Town/static/css/main.7d565da8.chunk.css.map",
     "static/media/index.css": "/Roshambo-Town/static/media/PixelEmulator.ac0c25b4.ttf",
     "static/media/font-awesome.min.css": "/Roshambo-Town/static/media/fontawesome-webfont.fee66e71.woff"
   }
