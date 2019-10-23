@@ -148,20 +148,3 @@ export const getWinPercColor = (winperc) => {
      const click = new Audio(src);
      click.play();
  }
-
- export const preloadPictures = function(pictureUrls, callback) {
-    let i,
-        j,
-        loaded = 0;
-
-    for (i = 0, j = pictureUrls.length; i < j; i++) {
-        (function (img, src) {
-            img.onload = function () {                               
-                if (++loaded >= pictureUrls.length && callback) {
-                    callback();
-                }
-            };
-            img.src = src;
-        } (new Image(), pictureUrls[i]));
-    }
-};

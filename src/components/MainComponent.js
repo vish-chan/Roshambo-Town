@@ -2,11 +2,42 @@ import React, {Component} from 'react';
 import Game from './GameComponent';
 import MainMenu from './MainMenuComponent';
 import PlayerSelectComponent from './PlayerSelectComponent';
-import { getViewportDim, playSoundEffect, centerBgImg, preloadPictures } from '../helpers/funcs';
+import { getViewportDim, playSoundEffect, centerBgImg, getFontSize, solidBorder } from '../helpers/funcs';
 import ReactHowler from 'react-howler';
 import { MAIN_MENU_MUSIC, BEEP_2_SOUND, BEEP_LONG_SOUND, PROPS_PATH } from '../helpers/constants';
 import Loading from './LoadingComponent';
 import { RESOURCES } from '../data/resourcepaths';
+
+
+const LoadingResources = (props) => {
+
+    const style = {
+        position: 'relative',
+        margin: '60px auto',
+        border: '10px solid white',
+        overflow: 'hidden',
+        width: props.width,
+        height: props.height,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'black',
+    }
+
+    return(
+        <div style={style}>
+            <div style={{width:'100%', height:'60%'}}>
+                <Loading msg={props.msg}/>
+            </div>
+            <div style={{width:'60%', height:'40%'}}>
+                <progress style={{position:'relative', width:'100%', height:20}} value={props.done} max={props.total}>
+                    {`${Math.ceil(props.done/props.total*100)}%`}
+                </progress>
+            </div>
+        </div>
+    )
+}
 
 class Main extends Component {
 
@@ -19,6 +50,8 @@ class Main extends Component {
             game: false,
             loadgame: false,
             screenDim: getViewportDim(window.screen.width, window.screen.height),
+            resourceTotal: RESOURCES.length,
+            resourceDone: 0,
         }
         this.bg = `${PROPS_PATH}/town.png`;
         this.handleStartNewGame = this.handleStartNewGame.bind(this);
@@ -26,6 +59,28 @@ class Main extends Component {
         this.handleStartJourney = this.handleStartJourney.bind(this);
         this.handleBack = this.handleBack.bind(this);
     }
+
+    
+
+    preloadPictures (pictureUrls, callback) {
+        let i,
+            j,
+            loaded = 0;
+    
+        for (i = 0, j = pictureUrls.length; i < j; i++) {
+            (function (img, src) {
+                img.onload = function () {
+                    this.setState({
+                        resourceDone: ++loaded,
+                    });                               
+                    if (loaded >= pictureUrls.length && callback) {
+                        callback();
+                    }
+                }.bind(this);
+                img.src = src;
+            }.bind(this) (new Image(), pictureUrls[i]));
+        }
+    };
 
     componentDidMount() {
         
@@ -39,7 +94,7 @@ class Main extends Component {
             });
         }.bind(this);
 
-        preloadPictures(RESOURCES, renderMenu);
+        this.preloadPictures(RESOURCES, renderMenu);
     }
 
     handleStartNewGame() {
@@ -97,7 +152,7 @@ class Main extends Component {
         let UI_COMPONENT = null, AUDIO_COMPONENT = null;
 
         if(this.state.loading) {
-            UI_COMPONENT = <Loading msg="Loading Resources"/>;
+            UI_COMPONENT = <LoadingResources width={this.state.screenDim[0]} height={this.state.screenDim[1]} msg="Loading Resources" total={this.state.resourceTotal} done={this.state.resourceDone}/>;
             AUDIO_COMPONENT = null;
         } else if(this.state.menu) {
             UI_COMPONENT = <div style={style}><MainMenu width={this.state.screenDim[0]} height={this.state.screenDim[1]} startNewGame={this.handleStartNewGame} loadGame={this.handleLoadGame} /></div>;

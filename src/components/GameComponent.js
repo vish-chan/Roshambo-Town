@@ -49,13 +49,13 @@ class Game extends Component {
 
         if(this.props.map.isLoading) {
             return(
-                <div id="game"  style={{...style, marginTop:'60px'}}>
+                <div id="game"  style={{...style, backgroundColor:'SlateGrey', marginTop:'60px'}}>
                     <Loading msg="Loading Map"/>
                 </div>
             );
         } else if (this.props.statemanager.savingState) {
             return(
-                <div id="game"  style={{...style, marginTop:'60px'}}>
+                <div id="game"  style={{...style, backgroundColor:'SlateGrey',marginTop:'60px'}}>
                     <Loading msg="Freezing state"/>
                 </div>
             );
