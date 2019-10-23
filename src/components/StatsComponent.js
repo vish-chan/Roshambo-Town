@@ -5,6 +5,7 @@ import { solidBorder, centerBgImg, getRounded, getKeyDiv, getLevelColor, getWinP
 import { SaveGameToDisk } from '../redux/ActionCreators';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { isMobile } from 'react-device-detect';
 
 
 const mapStatetoProps = state => {
@@ -29,8 +30,8 @@ const bgStyle = (bgcolor, bordercolor='white') => {
 
 const AwareComponent = (props) => {
 
-    let instruction = props.player.nearbyNPC!==null? <div>Use {getKeyDiv("SPACE")} to talk</div> : null;
-    instruction = props.player.nearbyGameObj!==null? <div>Use {getKeyDiv("P")} to pickup</div> : instruction;
+    let instruction = props.player.nearbyNPC!==null? <div>{isMobile? getKeyDiv("TAP"): getKeyDiv("SPACE")} to talk</div> : null;
+    instruction = props.player.nearbyGameObj!==null? <div>{getKeyDiv("P")} to pickup</div> : instruction;
 
     return(
         <div id="aware" style={{display:props.player.interacting?'none':'block'}}>

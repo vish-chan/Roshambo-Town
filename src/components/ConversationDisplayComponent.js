@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getKeyDiv, getFontSize } from '../helpers/funcs';
+import { isMobile } from 'react-device-detect';
 
 const mapStateToProps = (state) => {
     return({
@@ -17,6 +18,7 @@ class Dialog extends Component {
         super(props);
         this.animateConversation = this.animateConversation.bind(this);
         this.timeout = null;
+        this.next = isMobile? "TAP": "SPACE";
     }
 
     animateConversation(speakerIdx, name, content, idx, objref) {
@@ -94,7 +96,7 @@ class Dialog extends Component {
                 <div style={{position:"relative", width:'100%', height:'100%'}}>
                     <p ref={p1 => this.p1 = p1}></p>
                     <p ref={p2 => this.p2 = p2}></p>
-                    <div className='blink' style={{position:'absolute', right:20, bottom:20}}>{getKeyDiv("SPACE")}</div>
+                    <div className='blink' style={{position:'absolute', right:20, bottom:20}}>{getKeyDiv(this.next)}</div>
                 </div>
             </div>
         );

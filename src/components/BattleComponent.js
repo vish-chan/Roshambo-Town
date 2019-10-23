@@ -4,6 +4,7 @@ import { ROCK, PAPER, SCISSORS, SPACE_KEY, BATTLE_END_MUSIC, BEEP_SOUND, PROPS_P
 import { BattleHandleMove, BattleMoveIndexToStr, BattleEndIntro, CloseBattleSequence } from '../redux/ActionCreators';
 import { centerBgImg, solidBorder, getKeyDiv, getLevelColor, playSoundEffect, getFontSize } from '../helpers/funcs';
 import ReactHowler from 'react-howler';
+import { isMobile } from 'react-device-detect';
 
 const mapStatetoProps = state => {
     return({
@@ -212,7 +213,9 @@ class BattleEnd extends Component {
     constructor(props) {
         super(props);
         this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.handleTouchEnd = this.handleTouchEnd.bind(this);
         this.continue = false;
+        this.continueKey = isMobile? "TAP": "SPACE";
         if(this.props.winner===1) {
             this.winnerStr =  `${this.props.player.name} WON!`;
             this.winnerClass = "wonBlink";
@@ -222,7 +225,6 @@ class BattleEnd extends Component {
         }
         this.levelColor =  getLevelColor(this.props.player.level);
         this.levelArrow = this.props.player.level>this.props.player.initialStats.level?` <i class="fa fa-arrow-up blink"></i>`:"";
-
         this.animateText = this.animateText.bind(this);
         this.timeout = null;
     }
@@ -230,6 +232,10 @@ class BattleEnd extends Component {
     handleKeyDown(event) {        
         if(SPACE_KEY.includes( event.keyCode) && this.continue)
             this.props.closeBattle();
+    }
+
+    handleTouchEnd() {
+        this.props.closeBattle();
     }
 
 
@@ -260,12 +266,14 @@ class BattleEnd extends Component {
 
     componentDidMount() {
         window.addEventListener('keydown', this.handleKeyDown);
+        window.addEventListener('touchend', this.handleTouchEnd);
         this.timeout = setTimeout(function(){this.animateText("Score", 0, this.props.player.score, 40, this.score, 0)}.bind(this), 600);
     }
 
     componentWillUnmount() {
         clearTimeout(this.timeout);
         window.removeEventListener('keydown', this.handleKeyDown);
+        window.removeEventListener('touchend', this.handleTouchEnd);
     }
 
     render() {
@@ -285,7 +293,7 @@ class BattleEnd extends Component {
                             </div>
                     </div>
                 </div> 
-                <div className="blinkContinue" ref={cont => this.cont=cont} style={{alignSelf:'center', marginTop:'40px', opacity:0, color:'#5d5f5b'}}>Press {getKeyDiv("SPACE", 25)} to continue...</div>          
+                <div className="blinkContinue" ref={cont => this.cont=cont} style={{alignSelf:'center', marginTop:'40px', opacity:0, color:'#5d5f5b'}}>{getKeyDiv(this.continueKey, 25)} to continue...</div>          
             </div> 
         );
     }
@@ -328,18 +336,6 @@ class BattleArena extends Component {
     constructor(props) {
         super(props);
         this.handleMoveSelect = this.handleMoveSelect.bind(this);
-        this.handleMouseEnter = this.handleMouseEnter.bind(this);
-        this.handleMouseLeave = this.handleMouseLeave.bind(this);
-    }
-
-    handleMouseEnter(event) {
-        if(event && event.target)
-            event.target.style.backgroundColor = "#639aa1";
-    }
-
-    handleMouseLeave(event) {
-        if(event && event.target)
-            event.target.style.backgroundColor = "#f9f6d6";
     }
 
     handleMoveSelect(move) {
@@ -370,9 +366,9 @@ class BattleArena extends Component {
                     </div>
                     <div style={{display: 'flex', width: '100%', height: '25%'}}>
                         <div style={{display:'flex', flexDirection:'column', justifyContent:'space-around', flexWrap:'nowrap' ,width: '30%', backgroundColor:'#f9f6d6', ...solidBorder(8, '#4d655e', 10)}}>
-                            <button onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="move" onClick={() => this.handleMoveSelect(ROCK)} style={{height:'32%',  backgroundColor:'#f9f6d6', fontFamily:'gameboy_lg', fontSize: getFontSize(3)}}>Rock</button>
-                            <button onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="move" onClick={() => this.handleMoveSelect(PAPER)} style={{height:'32%', backgroundColor:'#f9f6d6',fontFamily:'gameboy_lg', fontSize: getFontSize(3)}}>Paper</button>
-                            <button  onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="move" onClick={() => this.handleMoveSelect(SCISSORS)} style={{height:'32%', backgroundColor:'#f9f6d6',fontFamily:'gameboy_lg', fontSize: getFontSize(3)}}>Scissors</button>
+                            <button className="move" onClick={() => this.handleMoveSelect(ROCK)} style={{height:'32%',  fontFamily:'gameboy_lg', fontSize: getFontSize(3)}}>Rock</button>
+                            <button className="move" onClick={() => this.handleMoveSelect(PAPER)} style={{height:'32%', fontFamily:'gameboy_lg', fontSize: getFontSize(3)}}>Paper</button>
+                            <button className="move" onClick={() => this.handleMoveSelect(SCISSORS)} style={{height:'32%', fontFamily:'gameboy_lg', fontSize: getFontSize(3)}}>Scissors</button>
                         </div>
                         <Summary summary={this.props.battle.summary} />
                     </div>

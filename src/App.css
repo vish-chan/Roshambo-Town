@@ -239,6 +239,10 @@ button { color: black; }
 button:hover { color: white; }
 button:disabled { color: lightgray; }
 
+button.move { background-color: #f9f6d6; }
+button.move:hover { background-color: #639aa1; }
+button.move[disabled], button.move[disabled]:hover, button.move[disabled]:active, button.move[disabled]:focus { background-color: #f9f6d6; }
+
 
 .spotanimate {
   -webkit-animation: spotanimate 0.8s steps(4) 0s infinite normal forwards;

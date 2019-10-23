@@ -5,19 +5,21 @@ export const LEFT = "LEFT";
 export const RIGHT = "RIGHT";
 export const UP = "UP";
 export const DOWN = "DOWN";
-export const SPRITE_LOC_DOWN = 0;
-export const SPRITE_LOC_UP = 3;
-export const SPRITE_LOC_LEFT = 2;
-export const SPRITE_LOC_RIGHT = 1;
+
+export const KEYCODES = {
+    left: 37,
+    up: 38,
+    right: 39,
+    down: 40,
+}
 
 export const ARROW_KEYCODES = [37, 38, 39, 40];
 export const SPACE_KEY = [32];
 export const PICKUP_KEY = [80]; /* P */
 export const INVENTORY_KEY = [73]; /* I */
-export const ENTER_KEY = [13]; /* ENTER */
 export const ESC_KEY = [27]; /* R */
 
-export const VALID_KEYCODES = ARROW_KEYCODES.concat(SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, ENTER_KEY, ESC_KEY);
+export const VALID_KEYCODES = ARROW_KEYCODES.concat(SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, ESC_KEY);
 
 export const PASSIBLE_INDEX = 5;
 

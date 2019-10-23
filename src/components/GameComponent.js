@@ -6,7 +6,6 @@ import Loading from './LoadingComponent';
 import Battle from './BattleComponent';
 import Stats from './StatsComponent';
 import World from './WorldComponent';
-import { MobileView } from 'react-device-detect';
 
 const mapStatetoProps = state => {
     return({
@@ -27,11 +26,6 @@ const mapDispatchtoProps = dispatch => {
 
 class Game extends Component {
 
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
-    }
-
     componentDidMount() {
         this.props.initViewport([this.props.width, this.props.height]);
         if(!this.props.loadgame)
@@ -41,14 +35,6 @@ class Game extends Component {
         }
     }
 
-    handleClick() {
-        console.log("Start");
-        var e = document.createEvent('HTMLEvents');
-        e.keyCode = 32;
-        e.initEvent('keydown', true, true);
-        document.dispatchEvent(e);
-    }
-    
     render() {
         
         const style = {
@@ -85,9 +71,6 @@ class Game extends Component {
                 <React.Fragment>
                     <Stats width={this.props.width} />
                     <World width={this.props.width} height={this.props.height} map={this.props.map} viewport={this.props.viewport} handleBack={this.props.handleBack} />
-                    <MobileView>
-                        <button onClick={this.handleClick}>HELLO</button>
-                    </MobileView>
                 </React.Fragment>
             );
         }
