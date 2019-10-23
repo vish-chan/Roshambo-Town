@@ -349,8 +349,8 @@ class BattleArena extends Component {
             var moveelements = document.getElementsByClassName("move");
             for(var i = 0; i < moveelements.length; i++) {
                 moveelements[i].disabled = false;
-        }
-        }.bind(this), 1100);
+            }
+        }, 1100);
     }
 
     render() {
