@@ -17,7 +17,7 @@ export const GameObject = (state = [], action) => {
                     return({...gameobject, 
                             id: id++,
                             position: tileToMapCoordinates(gameobject.position, TILE_SIZE),
-                            enabled: gameobject.type && gameobject.type.name===PORTAL_ENTER?false: true,
+                            enabled: gameobject.type && gameobject.type.name===PORTAL_ENTER? ("enabled" in gameobject? gameobject.enabled : false) : true,
                     })
                 })
             );
