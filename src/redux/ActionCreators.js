@@ -199,6 +199,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
     function animatePlayer() {
         if(steps === 0) {
             //console.log(mapCoordinatesToTiles(getState().player.position, TILE_SIZE));
+            dispatch(UpdatePlayerAnimationAction(false));
             const nearByNPC = checkNearbyIdleNPC(getState().player.position, getState().player.direction, getState().npc.list);
             if(nearByNPC.length) {
                 dispatch(UpdateNearbyNPCAction(nearByNPC[0].id));
@@ -222,7 +223,6 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
             if(portals.length>0 && portals[0].enabled && checkPortalEnter(getState().player.direction, portals[0].rotate)) {
                 dispatch(EnterPortal(portals[0]));
             }
-            dispatch(UpdatePlayerAnimationAction(false));
             return;
         } 
         newpos = getNewPostion(oldpos, direction, frameMovementSize);
@@ -485,6 +485,7 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
 
     function animateNPC() {
         if(steps === 0) {
+            dispatch(UpdateNPCAnimationAction(npcId, false));
             let npc = getNPC(getState().npc.list, npcId);
             if(checkNearbyIdlePlayer(npc.position, npc.direction, getState().player)) {
                 if(getState().player.direction===getOppositeDirection(npc.direction)) {
@@ -498,7 +499,6 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
             } else if(getState().player.nearbyNPC===npc.id) {
                 dispatch(UpdateNearbyNPCAction());
             }
-            dispatch(UpdateNPCAnimationAction(npcId, false));
             return;
         } 
         newpos = getNewPostion(oldpos, newdirection, frameMovementSize);
