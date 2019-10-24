@@ -43,7 +43,7 @@ export const GANG_MEMBER = "GANG_MEMBER";
 export const NON_GANG_MEMBER = "NON_GANG_MEMBER";
 
 
-export const SAVED_GAME = "SAVED GAME";
+export const SAVED_GAME = "SAVED GAME 1_1_0";
 
 export const LOADGAME = "LOADGAME";
 export const NEWGAME = "NEWGAME";
