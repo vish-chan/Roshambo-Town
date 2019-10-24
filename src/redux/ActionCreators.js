@@ -220,7 +220,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
             }
 
             const portals = getPortal(getState().player.position, getState().gameobjects);
-            if(portals.length>0 && checkPortalEnter(getState().player.direction, portals[0].rotate)) {
+            if(portals.length>0 && portals[0].enabled && checkPortalEnter(getState().player.direction, portals[0].rotate)) {
                 dispatch(EnterPortal(portals[0]));
             }
             return;
@@ -399,8 +399,15 @@ const UpdateConversation = () => (dispatch, getState) => {
         if(dialog.battleConversation) {
             dispatch(StartBattle(getState().player, getNPC(getState().npc.list, dialog.npcId)));
         }
+        const portal = checkEnablesPortal(getNPC(getState().npc.list, dialog.npcId));
+        if(portal!==null)
+            dispatch(EnablePortalAction(portal));
         dispatch(ResetConversationStatus(dialog.npcId));
     }
+}
+
+const checkEnablesPortal = (npc) => {
+    return "enablesPortal" in npc? npc.enablesPortal: null;
 }
 
 const getNewDirection = (oldpos, newpos, oldirection) => {
@@ -1017,6 +1024,16 @@ const NextDialogAction = () => {
     playSoundEffect(DRIP_SOUND);
     return({
         type: ActionTypes.NEXT_DIALOG,
+    })
+}
+
+const EnablePortalAction = (portalname) => {
+    playSoundEffect(PICK_SOUND);
+    return({
+        type: ActionTypes.ENABLE_PORTAL,
+        payload: {
+            portalname,
+        }
     })
 }
 

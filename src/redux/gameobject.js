@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import {tileToMapCoordinates} from '../helpers/funcs';
-import {TILE_SIZE } from '../helpers/constants';
+import {TILE_SIZE, PORTAL_ENTER } from '../helpers/constants';
 
 
 export const GameObject = (state = [], action) => {
@@ -17,11 +17,23 @@ export const GameObject = (state = [], action) => {
                     return({...gameobject, 
                             id: id++,
                             position: tileToMapCoordinates(gameobject.position, TILE_SIZE),
+                            enabled: gameobject.type && gameobject.type.name===PORTAL_ENTER?false: true,
                     })
                 })
             );
         case ActionTypes.ADD_OBJECT_TO_INVENTORY:
             return(state.filter( gameobject => (gameobject.id !== action.payload.object.id)));
+        
+        case ActionTypes.ENABLE_PORTAL:
+            return(state.map( gameobject => {
+                if(gameobject.type && gameobject.type.name===PORTAL_ENTER && gameobject.target.name===action.payload.portalname) {
+                    return({
+                        ...gameobject,
+                        enabled: true,
+                    });
+                } else 
+                    return gameobject;
+            }));
 
         case ActionTypes.RESTORE_STATE:
             return(

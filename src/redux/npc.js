@@ -199,6 +199,18 @@ export const NPC = (state = {...INITIAL_STATE}, action) => {
                                 return npc;
                         })
                     });
+        case ActionTypes.ENABLE_PORTAL: 
+                    return({
+                        ...state,
+                        list: state.list.map( npc => {
+                            if(("enablesPortal" in npc) && npc.enablesPortal===action.payload.portalname)
+                                return({...npc,  
+                                        enablesPortal: null,
+                                    });
+                            else
+                                return npc;
+                        })
+                    });
         default: 
             return state;
     }

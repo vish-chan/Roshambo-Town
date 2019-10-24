@@ -26,7 +26,8 @@ const GameObject = (props) => {
         top: props.self.position[1] + (TILE_SIZE/2 - props.self.type.height/2),
         backgroundPosition: `${props.self.type.srcpos[0]}px ${props.self.type.srcpos[1]}px`,
         backgroundSize: 'contain',
-        transform: `rotate(${props.self.rotate}deg)`
+        transform: `rotate(${props.self.rotate}deg)`,
+        display: props.self.enabled? 'block':'none',
     }
 
     return(
