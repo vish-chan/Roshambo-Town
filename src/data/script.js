@@ -36,7 +36,7 @@ export const PLAYERDIALOGS = {
         starts:[],
         battleAccept:["Okay Joey. Let's battle!"],
         battleAsk:["Hey Joey! you wanna play?"],
-        battleWin:["Nevermind...."],
+        battleWin:["Loser...."],
         battleLose:["I always let you win."],
     },
 
@@ -122,7 +122,8 @@ export const PLAYERDIALOGS = {
 
     Koby: {
         follows:["Hey Koby! I'm great. What about you?", 
-                 "Okay, I'll go right now."],
+                 "She wasn't at her home, not sure where is she.",
+                 "Really!, Okay I should go to the library. Bbye."],
         starts:["Hey Mo! Whatsup?"],
         battleAccept:[],
         battleAsk:[],
@@ -130,16 +131,16 @@ export const PLAYERDIALOGS = {
         battleLose:[],
     },
 
-    Sean: {
-        follows:["Hey Sean. I'm great. Hows your business?",
+    Betty: {
+        follows:["Hey Betty. I'm great. Hows the hospital?",
                  "Why? What happened?",
                  "Tell me!",
-                 "Who is Gambit? Why didn't you call police for help?",
+                 "Who is Gambit? Why didn't you call the police for help?",
                  "I knew it. A tribe member doing what tribe members do best, bully others. I'll teach him a lesson by defeating him in a Roshambo battle.",
-                 "Atleast I want to try. Wish me luck.",
+                 "I would like to try. Wish me luck.",
                  "Yup, I will. Thanks."
                 ],
-        starts:["Hey Sean! Whatsup?"],
+        starts:["Hey Betty! Whatsup?"],
         battleAccept:[],
         battleAsk:[],
         battleWin:[],
@@ -252,7 +253,19 @@ export const PLAYERDIALOGS = {
         battleLose:[],
     },
 
-    Rose: {
+    Ilaria: {
+        follows:["Hey Ilaria! Looking for the tribe members. On a quest to defeat them.",
+                 "Really? Okay...thanks for the lead.",
+                 "Its a been a while since meeting her. Okay, I'll go. Thanks again.",
+                 "Thanks!."],
+        starts:["Hey! Whatsup!"],
+        battleAccept:[],
+        battleAsk:[],
+        battleWin:[],
+        battleLose:[],
+    },
+
+    Felicity: {
         follows:["Are they tribe members?",
                  "As expected. Okay, I'll try to get her back.",
                  "No problem."],
@@ -306,7 +319,7 @@ export const PLAYERDIALOGS = {
     },
 
     Trigger: {
-        follows:["Nevermind...."],
+        follows:["Who is Markov...."],
         starts:["Awwww......cutie. Come here....."],
         battleAccept:[],
         battleAsk:[],
@@ -370,16 +383,17 @@ export const PLAYERDIALOGS = {
     },
 
 
-    Fattu: {
-        follows:["Why? The tribe boss isn't inside?",
-                 "She!??! WTF. I'm going in.",
+    Void: {
+        follows:["I'm looking for the tribe boss. I want to battle him.",
+                 "Her!??! WTF. I'm not afraid of anyone. Let me go.",
                  "Don't worry about me."],
-        starts:["Hey Fattu!"],
+        starts:["Hey Void!"],
         battleAccept:[],
         battleAsk:[],
         battleWin:[],
         battleLose:[],
     },
+
 
     Rock: {
         follows:["Nevermind...."],
@@ -572,7 +586,8 @@ export const NPCDIALOGS = {
 
     Koby:{
         starts: ["Hey $PLAYERNAME! What's up?", 
-                 "BTW, Molly is waiting for you at the library."],
+                 "I'm doing great as well. Btw, did you meet Molly?",
+                 "Did you check the city library? She might be there."],
         follows: ["Go and meet Molly."],
         battleAsk:[],
         battleAcceptNeverDefeated:[],
@@ -582,11 +597,11 @@ export const NPCDIALOGS = {
         battleWin:[],
     },
 
-    Sean:{
+    Betty:{
         starts: ["Hey $PLAYERNAME! Long time no see?", 
                  "Ummm...not great.",
                  "Ummm....",
-                 "Gambit and his bully friends are not allowing me to run my business!", 
+                 "Gambit and his bully friends!", 
                  "He is a tribe member. That't why nobody is willing to help me.", 
                  "He's on level 4, I don't think you can defeat him. I don't want to give you any trouble.", 
                  "Be careful. All the best."],
@@ -723,7 +738,22 @@ export const NPCDIALOGS = {
         battleWin:[],
     },
 
-    Rose:{
+    
+    Ilaria:{
+        starts: ["Hey $PLAYERNAME! What's going on?",
+                 "Tribe members? Then you should go inside the city hotel. You'll find atleast one.",
+                 "And Felicity is there as well.",
+                 "No problem. May the luck be with you."],
+        follows: ["I hope you defeat them all!"],
+        battleAsk:[],
+        battleAcceptNeverDefeated:[],
+        battleDeclineDefeated:[],
+        battleDecline:[],
+        battleLose:[],
+        battleWin:[],
+    },
+
+    Felicity:{
         starts: ["Hey! Please help me get my sparkle back. Snyder and his friend are not letting her go.",
                  "Yes.",
                  "Thanks!"],
@@ -785,7 +815,7 @@ export const NPCDIALOGS = {
     },
 
     Trigger:{
-        starts: ["Meoww....You'll die...Meoww...."],
+        starts: ["Meoww...Long Live Markov...Meoww...."],
         follows: ["Grhhhhhh.....Step aside....."],
         battleAsk:[],
         battleAcceptNeverDefeated:[],
@@ -858,9 +888,9 @@ export const NPCDIALOGS = {
         battleWin: ["Was this your first time lol?"],
     },
 
-    Fattu:{
-        starts: ["Dude! Stop here. Don't go inside.",
-                 "She is. Thats why.",
+    Void:{
+        starts: ["Dude! Stop here. Where are you heading?",
+                 "Her. Battle her.  I would suggest not to. You'll be annihilated.",
                  "You will definitely die, sexist."],
         follows:["You are still alive!"],
         battleAsk:[],
@@ -870,6 +900,7 @@ export const NPCDIALOGS = {
         battleLose:[],
         battleWin:[],
     },
+
 
     Rock:{
         starts: ["Meoww....You'll die...Meoww...."],

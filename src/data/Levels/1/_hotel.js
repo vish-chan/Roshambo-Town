@@ -121,7 +121,7 @@ export const _hotel = {
 
             {   //informational
                 id: 8,
-                name: "Rose",
+                name: "Felicity",
                 skin: SKINS["crush_3"],
                 direction: DOWN,
                 stationary: true,

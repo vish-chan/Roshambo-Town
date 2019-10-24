@@ -118,11 +118,11 @@ export const _townNorth = {
             {
                 //informational
                 id:7,
-                name: "Fattu",
+                name: "Void",
                 skin: SKINS["kid_2"],
                 direction: DOWN,
                 stationary: false,
-                pathArr: [[6,5]],
+                pathArr: [[6,6], [6,5], [7,5]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 3000,
@@ -133,7 +133,7 @@ export const _townNorth = {
             {   //battler
                 id: 8,
                 name: "Hunt",
-                skin: SKINS["friend_9"],
+                skin: SKINS["bully_1"],
                 direction: DOWN,
                 stationary: false,
                 pathArr: [[7,14]],

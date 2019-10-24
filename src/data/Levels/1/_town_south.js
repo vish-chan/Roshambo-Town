@@ -79,6 +79,21 @@ export const _townSouth = {
                 battlerType: NON_GANG_MEMBER,
                 //battleMusic: BATTLE_GM_MUSIC,
             },
+
+            { 
+                //informational
+                id: 4,
+                name: "Ilaria",
+                skin: SKINS["crush_3"],
+                direction: LEFT,
+                stationary: false,
+                pathArr: [[22,3], [22,4]],
+                frameInterval: 100,
+                moveInterval: 500,
+                waitInterval: 2000,
+                talkFlag: false,
+                enablesPortal: MAP_NAMES.hotel,
+            },
         ],
 
     /* Compulsory */
