@@ -28,6 +28,7 @@ export const Inventory = (state = {...INITIAL_STATE}, action) => {
                 case ActionTypes.RESTORE_STATE_FROM_DISK:
                     return({
                         ...action.payload.state.inventory,
+                        isOpen: false,
                     });
 
                 default: 

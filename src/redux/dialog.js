@@ -46,6 +46,10 @@ export const Dialog = (state = {...INITIAL_STATE}, action) => {
                             dialogIdx: (state.dialogIdx + 1) % state.person1.dialogs.length,
                         })
                     }
+                case ActionTypes.RESTORE_STATE_FROM_DISK:
+                        return({
+                            ...INITIAL_STATE,
+                        });
                 default: 
                     return state;
             }
