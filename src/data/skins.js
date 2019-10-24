@@ -410,4 +410,16 @@ export const SKINS = {
         LEFT: 3,
         walkSpriteCount: 4,
     },
+
+    patient_1: {  
+        /*11*/
+        src: BASE_URL + "/patient_1",
+        width: 40,
+        height: 50,
+        UP: 1,
+        RIGHT: 2,
+        DOWN: 0,
+        LEFT: 3,
+        walkSpriteCount: 4,
+    },
 }
