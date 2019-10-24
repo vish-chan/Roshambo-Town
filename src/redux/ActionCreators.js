@@ -198,7 +198,6 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
 
     function animatePlayer() {
         if(steps === 0) {
-            dispatch(UpdatePlayerAnimationAction(false));
             //console.log(mapCoordinatesToTiles(getState().player.position, TILE_SIZE));
             const nearByNPC = checkNearbyIdleNPC(getState().player.position, getState().player.direction, getState().npc.list);
             if(nearByNPC.length) {
@@ -223,6 +222,7 @@ export const UpdatePlayerPosition = (keyCode) => (dispatch, getState) => {
             if(portals.length>0 && portals[0].enabled && checkPortalEnter(getState().player.direction, portals[0].rotate)) {
                 dispatch(EnterPortal(portals[0]));
             }
+            dispatch(UpdatePlayerAnimationAction(false));
             return;
         } 
         newpos = getNewPostion(oldpos, direction, frameMovementSize);
@@ -438,7 +438,9 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
         else 
             dispatch(ResetNPCWaiting(npcId));
     }
-        
+     
+    npc = getNPC(getState().npc.list, npcId);
+
     let curdirection = npc.direction;
     if(npc.pathArr.length < 2) {
         if(curdirection!==npc.defaultDirection)
@@ -453,6 +455,8 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
     if(curdirection!==newdirection) {
         dispatch(UpdateNPCDirectionAction(npcId, newdirection));
     }
+
+    npc = getNPC(getState().npc.list, npcId);
 
     const map = getState().map;
     
@@ -481,11 +485,9 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
 
     function animateNPC() {
         if(steps === 0) {
-            dispatch(UpdateNPCAnimationAction(npcId, false));
-            const player = getState().player;
             let npc = getNPC(getState().npc.list, npcId);
-            if(checkNearbyIdlePlayer(npc.position, npc.direction, player)) {
-                if(player.direction===getOppositeDirection(npc.direction)) {
+            if(checkNearbyIdlePlayer(npc.position, npc.direction, getState().player)) {
+                if(getState().player.direction===getOppositeDirection(npc.direction)) {
                     dispatch(UpdateNearbyNPCAction(npc.id));
                     if(npc.battle && !npc.battleFlag) {
                         dispatch(ForceBattleConversation(getState().player, npc));
@@ -493,9 +495,10 @@ export const UpdateNPCPosition = (npcId) => (dispatch, getState) => {
                         dispatch(ForceNonBattleConversation(getState().player, npc));
                     }
                 }
-            } else if(player.nearbyNPC===npc.id) {
+            } else if(getState().player.nearbyNPC===npc.id) {
                 dispatch(UpdateNearbyNPCAction());
             }
+            dispatch(UpdateNPCAnimationAction(npcId, false));
             return;
         } 
         newpos = getNewPostion(oldpos, newdirection, frameMovementSize);
