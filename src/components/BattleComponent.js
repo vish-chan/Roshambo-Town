@@ -285,7 +285,7 @@ class BattleEnd extends Component {
                                 <div style={{width:'240px', height:'240px', alignSelf:'center', ...centerBgImg(`${this.props.player.src}/head.png`, "lightgrey"), ...solidBorder(2, 'grey', 5) }}/>
                                 <div style={{alignSelf:'center', fontSize: getFontSize(3)}}>{this.props.player.name}</div>
                             </div> 
-                            <div style={{width:'50%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center', fontSize: getFontSize(2.5)}}>
+                            <div style={{width:'50%', height:'60%', display:'flex', flexDirection:'column', alignSelf:'center', marginLeft:10, fontSize: getFontSize(2.5)}}>
                                 <div className={this.winnerClass} style={{alignSelf:'center', fontSize: getFontSize(3.5), marginBottom:'20px'}}>{this.winnerStr}</div>
                                 <div ref={score => this.score=score} style={{margin:'5px 0px 0px 10px'}}></div>
                                 <div  ref={exp => this.exp=exp}  style={{margin:'5px 0px 0px 10px'}}></div>
