@@ -65,6 +65,7 @@ export const LEVEL_COLORS =  {
 };
 
 export const MAP_NAMES = {
+    hospital: "Hospital",
     bakery: "Bakery",
     cave: "hauntedhouse",
     gameroom: "Gameroom",
