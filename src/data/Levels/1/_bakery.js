@@ -1,4 +1,4 @@
-import { LEFT, RIGHT, NON_GANG_MEMBER, GANG_MEMBER, BATTLE_GM_MUSIC, UP } from "../../../helpers/constants";
+import { LEFT, RIGHT, NON_GANG_MEMBER, GANG_MEMBER, BATTLE_GM_MUSIC, UP, MAP_NAMES } from "../../../helpers/constants";
 import { SKINS } from '../../skins';
 import { PORTALS } from "../../gameobjects";
 import { bakery } from '../../Maps/bakery';
@@ -7,7 +7,7 @@ import { bakery } from '../../Maps/bakery';
 export const _bakery = {
     /* Compulsory */
 
-    name: "bakery",
+    name: MAP_NAMES.bakery,
 
     map: bakery,
 

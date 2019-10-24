@@ -1,4 +1,4 @@
-import { DOWN, RIGHT, LEFT, GANG_MEMBER, BATTLE_GM_MUSIC, NON_GANG_MEMBER } from "../../../helpers/constants";
+import { DOWN, RIGHT, LEFT, GANG_MEMBER, BATTLE_GM_MUSIC, NON_GANG_MEMBER, MAP_NAMES } from "../../../helpers/constants";
 import { SKINS } from '../../skins';
 import { PORTALS } from "../../gameobjects";
 import { hotel } from '../../Maps/hotel';
@@ -7,7 +7,7 @@ import { hotel } from '../../Maps/hotel';
 export const _hotel = {
     /* Compulsory */
 
-    name: "hotel",
+    name: MAP_NAMES.hotel,
 
     map: hotel,
 

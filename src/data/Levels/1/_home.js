@@ -1,4 +1,4 @@
-import { DOWN, NON_GANG_MEMBER, LEFT } from "../../../helpers/constants";
+import { DOWN, NON_GANG_MEMBER, LEFT, MAP_NAMES } from "../../../helpers/constants";
 import { SKINS } from '../../skins';
 import { PORTALS } from "../../gameobjects";
 import { home } from '../../Maps/home';
@@ -7,7 +7,7 @@ import { home } from '../../Maps/home';
 export const _home = {
     /* Compulsory */
 
-    name: "home",
+    name: MAP_NAMES.home,
 
     map: home,
 

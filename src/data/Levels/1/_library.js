@@ -1,4 +1,4 @@
-import { DOWN, UP, LEFT, RIGHT, NON_GANG_MEMBER } from "../../../helpers/constants";
+import { DOWN, UP, LEFT, RIGHT, NON_GANG_MEMBER, MAP_NAMES } from "../../../helpers/constants";
 import { SKINS } from '../../skins';
 import { PORTALS } from "../../gameobjects";
 import { library } from '../../Maps/library';
@@ -8,7 +8,7 @@ import { _gameroom } from "./_gameroom";
 export const _library = {
     /* Compulsory */
 
-    name: "library",
+    name: MAP_NAMES.library,
 
     map: library,
 
@@ -115,6 +115,7 @@ export const _library = {
             moveInterval: 500,
             waitInterval: 1500,
             talkFlag: false,
+            enablesPortal: MAP_NAMES.gameroom,
         },
 
         ],

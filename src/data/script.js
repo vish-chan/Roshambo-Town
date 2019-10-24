@@ -120,13 +120,23 @@ export const PLAYERDIALOGS = {
         battleLose:[],
     },
 
+    Koby: {
+        follows:["Hey Koby! I'm great. What about you?", 
+                 "Okay, I'll go right now."],
+        starts:["Hey Mo! Whatsup?"],
+        battleAccept:[],
+        battleAsk:[],
+        battleWin:[],
+        battleLose:[],
+    },
+
     Sean: {
         follows:["Hey Sean. I'm great. Hows your business?",
                  "Why? What happened?",
                  "Tell me!",
                  "Who is Gambit? Why didn't you call police for help?",
                  "I knew it. A tribe member doing what tribe members do best, bully others. I'll teach him a lesson by defeating him in a Roshambo battle.",
-                 "Don't decide the winner before the battle. Atleast I want to try.",
+                 "Atleast I want to try. Wish me luck.",
                  "Yup, I will. Thanks."
                 ],
         starts:["Hey Sean! Whatsup?"],
@@ -560,6 +570,18 @@ export const NPCDIALOGS = {
         battleWin:[],
     },
 
+    Koby:{
+        starts: ["Hey $PLAYERNAME! What's up?", 
+                 "BTW, Molly is waiting for you at the library."],
+        follows: ["Go and meet Molly."],
+        battleAsk:[],
+        battleAcceptNeverDefeated:[],
+        battleDeclineDefeated:[],
+        battleDecline:[],
+        battleLose:[],
+        battleWin:[],
+    },
+
     Sean:{
         starts: ["Hey $PLAYERNAME! Long time no see?", 
                  "Ummm...not great.",
@@ -567,7 +589,7 @@ export const NPCDIALOGS = {
                  "Gambit and his bully friends are not allowing me to run my business!", 
                  "He is a tribe member. That't why nobody is willing to help me.", 
                  "He's on level 4, I don't think you can defeat him. I don't want to give you any trouble.", 
-                 "Okay, your call. But, be careful."],
+                 "Be careful. All the best."],
         follows: ["Be careful of the tribe, $PLAYERNAME."],
         battleAsk:[],
         battleAcceptNeverDefeated:[],

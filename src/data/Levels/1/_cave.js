@@ -1,4 +1,4 @@
-import { DOWN, RIGHT } from "../../../helpers/constants";
+import { DOWN, RIGHT, MAP_NAMES } from "../../../helpers/constants";
 import { SKINS } from '../../skins';
 import { PORTALS } from "../../gameobjects";
 import { cave } from '../../Maps/cave';
@@ -8,7 +8,7 @@ import { _hell } from "./_hell";
 export const _cave = {
     /* Compulsory */
 
-    name: "hauntedhouse",
+    name: MAP_NAMES.cave,
 
     map: cave,
 
@@ -34,7 +34,7 @@ export const _cave = {
             },
 
             { 
-                //props
+                //informational
                 id: 1,
                 name: "Trigger",
                 skin: SKINS["orangecat"],
@@ -45,6 +45,7 @@ export const _cave = {
                 moveInterval: 500,
                 waitInterval: 2000,
                 talkFlag: false,
+                enablesPortal: MAP_NAMES.hell,
             },
         ],
 

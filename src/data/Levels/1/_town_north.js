@@ -1,4 +1,4 @@
-import { DOWN, RIGHT, GANG_MEMBER, BATTLE_GM_MUSIC, LEFT, NON_GANG_MEMBER } from "../../../helpers/constants";
+import { DOWN, RIGHT, GANG_MEMBER, BATTLE_GM_MUSIC, LEFT, NON_GANG_MEMBER, MAP_NAMES } from "../../../helpers/constants";
 import { SKINS } from '../../skins';
 import { PORTALS } from "../../gameobjects";
 import { townNorth } from '../../Maps/town_north';
@@ -9,7 +9,7 @@ import { _cave } from "./_cave";
 export const _townNorth = {
     /* Compulsory */
 
-    name: "townNorth",
+    name: MAP_NAMES.town_north,
 
     map: townNorth,
 
@@ -127,6 +127,7 @@ export const _townNorth = {
                 moveInterval: 500,
                 waitInterval: 3000,
                 talkFlag: false,
+                enablesPortal: MAP_NAMES.cave,
             },
 
             {   //battler

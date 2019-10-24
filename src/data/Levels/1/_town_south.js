@@ -1,4 +1,4 @@
-import { LEFT, RIGHT, NON_GANG_MEMBER } from "../../../helpers/constants";
+import { LEFT, RIGHT, NON_GANG_MEMBER, MAP_NAMES } from "../../../helpers/constants";
 import { SKINS } from '../../skins';
 import { PORTALS } from "../../gameobjects";
 import { townSouth } from '../../Maps/town_south';
@@ -9,7 +9,7 @@ import { _hotel } from "./_hotel";
 export const _townSouth = {
     /* Compulsory */
 
-    name: "townSouth",
+    name: MAP_NAMES.town_south,
 
     map: townSouth,
 
@@ -33,6 +33,7 @@ export const _townSouth = {
                 moveInterval: 500,
                 waitInterval: 2000,
                 talkFlag: false,
+                enablesPortal: MAP_NAMES.library,
             },
 
             { 

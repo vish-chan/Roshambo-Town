@@ -1,4 +1,4 @@
-import { DOWN, GANG_MEMBER, NON_GANG_MEMBER, BATTLE_GM_MUSIC, LEFT, RIGHT } from "../../../helpers/constants";
+import { DOWN, GANG_MEMBER, NON_GANG_MEMBER, BATTLE_GM_MUSIC, LEFT, RIGHT, MAP_NAMES } from "../../../helpers/constants";
 import { SKINS } from '../../skins';
 import { PORTALS } from "../../gameobjects";
 import { townCenter } from '../../Maps/town_center';
@@ -10,7 +10,7 @@ import { _townSouth } from "./_town_south";
 export const _townCenter = {
     /* Compulsory */
 
-    name: "townCenter",
+    name: MAP_NAMES.town_center,
 
     map: townCenter,
 
@@ -34,6 +34,7 @@ export const _townCenter = {
                 moveInterval: 500,
                 waitInterval: 2000,
                 talkFlag: false,
+                enablesPortal: MAP_NAMES.home,
             },
 
             { 
@@ -48,6 +49,7 @@ export const _townCenter = {
                 moveInterval: 500,
                 waitInterval: 2000,
                 talkFlag: false,
+                enablesPortal: MAP_NAMES.bakery,
             },
 
             {
@@ -70,7 +72,7 @@ export const _townCenter = {
             {
                 //informational
                 id:3,
-                name: "Tracer",
+                name: "Koby",
                 skin: SKINS["friend_7"],
                 direction: DOWN,
                 stationary: false,
@@ -79,6 +81,7 @@ export const _townCenter = {
                 moveInterval: 500,
                 waitInterval: 1500,
                 talkFlag: false,
+                enablesPortal: MAP_NAMES.town_south,
             },
 
             {
@@ -138,6 +141,21 @@ export const _townCenter = {
                 battle: true,
                 level: 2,
                 battlerType: NON_GANG_MEMBER,
+            },
+
+            {
+                //informational
+                id:8,
+                name: "Tracer",
+                skin: SKINS["friend_9"],
+                direction: LEFT,
+                stationary: false,
+                pathArr: [[16,18], [16,19]],
+                frameInterval: 100,
+                moveInterval: 500,
+                waitInterval: 3000,
+                talkFlag: false,
+                enablesPortal: MAP_NAMES.town_north,
             },
         ],
 

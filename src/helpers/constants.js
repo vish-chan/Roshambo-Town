@@ -64,6 +64,19 @@ export const LEVEL_COLORS =  {
     L6: "gold"
 };
 
+export const MAP_NAMES = {
+    bakery: "Bakery",
+    cave: "hauntedhouse",
+    gameroom: "Gameroom",
+    hell: "Hell",
+    home: "Home",
+    hotel: "Hotel",
+    library: "Library",
+    town_center:"TownCenter",
+    town_north: "NorthTown",
+    town_south: "SouthTown",
+}
+
 const ASSETS_PATH = "assets";
 const AUDIO_PATH = `${ASSETS_PATH}/audio`;
 export const IMAGES_PATH = `${ASSETS_PATH}/images`;
