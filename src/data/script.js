@@ -359,6 +359,16 @@ export const PLAYERDIALOGS = {
         battleLose:["No! I underestimated you. See you next time."],
     },
 
+    Patient:{
+
+        follows:[],
+        starts:[],
+        battleAccept:["Do I have a choice?"],
+        battleAsk:["Do you wanna battle?"],
+        battleWin:["You are pretty good. I got lucky."],
+        battleLose:["No! I underestimated you. See you next time."],
+    },
+
 
     Tegan:{
 
@@ -858,6 +868,18 @@ export const NPCDIALOGS = {
         battleAsk: ["Do you wanna test your Roshambo skills against a real player?"],
         battleAcceptNeverDefeated:["How many times you wanna lose!!"],
         battleDeclineDefeated:["Enough of Roshambo for the day!"],
+        battleDecline:["I don't think you're on my level. Go and Practice."],
+        battleLose:["Today is not my day. I should get some rest."],
+        battleWin: ["Was this your first time lol?"],
+    },
+
+    
+    Patient:{
+        starts: [],
+        follows: [],
+        battleAsk: ["I may be sick, but I can a handful, wanna battle?"],
+        battleAcceptNeverDefeated:["How many times you wanna lose!!"],
+        battleDeclineDefeated:["Enough of Roshambo for the day, I'm tired!"],
         battleDecline:["I don't think you're on my level. Go and Practice."],
         battleLose:["Today is not my day. I should get some rest."],
         battleWin: ["Was this your first time lol?"],
