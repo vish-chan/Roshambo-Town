@@ -6,6 +6,7 @@ import Loading from './LoadingComponent';
 import Battle from './BattleComponent';
 import Stats from './StatsComponent';
 import World from './WorldComponent';
+import { isMobile } from 'react-device-detect';
 
 const mapStatetoProps = state => {
     return({
@@ -27,11 +28,23 @@ const mapDispatchtoProps = dispatch => {
 class Game extends Component {
 
     componentDidMount() {
+        if(isMobile)
+            this.zoomOutMobile();
+
         this.props.initViewport([this.props.width, this.props.height]);
         if(!this.props.loadgame)
             this.props.loadMap(level);
         else {
             this.props.loadGameFromDisk()
+        }
+    }
+
+    zoomOutMobile() {
+        var viewport = document.querySelector('meta[name="viewport"]');
+
+        if ( viewport ) {
+            viewport.content = "initial-scale=0.1";
+            viewport.content = `width=${this.props.width}`;
         }
     }
 
