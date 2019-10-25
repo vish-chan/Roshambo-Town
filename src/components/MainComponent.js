@@ -7,6 +7,7 @@ import ReactHowler from 'react-howler';
 import { MAIN_MENU_MUSIC, BEEP_2_SOUND, BEEP_LONG_SOUND, PROPS_PATH } from '../helpers/constants';
 import Loading from './LoadingComponent';
 import { RESOURCES } from '../data/resourcepaths';
+import { isMobile } from 'react-device-detect';
 
 
 const LoadingResources = (props) => {
@@ -60,11 +61,35 @@ class Main extends Component {
         this.handleBack = this.handleBack.bind(this);
     }
 
-    
 
+    componentDidMount() {
+        if(isMobile)
+            this.zoomOutMobile();
+
+        const renderMenu = function() {
+            this.setState({
+                loading: false,
+                menu: true,
+                playerselect: false,
+                game: false,
+                loadgame: false,
+            });
+        }.bind(this);
+
+        this.preloadPictures(RESOURCES, renderMenu);
+    }
+
+    zoomOutMobile() {
+        var viewport = document.querySelector('meta[name="viewport"]');
+
+        if ( viewport ) {
+            viewport.content = "initial-scale=0.1";
+            viewport.content = `width=${this.state.screenDim[0]}`;
+        }
+    }
+    
     preloadPictures (pictureUrls, callback) {
-        let i,
-            j;
+        let i, j;
     
         for (i = 0, j = pictureUrls.length; i < j; i++) {
             (function (img, src) {
@@ -80,20 +105,6 @@ class Main extends Component {
             }.bind(this) (new Image(), pictureUrls[i]));
         }
     };
-
-    componentDidMount() {    
-        const renderMenu = function() {
-            this.setState({
-                loading: false,
-                menu: true,
-                playerselect: false,
-                game: false,
-                loadgame: false,
-            });
-        }.bind(this);
-
-        this.preloadPictures(RESOURCES, renderMenu);
-    }
 
     handleStartNewGame() {
         playSoundEffect(BEEP_2_SOUND);
