@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import { solidBorder, centerBgImg, getRounded, getKeyDiv, getLevelColor, getWinPercColor, getFontSize } from '../helpers/funcs';
 import { SaveGameToDisk } from '../redux/ActionCreators';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faSkull } from '@fortawesome/free-solid-svg-icons';
 import { isMobile } from 'react-device-detect';
 
 
@@ -86,7 +86,7 @@ class Stats extends Component {
                             <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle(getLevelColor(level))}}> Lvl:{level} </div>
                             <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle(getLevelColor(level))}}> Exp:{this.props.player.battle.exp} </div>
                             <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle(getWinPercColor(winperc))}}> Win%:{winperc}</div>
-                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle('orange')}}>{`Tribes Defeated: ${Object.keys(this.props.player.battle.defeatedGangMembers).length}/${BATTLE_NUM_GANG_MEMBERS}`}</div>
+                            <div style={{margin:'5px', alignSelf:'flex-end', ...bgStyle('orange')}}><FontAwesomeIcon size="lg" icon={faSkull}/> {`Defeated: ${Object.keys(this.props.player.battle.defeatedGangMembers).length}/${BATTLE_NUM_GANG_MEMBERS}`}</div>
                         </div>
                     </div>
                 </div>
