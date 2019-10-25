@@ -64,16 +64,15 @@ class Main extends Component {
 
     preloadPictures (pictureUrls, callback) {
         let i,
-            j,
-            loaded = 0;
+            j;
     
         for (i = 0, j = pictureUrls.length; i < j; i++) {
             (function (img, src) {
                 img.onload = function () {
                     this.setState({
-                        resourceDone: ++loaded,
+                        resourceDone: this.state.resourceDone+1,
                     });                               
-                    if (loaded >= pictureUrls.length && callback) {
+                    if (this.state.resourceDone >= pictureUrls.length && callback) {
                         callback();
                     }
                 }.bind(this);
@@ -82,8 +81,7 @@ class Main extends Component {
         }
     };
 
-    componentDidMount() {
-        
+    componentDidMount() {    
         const renderMenu = function() {
             this.setState({
                 loading: false,
