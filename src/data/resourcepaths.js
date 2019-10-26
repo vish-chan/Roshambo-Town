@@ -81,4 +81,6 @@ export const RESOURCES = [
     'assets/images/80/objectsAndProps/town.png',
     'assets/images/80/objectsAndProps/playerselect/player_1.png',
     'assets/images/80/objectsAndProps/playerselect/player_2.png',
+    'assets/images/80/characters/patient_1/head.png',
+    'assets/images/80/characters/patient_1/sprite.png',
 ]
