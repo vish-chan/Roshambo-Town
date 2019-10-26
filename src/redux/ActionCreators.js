@@ -681,6 +681,15 @@ export const SetPlayerInfoAction = (name, skinIdx) => {
     })
 }
 
+export const SetPlayerSpeedAction = (speed) => {
+    return({
+        type: ActionTypes.UPDATE_PLAYER_SPEED,
+        payload: {
+            speed,
+        }
+    });
+}
+
 
 export const StartNewJourneyAction = () => {
     return({

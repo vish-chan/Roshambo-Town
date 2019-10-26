@@ -14,7 +14,7 @@ const INITIAL_STATE = {
                         isAnimating: false,
                         nextPosition: [],
                         walkIndex: 0,
-                        frameInterval: 0,
+                        frameInterval: 10,
                         interacting: false,
                         frozen: false,
                         nearbyNPC: null,
@@ -68,6 +68,11 @@ export const Player = (state = {...INITIAL_STATE}, action) => {
                         name: action.payload.name,
                         skin: SKINS[action.payload.skinIdx],
 
+                });
+        case ActionTypes.UPDATE_PLAYER_SPEED:
+                return({
+                        ...state,
+                        frameInterval: action.payload.speed,
                 });
         case ActionTypes.UPDATE_PLAYER_POSITION:
                 return({...state, 

@@ -3,7 +3,7 @@ import Player from './PlayerComponent';
 import Map from './MapComponent';
 import ConversationDisplay from './ConversationDisplayComponent';
 import Inventory from './InventoryComponent';
-import { UpdatePlayerPosition, PickupGameObject, ToggleInventory, HandleConversation } from '../redux/ActionCreators';
+import { UpdatePlayerPosition, PickupGameObject, ToggleInventory, HandleConversation, SetPlayerSpeedAction } from '../redux/ActionCreators';
 import { VALID_KEYCODES, ARROW_KEYCODES, SPACE_KEY, PICKUP_KEY, INVENTORY_KEY, ESC_KEY, BEEP_3_SOUND, KEYCODES } from '../helpers/constants';
 import CustomModal from './CustomModalComponent';
 import { playSoundEffect } from '../helpers/funcs';
@@ -13,6 +13,7 @@ const mapDispatchToProps = dispatch => {
     return({
         updatePlayerPosition: (keyCode) => { dispatch(UpdatePlayerPosition(keyCode)); },
         handleConversation: () => { dispatch(HandleConversation()); },
+        handlePlayerSpeedChange: (speed) => { dispatch(SetPlayerSpeedAction(speed)); },
         pickupObject: () => { dispatch(PickupGameObject()); },
         toggleInventory: () => { dispatch(ToggleInventory()); },
     });
@@ -118,8 +119,6 @@ class World extends Component {
         } 
     }
 
-   
-
 
     render() {
         
@@ -139,7 +138,7 @@ class World extends Component {
                     <Player viewport={this.props.viewport} />
                     <ConversationDisplay />
                     <Inventory />
-                    <CustomModal show={this.state.showExitModal} confirmLink={this.props.handleBack} cancelLink={this.toggleExitModalState} />
+                    <CustomModal show={this.state.showExitModal} speedChange={this.props.handlePlayerSpeedChange} confirmLink={this.props.handleBack} cancelLink={this.toggleExitModalState} />
             </div>
         );
         }
