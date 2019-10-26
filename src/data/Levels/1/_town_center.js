@@ -77,7 +77,7 @@ export const _townCenter = {
                 skin: SKINS["friend_7"],
                 direction: DOWN,
                 stationary: false,
-                pathArr: [[11,2], [12,2], [13,2], [14,2], [14,3]],
+                pathArr: [[11,2], [12,2], [13,2]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 1500,

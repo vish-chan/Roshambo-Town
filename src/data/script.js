@@ -911,9 +911,9 @@ export const NPCDIALOGS = {
     },
 
     Void:{
-        starts: ["Dude! Stop here. Where are you heading?",
+        starts: ["Hey! Stop here. Where are you heading?",
                  "Her. Battle her.  I would suggest not to. You'll be annihilated.",
-                 "You will definitely die, sexist."],
+                 "You will definitely die."],
         follows:["You are still alive!"],
         battleAsk:[],
         battleAcceptNeverDefeated:[],

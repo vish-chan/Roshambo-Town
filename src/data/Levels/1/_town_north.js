@@ -136,7 +136,7 @@ export const _townNorth = {
                 skin: SKINS["bully_1"],
                 direction: DOWN,
                 stationary: false,
-                pathArr: [[7,14]],
+                pathArr: [[7,14], [7,13]],
                 frameInterval: 100,
                 moveInterval: 500,
                 waitInterval: 2000,
