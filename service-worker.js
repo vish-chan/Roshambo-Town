@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Roshambo-Town/precache-manifest.55add55e99844e6686be2df2fadabaef.js"
+  "/Roshambo-Town/precache-manifest.ce6ec832f2508892eda925f38484363d.js"
 );
 
 self.addEventListener('message', (event) => {
