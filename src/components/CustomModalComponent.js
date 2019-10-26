@@ -28,7 +28,7 @@ class CustomModal extends Component  {
         this.setState({
             slider: parseInt(event.target.value),
         });
-        this.props.speedChange(parseInt(event.target.value));
+        this.props.speedChange(20 - parseInt(event.target.value));
     }
 
     handleClose() {
@@ -38,8 +38,8 @@ class CustomModal extends Component  {
     render() {
         const style = {
             position: 'absolute',
-            width: 600,
-            height: 250,
+            width: "60%",
+            height: "40%",
             ...solidBorder(5, 'grey', 5), 
             left:'50%',
             top:'50%',
@@ -59,15 +59,15 @@ class CustomModal extends Component  {
             <div style={style}>
                 <div style={{width:"100%",display:'flex', justifyContent:'space-between', alignItems:'center'}}>
                     <label style={{fontSize: getFontSize(2.5)}} htmlFor="inputspeed">Player Speed:</label>
-                    <input onChange={this.handleSliderChange} type="range" name="inputspeed" min={0} max={20} step={1} value={this.state.slider}/>
+                    <input onChange={this.handleSliderChange} style={{width:"50%"}} type="range" name="inputspeed" min={1} max={20} step={1} value={this.state.slider}/>
                     <div >{this.state.slider}</div>
                 </div>
                 <div style={{width:"100%", display:'flex', justifyContent:'space-between', alignItems:'center'}}>
                     <p style={{color:'black'}}>Exit to Menu:</p>
-                    <button style={{fontFamily:'gameboy', fontSize: getFontSize(2.0), ...bgStyle('white', 'green'), margin:'10px'}} onClick={this.props.confirmLink}>
+                    <button style={{width:'30%', fontFamily:'gameboy', fontSize: getFontSize(2.0), ...bgStyle('white', 'green'), margin:'10px'}} onClick={this.props.confirmLink}>
                         Yes <FontAwesomeIcon style={{color:"black"}} size="1x" icon={faSignOutAlt}/></button>
                 </div>
-                    <button style={{width:'30%',  fontFamily:'gameboy', fontSize: getFontSize(2.0), ...bgStyle('#FD974F', '#57ABB3'), margin:'10px'}} onClick={this.handleClose}>
+                    <button style={{width:'30%',  fontFamily:'gameboy', fontSize: getFontSize(2.5), ...bgStyle('#FD974F', '#57ABB3'), margin:'10px'}} onClick={this.handleClose}>
                         Close <FontAwesomeIcon style={{color:"white"}} size="1x" icon={faWindowClose}/></button>
             </div>
         )
