@@ -387,7 +387,7 @@ const InitiateConversation = () => (dispatch, getState) => {
 
 const UpdateConversation = () => (dispatch, getState) => {
     const dialog = getState().dialog;
-    if(dialog.speakerIdx===0) {
+    if(dialog.speakerIdx===0 || dialog.speakerIdx===1) {
         dispatch(NextDialogAction());
         return;
     }

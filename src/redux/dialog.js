@@ -38,13 +38,18 @@ export const Dialog = (state = {...INITIAL_STATE}, action) => {
                         return({
                             ...state,
                             speakerIdx: 1,
-                        })
-                    } else {
+                        });
+                    } else if(state.speakerIdx===1){
                         return({
                             ...state,
-                            speakerIdx: 0,
-                            dialogIdx: (state.dialogIdx + 1) % state.person1.dialogs.length,
-                        })
+                            speakerIdx: 2,
+                        });
+                    } else {
+                      return({
+                          ...state,
+                          speakerIdx: 0,
+                          dialogIdx: (state.dialogIdx + 1) % state.person1.dialogs.length,
+                      });    
                     }
                 case ActionTypes.RESTORE_STATE_FROM_DISK:
                         return({

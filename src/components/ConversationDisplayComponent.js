@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getKeyDiv, getFontSize } from '../helpers/funcs';
 import { isMobile } from 'react-device-detect';
+import { HandleConversation } from '../redux/ActionCreators';
 
 const mapStateToProps = (state) => {
     return({
         dialog: state.dialog,
+    });
+}
+
+const mapDispatchToProps = dispatch => {
+    return({
+        handleConversation: () => { dispatch(HandleConversation()); },
     });
 }
 
@@ -25,10 +32,11 @@ class Dialog extends Component {
         
         const animate = function() {
             if(idx>content.length) {
+                this.props.handleConversation();
                 return;
             }
             if(speakerIdx!==this.props.speakerIdx) {
-                if(speakerIdx===0) {
+                if(speakerIdx===0 || speakerIdx===1) {
                     objref.innerHTML = name + ": " + content;
                     return;
                 } else {
@@ -54,7 +62,7 @@ class Dialog extends Component {
                 const person = this.props.person1;
                 this.cleanBoard();
                 this.animateConversation(0, person.name, person.dialogs[this.props.dialogIdx], 1, this.p1);
-            } else {
+            } else if(this.props.speakerIdx===1) {
                 const person = this.props.person2;
                 this.animateConversation(1, person.name, person.dialogs[this.props.dialogIdx], 1, this.p2);
             }
@@ -114,6 +122,7 @@ class ConversationDisplay extends Component {
                     person2={dialog.person2}
                     dialogIdx={dialog.dialogIdx}
                     speakerIdx={dialog.speakerIdx}
+                    handleConversation={this.props.handleConversation}
             />
         );
     }
@@ -121,4 +130,4 @@ class ConversationDisplay extends Component {
 
 
 
-export default connect(mapStateToProps)(ConversationDisplay);
+export default connect(mapStateToProps, mapDispatchToProps)(ConversationDisplay);
