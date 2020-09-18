@@ -39,7 +39,7 @@ export const _library = {
         { 
             //prop
             id: 1,
-            name: "Prick",
+            name: "Prickle",
             skin: SKINS["friend_5"],
             direction: RIGHT,
             stationary: false,
