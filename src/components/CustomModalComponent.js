@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { solidBorder, getFontSize } from '../helpers/funcs';
 import { faWindowClose, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { DEFAULT_FRAME_INTERVAL } from '../helpers/constants';
 
 const bgStyle = (bgcolor, bordercolor) => {
     return({
@@ -17,7 +18,7 @@ class CustomModal extends Component  {
         super(props);
 
         this.state = {
-            slider: 10,
+            slider: 1,
         }
 
         this.handleSliderChange = this.handleSliderChange.bind(this);
@@ -28,7 +29,7 @@ class CustomModal extends Component  {
         this.setState({
             slider: parseInt(event.target.value),
         });
-        this.props.speedChange(20 - parseInt(event.target.value));
+        this.props.speedChange(DEFAULT_FRAME_INTERVAL - parseInt(event.target.value));
     }
 
     handleClose() {
@@ -59,7 +60,7 @@ class CustomModal extends Component  {
             <div style={style}>
                 <div style={{width:"100%",display:'flex', justifyContent:'space-between', alignItems:'center'}}>
                     <label style={{fontSize: getFontSize(2.5)}} htmlFor="inputspeed">Player Speed:</label>
-                    <input onChange={this.handleSliderChange} style={{width:"50%"}} type="range" name="inputspeed" min={1} max={20} step={1} value={this.state.slider}/>
+                    <input onChange={this.handleSliderChange} style={{width:"50%"}} type="range" name="inputspeed" min={1} max={DEFAULT_FRAME_INTERVAL-10} step={1} value={this.state.slider}/>
                     <div >{this.state.slider}</div>
                 </div>
                 <div style={{width:"100%", display:'flex', justifyContent:'space-between', alignItems:'center'}}>

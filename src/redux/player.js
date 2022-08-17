@@ -1,5 +1,5 @@
 import * as ActionTypes from './ActionTypes';
-import { DOWN } from '../helpers/constants';
+import { DOWN, DEFAULT_FRAME_INTERVAL } from '../helpers/constants';
 import { getValue } from '../helpers/funcs';
 import { SKINS } from '../data/skins';
 
@@ -14,7 +14,7 @@ const INITIAL_STATE = {
                         isAnimating: false,
                         nextPosition: [],
                         walkIndex: 0,
-                        frameInterval: 10,
+                        frameInterval: DEFAULT_FRAME_INTERVAL,
                         interacting: false,
                         frozen: false,
                         nearbyNPC: null,

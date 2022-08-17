@@ -23,6 +23,8 @@ export const VALID_KEYCODES = ARROW_KEYCODES.concat(SPACE_KEY, PICKUP_KEY, INVEN
 
 export const PASSIBLE_INDEX = 5;
 
+export const DEFAULT_FRAME_INTERVAL = 30;
+
 export const HEALER = "HEALER";
 export const EATABLE = "EATABLE";
 export const CURRENCY = "CURRENCY";
